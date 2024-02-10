@@ -1,3 +1,5 @@
+<?php require "layouts/header.php";
+require "layouts/navbar.php"; ?>
 <div class="col-xl-9 col-lg-8 col-md-12">
     <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
         <div class="card-body">
@@ -358,3 +360,5 @@
 </div>
 </div>
 <!--/Content-->
+<?php require "layouts/header.php";
+require "layouts/navbar.php"; ?>
