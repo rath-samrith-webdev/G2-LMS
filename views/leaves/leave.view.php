@@ -1,5 +1,6 @@
 <?php
-include "layouts/header.php"; ?>
+include "layouts/header.php";
+include "layouts/navbar.php"; ?>
 <div class="col-xl-9 col-lg-8 col-md-12">
 
 	<div class="row">
@@ -227,3 +228,4 @@ include "layouts/header.php"; ?>
 		</div>
 	</div>
 </div>
+<?php require "layouts/footer.php"; ?>

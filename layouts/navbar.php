@@ -114,7 +114,7 @@
                                  </div>
                                  <hr />
                                  <div class="user-menu-items px-3 m-0">
-                                     <a class="px-0 pb-2 pt-0" href="index.html">
+                                     <a class="px-0 pb-2 pt-0" href="/admin">
                                          <span class="media align-items-center">
                                              <span class="lnr lnr-home mr-3"></span>
                                              <span class="media-body text-truncate text-left">
@@ -229,7 +229,7 @@
                                                  <div class="custom-search input-group">
                                                      <div class="custom-breadcrumb">
                                                          <ol class="breadcrumb no-bg-color d-inline-block p-0 m-0 mb-2">
-                                                             <li class="breadcrumb-item d-inline-block"><a href="index.html" class="text-dark">Home</a></li>
+                                                             <li class="breadcrumb-item d-inline-block"><a href="/admin" class="text-dark">Home</a></li>
                                                              <li class="breadcrumb-item d-inline-block active">Dashboard</li>
                                                          </ol>
                                                          <h4 class="text-dark">Admin Dashboard</h4>
@@ -258,7 +258,7 @@
                                  <div class="card-body">
                                      <div class="row no-gutters">
                                          <div class="col-6 align-items-center text-center">
-                                             <a href="/" class="text-white active p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
+                                             <a href="/admin" class="text-white active p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                          </div>
                                          <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/employees" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>

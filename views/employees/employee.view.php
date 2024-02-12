@@ -1,18 +1,18 @@
 <?php require "layouts/header.php";
 require "layouts/navbar.php"; ?>
 <div class="col-xl-9 col-lg-8 col-md-12">
-    <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
+    <!-- <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
         <div class="card-body">
             <ul class="list-group list-group-horizontal-lg">
                 <li class="list-group-item text-center button-6">
-                    <a href="index.html" class="text-dark">Admin Dashboard</a>
+                    <a href="/admin" class="text-dark">Admin Dashboard</a>
                 </li>
                 <li class="list-group-item text-center active button-5">
-                    <a class="text-white" href="employees-dashboard.html">Employees Dashboard</a>
+                    <a class="text-white" href="/employees">Employees Dashboard</a>
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-lg-6 col-md-12 d-flex">
             <div class="card shadow-sm flex-fill grow">
@@ -360,5 +360,4 @@ require "layouts/navbar.php"; ?>
 </div>
 </div>
 <!--/Content-->
-<?php require "layouts/header.php";
-require "layouts/navbar.php"; ?>
+<?php require "layouts/footer.php"; ?>
