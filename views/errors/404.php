@@ -1,4 +1,5 @@
 <!-- Begin Page Content -->
+<?php include "layouts/header.php"; ?>
 <div class="container-fluid">
 
   <!-- 404 Error Text -->
@@ -10,3 +11,4 @@
   </div>
 
 </div>
+<?php include "layouts/footer.php"; ?>

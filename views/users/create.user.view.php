@@ -14,7 +14,7 @@
                         <!-- Form -->
                         <form action="login.html">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Name">
+                                <input class="form-control" type="text" placeholder="Full Name">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Email">
@@ -23,26 +23,22 @@
                                 <input class="form-control" type="text" placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Confirm Password">
+                                <select class="form-control" name="postion" id="position">
+                                    <option value="">Choose a postion</option>
+                                    <option value="Super Admin">Request Approver</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="role" id="role">
+                                    <option value="">Choose a role</option>
+                                    <option value="Super Admin">Super Admin</option>
+                                </select>
                             </div>
                             <div class="form-group mb-0">
                                 <button class="btn btn-theme button-1 text-white ctm-border-radius btn-block" type="submit">Add user</button>
                             </div>
                         </form>
                         <!-- /Form -->
-
-                        <div class="login-or">
-                            <span class="or-line"></span>
-                            <span class="span-or">or</span>
-                        </div>
-
-                        <!-- Social Login -->
-                        <div class="social-login">
-                            <span>Register with</span>
-                            <a href="javascript:void(0)" class="facebook"><i class="fa fa-facebook"></i></a><a href="javascript:void(0)" class="google"><i class="fa fa-google"></i></a>
-                        </div>
-                        <!-- /Social Login -->
-
                         <div class="text-center dont-have">Already have an account? <a href="/">Login</a></div>
                     </div>
                 </div>
