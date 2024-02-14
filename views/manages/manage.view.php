@@ -5,68 +5,90 @@ require "layouts/navbar.php"; ?>
 		<div class="card-body">
 			<ul class="list-group list-group-horizontal-lg">
 				<li class="list-group-item text-center active button-5"><a href="manage.html" class="text-white">Account Roles</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="manage-leadership.html">Leadership Roles</a></li>
 			</ul>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
-			<div class="card ctm-border-radius shadow-sm grow flex-fill">
+		<div class="col-md-12">
+			<div class="card ctm-border-radius shadow-sm grow">
 				<div class="card-header">
-					<h4 class="card-title mb-0">Super Admin</h4>
+					<h4 class="card-title mb-0">Today Leaves</h4>
 				</div>
 				<div class="card-body">
-					<p class="card-text">They can see and do everything – best not to have many with this role.</p>
-					<div class="mt-2">
-						<span class="avatar" data-toggle="tooltip" data-placement="top" title="Richard Wilson"><img src="assets/img/profiles/img-10.jpg" alt="Richard Wilson" class="img-fluid"></span>
-						<a href="super-admin.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right text-white">View Permissions</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
-			<div class="card ctm-border-radius shadow-sm grow flex-fill">
-				<div class="card-header">
-					<h4 class="card-title mb-0">Admin</h4>
-				</div>
-				<div class="card-body">
-					<p class="card-text">Admin to help sort stuff, but have less access to confidential information like salaries.</p>
-					<div class="mt-2">
-						<span class="avatar" data-toggle="tooltip" data-placement="top" title="Richard Wilson"><img src="assets/img/profiles/img-10.jpg" alt="Richard Wilson" class="img-fluid"></span>
-						<a href="admin.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right text-white">View Permissions</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
-			<div class="card ctm-border-radius shadow-sm grow flex-fill">
-				<div class="card-header">
-					<h4 class="card-title mb-0">Payroll Admin</h4>
-				</div>
-				<div class="card-body">
-					<p class="card-text">They sort out your payroll and have access to everyone's salary information.</p>
-					<div class="mt-2">
-						<span class="avatar" data-toggle="tooltip" data-placement="top" title="Richard Wilson"><img src="assets/img/profiles/img-10.jpg" alt="Richard Wilson" class="img-fluid"></span>
-						<a href="payroll-admin.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right text-white">View Permissions</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
-			<div class="card ctm-border-radius shadow-sm grow flex-fill">
-				<div class="card-header">
-					<h4 class="card-title mb-0">Team Member</h4>
-				</div>
-				<div class="card-body">
-					<p class="card-text">Team Members have the most limited access – most people should have this role.</p>
-					<div class="mt-2">
-						<span class="avatar" data-toggle="tooltip" data-placement="top" title="Maria Cotton"><img src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" class="img-fluid"></span>
-						<a href="team-member.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right text-white">View Permissions</a>
+					<div class="employee-office-table">
+						<div class="table-responsive">
+							<table class="table custom-table mb-0">
+								<thead>
+									<tr>
+										<th>Employee</th>
+										<th>Leave Type</th>
+										<th>From</th>
+										<th>To</th>
+										<th>Days</th>
+										<th>Remaining Days</th>
+										<th>Notes</th>
+										<th>Status</th>
+										<th class="text-right">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
+											<h2><a href="employment.html">Danny Ward</a></h2>
+										</td>
+										<td>Parental Leave</td>
+										<td>05 Dec 2019</td>
+										<td>07 Dec 2019</td>
+										<td>3</td>
+										<td>9</td>
+										<td>Parenting Leave</td>
+										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
+										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+												<span class="lnr lnr-trash"></span> Delete
+											</a></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-4.jpg" alt="Linda Craver" class="img-fluid"></a>
+											<h2><a href="employment.html">Linda Craver</a></h2>
+										</td>
+										<td>Sick Leave</td>
+										<td>05 Dec 2019</td>
+										<td>05 Dec 2019</td>
+										<td>1</td>
+										<td>11</td>
+										<td>Going to Hospital</td>
+										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
+										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+												<span class="lnr lnr-trash"></span> Delete
+											</a></td>
+									</tr>
+									<tr>
+										<td>
+											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-3.jpg" alt="Jenni Sims" class="img-fluid"></a>
+											<h2><a href="employment.html">Jenni Sims</a></h2>
+										</td>
+										<td>Working From Home</td>
+										<td>05 Dec 2019</td>
+										<td>05 Dec 2019</td>
+										<td>1</td>
+										<td>11</td>
+										<td>Raining</td>
+										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
+										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+												<span class="lnr lnr-trash"></span> Delete
+											</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 </div>
 </div>
