@@ -264,7 +264,7 @@
                                              <a href="/employees" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
                                          </div>
                                          <div class="col-6 align-items-center shadow-none text-center">
-                                             <a href="/companies" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Company</span></a>
+                                             <a href="/companies" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
                                          </div>
                                          <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/calendars" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-calendar-full pr-0 pb-lg-2 font-23"></span><span class="">Calendar</span></a>
@@ -272,9 +272,9 @@
                                          <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/leaves" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
                                          </div>
-                                         <div class="col-6 align-items-center shadow-none text-center">
+                                         <!-- <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
-                                         </div>
+                                         </div> -->
                                          <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/reports" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Reports</span></a>
                                          </div>

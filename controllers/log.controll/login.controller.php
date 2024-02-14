@@ -1,2 +1,2 @@
 <?php
-header("location: /employees");
+header("location: /admin");

@@ -6,7 +6,6 @@ require "layouts/navbar.php"; ?>
 		<div class="card-body">
 			<ul class="list-group list-group-horizontal-lg">
 				<li class="list-group-item text-center active button-5"><a href="/admin" class="text-white">Admin Dashboard</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="/employees">Employees Dashboard</a></li>
 			</ul>
 		</div>
 	</div>
