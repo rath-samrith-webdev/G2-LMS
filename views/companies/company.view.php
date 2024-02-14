@@ -69,9 +69,9 @@ require "layouts/navbar.php"; ?>
 				<div class="card ctm-border-radius shadow-sm grow">
 					<div class="card-header">
 						<h4 class="card-title d-inline-block mb-0">
-							Documents
+							Departments
 						</h4>
-						<a href="javascript:void(0)" class="float-right add-doc text-primary" data-toggle="modal" data-target="#addDocument">Add Document
+						<a href="javascript:void(0)" class="float-right add-doc text-primary" data-toggle="modal" data-target="#addDocument">Add Departments
 						</a>
 					</div>
 					<div class="card-body">
@@ -346,12 +346,17 @@ require "layouts/navbar.php"; ?>
 			<!-- Modal body -->
 			<div class="modal-body">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title mb-3">Upload Document</h4>
+				<h4 class="modal-title mb-3">Create New Departments</h4>
 				<div class="form-group">
-					<input type="file" class="form-control">
+					<label for="departementNmae">Department Name</label>
+					<input type="text" class="form-control" name="departmentName">
+				</div>
+				<div class="form-group">
+					<label for="departmentDESC">Department Description</label>
+					<input type="text" class="form-control" name="departmentDESC">
 				</div>
 				<button type="button" class="btn btn-danger text-white ctm-border-radius float-right ml-3" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-theme ctm-border-radius text-white float-right button-1">Upload</button>
+				<button type="button" class="btn btn-theme ctm-border-radius text-white float-right button-1">Create</button>
 			</div>
 		</div>
 	</div>

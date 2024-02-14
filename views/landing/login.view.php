@@ -13,12 +13,12 @@
                         <p class="account-subtitle">Access to your dashboard</p>
 
                         <!-- Form -->
-                        <form action="index.html">
+                        <form action="controllers/log.controll/login.controller.php">
                             <div class="form-group">
-                                <input class="form-control" type="email" placeholder="Email" required>
+                                <input class="form-control" type="text" placeholder="Email" name="email">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="password" placeholder="Password" required>
+                                <input class="form-control" type="text" placeholder="Password" name="password">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-theme button-1 text-white ctm-border-radius btn-block" type="submit">Login</button>

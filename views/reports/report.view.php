@@ -3,19 +3,6 @@ include "layouts/header.php";
 include "layouts/navbar.php";
 ?>
 <div class="col-xl-9 col-lg-8  col-md-12">
-	<div class="quicklink-sidebar-menu ctm-border-radius shadow-sm grow bg-white card">
-		<div class="card-body">
-			<ul class="list-group list-group-horizontal-lg">
-				<li class="list-group-item text-center active button-5"><a href="reports.html" class="text-white">Team Reports</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="leave-reports.html">Leave Reports</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="payroll-reports.html">Payroll Reports</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="contact-reports.html">Contact Reports</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="email-reports.html">Email Reports</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="security-reports.html">Security Reports</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="work-from-home-reports.html">Working From Home Reports</a></li>
-			</ul>
-		</div>
-	</div>
 	<div class="card shadow-sm ctm-border-radius grow">
 		<div class="card-body align-center">
 			<div class="row filter-row">
