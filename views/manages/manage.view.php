@@ -20,65 +20,36 @@ require "layouts/navbar.php"; ?>
 							<table class="table custom-table mb-0">
 								<thead>
 									<tr>
-										<th>Employee</th>
-										<th>Leave Type</th>
-										<th>From</th>
-										<th>To</th>
-										<th>Days</th>
-										<th>Remaining Days</th>
-										<th>Notes</th>
-										<th>Status</th>
-										<th class="text-right">Action</th>
+										<th>Profile</th>
+										<th>First name</th>
+										<th>Last name</th>
+										<th>Email</th>
+										<th>Country</th>
+										<th>Start Date</th>
+										<th>Job Title</th>
+										<th>Employment Type</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<td>
 											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
+										</td>
+										<td>
 											<h2><a href="employment.html">Danny Ward</a></h2>
 										</td>
 										<td>Parental Leave</td>
-										<td>05 Dec 2019</td>
+										<td>danny@yahoo.net</td>
+										<td>USA</td>
 										<td>07 Dec 2019</td>
-										<td>3</td>
-										<td>9</td>
-										<td>Parenting Leave</td>
-										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
-										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+										<td>Project Manager</td>
+										<td>Permenent</td>
+										<td class="text-right text-danger">
+											<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
 												<span class="lnr lnr-trash"></span> Delete
-											</a></td>
-									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-4.jpg" alt="Linda Craver" class="img-fluid"></a>
-											<h2><a href="employment.html">Linda Craver</a></h2>
+											</a>
 										</td>
-										<td>Sick Leave</td>
-										<td>05 Dec 2019</td>
-										<td>05 Dec 2019</td>
-										<td>1</td>
-										<td>11</td>
-										<td>Going to Hospital</td>
-										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
-										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a></td>
-									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-3.jpg" alt="Jenni Sims" class="img-fluid"></a>
-											<h2><a href="employment.html">Jenni Sims</a></h2>
-										</td>
-										<td>Working From Home</td>
-										<td>05 Dec 2019</td>
-										<td>05 Dec 2019</td>
-										<td>1</td>
-										<td>11</td>
-										<td>Raining</td>
-										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
-										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a></td>
 									</tr>
 								</tbody>
 							</table>

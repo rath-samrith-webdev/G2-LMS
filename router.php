@@ -4,13 +4,14 @@ $page = "";
 $routes = [
     '/' => 'controllers/log.controll/login.controll.php',
     '/admin' => 'controllers/admin/admin.controller.php',
+    '/createEmployee' => 'controllers/admin/create.employee.controller.php',
     '/employees' => 'controllers/employees/employee.controller.php',
     '/createuser' => 'controllers/users/user.create.controll.php',
     '/companies' => 'controllers/companies/company.controller.php',
     '/calendars' => 'controllers/calendars/calendar.controller.php',
     '/leaves' => 'controllers/leaves/leave.controller.php',
     '/reviews' => 'controllers/reviews/review.controller.php',
-    '/reports' => 'controllers/reports/report.controller.php',
+    '/leaveReports' => 'controllers/reports/report.controller.php',
     '/manages' => 'controllers/manages/manage.controller.php',
     '/profiles' => 'controllers/profiles/profile.controller.php',
 ];

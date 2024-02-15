@@ -55,18 +55,18 @@ include "layouts/navbar.php";
 				<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 					<div class="employee-office-table">
 						<div class="table-responsive">
-							<table class="table custom-table">
+							<table class="table custom-table mb-0">
 								<thead>
 									<tr>
-										<th>Name</th>
-										<th>Active</th>
-										<th>Employment</th>
-										<th>Email</th>
-										<th>Job title</th>
-										<th>Line Manager</th>
-										<th>Team name</th>
-										<th>Start Date</th>
-										<th>Company Name</th>
+										<th>Employee</th>
+										<th>Leave Type</th>
+										<th>From</th>
+										<th>To</th>
+										<th>Days</th>
+										<th>Remaining Days</th>
+										<th>Notes</th>
+										<th>Status</th>
+										<th class="text-right">Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -75,161 +75,48 @@ include "layouts/navbar.php";
 											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
 											<h2><a href="employment.html">Danny Ward</a></h2>
 										</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> Active <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> Active</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Inactive</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Invited</a>
-												</div>
-											</div>
-										</td>
-										<td>Permanent</td>
-										<td><a href="#" class="__cf_email__" data-cfemail="2044414e5957415244604558414d504c450e434f4d">[email&#160;protected]</a></td>
-										<td>Team Lead</td>
-										<td>Richard Wilson</td>
-										<td>Designing</td>
-										<td>05 Jan 2019</td>
-										<td>Focus Technologies</td>
+										<td>Parental Leave</td>
+										<td>05 Dec 2019</td>
+										<td>07 Dec 2019</td>
+										<td>3</td>
+										<td>9</td>
+										<td>Parenting Leave</td>
+										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
+										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+												<span class="lnr lnr-trash"></span> Delete
+											</a></td>
 									</tr>
 									<tr>
 										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-4.jpg"></a>
-											<h2><a href="employment.html"> Linda Craver</a></h2>
+											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-4.jpg" alt="Linda Craver" class="img-fluid"></a>
+											<h2><a href="employment.html">Linda Craver</a></h2>
 										</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> Active <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> Active</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Inactive</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Invited</a>
-												</div>
-											</div>
-										</td>
-										<td>Permanent</td>
-										<td><a href="#" class="__cf_email__" data-cfemail="64080d0a000507160512011624011c05091408014a070b09">[email&#160;protected]</a></td>
-										<td>Team Lead</td>
-										<td>Richard Wilson</td>
-										<td>IOS</td>
-										<td>07 Jun 2019</td>
-										<td>Focus Technologies</td>
+										<td>Sick Leave</td>
+										<td>05 Dec 2019</td>
+										<td>05 Dec 2019</td>
+										<td>1</td>
+										<td>11</td>
+										<td>Going to Hospital</td>
+										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
+										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+												<span class="lnr lnr-trash"></span> Delete
+											</a></td>
 									</tr>
 									<tr>
 										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-3.jpg"></a>
+											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-3.jpg" alt="Jenni Sims" class="img-fluid"></a>
 											<h2><a href="employment.html">Jenni Sims</a></h2>
 										</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> Active <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> Active</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Inactive</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Invited</a>
-												</div>
-											</div>
-										</td>
-										<td>Permanent</td>
-										<td><a href="#" class="__cf_email__" data-cfemail="177d7279797e647e7a6457726f767a677b723974787a">[email&#160;protected]</a></td>
-										<td>Team Lead</td>
-										<td>Richard Wilson</td>
-										<td>Android</td>
-										<td>05 Apr 2019</td>
-										<td>Focus Technologies</td>
-									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-6.jpg" class="img-fluid"></a>
-											<h2><a href="employment.html"> Maria Cotton</a></h2>
-										</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> Active <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> Active</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Inactive</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Invited</a>
-												</div>
-											</div>
-										</td>
-										<td>Permanent</td>
-										<td><a href="#" class="__cf_email__" data-cfemail="95f8f4e7fcf4f6fae1e1fafbd5f0edf4f8e5f9f0bbf6faf8">[email&#160;protected]</a></td>
-										<td>Team Lead</td>
-										<td>Richard Wilson</td>
-										<td>PHP </td>
-										<td>05 Jan 2019</td>
-										<td>Focus Technologies</td>
-									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-2.jpg"></a>
-											<h2><a href="employment.html"> John Gibbs</a></h2>
-										</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> Active <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> Active</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Inactive</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Invited</a>
-												</div>
-											</div>
-										</td>
-										<td>Permanent</td>
-										<td><a href="#" class="__cf_email__" data-cfemail="cba1a4a3a5afb9b2b8afaaa7ae8baeb3aaa6bba7aee5a8a4a6">[email&#160;protected]</a></td>
-										<td>Team Lead</td>
-										<td>Richard Wilson</td>
-										<td>Business</td>
-										<td>12 Feb 2019</td>
-										<td>Focus Technologies</td>
-									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> Active <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> Active</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Inactive</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Invited</a>
-												</div>
-											</div>
-										</td>
-										<td>Permanent</td>
-										<td><a href="#" class="__cf_email__" data-cfemail="e89a818b80899a8c9f81849b8786a88d90898598848dc68b8785">[email&#160;protected]</a></td>
-										<td>Team Lead</td>
-										<td>No</td>
-										<td>Admin</td>
-										<td>05 Jan 2019</td>
-										<td>Focus Technologies</td>
-									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-8.jpg"></a>
-											<h2><a href="employment.html"> Stacey Linville</a></h2>
-										</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> Active <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> Active</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Inactive</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Invited</a>
-												</div>
-											</div>
-										</td>
-										<td>Permanent</td>
-										<td><a href="#" class="__cf_email__" data-cfemail="3a494e5b595f435653544c5356565f7a5f425b574a565f14595557">[email&#160;protected]</a></td>
-										<td>Team Lead</td>
-										<td>Richard Wilson</td>
-										<td>Testing</td>
-										<td>05 Jan 2019</td>
-										<td>Focus Technologies</td>
+										<td>Working From Home</td>
+										<td>05 Dec 2019</td>
+										<td>05 Dec 2019</td>
+										<td>1</td>
+										<td>11</td>
+										<td>Raining</td>
+										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
+										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+												<span class="lnr lnr-trash"></span> Delete
+											</a></td>
 									</tr>
 								</tbody>
 							</table>
