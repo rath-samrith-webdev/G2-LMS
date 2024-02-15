@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2024 at 08:52 AM
+-- Generation Time: Feb 15, 2024 at 10:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -263,21 +263,22 @@ CREATE TABLE `users` (
   `date_of_birth` date DEFAULT NULL,
   `phone_number` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
+  `password` text DEFAULT NULL,
   `position_id` int(11) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL,
   `department_id` int(11) DEFAULT NULL,
   `salary` decimal(10,0) DEFAULT NULL,
-  `total_allowed_leave` int(11) DEFAULT NULL
+  `total_allowed_leave` int(11) DEFAULT NULL,
+  `profile` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uid`, `first_name`, `last_name`, `date_of_birth`, `phone_number`, `email`, `password`, `position_id`, `role_id`, `department_id`, `salary`, `total_allowed_leave`) VALUES
-(1, 'Rath', 'Samreth', '2000-10-10', '097 86 37 281', 'rathsamreth0200@gmail.com', 'rath1234', 1, 1, 2, 4000, 12),
-(2, 'Veak', 'Khlorp', '2002-06-15', '097 86 37 281', 'khlorp.veak@student.passerellesnumeriques.org', 'veak1234', 1, 1, 1, 4000, 12);
+INSERT INTO `users` (`uid`, `first_name`, `last_name`, `date_of_birth`, `phone_number`, `email`, `password`, `position_id`, `role_id`, `department_id`, `salary`, `total_allowed_leave`, `profile`) VALUES
+(1, 'Rath', 'Samreth', '2000-10-10', '097 86 37 281', 'rathsamreth0200@gmail.com', 'rath1234', 1, 1, 2, 4000, 12, NULL),
+(2, 'Veak', 'Khlorp', '2002-06-15', '097 86 37 281', 'khlorp.veak@student.passerellesnumeriques.org', 'veak1234', 1, 1, 1, 4000, 12, NULL);
 
 -- --------------------------------------------------------
 
