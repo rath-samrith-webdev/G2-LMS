@@ -3,8 +3,9 @@ require "layouts/navbar.php"; ?>
 <div class="col-xl-9 col-lg-8 col-md-12">
 	<div class="quicklink-sidebar-menu ctm-border-radius shadow-sm grow bg-white card">
 		<div class="card-body">
-			<ul class="list-group list-group-horizontal-lg">
+			<ul class="list-group list-group-horizontal-lg d-flex justify-content-between">
 				<li class="list-group-item text-center active button-5"><a href="manage.html" class="text-white">Account Roles</a></li>
+				<li class="list-group-item text-center active button-5"><a href="/createEmployee" class="text-white">Create Users</a></li>
 			</ul>
 		</div>
 	</div>
@@ -34,7 +35,7 @@ require "layouts/navbar.php"; ?>
 								<tbody>
 									<tr>
 										<td>
-											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
+											<a href="/profiles" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
 										</td>
 										<td>
 											<h2><a href="employment.html">Danny Ward</a></h2>
