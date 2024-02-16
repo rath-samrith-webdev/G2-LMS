@@ -35,7 +35,7 @@ require "layouts/navbar.php"; ?>
 								<tbody>
 									<tr>
 										<td>
-											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
+											<a href="/profiles" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
 										</td>
 										<td>
 											<h2><a href="employment.html">Danny Ward</a></h2>
