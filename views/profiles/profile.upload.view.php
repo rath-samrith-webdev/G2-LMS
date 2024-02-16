@@ -15,7 +15,9 @@
                         <!-- Form -->
                         <form action="controllers/profiles/upload.pf.controller.php" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                                <input class="form-control" type="hidden" name="uid" value="<?= $_GET['id'] ?>">
+                                <input class="form-control" type="hidden" name="uid" value="<?php if (isset($_GET['id'])) {
+                                                                                                echo $_GET['id'];
+                                                                                            } ?>">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="file" name="file">
