@@ -50,7 +50,7 @@
                                      <div class="user-info align-right dropdown d-inline-block header-dropdown">
                                          <a href="javascript:void(0)" data-toggle="dropdown" class="menu-style dropdown-toggle">
                                              <div class="user-avatar d-inline-block">
-                                                 <img src="assets/images/profiles/img-2.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55" />
+                                                 <img src="<?= $users[1]['profile'] ?>" alt="user avatar" class="rounded-circle img-fluid" width="55" />
                                              </div>
                                          </a>
 
@@ -244,7 +244,7 @@
                          <div class="user-card card shadow-sm bg-white text-center ctm-border-radius grow">
                              <div class="user-info card-body">
                                  <div class="user-avatar mb-4">
-                                     <img src="assets/images/profiles/img-2.jpg" alt="User Avatar" class="img-fluid rounded-circle" width="100">
+                                     <img src="<?= $users[1]['profile'] ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
                                  </div>
                                  <div class="user-details">
                                      <h4><b>Welcome Admin</b></h4>

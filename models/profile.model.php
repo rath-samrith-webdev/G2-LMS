@@ -5,11 +5,17 @@ function oneUser(int $uid): array
     global $connection;
     $statement = $connection->prepare("SELECT * FROM users WHERE uid=:id LIMIT 1");
     $statement->execute([
-        ':id' => $id
+        ':id' => $uid
     ]);
     return $statement->fetch();
 };
-
+function getAll()
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM users");
+    $statement->execute();
+    return $statement->fetchAll();
+}
 // update profile image(file path)
 
 function updateProfile(int $uid, $newpath): bool
