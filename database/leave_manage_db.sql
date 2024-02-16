@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2024 at 10:11 AM
+-- Generation Time: Feb 16, 2024 at 01:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -218,6 +218,18 @@ INSERT INTO `postions` (`position_id`, `position_name`, `position_desc`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `profile_status`
+--
+
+CREATE TABLE `profile_status` (
+  `pid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `upload_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `total_requests`
 -- (See below for the actual view)
 --
@@ -358,6 +370,13 @@ ALTER TABLE `postions`
   ADD PRIMARY KEY (`position_id`);
 
 --
+-- Indexes for table `profile_status`
+--
+ALTER TABLE `profile_status`
+  ADD PRIMARY KEY (`pid`),
+  ADD KEY `uid` (`uid`);
+
+--
 -- Indexes for table `userroles`
 --
 ALTER TABLE `userroles`
@@ -367,7 +386,8 @@ ALTER TABLE `userroles`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`uid`);
+  ADD PRIMARY KEY (`uid`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -428,6 +448,12 @@ ALTER TABLE `postions`
   MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `profile_status`
+--
+ALTER TABLE `profile_status`
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `userroles`
 --
 ALTER TABLE `userroles`
@@ -448,6 +474,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `leave_requests`
   ADD CONSTRAINT `leave_requests_ibfk_1` FOREIGN KEY (`leavetype_id`) REFERENCES `leave_types` (`leaveType_id`);
+
+--
+-- Constraints for table `profile_status`
+--
+ALTER TABLE `profile_status`
+  ADD CONSTRAINT `profile_status_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
