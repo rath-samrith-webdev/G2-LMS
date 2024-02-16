@@ -39,7 +39,7 @@ require "layouts/navbar.php"; ?>
 												<a href="/profileImage?id=<?= $users[$i]['uid'] ?>" class="avatar"><img alt="avatar image" src="<?= $users[$i]['profile'] ?>" class="img-fluid"></a>
 											</td>
 											<td>
-												<h2><a href="employment.html"><?= $users[$i]['first_name'] ?></a></h2>
+												<h2><a href="/profiles?uid=<?= $users[$i]['uid'] ?>"><?= $users[$i]['first_name'] ?></a></h2>
 											</td>
 											<td><?= $users[$i]['last_name'] ?></td>
 											<td><?= $users[$i]['email'] ?></td>
