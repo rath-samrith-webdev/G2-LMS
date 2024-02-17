@@ -5,9 +5,9 @@ require '../../database/database.php';
 require '../../models/employee.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     $email = htmlspecialchars($_POST['email']);
-    $password = htmlspecialchars($_POST['password']);//123
+    $password = htmlspecialchars($_POST['password']); //123
 
     // Get data from database
     $user = accountExist($email);
@@ -18,13 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Password is incorrect";
         } else {
             $_SESSION['user'] = $user;
+            $_SESSION['uid'] = $user['uid'];
             header('Location: /employees');
         }
-    } 
-    else {
+    } else {
         header('Location: /');
     }
 }
-
-
-
