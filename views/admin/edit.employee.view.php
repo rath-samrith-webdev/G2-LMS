@@ -1,6 +1,6 @@
 <?php require "layouts/header.php";
 require "layouts/navbar.php"; ?>
-<div class="col-xl-9 col-lg-8  col-md-12">
+<form action="controllers/admin/edit.employee.process.controller.php" method="post" class="col-xl-9 col-lg-8  col-md-12">
     <div class="accordion add-employee" id="accordion-details">
         <div class="card shadow-sm grow ctm-border-radius">
             <div class="card-header" id="basic1">
@@ -15,23 +15,21 @@ require "layouts/navbar.php"; ?>
                 <div id="basic-one" class="collapse show ctm-padding" aria-labelledby="basic1" data-parent="#accordion-details">
                     <form>
                         <div class="row">
+                            <input type="hidden" class="form-control" placeholder="First Name" value="<?= $user['uid'] ?>" name="uid">
                             <div class="col form-group">
-                                <input type="text" class="form-control" placeholder="First Name" value="<?= $user['first_name'] ?>">
+                                <input type="text" class="form-control" placeholder="First Name" value="<?= $user['first_name'] ?>" name="first_name">
                             </div>
                             <div class="col form-group">
-                                <input type="text" class="form-control" placeholder="Last Name" value="<?= $user['last_name'] ?>">
+                                <input type="text" class="form-control" placeholder="Last Name" value="<?= $user['last_name'] ?>" name="last_name">
                             </div>
                             <div class=" col-12 form-group">
-                                <input type="email" class="form-control" placeholder="Email" value="<?= $user['email'] ?>">
+                                <input type="email" class="form-control" placeholder="Email" value="<?= $user['email'] ?>" name="email">
                             </div>
                             <div class=" col-12 form-group">
-                                <input type="password" class="form-control" placeholder="Password">
+                                <input type="password" class="form-control" placeholder="Password" name="password">
                             </div>
-                            <div class="col-md-12">
-                                <div class=" custom-control custom-checkbox mb-0">
-                                    <input type="checkbox" id="send-email" name="send-email" class="custom-control-input">
-                                    <label class="mb-0 custom-control-label" for="send-email">Send them an invite email so they can log in immediately</label>
-                                </div>
+                            <div class=" col-12 form-group">
+                                <input type="text" class="form-control" placeholder="Password" name="phone_number" value="<?= $user['phone_number'] ?>">
                             </div>
                         </div>
                     </form>
@@ -49,37 +47,41 @@ require "layouts/navbar.php"; ?>
             </div>
             <div class="card-body p-0">
                 <div id="employee-det" class="collapse show ctm-padding" aria-labelledby="headingTwo" data-parent="#accordion-details">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-12 form-group">
-                                <select class="form-control select">
-                                    <option selected>Country of Employment </option>
-                                    <option value="1">country1</option>
-                                    <option value="2">country2</option>
-                                    <option value="3">country3</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="cal-icon">
-                                    <input class="form-control datetimepicker cal-icon-input" type="text" placeholder="Start Date">
-                                </div>
-                            </div>
-                            <div class="col-12 form-group">
-                                <input type="text" class="form-control" placeholder="Job Title">
-                            </div>
-                            <div class="col-12 form-group mb-0">
-                                <p class="mb-2">Employment Type</p>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="Permanent" name="Permanent" checked>
-                                    <label class="custom-control-label" for="Permanent">Permanent</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="Freelancer" name="Permanent">
-                                    <label class="custom-control-label" for="Freelancer">Freelancer</label>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <div class="cal-icon">
+                                <input type="text" name="date_of_birth" class="form-control" placeholder="Date of birth" value="<?= $user['date_of_birth'] ?>">
                             </div>
                         </div>
-                    </form>
+                        <div class="col-md-12 form-group">
+                            <select class="form-control select" name="positions">
+                                <option>Select one position</option>
+                                <?php for ($i = 0; $i < count($positions); $i++) { ?>
+                                    <option value="<?= $positions[$i]['position_id'] ?>"><?= $positions[$i]['position_name'] ?></option>
+                                <?php } ?>
+
+                            </select>
+                        </div>
+                        <div class="col-12 form-group">
+                            <?php for ($i = 0; $i < count($roles); $i++) {
+                                if ($roles[$i]['role_id'] === $user['role_id']) {
+                                    $role = $roles[$i];
+                                }
+                            } ?>
+                            <input type="text" name="role" class="form-control" placeholder="Job Title" value="<?= $role['role_id'] ?>">
+                        </div>
+                        <div class="col-12 form-group mb-0">
+                            <p class="mb-2">Employment Type</p>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="Permanent" name="Permanent" checked>
+                                <label class="custom-control-label" for="Permanent">Permanent</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="Freelancer" name="Permanent">
+                                <label class="custom-control-label" for="Freelancer">Freelancer</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,9 +121,11 @@ require "layouts/navbar.php"; ?>
                             </select>
                         </div>
                         <div class="col-12 form-group mb-0">
-                            <select class="form-control select">
-                                <option selected>Office Name</option>
-                                <option value="1">Focus Technology</option>
+                            <select class="form-control select" name="departments">
+                                <option>Select one department</option>
+                                <?php for ($i = 0; $i < count($departments); $i++) { ?>
+                                    <option value="<?= $departments[$i]['department_id'] ?>"><?= $departments[$i]['department_name'] ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
@@ -147,7 +151,7 @@ require "layouts/navbar.php"; ?>
                             </select>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" placeholder="Amount">
+                            <input type="number" class="form-control" placeholder="Amount" value="<?= $user['salary'] ?>" name="salary">
                         </div>
                         <div class="col-12 form-group">
                             <select class="form-control select">
@@ -160,27 +164,17 @@ require "layouts/navbar.php"; ?>
                                 <option value="6">Fixed</option>
                             </select>
                         </div>
-                        <div class="col-md-12 form-group mb-0">
-                            <div class="cal-icon">
-                                <input class="form-control datetimepicker cal-icon-input" type="text" placeholder="Start Date">
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="submit-section text-center btn-add">
-                <button class="btn btn-theme text-white ctm-border-radius button-1">Add Team Member</button>
+        <div class="card-body p-0">
+            <div class="col-12">
+                <div class="submit-section text-center btn-add">
+                    <button class="btn btn-theme text-white ctm-border-radius button-1">Add Team Member</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
-</div>
-
-</div>
+</form>
 <?php require "layouts/footer.php"; ?>

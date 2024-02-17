@@ -50,7 +50,7 @@
                                      <div class="user-info align-right dropdown d-inline-block header-dropdown">
                                          <a href="javascript:void(0)" data-toggle="dropdown" class="menu-style dropdown-toggle">
                                              <div class="user-avatar d-inline-block">
-                                                 <img src="<?= $users[1]['profile'] ?>" alt="user avatar" class="rounded-circle img-fluid" width="55" />
+                                                 <img src="<?php echo (isset($user)) ? $user['profile'] : 'assets/profile/img-2.jpg'; ?>" alt="user avatar" class="rounded-circle img-fluid" width="55" />
                                              </div>
                                          </a>
 
@@ -244,11 +244,10 @@
                          <div class="user-card card shadow-sm bg-white text-center ctm-border-radius grow">
                              <div class="user-info card-body">
                                  <div class="user-avatar mb-4">
-                                     <img src="<?= $user['profile'] ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
+                                     <img src="<?php echo (isset($user)) ? $user['profile'] : 'assets/profile/img-2.jpg'; ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
                                  </div>
                                  <div class="user-details">
-                                     <h4><b>Admin</b></h4>
-                                     <p>Sun, 29 Nov 2019</p>
+                                     <h4><b><?php echo (isset($user)) ? $user['first_name'] . " " . $user['last_name'] : 'Admin'; ?></b></h4>
                                  </div>
                              </div>
                          </div>
@@ -260,9 +259,6 @@
                                          <div class="col-6 align-items-center text-center">
                                              <a href="/admin" class="text-white active p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                          </div>
-                                         <!-- <div class="col-6 align-items-center shadow-none text-center">
-                                             <a href="/employees" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
-                                         </div> -->
                                          <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/companies" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
                                          </div>
@@ -272,19 +268,17 @@
                                          <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/leaves" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
                                          </div>
-                                         <!-- <div class="col-6 align-items-center shadow-none text-center">
-                                             <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
-                                         </div> -->
                                          <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/leaveReports" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Leave Reports</span></a>
                                          </div>
                                          <div class="col-6 align-items-center shadow-none text-center">
                                              <a href="/manages" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Employee list</span></a>
                                          </div>
-                                         <div class="col-6 align-items-center shadow-none text-center">
-                                             <a href="/profiles" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
-                                         </div>
-
+                                         <?php if (isset($user)) { ?>
+                                             <div class="col-6 align-items-center shadow-none text-center">
+                                                 <a href="/profiles" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
+                                             </div>
+                                         <?php } ?>
                                      </div>
                                  </div>
                              </div>

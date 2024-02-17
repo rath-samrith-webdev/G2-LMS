@@ -11,6 +11,7 @@ include "layouts/navbar.php";
 	<div class="row">
 		<div class="col-xl-4 col-lg-6 col-md-6 d-flex">
 			<div class="card flex-fill ctm-border-radius shadow-sm grow">
+				<input type="hidden" value="<?= $user['uid'] ?>" name="uid">
 				<div class="card-header">
 					<h4 class="card-title mb-0">Basic Information</h4>
 				</div>
@@ -45,6 +46,16 @@ include "layouts/navbar.php";
 					<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
 						<span class="lnr lnr-trash"></span> Delete user
 					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-4 col-lg-6 col-md-6 d-flex">
+			<div class="card flex-fill  ctm-border-radius shadow-sm grow">
+				<div class="card-header">
+					<h4 class="card-title mb-0">Profile Picture</h4>
+				</div>
+				<div class="card-body text-center">
+					<img src="<?php echo (isset($user)) ? $user['profile'] : 'assets/profile/img-2.jpg'; ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
 				</div>
 			</div>
 		</div>
