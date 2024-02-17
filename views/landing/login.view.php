@@ -26,7 +26,7 @@
                         </form>
                         <!-- /Form -->
 
-                        <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a> <a href='/loginAdmin'>login Admin</a></div>
+                        <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a> <a href='/loginAdmin'>login Admin</a></div> 
                     </div>
                 </div>
             </div>
