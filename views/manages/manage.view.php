@@ -33,25 +33,27 @@ require "layouts/navbar.php"; ?>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<a href="/profiles" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
-										</td>
-										<td>
-											<h2><a href="employment.html">Danny Ward</a></h2>
-										</td>
-										<td>Parental Leave</td>
-										<td>danny@yahoo.net</td>
-										<td>USA</td>
-										<td>07 Dec 2019</td>
-										<td>Project Manager</td>
-										<td>Permenent</td>
-										<td class="text-right text-danger">
-											<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a>
-										</td>
-									</tr>
+									<?php for ($i = 0; $i < count($users); $i++) { ?>
+										<tr>
+											<td>
+												<a href="/profileImage?id=<?= $users[$i]['uid'] ?>" class="avatar"><img alt="avatar image" src="<?= $users[$i]['profile'] ?>" class="img-fluid"></a>
+											</td>
+											<td>
+												<h2><a href="employment.html"><?= $users[$i]['first_name'] ?></a></h2>
+											</td>
+											<td><?= $users[$i]['last_name'] ?></td>
+											<td><?= $users[$i]['email'] ?></td>
+											<td>USA</td>
+											<td>07 Dec 2019</td>
+											<td>Project Manager</td>
+											<td>Permenent</td>
+											<td class="text-right text-danger">
+												<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
+													<span class="lnr lnr-trash"></span> Delete
+												</a>
+											</td>
+										</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>
