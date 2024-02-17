@@ -3,8 +3,9 @@ require "layouts/header.php";
 require 'layouts/navbar.php';
 ?>
 <!-- Main Wrapper -->
-<div class="col-xl-9 col-lg-8 col-md-12">
-	<div class="row">
+
+<form action="controllers/leaves/add.leave.type.controller.php" class="col-xl-9 col-lg-8 col-md-12" method="post">
+<div class="row">
 		<div class="col-md-12">
 			<div class="card ctm-border-radius shadow-sm grow">
 				<div class="card-header">
@@ -15,24 +16,23 @@ require 'layouts/navbar.php';
 						<div class="col-sm-12 leave-col">
 							<div class="form-group">
 								<label>Type Name</label>
-								<input type="text" class="form-control" placeholder="Enter you type name">
+								<input type="text" class="form-control" name="typename" placeholder="Enter you type name">
 							</div>
 						</div>
 						<div class="col-sm-12">
 							<div class="form-group mb-0">
 								<label>Description</label>
-								<textarea class="form-control" rows=4></textarea>
-								<!-- ====Form-===== -->
+								<textarea class="form-control" name="typedesc" rows=4></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="text-center">
-					<a href="javascript:void(0);" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Apply</a>
+					<button type="submit" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Add</button>
 					<a href="javascript:void(0);" class="btn btn-danger text-white ctm-border-radius mt-4">Cancel</a>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</form>
 <?php require "layouts/footer.php"; ?>
