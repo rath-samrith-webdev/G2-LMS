@@ -13,7 +13,7 @@
                         <p class="account-subtitle">Access to your dashboard</p>
 
                         <!-- Form -->
-                        <form action="controllers/log.controll/login.controller.php">
+                        <form action="controllers/log.controll/login.controller.php" method="post">
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Email" name="email">
                             </div>
