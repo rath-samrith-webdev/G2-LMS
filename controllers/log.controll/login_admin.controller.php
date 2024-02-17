@@ -2,29 +2,27 @@
 // header("location: /admin");
 session_start();
 require '../../database/database.php';
-require '../../models/employee.model.php';
+require '../../models/admin.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $email = htmlspecialchars($_POST['email']);
+    $name = htmlspecialchars($_POST['name']);
     $password = htmlspecialchars($_POST['password']);//123
+    // echo $password;
 
     // Get data from database
-    $user = accountExist($email);
+    $user = accountExist($password);
     // Check if user exists
-    if (count($user) > 0) {
+    if (count($user)>0) {
         // Check if password is correct
         if (password_verify($password, $user["password"])) {
             echo "Password is incorrect";
         } else {
             $_SESSION['user'] = $user;
-            header('Location: /employees');
+            header('Location: /admin');
         }
     } 
     else {
-        header('Location: /');
+        header('Location: /loginAdmin');
     }
 }
-
-
-

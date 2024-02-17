@@ -1,3 +1,4 @@
+
 <?php require "layouts/header.php"; ?>
 <!-- Main Wrapper -->
 <div class="inner-wrapper login-body">
@@ -13,9 +14,9 @@
                         <p class="account-subtitle">Access to your dashboard</p>
 
                         <!-- Form -->
-                        <form action="controllers/log.controll/login.controller.php" method="post">
+                        <form action="controllers/log.controll/login_admin.controller.php" method="post">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="User Email" name="email">
+                                <input class="form-control" type="text" placeholder="Admin Name" name="name">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Password" name="password">
@@ -26,7 +27,7 @@
                         </form>
                         <!-- /Form -->
 
-                        <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a> <a href='/loginAdmin'>login Admin</a></div>
+                        <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a> <a href='/'>login Admin</a></div>
                     </div>
                 </div>
             </div>

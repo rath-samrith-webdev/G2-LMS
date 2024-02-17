@@ -3,6 +3,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $page = "";
 $routes = [
     '/' => 'controllers/log.controll/login.controll.php',
+    '/loginAdmin' => 'controllers/log.controll/login_admin.controll.php',
     '/admin' => 'controllers/admin/admin.controller.php',
     '/createEmployee' => 'controllers/admin/create.employee.controller.php',
     '/employees' => 'controllers/employees/employee.controller.php',
@@ -14,6 +15,7 @@ $routes = [
     '/leaveReports' => 'controllers/reports/report.controller.php',
     '/manages' => 'controllers/manages/manage.controller.php',
     '/profiles' => 'controllers/profiles/profile.controller.php',
+    
 ];
 
 if (array_key_exists($uri, $routes)) {
