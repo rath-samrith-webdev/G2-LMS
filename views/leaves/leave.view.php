@@ -139,61 +139,41 @@ include "layouts/navbar.php"; ?>
 										<th>From</th>
 										<th>To</th>
 										<th>Days</th>
-										<th>Remaining Days</th>
+										<!-- <th>Remaining Days</th> -->
 										<th>Notes</th>
-										<th>Status</th>
+										<th colspan="2">Status</th>
 										<th class="text-right">Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<?php foreach($leave_requests as $request){ ?>
+										<tr>
 										<td>
-											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
-											<h2><a href="employment.html">Danny Ward</a></h2>
+											<h2><a href="employment.html"><?=$request['first_name']?></a></h2>
 										</td>
 										<td>Parental Leave</td>
 										<td>05 Dec 2019</td>
 										<td>07 Dec 2019</td>
 										<td>3</td>
-										<td>9</td>
+										<!-- <td>9</td> -->
 										<td>Parenting Leave</td>
-										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
-										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a></td>
-									</tr>
-									<tr>
 										<td>
-											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-4.jpg" alt="Linda Craver" class="img-fluid"></a>
-											<h2><a href="employment.html">Linda Craver</a></h2>
+											<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
+												<input type="hidden" value="<?=$request['request_id']?>" name="request_id">
+												<select name="leave_status" class="form-control">
+													<?php foreach ($leaves as $leave) {?>
+														<option value="<?= $leave["status_id"]?>"><?=$leave['status_desc']?></option>
+													<?php }?>
+												</select>
+												<button class="btn btn-theme button-1 text-white">Save</button>
+											</form>
 										</td>
-										<td>Sick Leave</td>
-										<td>05 Dec 2019</td>
-										<td>05 Dec 2019</td>
-										<td>1</td>
-										<td>11</td>
-										<td>Going to Hospital</td>
-										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
+										<td></td>
 										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
 												<span class="lnr lnr-trash"></span> Delete
 											</a></td>
 									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-3.jpg" alt="Jenni Sims" class="img-fluid"></a>
-											<h2><a href="employment.html">Jenni Sims</a></h2>
-										</td>
-										<td>Working From Home</td>
-										<td>05 Dec 2019</td>
-										<td>05 Dec 2019</td>
-										<td>1</td>
-										<td>11</td>
-										<td>Raining</td>
-										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
-										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a></td>
-									</tr>
+									<?php }?>
 								</tbody>
 							</table>
 						</div>
