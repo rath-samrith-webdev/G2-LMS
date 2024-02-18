@@ -13,7 +13,7 @@ require "layouts/navbar.php"; ?>
 		<div class="col-md-12">
 			<div class="card ctm-border-radius shadow-sm grow">
 				<div class="card-header">
-					<h4 class="card-title mb-0">Today Leaves</h4>
+					<h4 class="card-title mb-0">Employees in Company</h4>
 				</div>
 				<div class="card-body">
 					<div class="employee-office-table">
@@ -21,37 +21,44 @@ require "layouts/navbar.php"; ?>
 							<table class="table custom-table mb-0">
 								<thead>
 									<tr>
-										<th>Profile</th>
 										<th>First name</th>
 										<th>Last name</th>
 										<th>Email</th>
-										<th>Country</th>
-										<th>Start Date</th>
-										<th>Job Title</th>
-										<th>Employment Type</th>
+										<th>Date OF birth</th>
+										<th>Phone Number</th>
+										<th>Position</th>
+										<th>Role</th>
+										<th>Department</th>
+										<th>Salary</th>
+										<th>Total allow leave</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
+										
 										<td>
 											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
 										</td>
-										<td>
+										<!-- <td>
 											<h2><a href="employment.html">Danny Ward</a></h2>
-										</td>
-										<td>Parental Leave</td>
-										<td>danny@yahoo.net</td>
-										<td>USA</td>
-										<td>07 Dec 2019</td>
+										</td> -->
+										<td>Leysreng </td>
+										<td>Ol</td>
+										<td>2005/13/04</td>
+										<td>090987654</td>
 										<td>Project Manager</td>
-										<td>Permenent</td>
+										<td>1</td>
+										<td>PHP backend</td>
+										<td>700$</td>
+										<td>11</td>
 										<td class="text-right text-danger">
 											<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
 												<span class="lnr lnr-trash"></span> Delete
 											</a>
 										</td>
 									</tr>
+							
 								</tbody>
 							</table>
 						</div>
