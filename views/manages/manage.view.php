@@ -35,30 +35,28 @@ require "layouts/navbar.php"; ?>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										
-										<td>
-											<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
-										</td>
-										<!-- <td>
-											<h2><a href="employment.html">Danny Ward</a></h2>
-										</td> -->
-										<td>Leysreng </td>
-										<td>Ol</td>
-										<td>2005/13/04</td>
-										<td>090987654</td>
-										<td>Project Manager</td>
-										<td>1</td>
-										<td>PHP backend</td>
-										<td>700$</td>
-										<td>11</td>
-										<td class="text-right text-danger">
-											<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a>
-										</td>
-									</tr>
-							
+									<?php foreach ($employee as $user) { ?>
+										<tr>
+											<td>
+												<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
+											</td>
+											<td><?= $user['first_name'] ?></td>
+											<td><?= $user['last_name'] ?></td>
+											<td><?=$user['date_of_birth']?></td>
+											<td><?=$user['phone_number']?></td>
+											<td>Project Manager</td>
+											<td>1</td>
+											<td>PHP backend</td>
+											<td>700$</td>
+											<td>11</td>
+											<td class="text-right text-danger">
+												<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
+													<span class="lnr lnr-trash"></span> Delete
+												</a>
+											</td>
+										</tr>
+									<?php } ?>
+
 								</tbody>
 							</table>
 						</div>
