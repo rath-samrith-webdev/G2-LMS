@@ -44,13 +44,13 @@ require "layouts/navbar.php"; ?>
 											<td><?= $user['last_name'] ?></td>
 											<td><?=$user['date_of_birth']?></td>
 											<td><?=$user['phone_number']?></td>
-											<td>Project Manager</td>
-											<td>1</td>
-											<td>PHP backend</td>
-											<td>700$</td>
-											<td>11</td>
+											<td><?=$user['position_id']?></td>
+											<td><?=$user['role_id']?></td>
+											<td><?=$user['department_id']?></td>
+											<td><?=$user['salary']?>$</td>
+											<td><?=$user['total_allowed_leave']?></td>
 											<td class="text-right text-danger">
-												<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
+												<a href="controllers/admin/delete.user.controller.php?id=<?=$user['uid']?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
 													<span class="lnr lnr-trash"></span> Delete
 												</a>
 											</td>

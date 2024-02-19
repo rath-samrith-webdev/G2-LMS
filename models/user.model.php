@@ -29,6 +29,14 @@ function getDepartments():array{
     return $statement->fetchAll();
 }
 
+function deleteUser(int $id) : bool
+{
+    global $connection;
+    $statement = $connection->prepare("delete from users where uid = :id");
+    $statement->execute([':id' => $id]);
+    return $statement->rowCount() > 0;
+}
+
 function getPositions():array{
     global $connection;
     $statment = $connection->prepare("SELECT * FROM postions");
