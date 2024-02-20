@@ -27,7 +27,7 @@ require "layouts/navbar.php"; ?>
                                             <h2><?=$type['leaveType_id']?></h2>
                                         </td>
                                         <td><?=$type['leaveType_desc']?></td>
-                                        <td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
+                                        <td><a href="/editLeaveType?id=<?=$type['leaveType_id']?>" class="btn btn-theme ctm-border-radius text-white btn-sm">Edit</a></td>
                                         <td class="text-danger">
                                             <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
                                                 <span class="lnr lnr-trash"></span> Delete
