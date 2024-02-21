@@ -146,34 +146,34 @@ include "layouts/navbar.php"; ?>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach($leave_requests as $request){ ?>
+									<?php foreach ($leave_requests as $request) { ?>
 										<tr>
-										<td>
-											<h2><a href="employment.html"><?=$request['first_name']?></a></h2>
-										</td>
-										<td>Parental Leave</td>
-										<td>05 Dec 2019</td>
-										<td>07 Dec 2019</td>
-										<td>3</td>
-										<!-- <td>9</td> -->
-										<td>Parenting Leave</td>
-										<td>
-											<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
-												<input type="hidden" value="<?=$request['request_id']?>" name="request_id">
-												<select name="leave_status" class="form-control">
-													<?php foreach ($leaves as $leave) {?>
-														<option value="<?= $leave["status_id"]?>"><?=$leave['status_desc']?></option>
-													<?php }?>
-												</select>
-												<button class="btn btn-theme button-1 text-white">Save</button>
-											</form>
-										</td>
-										<td></td>
-										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a></td>
-									</tr>
-									<?php }?>
+											<td>
+												<h2><a href="employment.html"><?= $request['first_name'] ?></a></h2>
+											</td>
+											<td>Parental Leave</td>
+											<td>05 Dec 2019</td>
+											<td>07 Dec 2019</td>
+											<td>3</td>
+											<!-- <td>9</td> -->
+											<td>Parenting Leave</td>
+											<td>
+												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
+													<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
+													<select name="leave_status" class="form-control">
+														<?php foreach ($leaves as $leave) { ?>
+															<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
+														<?php } ?>
+													</select>
+													<button class="btn btn-theme button-1 text-white">Save</button>
+												</form>
+											</td>
+											<td></td>
+											<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+													<span class="lnr lnr-trash"></span> Delete
+												</a></td>
+										</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>

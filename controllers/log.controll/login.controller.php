@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Password is incorrect";
         } else {
             $_SESSION['user'] = $user;
-            $_SESSION['uid'] = $user['uid'];
+            $_SESSION['login'] = 1;
             header('Location: /employees');
         }
     } else {
