@@ -13,7 +13,7 @@ require "layouts/navbar.php"; ?>
 		<div class="col-md-12">
 			<div class="card ctm-border-radius shadow-sm grow">
 				<div class="card-header">
-					<h4 class="card-title mb-0">Today Leaves</h4>
+					<h4 class="card-title mb-0">Employees in Company</h4>
 				</div>
 				<div class="card-body">
 					<div class="employee-office-table">
@@ -21,14 +21,16 @@ require "layouts/navbar.php"; ?>
 							<table class="table custom-table mb-0">
 								<thead>
 									<tr>
-										<th>Profile</th>
 										<th>First name</th>
 										<th>Last name</th>
 										<th>Email</th>
-										<th>Country</th>
-										<th>Start Date</th>
-										<th>Job Title</th>
-										<th>Employment Type</th>
+										<th>Date OF birth</th>
+										<th>Phone Number</th>
+										<th>Position</th>
+										<th>Role</th>
+										<th>Department</th>
+										<th>Salary</th>
+										<th>Total allow leave</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -49,11 +51,29 @@ require "layouts/navbar.php"; ?>
 											<td>Permenent</td>
 											<td class="text-right text-danger">
 												<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
+									<?php } ?>
+									<?php foreach ($employee as $user) { ?>
+										<tr>
+											<td>
+												<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
+											</td>
+											<td><?= $user['first_name'] ?></td>
+											<td><?= $user['last_name'] ?></td>
+											<td><?=$user['date_of_birth']?></td>
+											<td><?=$user['phone_number']?></td>
+											<td><?=$user['position_id']?></td>
+											<td><?=$user['role_id']?></td>
+											<td><?=$user['department_id']?></td>
+											<td><?=$user['salary']?>$</td>
+											<td><?=$user['total_allowed_leave']?></td>
+											<td class="text-right text-danger">
+												<a href="controllers/admin/delete.user.controller.php?id=<?=$user['uid']?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
 													<span class="lnr lnr-trash"></span> Delete
 												</a>
 											</td>
 										</tr>
 									<?php } ?>
+
 								</tbody>
 							</table>
 						</div>
