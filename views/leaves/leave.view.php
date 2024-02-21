@@ -127,7 +127,7 @@ include "layouts/navbar.php"; ?>
 			<div class="card ctm-border-radius shadow-sm grow">
 				<div class="card-header d-flex justify-content-between">
 					<h4 class="card-title mb-0">Today Leaves</h4>
-					<button type="button" class="btn btn-outline-danger deletebtn"> Remove all requests </button>
+					<button type="button" class="btn btn-outline-danger removebtn"> Remove all requests </button>
 				</div>
 				<div class="card-body">
 					<div class="employee-office-table">
@@ -158,19 +158,16 @@ include "layouts/navbar.php"; ?>
 													<select name="leave_status" class="form-control">
 														<?php foreach ($leaves as $leave) { ?>
 															<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
-															<?php } ?>
-														</select>
-														<button class="btn btn-theme button-1 text-white">Save</button>
-													</form>
-												</td>
+														<?php } ?>
+													</select>
+													<button class="btn btn-theme button-1 text-white">Save</button>
+												</form>
+											</td>
 											<td></td>
 											<td class="text-right text-danger">
-											<!-- <a href="controllers/leaves/edit_leave_request.controller.php?deleteid=<?=$request['request_id']?>" class="btn btn-sm btn-outline-danger delete_btn" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete -->		
-												<a href="controllers/leaves/delete_leave.request.controllers.php?request_id=<?=$request['request_id']?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete</a>
-											<!-- </a> -->
-										</td>
+												<a href="controllers/leaves/delete_leave.request.controllers.php?request_id=<?= $request['request_id'] ?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
+													<span class="lnr lnr-trash"></span> Delete</a>
+											</td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -193,7 +190,7 @@ include "layouts/navbar.php"; ?>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 
 <!--Delete The Modal -->
-<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="removemedal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -217,18 +214,42 @@ include "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="delete">
+<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Delete you leave requests</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<form action="/removeall" method="POST">
+				<div class="modal-body">
+					<input type="hidden" name="delete_id" id="delete_id">
+					<h6> Are you sure you want to delete the request? </h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"> I'm not sure </button>
+					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Yes I'm sure </button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="deletebtn">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<!-- <form action="controllers/leaves/edit_leave_request.controller.php" method="post"> -->
-			<!-- Modal body -->
+			?<form action="controllers/leaves/edit_leave_request.controller.php" method="post">
+				<!-- Modal body -->
 				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title mb-3">Are You Sure Want to Delete?</h4>
 					<button type="button" class="btn btn-danger ctm-border-radius text-white text-center mb-2 mr-3" data-dismiss="modal">Cancel</button>
 					<button type="button" class="btn btn-theme ctm-border-radius text-white text-center mb-2 button-1" data-dismiss="modal">Delete</button>
 				</div>
-			<!-- </form> -->
+				<!-- </form> -->
 		</div>
 	</div>
 </div>

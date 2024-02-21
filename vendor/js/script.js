@@ -104,7 +104,7 @@ $(document).mousedown(function (e) {
 });
 
 $(document).ready(function () {
-  $(".deletebtn").on("click", function () {
+  $(".removebtn").on("click", function () {
     $("#deletemodal").modal("show");
 
     $tr = $(this).closest("tr");
@@ -121,3 +121,4 @@ $(document).ready(function () {
     $("#delete_id").val(data[0]);
   });
 });
+
