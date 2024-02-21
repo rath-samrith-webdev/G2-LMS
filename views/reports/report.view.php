@@ -37,7 +37,7 @@ include "layouts/navbar.php";
 	</div>
 	<div class="card shadow-sm grow ctm-border-radius">
 		<div class="card-body align-center">
-			<ul class="nav flex-row nav-pills" id="pills-tab" role="tablist">
+			<ul class="nav flex-row nav-pills d-flex justify-content-between" id="pills-tab" role="tablist">
 				<li class="nav-item mr-2">
 					<a class="nav-link active mb-2" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Official Reports</a>
 				</li>
