@@ -4,6 +4,7 @@ require "../../models/profile.model.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file = $_FILES['file'];
     $uid = $_POST['uid'];
+    $user = oneUser($uid);
     $filename = $_FILES['file']['name'];
     $filetmpName = $_FILES['file']['tmp_name'];
     $fileSize = $_FILES['file']['size'];
@@ -18,9 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $filenewName = uniqid('', true) . "." . $fileActualExt;
                 $directory = '../../assets/profile/profiles' . $filenewName;
                 $newdirect = 'assets/profile/profiles' . $filenewName;
+                $searchfile = "../../" . $user['profile'];
+
                 if ($uid !== '') {
                     if (updateProfile($uid, $newdirect)) {
-                        move_uploaded_file($filetmpName, $directory);
+                        if (file_exists($searchfile)) {
+                            unlink($searchfile);
+                            move_uploaded_file($filetmpName, $directory);
+                        } else {
+                            move_uploaded_file($filetmpName, $directory);
+                        }
                         header('location: /manages');
                     }
                 } else {
