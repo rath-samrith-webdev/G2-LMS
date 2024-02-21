@@ -15,7 +15,10 @@ $routes = [
     '/leaveReports' => 'controllers/reports/report.controller.php',
     '/manages' => 'controllers/manages/manage.controller.php',
     '/profiles' => 'controllers/profiles/profile.controller.php',
-    '/profileImage' => 'controllers/profiles/profile.upload.controller.php'
+    '/profileImage' => 'controllers/profiles/profile.upload.controller.php',
+    '/leavetype'=> 'controllers/leaves/leave.type.view.controller.php',
+    '/leavetypeForm' =>'controllers/leaves/create_form.leave.type.controller.php',
+    '/editLeaveType' =>'controllers/leaves/edit_leave.type.controller.php',
 ];
 
 if (array_key_exists($uri, $routes)) {
