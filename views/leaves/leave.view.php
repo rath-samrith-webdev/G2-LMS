@@ -170,7 +170,7 @@ include "layouts/navbar.php"; ?>
 										</td>
 										<td></td>
 										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
+												<span class="lnr lnr-trash"></span> Delete		
 											</a></td>
 									</tr>
 									<?php }?>
