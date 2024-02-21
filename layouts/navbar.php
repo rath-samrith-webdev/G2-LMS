@@ -4,7 +4,8 @@ if (isset($_SESSION['user'])) {
     $userExist = true; //if the normal user has logged in 
     if (isset($_SESSION['user']['profile'])) {
         $img = $_SESSION['user']['profile'];
-        $username = $_SESSION['user']['first_name']; //if the user already had a profile img
+        $username = $_SESSION['user']['first_name'];
+        $uid = $_SESSION['user']['uid']; //if the user already had a profile img
     } else {
         if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
             $img = "assets/profile/img-2.jpg";
@@ -298,7 +299,7 @@ if (isset($_SESSION['user'])) {
                                             </div>
                                         <?php } ?>
                                         <div class="col-6 align-items-center shadow-none text-center">
-                                            <a href="/profiles" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
+                                            <a href="/profiles?uid=<?= $uid ?>" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
                                         </div>
 
                                     </div>
