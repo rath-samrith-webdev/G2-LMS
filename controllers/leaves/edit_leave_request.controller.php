@@ -8,4 +8,5 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     if(updateLeaveData($status_id,$request_id)){
         header('Location: /leaves');
     };
+    header('Location: /leaves');
 }
