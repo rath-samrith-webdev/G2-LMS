@@ -35,39 +35,23 @@ require "layouts/navbar.php"; ?>
 									</tr>
 								</thead>
 								<tbody>
-									<?php for ($i = 0; $i < count($users); $i++) { ?>
+
+									<?php foreach ($users as $user) { ?>
 										<tr>
 											<td>
-												<a href="/profileImage?id=<?= $users[$i]['uid'] ?>" class="avatar"><img alt="avatar image" src="<?= $users[$i]['profile'] ?>" class="img-fluid"></a>
-											</td>
-											<td>
-												<h2><a href="/profiles?uid=<?= $users[$i]['uid'] ?>"><?= $users[$i]['first_name'] ?></a></h2>
-											</td>
-											<td><?= $users[$i]['last_name'] ?></td>
-											<td><?= $users[$i]['email'] ?></td>
-											<td>USA</td>
-											<td>07 Dec 2019</td>
-											<td>Project Manager</td>
-											<td>Permenent</td>
-											<td class="text-right text-danger">
-												<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
-									<?php } ?>
-									<?php foreach ($employee as $user) { ?>
-										<tr>
-											<td>
-												<a href="employment.html" class="avatar"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></a>
+												<a href="/profileImage?id=<?= $user['uid'] ?>" class="avatar"><img alt="avatar image" src="<?= $user['profile'] ?>" class="img-fluid"></a>
 											</td>
 											<td><?= $user['first_name'] ?></td>
 											<td><?= $user['last_name'] ?></td>
-											<td><?=$user['date_of_birth']?></td>
-											<td><?=$user['phone_number']?></td>
-											<td><?=$user['position_id']?></td>
-											<td><?=$user['role_id']?></td>
-											<td><?=$user['department_id']?></td>
-											<td><?=$user['salary']?>$</td>
-											<td><?=$user['total_allowed_leave']?></td>
+											<td><?= $user['date_of_birth'] ?></td>
+											<td><?= $user['phone_number'] ?></td>
+											<td><?= $user['position_id'] ?></td>
+											<td><?= $user['department_id'] ?></td>
+											<td><?= $user['role_id'] ?></td>
+											<td><?= $user['salary'] ?>$</td>
+											<td><?= $user['total_allowed_leave'] ?></td>
 											<td class="text-right text-danger">
-												<a href="controllers/admin/delete.user.controller.php?id=<?=$user['uid']?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
+												<a href="controllers/admin/delete.user.controller.php?id=<?= $user['uid'] ?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
 													<span class="lnr lnr-trash"></span> Delete
 												</a>
 											</td>
