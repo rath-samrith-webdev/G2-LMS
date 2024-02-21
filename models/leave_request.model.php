@@ -23,6 +23,7 @@ function getLeaveData() : array
     return $statement->fetchAll();
     
 }
+
 function getALlleaves(){
     global $connection;
     $statement = $connection->prepare("select * from total_requests");
@@ -30,6 +31,7 @@ function getALlleaves(){
 
     return $statement->fetchAll();
 }
+
 function updateLeaveData(string $status, int $uid) : bool
 {
     global $connection;
@@ -39,6 +41,14 @@ function updateLeaveData(string $status, int $uid) : bool
         ':status_id' => $status
     ]);
 
+    return $statement->rowCount() > 0;
+}
+
+function deleteLeaveData(int $request_id) : bool
+{
+    global $connection;
+    $statement = $connection->prepare("delete from leave_requests where request_id = :request_id");
+    $statement->execute([':request_id' => $request_id]);
     return $statement->rowCount() > 0;
 }
 
