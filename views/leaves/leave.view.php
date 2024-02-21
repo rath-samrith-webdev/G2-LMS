@@ -163,11 +163,11 @@ include "layouts/navbar.php"; ?>
 												<select name="leave_status" class="form-control">
 													<?php foreach ($leaves as $leave) {?>
 														<option value="<?= $leave["status_id"]?>"><?=$leave['status_desc']?></option>
-													<?php }?>
-												</select>
-												<button class="btn btn-theme button-1 text-white">Save</button>
-											</form>
-										</td>
+														<?php }?>
+													</select>
+													<button class="btn btn-theme button-1 text-white">Save</button>
+												</form>
+											</td>
 										<td></td>
 										<td class="text-right text-danger">
 											<!-- <a href="controllers/leaves/edit_leave_request.controller.php?deleteid=<?=$request['request_id']?>" class="btn btn-sm btn-outline-danger delete_btn" data-toggle="modal" data-target="#delete">
