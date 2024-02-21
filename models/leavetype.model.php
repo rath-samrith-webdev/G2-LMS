@@ -6,6 +6,7 @@ function getAlltypes(){
     return $statement->fetchAll();
 }
 
+// ========add leavetype===============
 function addLeaveType($desc):bool
 {
     global $connection;
@@ -15,6 +16,8 @@ function addLeaveType($desc):bool
     );
     return $statement->rowCount()>0;
 }
+
+// ======== Edit leave type=============
 function getleaveType($id):array
 {
     global $connection;

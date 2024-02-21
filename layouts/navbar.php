@@ -295,13 +295,16 @@ if (isset($_SESSION['user'])) {
                                                 <a href="/leaveReports" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Leave Reports</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
+                                                <a href="/leavetype" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>
+                                            </div>
+                                            <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/manages" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Employee list</span></a>
                                             </div>
+                                        <?php } else { ?>
+                                            <div class="col-6 align-items-center shadow-none text-center">
+                                                <a href="/profiles?uid=<?= $uid ?>" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
+                                            </div>
                                         <?php } ?>
-                                        <div class="col-6 align-items-center shadow-none text-center">
-                                            <a href="/profiles?uid=<?= $uid ?>" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
