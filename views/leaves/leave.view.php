@@ -197,20 +197,4 @@ include "layouts/navbar.php"; ?>
 
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 
-<!--Delete The Modal -->
-<div class="modal fade" name="delete" id="delete">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<!-- <form action="controllers/leaves/edit_leave_request.controller.php" method="post"> -->
-			<!-- Modal body -->
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title mb-3">Are You Sure Want to Delete?</h4>
-					<button type="button" class="btn btn-danger ctm-border-radius text-white text-center mb-2 mr-3" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-theme ctm-border-radius text-white text-center mb-2 button-1" data-dismiss="modal">Delete</button>
-				</div>
-			<!-- </form> -->
-		</div>
-	</div>
-</div>
 <?php require "layouts/footer.php"; ?>
