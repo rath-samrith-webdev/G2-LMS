@@ -172,7 +172,7 @@ include "layouts/navbar.php"; ?>
 										<td class="text-right text-danger">
 											<!-- <a href="controllers/leaves/edit_leave_request.controller.php?deleteid=<?=$request['request_id']?>" class="btn btn-sm btn-outline-danger delete_btn" data-toggle="modal" data-target="#delete">
 												<span class="lnr lnr-trash"></span> Delete -->
-											<a href="controllers/leaves/delete_leave.request.controllers.php?request_id=<?=$request['request_id']?>" class="btn btn-sm btn-outline-danger" data-target="#delete" data-dismiss="modal">
+											<a href="controllers/leaves/delete_leave.request.controllers.php?request_id=<?=$request['request_id']?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
 												<span class="lnr lnr-trash"></span> Delete</a>
 											<!-- </a> -->
 										</td>
@@ -201,15 +201,15 @@ include "layouts/navbar.php"; ?>
 <div class="modal fade" name="delete" id="delete">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<form action="controllers/leaves/edit_leave_request.controller.php" method="post">
+			<!-- <form action="controllers/leaves/edit_leave_request.controller.php" method="post"> -->
 			<!-- Modal body -->
 				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal" name= "requast">&times;</button>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title mb-3">Are You Sure Want to Delete?</h4>
 					<button type="button" class="btn btn-danger ctm-border-radius text-white text-center mb-2 mr-3" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-theme ctm-border-radius text-white text-center mb-2 button-1" name = "delete" data-dismiss="modal">Delete</button>
+					<button type="button" class="btn btn-theme ctm-border-radius text-white text-center mb-2 button-1" data-dismiss="modal">Delete</button>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 	</div>
 </div>
