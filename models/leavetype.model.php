@@ -15,4 +15,10 @@ function addLeaveType($desc):bool
     );
     return $statement->rowCount()>0;
 }
+
+// function deleteLeaveType($delete){
+//     global $connection;
+//     $statement = $connection->prepare('DELETE leaveType_id FROM leave_types');
+    
+// }
 ?>
