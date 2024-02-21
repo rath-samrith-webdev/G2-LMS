@@ -29,7 +29,8 @@ function getALlleaves()
 
     return $statement->fetchAll();
 }
-function updateLeaveData(string $status, int $uid): bool
+
+function updateLeaveData(string $status, int $uid) : bool
 {
     global $connection;
     $statement = $connection->prepare("update leave_requests set status_id =:status_id where uid = :uid");
@@ -48,3 +49,12 @@ function removeAll(): bool
     $statement->execute();
     return $statement->rowCount() == 0;
 }
+function deleteLeaveData(int $request_id) : bool
+{
+    global $connection;
+    $statement = $connection->prepare("delete from leave_requests where request_id = :request_id");
+    $statement->execute([':request_id' => $request_id]);
+    return $statement->rowCount() > 0;
+}
+
+

@@ -158,15 +158,19 @@ include "layouts/navbar.php"; ?>
 													<select name="leave_status" class="form-control">
 														<?php foreach ($leaves as $leave) { ?>
 															<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
-														<?php } ?>
-													</select>
-													<button class="btn btn-theme button-1 text-white">Save</button>
-												</form>
-											</td>
+															<?php } ?>
+														</select>
+														<button class="btn btn-theme button-1 text-white">Save</button>
+													</form>
+												</td>
 											<td></td>
-											<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a></td>
+											<td class="text-right text-danger">
+											<!-- <a href="controllers/leaves/edit_leave_request.controller.php?deleteid=<?=$request['request_id']?>" class="btn btn-sm btn-outline-danger delete_btn" data-toggle="modal" data-target="#delete">
+													<span class="lnr lnr-trash"></span> Delete -->		
+												<a href="controllers/leaves/delete_leave.request.controllers.php?request_id=<?=$request['request_id']?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
+												<span class="lnr lnr-trash"></span> Delete</a>
+											<!-- </a> -->
+										</td>
 										</tr>
 									<?php } ?>
 								</tbody>
@@ -216,14 +220,15 @@ include "layouts/navbar.php"; ?>
 <div class="modal fade" id="delete">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-
+			<!-- <form action="controllers/leaves/edit_leave_request.controller.php" method="post"> -->
 			<!-- Modal body -->
-			<div class="modal-body">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title mb-3">Are You Sure Want to Delete?</h4>
-				<button type="button" class="btn btn-danger ctm-border-radius text-white text-center mb-2 mr-3" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-theme ctm-border-radius text-white text-center mb-2 button-1" data-dismiss="modal">Delete</button>
-			</div>
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title mb-3">Are You Sure Want to Delete?</h4>
+					<button type="button" class="btn btn-danger ctm-border-radius text-white text-center mb-2 mr-3" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-theme ctm-border-radius text-white text-center mb-2 button-1" data-dismiss="modal">Delete</button>
+				</div>
+			<!-- </form> -->
 		</div>
 	</div>
 </div>
