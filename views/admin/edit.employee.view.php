@@ -13,26 +13,24 @@ require "layouts/navbar.php"; ?>
             </div>
             <div class="card-body p-0">
                 <div id="basic-one" class="collapse show ctm-padding" aria-labelledby="basic1" data-parent="#accordion-details">
-                    <form>
-                        <div class="row">
-                            <input type="hidden" class="form-control" placeholder="First Name" value="<?= $user['uid'] ?>" name="uid">
-                            <div class="col form-group">
-                                <input type="text" class="form-control" placeholder="First Name" value="<?= $user['first_name'] ?>" name="first_name">
-                            </div>
-                            <div class="col form-group">
-                                <input type="text" class="form-control" placeholder="Last Name" value="<?= $user['last_name'] ?>" name="last_name">
-                            </div>
-                            <div class=" col-12 form-group">
-                                <input type="email" class="form-control" placeholder="Email" value="<?= $user['email'] ?>" name="email">
-                            </div>
-                            <div class=" col-12 form-group">
-                                <input type="password" class="form-control" placeholder="Password" name="password">
-                            </div>
-                            <div class=" col-12 form-group">
-                                <input type="text" class="form-control" placeholder="Password" name="phone_number" value="<?= $user['phone_number'] ?>">
-                            </div>
+                    <div class="row">
+                        <input type="hidden" class="form-control" placeholder="First Name" value="<?= $user['uid'] ?>" name="uid">
+                        <div class="col form-group">
+                            <input type="text" class="form-control" placeholder="First Name" value="<?= $user['first_name'] ?>" name="first_name">
                         </div>
-                    </form>
+                        <div class="col form-group">
+                            <input type="text" class="form-control" placeholder="Last Name" value="<?= $user['last_name'] ?>" name="last_name">
+                        </div>
+                        <div class=" col-12 form-group">
+                            <input type="email" class="form-control" placeholder="Email" value="<?= $user['email'] ?>" name="email">
+                        </div>
+                        <div class=" col-12 form-group">
+                            <input type="password" class="form-control" placeholder="Password" name="password">
+                        </div>
+                        <div class=" col-12 form-group">
+                            <input type="text" class="form-control" placeholder="Password" name="phone_number" value="<?= $user['phone_number'] ?>">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

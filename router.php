@@ -20,6 +20,7 @@ $routes = [
     '/leavetype' => 'controllers/leaves/leave.type.view.controller.php',
     '/leavetypeForm' => 'controllers/leaves/create_form.leave.type.controller.php',
     '/editLeaveType' => 'controllers/leaves/edit_leave.type.controller.php',
+    '/removeall' => 'controllers\leaves\remove.all.request.controller.php'
 ];
 $homeRoutes = [
     '/' => 'controllers/log.controll/login.controll.php',

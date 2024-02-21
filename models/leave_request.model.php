@@ -1,6 +1,6 @@
 <?php
 
-function postLeaveData(string $title, string $description ):  bool
+function postLeaveData(string $title, string $description): bool
 {
 
     global $connection;
@@ -11,20 +11,18 @@ function postLeaveData(string $title, string $description ):  bool
     ]);
 
     return $statement->rowCount() > 0;
-    
 }
 
-function getLeaveData() : array
+function getLeaveData(): array
 {
     global $connection;
     $statement = $connection->prepare("select * from leave_status");
     $statement->execute();
 
     return $statement->fetchAll();
-    
 }
-
-function getALlleaves(){
+function getALlleaves()
+{
     global $connection;
     $statement = $connection->prepare("select * from total_requests");
     $statement->execute();
@@ -44,6 +42,13 @@ function updateLeaveData(string $status, int $uid) : bool
     return $statement->rowCount() > 0;
 }
 
+function removeAll(): bool
+{
+    global $connection;
+    $statement = $connection->prepare("delete from leave_requests");
+    $statement->execute();
+    return $statement->rowCount() == 0;
+}
 function deleteLeaveData(int $request_id) : bool
 {
     global $connection;

@@ -125,8 +125,9 @@ include "layouts/navbar.php"; ?>
 		</div>
 		<div class="col-md-12">
 			<div class="card ctm-border-radius shadow-sm grow">
-				<div class="card-header">
+				<div class="card-header d-flex justify-content-between">
 					<h4 class="card-title mb-0">Today Leaves</h4>
+					<button type="button" class="btn btn-outline-danger deletebtn"> Remove all requests </button>
 				</div>
 				<div class="card-body">
 					<div class="employee-office-table">
@@ -138,9 +139,6 @@ include "layouts/navbar.php"; ?>
 										<th>Leave Type</th>
 										<th>From</th>
 										<th>To</th>
-										<th>Days</th>
-										<!-- <th>Remaining Days</th> -->
-										<th>Notes</th>
 										<th colspan="2">Status</th>
 										<th class="text-right">Action</th>
 									</tr>
@@ -154,9 +152,6 @@ include "layouts/navbar.php"; ?>
 											<td>Parental Leave</td>
 											<td>05 Dec 2019</td>
 											<td>07 Dec 2019</td>
-											<td>3</td>
-											<!-- <td>9</td> -->
-											<td>Parenting Leave</td>
 											<td>
 												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
 													<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
@@ -198,7 +193,31 @@ include "layouts/navbar.php"; ?>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 
 <!--Delete The Modal -->
-<div class="modal fade" name="delete" id="delete">
+<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"> Remove all requests</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<form action="/removeall" method="POST">
+				<div class="modal-body">
+					<input type="hidden" name="delete_id" id="delete_id">
+					<h6> All the request will be lost. Are you sure? </h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"> I'm not sure </button>
+					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Yes I'm sure </button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="delete">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<!-- <form action="controllers/leaves/edit_leave_request.controller.php" method="post"> -->
