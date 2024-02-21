@@ -6,6 +6,7 @@ $routes = [
     '/loginAdmin' => 'controllers/log.controll/login_admin.controll.php',
     '/admin' => 'controllers/admin/admin.controller.php',
     '/createEmployee' => 'controllers/admin/create.employee.controller.php',
+    '/editEmployee' => 'controllers/admin/edit.employee.controller.php',
     '/employees' => 'controllers/employees/employee.controller.php',
     '/createuser' => 'controllers/users/user.create.controll.php',
     '/companies' => 'controllers/companies/company.controller.php',

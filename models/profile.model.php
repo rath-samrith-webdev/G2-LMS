@@ -9,7 +9,7 @@ function oneUser(int $uid): array
     ]);
     return $statement->fetch();
 };
-function getAll()
+function getAll(): array
 {
     global $connection;
     $statement = $connection->prepare("SELECT * FROM users");
@@ -18,7 +18,7 @@ function getAll()
 }
 // update profile image(file path)
 
-function updateProfile(int $uid, $newpath): bool
+function updateProfile(int $uid, string $newpath): bool
 {
     global $connection;
     $statement = $connection->prepare("UPDATE users SET profile=:path WHERE uid=:uid");
@@ -28,5 +28,45 @@ function updateProfile(int $uid, $newpath): bool
             ':uid' => $uid
         ]
     );
+    return $statement->rowCount() > 0;
+}
+function getpositions(): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM postions");
+    $statement->execute();
+    return $statement->fetchAll();
+}
+function getRoles(): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM userroles");
+    $statement->execute();
+    return $statement->fetchAll();
+}
+function getDepartments(): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM departments");
+    $statement->execute();
+    return $statement->fetchAll();
+}
+function updateUser($uid, $first_name, $last_name, $date_of_birth, $phone_number, $email, $password, $position, $role, $department, $salary): bool
+{
+    global $connection;
+    $statement = $connection->prepare("UPDATE users SET first_name=:first_name,last_name=:last_name,date_of_birth=:date_of_birth,phone_number=:phone_number,email=:email,password=:passwords,position_id=:position_id,role_id=:role_id,department_id=:department_id,salary=:salary WHERE uid=:uid");
+    $statement->execute([
+        ':first_name' => $first_name,
+        ':last_name' => $last_name,
+        ':date_of_birth' => $date_of_birth,
+        ':phone_number' => $phone_number,
+        ':email' => $email,
+        ':passwords' => $password,
+        ':position_id' => $position,
+        ':role_id' => $role,
+        ':department_id' => $department,
+        ':salary' => $salary,
+        ':uid' => $uid
+    ]);
     return $statement->rowCount() > 0;
 }
