@@ -29,7 +29,7 @@ require 'layouts/navbar.php';
 				</div>
 				<div class="text-center">
 					<button type="submit" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Add</button>
-					<a href="javascript:void(0);" class="btn btn-danger text-white ctm-border-radius mt-4">Cancel</a>
+					<a href="/leavetype" class="btn btn-danger text-white ctm-border-radius mt-4">Cancel</a>
 				</div>
 			</div>
 		</div>
