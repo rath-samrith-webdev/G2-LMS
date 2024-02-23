@@ -14,6 +14,11 @@ require "layouts/navbar.php"; ?>
             <div class="card-body p-0">
                 <div id="basic-one" class="collapse show ctm-padding" aria-labelledby="basic1" data-parent="#accordion-details">
                     <div class="row">
+                        <div class="col pb-2">
+                            <img src="<?= $user['profile'] ?>" alt="" class="img-fluid rounded-circle" width="100">
+                        </div>
+                    </div>
+                    <div class="row">
                         <input type="hidden" class="form-control" placeholder="First Name" value="<?= $user['uid'] ?>" name="uid">
                         <div class="col form-group">
                             <input type="text" class="form-control" placeholder="First Name" value="<?= $user['first_name'] ?>" name="first_name">
