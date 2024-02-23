@@ -31,7 +31,7 @@ require "layouts/navbar.php"; ?>
                                         <td><?= $type['leaveType_detail'] ?></td>
                                         <td><a href="/editLeaveType?id=<?= $type['leaveType_id'] ?>" class="btn btn-theme ctm-border-radius text-white btn-sm">Edit</a></td>
                                         <td class="text-danger">
-                                            <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+                                            <a href="controllers/leaves/delete_leave_type.controller.php?deleteType=<?= $type['leaveType_id'] ?>" class="btn btn-sm btn-outline-danger"  data-target="#delete">
                                                 <span class="lnr lnr-trash"></span> Delete
                                             </a>
                                         </td>
