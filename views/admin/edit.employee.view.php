@@ -66,12 +66,15 @@ require "layouts/navbar.php"; ?>
                             </select>
                         </div>
                         <div class="col-12 form-group">
-                            <?php for ($i = 0; $i < count($roles); $i++) {
-                                if ($roles[$i]['role_id'] === $user['role_id']) {
-                                    $role = $roles[$i];
-                                }
-                            } ?>
-                            <input type="text" name="role" class="form-control" placeholder="Job Title" value="<?= $role['role_id'] ?>">
+                            <select name="role" id="role" class="form-control">
+                                <?php for ($i = 0; $i < count($roles); $i++) {
+                                    if ($roles[$i]['role_id'] == $user['role_id']) {
+                                        $role = $roles[$i];
+                                    } ?>
+                                    <option value="<?= $roles[$i]['role_id'] ?>"><?= $roles[$i]['role_name'] ?></option>
+                                <?php } ?>
+                                <option value="<?= $role['role_id'] ?>" hidden selected><?= $role['role_name'] ?></option>
+                            </select>
                         </div>
                         <div class="col-12 form-group mb-0">
                             <p class="mb-2">Employment Type</p>
