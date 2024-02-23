@@ -31,13 +31,14 @@ function getleaveType($id): array
     );
     return $statement->fetch();
 };
-function updateLeaveType($id, $desc): bool
+function updateLeaveType($id, $desc, $detail): bool
 {
     global $connection;
-    $statement = $connection->prepare("UPDATE leave_types SET leaveType_desc=:desc WHERE leaveType_id=:id");
+    $statement = $connection->prepare("UPDATE leave_types SET leaveType_desc=:desc,leaveType_detail=:details WHERE leaveType_id=:id");
     $statement->execute(
         [
             ':desc' => $desc,
+            ':details' => $detail,
             ':id' => $id
         ]
     );
