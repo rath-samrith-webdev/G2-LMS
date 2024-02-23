@@ -42,7 +42,7 @@ require "layouts/navbar.php"; ?>
 											<td>
 												<a href="/profileImage?id=<?= $user['uid'] ?>" class="avatar"><img alt="avatar image" src="<?= $user['profile'] ?>" class="img-fluid"></a>
 											</td>
-											<td><?= $user['first_name'] ?></td>
+											<td><a href="/profiles?uid=<?= $user['uid'] ?>"><?= $user['first_name'] ?></a></td>
 											<td><?= $user['last_name'] ?></td>
 											<td><?= $user['email'] ?></td>
 											<td><?= $user['date_of_birth'] ?></td>
