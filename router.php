@@ -32,7 +32,7 @@ if (isset($_SESSION['login']) and $_SESSION['login'] === 1) {
     } else {
         if (isset($_SESSION['login']) and $_SESSION['login'] === 1 and isset($_SESSION['user']['admin_username'])) {
             $page = $routes['/admin'];
-        } else if (isset($_SESSION['login']) and $_SESSION['login'] === 1 and isset($_SESSION['user']['admin_username'])) {
+        } else if (isset($_SESSION['login']) and $_SESSION['login'] === 1 and isset($_SESSION['user']['firs_tname'])) {
             $page = $routes['/employees'];
         } else {
             if (array_key_exists($uri, $homeRoutes)) {

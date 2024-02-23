@@ -21,6 +21,7 @@ require "layouts/navbar.php"; ?>
 							<table class="table custom-table mb-0">
 								<thead>
 									<tr>
+										<th>Profile Image</th>
 										<th>First name</th>
 										<th>Last name</th>
 										<th>Email</th>
@@ -43,6 +44,7 @@ require "layouts/navbar.php"; ?>
 											</td>
 											<td><?= $user['first_name'] ?></td>
 											<td><?= $user['last_name'] ?></td>
+											<td><?= $user['email'] ?></td>
 											<td><?= $user['date_of_birth'] ?></td>
 											<td><?= $user['phone_number'] ?></td>
 											<td><?= $user['position_id'] ?></td>

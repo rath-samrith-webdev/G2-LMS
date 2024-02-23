@@ -1,4 +1,3 @@
-
 <?php require "layouts/header.php"; ?>
 <!-- Main Wrapper -->
 <div class="inner-wrapper login-body">
@@ -27,7 +26,9 @@
                         </form>
                         <!-- /Form -->
 
-                        <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a> <a href='/'>login Admin</a></div>
+                        <div class="text-center forgotpass d-flex justify-content-between"><a href="forgot-password.html" class="btn btn-primary text-white ctm-border-radius">Forgot Password?</a>
+                            <a href='/' class="btn btn-primary text-white ctm-border-radius ">User Login</a>
+                        </div>
                     </div>
                 </div>
             </div>
