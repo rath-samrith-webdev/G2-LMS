@@ -3,8 +3,8 @@ require "layouts/header.php";
 require "layouts/navbar.php"; ?>
 
 <form action="controllers\leaves\update.leave.type.controller.php" class="col-xl-9 col-lg-8 col-md-12" method="post">
-	<input type="hidden" value="<?=$leaveType['leaveType_id']?>" name="id">
-<div class="row">
+	<input type="hidden" value="<?= $leaveType['leaveType_id'] ?>" name="id">
+	<div class="row">
 		<div class="col-md-12">
 			<div class="card ctm-border-radius shadow-sm grow">
 				<div class="card-header">
@@ -14,7 +14,13 @@ require "layouts/navbar.php"; ?>
 					<div class="col-sm-12">
 						<div class="col-sm-12 leave-col">
 							<div class="form-group">
-								<input type="text" class="form-control" name="typename" placeholder="Enter you type name" value="<?=$leaveType['leaveType_desc']?>">
+								<input type="text" class="form-control" name="typename" placeholder="Enter you type name" value="<?= $leaveType['leaveType_desc'] ?>">
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group mb-0">
+								<label>Description</label>
+								<textarea class="form-control" name="typedesc" rows=4><?= $leaveType['leaveType_detail'] ?></textarea>
 							</div>
 						</div>
 					</div>
