@@ -31,6 +31,8 @@ function getleaveType($id): array
     );
     return $statement->fetch();
 };
+
+// ===== update Leave Type ======
 function updateLeaveType($id, $desc): bool
 {
     global $connection;
@@ -41,5 +43,14 @@ function updateLeaveType($id, $desc): bool
             ':id' => $id
         ]
     );
+    return $statement->rowCount() > 0;
+}
+
+// ======= delete leave Type ======
+function deleteLeaveType (int $id) : bool
+{
+    global $connection;
+    $statement = $connection->prepare("DELETE FROM leave_types WHERE leaveType_id = :id");
+    $statement->execute([':id' => $id]);
     return $statement->rowCount() > 0;
 }
