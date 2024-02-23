@@ -11,7 +11,7 @@ require "layouts/navbar.php"; ?>
             <div class="card-body">
                 <div class="employee-office-table">
                     <div class="table-responsive">
-                        <table class="table custom-table mb-0 text-center">
+                        <table class="table custom-table mb-0 text-left">
                             <thead>
                                 <tr>
                                     <th>Type ID</th>
