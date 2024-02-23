@@ -30,15 +30,31 @@ if (isset($_SESSION['login']) and $_SESSION['login'] === 1) {
     if (array_key_exists($uri, $routes)) {
         $page = $routes[$uri];
     } else {
-        http_response_code(404);
-        $page = 'views/errors/404.php';
+        if (isset($_SESSION['login']) and $_SESSION['login'] === 1 and isset($_SESSION['user']['admin_username'])) {
+            $page = $routes['/admin'];
+        } else if (isset($_SESSION['login']) and $_SESSION['login'] === 1 and isset($_SESSION['user']['admin_username'])) {
+            $page = $routes['/employees'];
+        } else {
+            if (array_key_exists($uri, $homeRoutes)) {
+                $page = $homeRoutes[$uri];
+            } else {
+                http_response_code(404);
+                $page = 'views/errors/404.php';
+            }
+        }
     }
 } else {
-    if (array_key_exists($uri, $homeRoutes)) {
-        $page = $homeRoutes[$uri];
+    if (isset($_SESSION['login']) and $_SESSION['login'] === 1 and isset($_SESSION['user']['admin_username'])) {
+        $page = $routes['/admin'];
+    } else if (isset($_SESSION['login']) and $_SESSION['login'] === 1 and isset($_SESSION['user']['admin_username'])) {
+        $page = $routes['/employees'];
     } else {
-        http_response_code(404);
-        $page = 'views/errors/404.php';
+        if (array_key_exists($uri, $homeRoutes)) {
+            $page = $homeRoutes[$uri];
+        } else {
+            http_response_code(404);
+            $page = 'views/errors/404.php';
+        }
     }
 }
 require $page;
