@@ -16,7 +16,7 @@ function createUser(string $fsname, string $lsname, string $dateOfbirth, string 
         ':postion_id'=> $positions,
         ':role_id'=> $roles,
         ':department_id'=>$departments,
-        ':total_allowed_leave'=>$leaves
+        ':total_allowed_leave'=>$leaves,
 
     ]);
 

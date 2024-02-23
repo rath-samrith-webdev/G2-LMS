@@ -5,8 +5,9 @@ require "layouts/navbar.php"; ?>
     <div class="col-md-12">
         <div class="card ctm-border-radius shadow-sm grow">
             <div class="card-header d-flex justify-content-between">
-                <h4 class="card-title mb-0">Today Leaves</h4>
-                <a href="/leavetypeForm">Add Leave Type</a>
+                <h4 class="card-title mb-0 ">Today Leaves</h4>
+                <a href="/leavetypeForm" class="list-group-item text-center active button-5 text-white">Add Leave Type</a></div>
+                
             </div>
             <div class="card-body">
                 <div class="employee-office-table">
