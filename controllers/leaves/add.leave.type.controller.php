@@ -3,15 +3,16 @@ require "../../database/database.php";
 require "../../models/leavetype.model.php";
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $typename = $_POST['typename'];
+    $typedetail = $_POST['typedesc'];
     // $typedesc=$_POST['typedesc'];
-    if ($typename !== '') {
-        $iscreated = addLeaveType($typename);
+    if ($typename !== '' and $typedetail !== '') {
+        $iscreated = addLeaveType($typename, $typedetail);
         if ($iscreated) {
             header("location: /leavetype");
         } else {
             header("location: /leavetypeForm");
         }
-    }else {
+    } else {
         header("location: /leavetypeForm");
     }
 }
