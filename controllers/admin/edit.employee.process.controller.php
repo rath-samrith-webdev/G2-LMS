@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     if (!empty($uid) and !empty($first_name) and !empty($last_name) and !empty($date_of_birth) and !empty($salary) and !empty($role) and !empty($department) and !empty($position)) {
         $isUpdate = updateUser($uid, $first_name, $last_name, $date_of_birth, $phone_number, $email, $password, $position, $role, $department, $salary);
         if ($isUpdate) {
-            header("location: /manages");
+            header("location: /employeelist");
         } else {
             header("location: /editEmployee?uid=" . $uid);
         }
