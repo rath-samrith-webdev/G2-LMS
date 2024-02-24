@@ -272,10 +272,10 @@ if (isset($_SESSION['user'])) {
                                         <div class="col-6 align-items-center text-center">
                                             <a href="/admin" class="text-white active p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                         </div>
-                                        <!-- <div class="col-6 align-items-center shadow-none text-center">
-                                             <a href="/employees" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
-                                         </div> -->
                                         <?php if (!$userExist and $adminExist) { ?>
+                                            <div class="col-6 align-items-center shadow-none text-center">
+                                                <a href="/employeelist" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
+                                            </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/companies" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
                                             </div>
@@ -287,9 +287,9 @@ if (isset($_SESSION['user'])) {
                                         <div class="col-6 align-items-center shadow-none text-center">
                                             <a href="/leaves" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
                                         </div>
-                                        <!-- <div class="col-6 align-items-center shadow-none text-center">
-                                             <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
-                                         </div> -->
+                                        <div class="col-6 align-items-center shadow-none text-center">
+                                            <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
+                                        </div>
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/leaveReports" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Leave Reports</span></a>
@@ -298,7 +298,7 @@ if (isset($_SESSION['user'])) {
                                                 <a href="/leavetype" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/manages" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Employee list</span></a>
+                                                <a href="/manages" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Manages</span></a>
                                             </div>
                                         <?php } else { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
