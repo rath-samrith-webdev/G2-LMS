@@ -14,10 +14,10 @@ if (isset($_POST['email']) && isset($_POST['password'])){
     $password = validate($_POST['password']);
     if (empty($name)){
         header("Location: /?error=User name is not correct");
-        ecit();
+        exit();
     }elseif(empty($password)){
         header("Location: /?error=Password is not correct");
-        ecit();
+        exit();
     }else{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

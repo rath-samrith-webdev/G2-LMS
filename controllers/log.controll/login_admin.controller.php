@@ -13,11 +13,11 @@ if (isset($_POST['name']) && isset($_POST['password'])){
     $name = validate($_POST['name']);
     $password = validate($_POST['password']);
     if (empty($name)){
-        header("Location: /?error=User aAdmin is not correct");
-        ecit();
+        header("Location: /loginAdmin?error=User aAdmin is not correct");
+        exit();
     }elseif(empty($password)){
-        header("Location: /?error=Password is not correct");
-        ecit();
+        header("Location: /loginAdmin?error=Password is not correct");
+        exit();
     }else{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
