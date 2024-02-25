@@ -32,7 +32,7 @@ require "layouts/navbar.php"; ?>
 					</div>
 					<div class="card-right">
 						<h4 class="card-title">Companies</h4>
-						<p class="card-text">30</p>
+						<p class="card-text"><?= count($allCompany) ?></p>
 					</div>
 				</div>
 			</div>
