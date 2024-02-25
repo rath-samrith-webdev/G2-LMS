@@ -1,5 +1,4 @@
 <?php
-// header("location: /admin");
 session_start();
 require '../../database/database.php';
 require '../../models/employee.model.php';
@@ -21,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['login'] = 1;
             header('Location: /employees');
         }
-    } else {
-        header('Location: /');
+    }
+    else{
+        // header('Location: /');
     }
 }

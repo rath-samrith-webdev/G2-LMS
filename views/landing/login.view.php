@@ -14,6 +14,9 @@
 
                         <!-- Form -->
                         <form action="controllers/log.controll/login.controller.php" method="post">
+                            <?php if(isset($_GET['error'])) {?>
+                                <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error'];?></p>
+                            <?php } ?>
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="User Email" name="email">
                             </div>
