@@ -18,7 +18,7 @@
                                 <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error'];?></p>
                             <?php } ?>
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="User Email" name="email">
+                                <input class="form-control" type="email" placeholder="User Email" name="email" required>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Password" name="password">

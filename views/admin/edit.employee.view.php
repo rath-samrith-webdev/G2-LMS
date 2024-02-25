@@ -14,6 +14,11 @@ require "layouts/navbar.php"; ?>
             <div class="card-body p-0">
                 <div id="basic-one" class="collapse show ctm-padding" aria-labelledby="basic1" data-parent="#accordion-details">
                     <div class="row">
+                        <div class="col pb-2">
+                            <img src="<?= $user['profile'] ?>" alt="" class="img-fluid rounded-circle" width="100">
+                        </div>
+                    </div>
+                    <div class="row">
                         <input type="hidden" class="form-control" placeholder="First Name" value="<?= $user['uid'] ?>" name="uid">
                         <div class="col form-group">
                             <input type="text" class="form-control" placeholder="First Name" value="<?= $user['first_name'] ?>" name="first_name">
@@ -61,12 +66,15 @@ require "layouts/navbar.php"; ?>
                             </select>
                         </div>
                         <div class="col-12 form-group">
-                            <?php for ($i = 0; $i < count($roles); $i++) {
-                                if ($roles[$i]['role_id'] === $user['role_id']) {
-                                    $role = $roles[$i];
-                                }
-                            } ?>
-                            <input type="text" name="role" class="form-control" placeholder="Job Title" value="<?= $role['role_id'] ?>">
+                            <select name="role" id="role" class="form-control select">
+                                <?php for ($i = 0; $i < count($roles); $i++) {
+                                    if ($roles[$i]['role_id'] == $user['role_id']) { ?>
+                                        <option value="<?= $roles[$i]['role_id'] ?>" selected><?= $roles[$i]['role_name'] ?></option>
+                                    <?php } else { ?>
+                                        <option value="<?= $roles[$i]['role_id'] ?>"><?= $roles[$i]['role_name'] ?></option>
+                                <?php }
+                                } ?>
+                            </select>
                         </div>
                         <div class="col-12 form-group mb-0">
                             <p class="mb-2">Employment Type</p>

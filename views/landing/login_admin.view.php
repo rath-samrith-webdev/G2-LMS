@@ -15,6 +15,9 @@
 
                         <!-- Form -->
                         <form action="controllers/log.controll/login_admin.controller.php" method="post">
+                            <?php if(isset($_GET['error'])) {?>
+                                <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error'];?></p>
+                            <?php } ?>
                         <!-- <?php if(isset($_GET['error'])) {?>
                                 <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error'];?></p>
                             <?php } ?> -->

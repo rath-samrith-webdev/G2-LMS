@@ -19,7 +19,7 @@ require "layouts/navbar.php"; ?>
 					</div>
 					<div class="card-right">
 						<h4 class="card-title">Employees</h4>
-						<p class="card-text">700</p>
+						<p class="card-text"><?= count($allemployee) ?></p>
 					</div>
 				</div>
 			</div>
@@ -45,7 +45,7 @@ require "layouts/navbar.php"; ?>
 					</div>
 					<div class="card-right">
 						<h4 class="card-title">Leaves</h4>
-						<p class="card-text">3</p>
+						<p class="card-text"><?= count($allLeaves) ?></p>
 					</div>
 				</div>
 			</div>
