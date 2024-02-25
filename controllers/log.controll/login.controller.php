@@ -41,5 +41,8 @@ if (isset($_POST['email']) && isset($_POST['password'])){
                 header('Location: /');
             }
         }
+        else{
+            header('Location: /');
+        }
     }
 }
