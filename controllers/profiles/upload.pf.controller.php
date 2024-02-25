@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         } else {
                             move_uploaded_file($filetmpName, $directory);
                         }
-                        header('location: /manages');
+                        header('location: /profiles?uid='.$uid);
                     }
                 } else {
                     header('location: /profileImage?user=notfound');

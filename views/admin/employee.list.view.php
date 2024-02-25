@@ -23,7 +23,7 @@ require "layouts/navbar.php"; ?>
                     <a class="nav-link border-0 font-23 list-view" href="employees-list.html"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item pl-3">
-                    <a href="add-employee.html" class="btn btn-theme button-1 text-white ctm-border-radius p-2 add-person ctm-btn-padding"><i class="fa fa-plus"></i> Add Person</a>
+                    <a href="/createEmployee" class="btn btn-theme button-1 text-white ctm-border-radius p-2 add-person ctm-btn-padding"><i class="fa fa-plus"></i> Add Person</a>
                 </li>
             </ul>
         </div>

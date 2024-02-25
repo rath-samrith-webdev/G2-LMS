@@ -56,6 +56,7 @@ include "layouts/navbar.php";
 				</div>
 				<div class="card-body text-center">
 					<img src="<?php echo (isset($user)) ? $user['profile'] : 'assets/profile/img-2.jpg'; ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
+					<a href="/profileImage?id=<?php echo $user['uid']?>">Change Profile</a>
 				</div>
 			</div>
 		</div>
