@@ -138,6 +138,7 @@ include "layouts/navbar.php"; ?>
 							<table class="table custom-table mb-0">
 								<thead>
 									<tr>
+										<th>Request ID</th>
 										<th>Employee</th>
 										<th>Leave Type</th>
 										<th>From</th>
@@ -149,6 +150,7 @@ include "layouts/navbar.php"; ?>
 								<tbody>
 									<?php foreach ($leave_requests as $request) { ?>
 										<tr>
+											<td><?= $request['request_id'] ?></td>
 											<td>
 												<h2><a href="employment.html"><?= $request['first_name'] ?></a></h2>
 											</td>
@@ -168,7 +170,7 @@ include "layouts/navbar.php"; ?>
 											</td>
 											<td></td>
 											<td class="text-right text-danger">
-												<a href="controllers/leaves/delete_leave.request.controllers.php?request_id=<?= $request['request_id'] ?>" class="btn btn-sm btn-outline-danger" data-target="#delete">
+												<a href="#" class="btn btn-sm btn-outline-danger deletebtn">
 													<span class="lnr lnr-trash"></span> Delete</a>
 											</td>
 										</tr>
@@ -193,30 +195,6 @@ include "layouts/navbar.php"; ?>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 
 <!--Delete The Modal -->
-<div class="modal fade" id="removemedal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"> Remove all requests</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-
-			<form action="/removeall" method="POST">
-				<div class="modal-body">
-					<input type="hidden" name="delete_id" id="delete_id">
-					<h6> All the request will be lost. Are you sure? </h4>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal"> I'm not sure </button>
-					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Yes I'm sure </button>
-				</div>
-			</form>
-
-		</div>
-	</div>
-</div>
 <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -230,7 +208,7 @@ include "layouts/navbar.php"; ?>
 			<form action="/removeall" method="POST">
 				<div class="modal-body">
 					<input type="hidden" name="delete_id" id="delete_id">
-					<h6> Are you sure you want to delete the request? </h4>
+					<h6> Are you sure you want to remove all the requests? </h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"> I'm not sure </button>
@@ -241,18 +219,26 @@ include "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="deletebtn">
-	<div class="modal-dialog modal-dialog-centered">
+<div class="modal fade" id="deletebtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
-			?<form action="controllers/leaves/edit_leave_request.controller.php" method="post">
-				<!-- Modal body -->
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"> Remove leave requests</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form action="controllers/leaves/delete_leave.request.controllers.php" method="POST">
 				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title mb-3">Are You Sure Want to Delete?</h4>
-					<button type="button" class="btn btn-danger ctm-border-radius text-white text-center mb-2 mr-3" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-theme ctm-border-radius text-white text-center mb-2 button-1" data-dismiss="modal">Delete</button>
+					<input type="hidden" name="request_id" id="request_id">
+					<h6> Are you sure you want to delete this request? </h6>
 				</div>
-				<!-- </form> -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Remove </button>
+				</div>
+			</form>
+
 		</div>
 	</div>
 </div>

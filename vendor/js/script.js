@@ -106,19 +106,21 @@ $(document).mousedown(function (e) {
 $(document).ready(function () {
   $(".removebtn").on("click", function () {
     $("#deletemodal").modal("show");
+    console.log(data);
+  });
+});
+$(document).ready(function () {
+  $(".deletebtn").on("click", function () {
+    $("#deletebtn").modal("show");
 
     $tr = $(this).closest("tr");
-
     var data = $tr
       .children("td")
       .map(function () {
         return $(this).text();
       })
       .get();
-
-    console.log(data);
-
-    $("#delete_id").val(data[0]);
+    console.log(data[0]);
+    $("#request_id").val(data[0]);
   });
 });
-

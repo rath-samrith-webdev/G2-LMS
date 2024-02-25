@@ -56,9 +56,24 @@ include "layouts/navbar.php";
 				</div>
 				<div class="card-body text-center">
 					<img src="<?php echo (isset($user)) ? $user['profile'] : 'assets/profile/img-2.jpg'; ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
-					<a href="/profileImage?id=<?php echo $user['uid']?>">Change Profile</a>
+					<a href="/profileImage?id=<?php echo $user['uid'] ?>">Change Profile</a>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="deletebtn">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			?<form action="controllers/leaves/edit_leave_request.controller.php" method="post">
+				<!-- Modal body -->
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title mb-3">Are You Sure Want to Delete?</h4>
+					<button type="button" class="btn btn-danger ctm-border-radius text-white text-center mb-2 mr-3" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-theme ctm-border-radius text-white text-center mb-2 button-1" data-dismiss="modal">Delete</button>
+				</div>
+				<!-- </form> -->
 		</div>
 	</div>
 </div>

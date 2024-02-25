@@ -1,8 +1,8 @@
 
 <?php
 require "../../database/database.php";
-if (isset($_GET['request_id'])) {
-    $request_id = $_GET['request_id'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $request_id = $_POST['request_id'];
     if ($request_id !== "" || $request_id !== 0) {
         require '../../models/leave_request.model.php';
         deleteLeaveData($request_id);
