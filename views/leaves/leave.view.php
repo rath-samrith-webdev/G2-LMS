@@ -138,7 +138,7 @@ include "layouts/navbar.php"; ?>
 							<table class="table custom-table mb-0">
 								<thead>
 									<tr>
-										<th>Request ID</th>
+										<th style =" display: none">Request ID</th>
 										<th>Employee</th>
 										<th>Leave Type</th>
 										<th>From</th>
@@ -150,7 +150,7 @@ include "layouts/navbar.php"; ?>
 								<tbody>
 									<?php foreach ($leave_requests as $request) { ?>
 										<tr>
-											<td><?= $request['request_id'] ?></td>
+											<td style =" display: none"><?= $request['request_id'] ?></td>
 											<td>
 												<h2>
 													<div class="avatar">
