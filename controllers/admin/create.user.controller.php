@@ -1,8 +1,6 @@
 <?php
 require "../../database/database.php";
-// require_once "../../database/database.php";
 require "../../models/user.model.php";
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fsname = htmlspecialchars($_POST['fsname']);
@@ -17,12 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $roles=htmlspecialchars($_POST['roles']);
     $leaves=htmlspecialchars($_POST['leaves']);
    
-
-
-  
-    // echo $fsname;
     $isCreate =  createUser($fsname, $lsname, $dateOfbirht, $phoneNumber, $email, $password,$salary,$positions,$deparments,$roles,$leaves);
-    
+
     if ($isCreate) {
         header('Location: /manages');
     } else {
