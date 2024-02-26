@@ -1,5 +1,6 @@
 <?php
 
+// ======== create Post select title and descreiption =============
 function createPost(string $title, string $description) : bool
 {
     global $connection;
@@ -13,6 +14,7 @@ function createPost(string $title, string $description) : bool
     return $statement->rowCount() > 0;
 }
 
+// ======= Get Post select id ========
 function getPost(int $id) : array
 {
     global $connection;
@@ -21,6 +23,7 @@ function getPost(int $id) : array
     return $statement->fetch();
 }
 
+// ====== Get Posts select All ========
 function getPosts() : array
 {
     global $connection;
@@ -29,6 +32,7 @@ function getPosts() : array
     return $statement->fetchAll();
 }
 
+// ======== Update Post ========
 function updatePost(string $title, string $description, int $id) : bool
 {
     global $connection;
@@ -43,6 +47,7 @@ function updatePost(string $title, string $description, int $id) : bool
     return $statement->rowCount() > 0;
 }
 
+ // ======= delete Post ========
 function deletePost(int $id) : bool
 {
     global $connection;
@@ -51,7 +56,7 @@ function deletePost(int $id) : bool
     return $statement->rowCount() > 0;
 }
 
-//login
+// ====== create Account ======
 function createAccount(string $name, string $email, string $password): bool {
     global $connection;
     $statement = $connection->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
@@ -64,16 +69,15 @@ function createAccount(string $name, string $email, string $password): bool {
     return $statement->rowCount() > 0;
 };
 
-//check email
+// ====== check email =======
 function accountExist(string $email): array {
     global $connection;
     $statement = $connection->prepare("SELECT * FROM users WHERE email = :email");
     $statement -> execute([':email'=>$email]);
-    // return $statement->fetch();
     if($statement->rowCount() > 0){
         return $statement -> fetch();
 
     }else{
         return [];
-    }
-}
+    };
+};

@@ -1,6 +1,7 @@
 <?php
 require "../../database/database.php";
 require "../../models/profile.model.php";
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file = $_FILES['file'];
     $uid = $_POST['uid'];
@@ -13,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fileExt = explode('.', $filename);
     $fileActualExt = strtolower(end($fileExt));
     $allow = array('jpg', 'jpeg', 'png');
+
+    // ======= upload profile image =======
     if (in_array($fileActualExt, $allow)) {
         if ($fileError === 0) {
             if ($fileSize < 1000000) {
@@ -45,5 +48,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "You are not allow to upload this file";
         header('location: /profileImage?file=unsupported');
-    }
-}
+    };
+};

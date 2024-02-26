@@ -1,5 +1,5 @@
 <?php
-// Get one user profile from user
+// ======== Get one user profile from user ==========
 function oneUser(int $uid): array
 {
     global $connection;
@@ -9,6 +9,8 @@ function oneUser(int $uid): array
     ]);
     return $statement->fetch();
 };
+
+// ======== get select all of data ==========
 function getAll(): array
 {
     global $connection;
@@ -16,8 +18,8 @@ function getAll(): array
     $statement->execute();
     return $statement->fetchAll();
 }
-// update profile image(file path)
 
+// ======== update profile image(file path) ========
 function updateProfile(int $uid, string $newpath): bool
 {
     global $connection;
@@ -30,6 +32,8 @@ function updateProfile(int $uid, string $newpath): bool
     );
     return $statement->rowCount() > 0;
 }
+
+// ========= get select of positions ==========
 function getpositions(): array
 {
     global $connection;
@@ -37,6 +41,8 @@ function getpositions(): array
     $statement->execute();
     return $statement->fetchAll();
 }
+
+// ========= get select of user roles =========
 function getRoles(): array
 {
     global $connection;
@@ -44,6 +50,8 @@ function getRoles(): array
     $statement->execute();
     return $statement->fetchAll();
 }
+
+// ======== get select of departments ========
 function getDepartments(): array
 {
     global $connection;
@@ -51,6 +59,8 @@ function getDepartments(): array
     $statement->execute();
     return $statement->fetchAll();
 }
+
+// ======== Updata user =======
 function updateUser($uid, $first_name, $last_name, $date_of_birth, $phone_number, $email, $password, $position, $role, $department, $salary): bool
 {
     global $connection;

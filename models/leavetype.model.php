@@ -1,4 +1,6 @@
 <?php
+
+// ====== get select All =======
 function getAlltypes()
 {
     global $connection;
@@ -7,7 +9,7 @@ function getAlltypes()
     return $statement->fetchAll();
 }
 
-// ========add leavetype===============
+// ======== add leavetype ===============
 function addLeaveType($desc, $detail): bool
 {
     global $connection;
@@ -21,7 +23,7 @@ function addLeaveType($desc, $detail): bool
     return $statement->rowCount() > 0;
 }
 
-// ======== Edit leave type=============
+// ======== Edit leave type =============
 function getleaveType($id): array
 {
     global $connection;
@@ -31,6 +33,8 @@ function getleaveType($id): array
     );
     return $statement->fetch();
 };
+
+// ======== Updata leave Type of data========
 function updateLeaveType($id, $desc, $detail): bool
 {
     global $connection;

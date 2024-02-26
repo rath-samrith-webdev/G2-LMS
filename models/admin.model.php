@@ -9,12 +9,11 @@ function createAccount(string $name, string $password): bool {
     return $statement->rowCount() > 0;
 };
 
-//check password
+// ======= check password ==========
 function accountExist(string $password): array {
     global $connection;
     $statement = $connection->prepare("SELECT * FROM admins WHERE admin_password = :admin_password");
     $statement -> execute([':admin_password'=>$password]);
-    // return $statement->fetch();
     if($statement->rowCount() > 0){
         return $statement -> fetch();
 

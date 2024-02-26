@@ -1,4 +1,6 @@
 <?php
+
+// ======== create Users ========
 function createUser(string $fsname, string $lsname, string $dateOfbirth, string $phoneNumer, string $email, string $password, string $salary, string $positions,string $roles,string $departments,string $leaves) : bool
 {
     global $connection;
@@ -21,6 +23,8 @@ function createUser(string $fsname, string $lsname, string $dateOfbirth, string 
 
     return $statement->rowCount() > 0;
 }
+
+// ======== get select of departments ==========
 function getDepartments():array{
     global $connection;
     $statement = $connection->prepare("SELECT * FROM departments");
@@ -28,6 +32,7 @@ function getDepartments():array{
     return $statement->fetchAll();
 }
 
+// ======= delete of users ======== 
 function deleteUser(int $id) : bool
 {
     global $connection;
@@ -36,6 +41,7 @@ function deleteUser(int $id) : bool
     return $statement->rowCount() > 0;
 }
 
+// ======== get select of postions =========
 function getPositions():array{
     global $connection;
     $statment = $connection->prepare("SELECT * FROM postions");
@@ -43,12 +49,15 @@ function getPositions():array{
     return $statment->fetchAll();
 }
 
+// ======== get select of user roles ========
 function getUserrole():array{
     global $connection;
     $statment = $connection->prepare("SELECT * FROM userroles");
     $statment->execute();
     return $statment->fetchAll();
 }
+
+// ======== get select of users ========
 function getUsers():array{
     global $connection;
     $statment = $connection->prepare("SELECT * FROM users");

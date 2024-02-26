@@ -1,7 +1,6 @@
 <?php
 
-// get all companies from database
-
+// ======== get all companies from database =========
 function getAllCompany()
 {
     global $connection;

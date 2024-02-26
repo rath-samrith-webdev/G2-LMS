@@ -1,6 +1,7 @@
 <?php
 require "../../database/database.php";
 require "../../models/leavetype.model.php";
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $id = $_POST['id'];
     $typename = $_POST['typename'];
@@ -14,5 +15,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     } else {
         header("location: /leavetypeForm");
-    }
-}
+    };
+};

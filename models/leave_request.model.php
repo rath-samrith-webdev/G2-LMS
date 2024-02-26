@@ -1,5 +1,6 @@
 <?php
 
+// ======== post insert in data ======== 
 function postLeaveData(string $title, string $description): bool
 {
 
@@ -13,6 +14,7 @@ function postLeaveData(string $title, string $description): bool
     return $statement->rowCount() > 0;
 }
 
+// ======== get select data All =========
 function getLeaveData(): array
 {
     global $connection;
@@ -21,6 +23,8 @@ function getLeaveData(): array
 
     return $statement->fetchAll();
 }
+
+// ========= get select All of total requests ======== 
 function getALlleaves()
 {
     global $connection;
@@ -30,6 +34,7 @@ function getALlleaves()
     return $statement->fetchAll();
 }
 
+// ======= Update data ========
 function updateLeaveData(int $status, int $request_id): bool
 {
     global $connection;
@@ -42,6 +47,7 @@ function updateLeaveData(int $status, int $request_id): bool
     return $statement->rowCount() > 0;
 }
 
+// ========= Remove All of data ==========
 function removeAll(): bool
 {
     global $connection;
@@ -49,6 +55,8 @@ function removeAll(): bool
     $statement->execute();
     return $statement->rowCount() == 0;
 }
+
+// ======== delete data =========
 function deleteLeaveData(int $request_id): bool
 {
     global $connection;

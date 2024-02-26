@@ -1,5 +1,6 @@
 <?php
 require "../../database/database.php";
+
 if (isset($_GET['deleteType'])) {
     $leaveType_id = $_GET['deleteType'];
     if ($leaveType_id !== "" || $leaveType_id !== 0) {

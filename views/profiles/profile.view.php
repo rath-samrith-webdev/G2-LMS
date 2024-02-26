@@ -29,7 +29,9 @@ include "layouts/navbar.php";
 				</div>
 				<div class="card-body text-center">
 					<p class="card-text mb-3"><span class="text-primary">Phone Number : </span><?= $user['phone_number'] ?></p>
-					<p class="card-text mb-3"><span class="text-primary">Personal Email : </span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfb2beadb6bebcb0ababb0b19fbaa7beb2afb3baf1bcb0b2"><?= $user['email'] ?></a></p>
+					<p class="card-text mb-3"><span class="text-primary">Personal Email : </span>
+						<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfb2beadb6bebcb0ababb0b19fbaa7beb2afb3baf1bcb0b2"><?= $user['email'] ?></a>
+					</p>
 					<p class="card-text mb-3"><span class="text-primary">Secondary Number : </span>986754231</p>
 				</div>
 			</div>

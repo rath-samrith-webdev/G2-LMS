@@ -9,9 +9,11 @@ if (isset($_POST['email']) && isset($_POST['password'])){
         $data = stripcslashes($data);
         $data = htmlspecialchars($data);
         return $data;
-    }
+    };
+
     $name = validate($_POST['email']);
     $password = validate($_POST['password']);
+
     if (empty($name)){
         header("Location: /?error=User name is not correct");
         exit();
@@ -22,12 +24,14 @@ if (isset($_POST['email']) && isset($_POST['password'])){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $email = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']); //123
+            $password = htmlspecialchars($_POST['password']);
 
             // Get data from database
             $user = accountExist($email);
+
             // Check if user exists
             if (count($user) > 0) {
+
                 // Check if password is correct
                 if (password_verify($password, $user["password"])) {
                     echo "Password is incorrect";
@@ -36,13 +40,11 @@ if (isset($_POST['email']) && isset($_POST['password'])){
                     $_SESSION['login'] = 1;
                     header('Location: /employees');
                 }
-            }
-            else{
+            }else{
                 header('Location: /');
             }
-        }
-        else{
+        }else{
             header('Location: /');
-        }
-    }
-}
+        };
+    };
+};

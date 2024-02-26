@@ -1,8 +1,8 @@
 <?php
-// header("location: /admin");
 session_start();
 require '../../database/database.php';
 require '../../models/admin.model.php';
+
 if (isset($_POST['name']) && isset($_POST['password'])){
     function validate($data){
         $data = trim($data);
@@ -22,24 +22,25 @@ if (isset($_POST['name']) && isset($_POST['password'])){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $email = htmlspecialchars($_POST['name']);
-            $password = htmlspecialchars($_POST['password']); //123
+            $password = htmlspecialchars($_POST['password']);
 
-    // Get data from database
-    $user = accountExist($password);
-    // Check if user exists
-    if (count($user) > 0) {
-        // Check if password is correct
-        if (password_verify($password, $user["password"])) {
-            echo "Password is incorrect";
-        } else {
-            $_SESSION['user'] = $user;
-            $_SESSION['login'] = 1;
-            header('Location: /admin');
-        }
-    }else {
-                header('Location: /loginAdmin');
+        // Get data from database
+        $user = accountExist($password);
+
+        // Check if user exists
+        if (count($user) > 0) {
+
+            // Check if password is correct
+            if (password_verify($password, $user["password"])) {
+                echo "Password is incorrect";
+            } else {
+                $_SESSION['user'] = $user;
+                $_SESSION['login'] = 1;
+                header('Location: /admin');
             }
-        }
-
-    }
-}
+        }else {
+                header('Location: /loginAdmin');
+            };
+        };
+    };
+};
