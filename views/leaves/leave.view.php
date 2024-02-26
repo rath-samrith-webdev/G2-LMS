@@ -152,18 +152,27 @@ include "layouts/navbar.php"; ?>
 										<tr>
 											<td><?= $request['request_id'] ?></td>
 											<td>
-												<h2><a href="employment.html"><?= $request['first_name'] ?></a></h2>
+												<h2>
+													<div class="avatar">
+														<img alt="avatar image" src="<?= $request['profile'] ?>" class="img-fluid">
+													</div>
+													<a href="employment.html"><?= $request['first_name'] . " " . $request['last_name'] ?></a>
+												</h2>
 											</td>
-											<td>Parental Leave</td>
-											<td>05 Dec 2019</td>
-											<td>07 Dec 2019</td>
+											<td><?= $request['leaveType_desc'] ?></td>
+											<td><?= $request['start_date'] ?></td>
+											<td><?= $request['end_date'] ?></td>
 											<td>
 												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
 													<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
 													<select name="leave_status" class="form-control">
-														<?php foreach ($leaves as $leave) { ?>
-															<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
-														<?php } ?>
+														<?php foreach ($leaves as $leave) {
+															if ($leave['status_desc'] == $request['status_desc']) { ?>
+																<option value="<?= $leave["status_id"] ?>" selected><?= $leave['status_desc'] ?></option>
+															<?php  } else { ?>
+																<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
+														<?php }
+														} ?>
 													</select>
 													<button class="btn btn-theme button-1 text-white">Save</button>
 												</form>

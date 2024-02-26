@@ -102,7 +102,7 @@ $(document).mousedown(function (e) {
   }
   return true;
 });
-
+// delete functions
 $(document).ready(function () {
   $(".removebtn").on("click", function () {
     $("#deletemodal").modal("show");
