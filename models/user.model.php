@@ -17,7 +17,6 @@ function createUser(string $fsname, string $lsname, string $dateOfbirth, string 
         ':role_id'=> $roles,
         ':department_id'=>$departments,
         ':total_allowed_leave'=>$leaves,
-
     ]);
 
     return $statement->rowCount() > 0;
