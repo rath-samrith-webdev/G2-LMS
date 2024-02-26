@@ -2,11 +2,14 @@
 require "database/database.php";
 require "models/profile.model.php";
 require "models/leave_request.model.php";
+require "models/company.model.php";
 
 // ======= Capture function form profile model ========
-require "models/company.model.php";
 $allemployee = getAll();
 
 // ======= Capture function form leave_request model ======
 $allLeaves = getALlleaves();
+
+// ======= Capture function form company model ======
+$allCompany = getAllCompany();
 require "views/admin/admin.view.php";
