@@ -14,13 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $deparments=htmlspecialchars($_POST['departments']);
     $roles=htmlspecialchars($_POST['roles']);
     $leaves=htmlspecialchars($_POST['leaves']);
-   
+  
     $isCreate =  createUser($fsname, $lsname, $dateOfbirht, $phoneNumber, $email, $password,$salary,$positions,$deparments,$roles,$leaves);
-
+    
     if ($isCreate) {
-        header('Location: /manages');
+        header('Location: /employeelist');
     } else {
         header('Location: /create');
-        
     }
 }
