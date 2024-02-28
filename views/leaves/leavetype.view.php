@@ -17,6 +17,7 @@ require "layouts/navbar.php"; ?>
                                     <th style =" display: none">Type ID</th>
                                     <th>Type Name</th>
                                     <th>Type description</th>
+                                    <th>duration</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -29,6 +30,7 @@ require "layouts/navbar.php"; ?>
                                         </td>
                                         <td><?= $type['leaveType_desc'] ?></td>
                                         <td><?= $type['leaveType_detail'] ?></td>
+                                        <td><?= $type['duration'] ?></td>  
                                         <td><a href="/editLeaveType?id=<?= $type['leaveType_id'] ?>" class="btn btn-theme ctm-border-radius text-white btn-sm">Edit</a></td>
                                         <td class="text-danger">
                                             <a href="controllers/leaves/delete_leave_type.controller.php?deleteType=<?= $type['leaveType_id'] ?>" class="btn btn-sm btn-outline-danger"  data-target="#delete">
