@@ -64,3 +64,15 @@ function deleteLeaveData(int $request_id): bool
     $statement->execute([':request_id' => $request_id]);
     return $statement->rowCount() > 0;
 }
+// =========Get leave request on specific date======
+
+function allLeavesToday($date)
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where start_date=:date");
+    $statement->execute(
+        [':date' => $date]
+    );
+
+    return $statement->fetchAll();
+}

@@ -111,21 +111,24 @@ require "layouts/navbar.php"; ?>
 							</div>
 						</a>
 						<hr>
-						<a href="javascript:void(0)" class="dash-card text-dark">
-							<div class="dash-card-container">
-								<div class="dash-card-icon text-warning">
-									<i class="fa fa-bed" aria-hidden="true"></i>
+						<?php
+						foreach ($todayLeaves as $leaves) { ?>
+							<a href="javascript:void(0)" class="dash-card text-dark">
+								<div class="dash-card-container">
+									<div class="dash-card-icon text-warning">
+										<i class="fa fa-bed" aria-hidden="true"></i>
+									</div>
+									<div class="dash-card-content">
+										<h6 class="mb-0"><?= $leaves['first_name'] ?> is on <?= $leaves['leaveType_desc'] ?> Today</h6>
+									</div>
+									<div class="dash-card-avatars">
+										<div class="e-avatar"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Avatar"></div>
+									</div>
 								</div>
-								<div class="dash-card-content">
-									<h6 class="mb-0">Ralph Baker is off sick today</h6>
-								</div>
-								<div class="dash-card-avatars">
-									<div class="e-avatar"><img class="img-fluid" src="assets/images/profiles/img-2.jpg" alt="Avatar"></div>
-								</div>
-							</div>
-						</a>
-						<hr>
-						<a href="javascript:void(0)" class="dash-card text-dark">
+							</a>
+							<hr>
+						<?php } ?>
+						<!-- <a href="javascript:void(0)" class="dash-card text-dark">
 							<div class="dash-card-container">
 								<div class="dash-card-icon text-success">
 									<i class="fa fa-child" aria-hidden="true"></i>
@@ -165,7 +168,7 @@ require "layouts/navbar.php"; ?>
 									<div class="e-avatar"><img class="img-fluid" src="assets/images/profiles/img-2.jpg" alt="Maria Cotton"></div>
 								</div>
 							</div>
-						</a>
+						</a> -->
 					</div>
 				</div>
 			</div>

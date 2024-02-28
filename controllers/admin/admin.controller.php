@@ -12,4 +12,7 @@ $allLeaves = getALlleaves();
 
 // ======= Capture function form company model ======
 $allCompany = getAllCompany();
+$timestamp = time();
+$currentDate = gmdate('Y-m-d', $timestamp);
+$todayLeaves = allLeavesToday($currentDate);  // Get number of leaves for today
 require "views/admin/admin.view.php";
