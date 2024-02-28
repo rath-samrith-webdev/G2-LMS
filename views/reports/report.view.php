@@ -37,7 +37,7 @@ include "layouts/navbar.php";
 	</div>
 	<div class="card shadow-sm grow ctm-border-radius">
 		<div class="card-body align-center">
-			<ul class="nav flex-row nav-pills" id="pills-tab" role="tablist">
+			<ul class="nav flex-row nav-pills d-flex justify-content-between" id="pills-tab" role="tablist">
 				<li class="nav-item mr-2">
 					<a class="nav-link active mb-2" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Official Reports</a>
 				</li>
@@ -63,7 +63,7 @@ include "layouts/navbar.php";
 										<th>From</th>
 										<th>To</th>
 										<th>Days</th>
-										<th>Remaining Days</th>
+										<!-- <th>Remaining Days</th> -->
 										<th>Notes</th>
 										<th>Status</th>
 										<th class="text-right">Action</th>
@@ -79,40 +79,8 @@ include "layouts/navbar.php";
 										<td>05 Dec 2019</td>
 										<td>07 Dec 2019</td>
 										<td>3</td>
-										<td>9</td>
+										<!-- <td>9</td> -->
 										<td>Parenting Leave</td>
-										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
-										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a></td>
-									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-4.jpg" alt="Linda Craver" class="img-fluid"></a>
-											<h2><a href="employment.html">Linda Craver</a></h2>
-										</td>
-										<td>Sick Leave</td>
-										<td>05 Dec 2019</td>
-										<td>05 Dec 2019</td>
-										<td>1</td>
-										<td>11</td>
-										<td>Going to Hospital</td>
-										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
-										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-												<span class="lnr lnr-trash"></span> Delete
-											</a></td>
-									</tr>
-									<tr>
-										<td>
-											<a href="employment.html" class="avatar"><img src="assets/img/profiles/img-3.jpg" alt="Jenni Sims" class="img-fluid"></a>
-											<h2><a href="employment.html">Jenni Sims</a></h2>
-										</td>
-										<td>Working From Home</td>
-										<td>05 Dec 2019</td>
-										<td>05 Dec 2019</td>
-										<td>1</td>
-										<td>11</td>
-										<td>Raining</td>
 										<td><a href="javascript:void(0)" class="btn btn-theme ctm-border-radius text-white btn-sm">Approved</a></td>
 										<td class="text-right text-danger"><a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
 												<span class="lnr lnr-trash"></span> Delete

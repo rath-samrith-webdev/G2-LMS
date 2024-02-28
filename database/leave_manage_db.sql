@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2024 at 01:58 AM
+-- Generation Time: Feb 25, 2024 at 03:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -153,8 +153,11 @@ CREATE TABLE `leave_requests` (
 --
 
 INSERT INTO `leave_requests` (`request_id`, `uid`, `leavetype_id`, `start_date`, `end_date`, `status_id`) VALUES
-(1, 1, 1, '2024-02-08', '2024-02-16', 3),
-(2, 2, 2, '2024-02-08', '2024-02-16', 2);
+(7, 14, 2, '2024-02-25', '2024-03-09', 2),
+(8, 14, 3, '2024-01-21', '2024-02-03', 3),
+(9, 14, 3, '2024-01-21', '2024-02-03', 3),
+(10, 14, 3, '2024-02-14', '2024-02-25', 3),
+(11, 15, 3, '2024-02-08', '2024-02-16', 1);
 
 -- --------------------------------------------------------
 
@@ -185,16 +188,18 @@ INSERT INTO `leave_status` (`status_id`, `status_desc`) VALUES
 
 CREATE TABLE `leave_types` (
   `leaveType_id` int(11) NOT NULL,
-  `leaveType_desc` varchar(50) DEFAULT NULL
+  `leaveType_desc` varchar(50) DEFAULT NULL,
+  `leaveType_detail` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `leave_types`
 --
 
-INSERT INTO `leave_types` (`leaveType_id`, `leaveType_desc`) VALUES
-(1, 'Sick Leave'),
-(2, 'Paid Leave');
+INSERT INTO `leave_types` (`leaveType_id`, `leaveType_desc`, `leaveType_detail`) VALUES
+(1, 'Sick Leave', 'Leave on Illness.. ended'),
+(2, 'Paid Leave', 'Daily allowed leave etc...'),
+(3, 'Holiday', 'Basically a day off');
 
 -- --------------------------------------------------------
 
@@ -218,26 +223,16 @@ INSERT INTO `postions` (`position_id`, `position_name`, `position_desc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profile_status`
---
-
-CREATE TABLE `profile_status` (
-  `pid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `upload_status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Stand-in structure for view `total_requests`
 -- (See below for the actual view)
 --
 CREATE TABLE `total_requests` (
 `request_id` int(11)
 ,`uid` int(11)
+,`profile` text
 ,`first_name` varchar(50)
 ,`last_name` varchar(50)
+,`leaveType_desc` varchar(50)
 ,`start_date` date
 ,`end_date` date
 ,`status_desc` varchar(50)
@@ -260,7 +255,8 @@ CREATE TABLE `userroles` (
 --
 
 INSERT INTO `userroles` (`role_id`, `role_name`, `role_desc`) VALUES
-(1, 'Manager', 'Approve or Reject all requests');
+(1, 'Manager', 'Approve or Reject all requests'),
+(2, 'Employee', 'Have only normal access to the system');
 
 -- --------------------------------------------------------
 
@@ -289,8 +285,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uid`, `first_name`, `last_name`, `date_of_birth`, `phone_number`, `email`, `password`, `position_id`, `role_id`, `department_id`, `salary`, `total_allowed_leave`, `profile`) VALUES
-(1, 'Rath', 'Samreth', '2000-10-10', '097 86 37 281', 'rathsamreth0200@gmail.com', 'rath1234', 1, 1, 2, 4000, 12, NULL),
-(2, 'Veak', 'Khlorp', '2002-06-15', '097 86 37 281', 'khlorp.veak@student.passerellesnumeriques.org', 'veak1234', 1, 1, 1, 4000, 12, NULL);
+(14, 'Rath', 'Samreth', '2024-01-31', '097 86 37 282', 'rathsamrith.webdev@gmail.com', '', 0, 2, 0, 400, 12, 'assets/profile/profiles65d7ee699f2d79.44111168.jpg'),
+(15, 'leysreng', 'OL', '2024-01-31', '08797978', 'jamesbond112@gmail.com', '', 0, 2, 0, 400, 12, 'assets/profile/profiles65d81b00782907.47852223.jpg');
 
 -- --------------------------------------------------------
 
@@ -308,7 +304,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `total_requests`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `total_requests`  AS SELECT `leave_requests`.`request_id` AS `request_id`, `leave_requests`.`uid` AS `uid`, `users`.`first_name` AS `first_name`, `users`.`last_name` AS `last_name`, `leave_requests`.`start_date` AS `start_date`, `leave_requests`.`end_date` AS `end_date`, `leave_status`.`status_desc` AS `status_desc` FROM (((`leave_requests` join `users` on(`leave_requests`.`uid` = `users`.`uid`)) join `leave_status` on(`leave_requests`.`status_id` = `leave_status`.`status_id`)) join `leave_types` on(`leave_requests`.`leavetype_id` = `leave_types`.`leaveType_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `total_requests`  AS SELECT `leave_requests`.`request_id` AS `request_id`, `leave_requests`.`uid` AS `uid`, `users`.`profile` AS `profile`, `users`.`first_name` AS `first_name`, `users`.`last_name` AS `last_name`, `leave_types`.`leaveType_desc` AS `leaveType_desc`, `leave_requests`.`start_date` AS `start_date`, `leave_requests`.`end_date` AS `end_date`, `leave_status`.`status_desc` AS `status_desc` FROM (((`leave_requests` join `leave_types` on(`leave_requests`.`leavetype_id` = `leave_types`.`leaveType_id`)) join `users` on(`leave_requests`.`uid` = `users`.`uid`)) join `leave_status` on(`leave_requests`.`status_id` = `leave_status`.`status_id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -370,13 +366,6 @@ ALTER TABLE `postions`
   ADD PRIMARY KEY (`position_id`);
 
 --
--- Indexes for table `profile_status`
---
-ALTER TABLE `profile_status`
-  ADD PRIMARY KEY (`pid`),
-  ADD KEY `uid` (`uid`);
-
---
 -- Indexes for table `userroles`
 --
 ALTER TABLE `userroles`
@@ -427,7 +416,7 @@ ALTER TABLE `employment_type`
 -- AUTO_INCREMENT for table `leave_requests`
 --
 ALTER TABLE `leave_requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `leave_status`
@@ -439,7 +428,7 @@ ALTER TABLE `leave_status`
 -- AUTO_INCREMENT for table `leave_types`
 --
 ALTER TABLE `leave_types`
-  MODIFY `leaveType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `leaveType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `postions`
@@ -448,22 +437,16 @@ ALTER TABLE `postions`
   MODIFY `position_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `profile_status`
---
-ALTER TABLE `profile_status`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `userroles`
 --
 ALTER TABLE `userroles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
@@ -476,10 +459,11 @@ ALTER TABLE `leave_requests`
   ADD CONSTRAINT `leave_requests_ibfk_1` FOREIGN KEY (`leavetype_id`) REFERENCES `leave_types` (`leaveType_id`);
 
 --
--- Constraints for table `profile_status`
+-- Constraints for table `users`
 --
-ALTER TABLE `profile_status`
-  ADD CONSTRAINT `profile_status_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`);
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `userroles` (`role_id`),
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `userroles` (`role_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
