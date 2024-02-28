@@ -50,6 +50,7 @@ include "layouts/navbar.php";
                             <option value="1">Admin</option>
                             <option value="2">Maria Cotton</option>
                             <option value="3">Danny Ward</option>
+                            <option value="3">Danny Ward</option>
                         </select>
                     </div>
                 </div>
