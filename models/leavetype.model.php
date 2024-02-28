@@ -35,14 +35,15 @@ function getleaveType($id): array
 };
 
 // ======== Updata leave Type of data========
-function updateLeaveType($id, $desc, $detail): bool
+function updateLeaveType($id, $desc, $detail, $tion): bool
 {
     global $connection;
-    $statement = $connection->prepare("UPDATE leave_types SET leaveType_desc=:desc,leaveType_detail=:details WHERE leaveType_id=:id");
+    $statement = $connection->prepare("UPDATE leave_types SET leaveType_desc=:desc,leaveType_detail=:details,duration=:tion WHERE leaveType_id=:id");
     $statement->execute(
         [
             ':desc' => $desc,
             ':details' => $detail,
+            ':tion' => $tion,
             ':id' => $id
         ]
     );

@@ -17,6 +17,12 @@ require "layouts/navbar.php"; ?>
 								<input type="text" class="form-control" name="typename" placeholder="Enter you type name" value="<?= $leaveType['leaveType_desc'] ?>">
 							</div>
 						</div>
+						<div class="col-sm-12 leave-col">
+							<div class="form-group">
+								<input type="text" class="form-control" name="typetion" value="<?= $leaveType['duration'] ?>">
+							</div>
+						</div>
+
 						<div class="col-sm-12">
 							<div class="form-group mb-0">
 								<label>Description</label>
