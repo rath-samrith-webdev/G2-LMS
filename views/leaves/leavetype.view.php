@@ -14,7 +14,7 @@ require "layouts/navbar.php"; ?>
                         <table class="table custom-table mb-0 text-left">
                             <thead>
                                 <tr>
-                                    <th>Type ID</th>
+                                    <th style =" display: none">Type ID</th>
                                     <th>Type Name</th>
                                     <th>Type description</th>
                                     <th>Status</th>
@@ -24,7 +24,7 @@ require "layouts/navbar.php"; ?>
                             <tbody>
                                 <?php foreach ($leaveTypes as $type) { ?>
                                     <tr>
-                                        <td>
+                                        <td style =" display: none">
                                             <h2><?= $type['leaveType_id'] ?></h2>
                                         </td>
                                         <td><?= $type['leaveType_desc'] ?></td>
