@@ -76,3 +76,11 @@ function allLeavesToday($date)
 
     return $statement->fetchAll();
 }
+function allLeavesNotify()
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests order by request_id limit 5");
+    $statement->execute();
+
+    return $statement->fetchAll();
+}

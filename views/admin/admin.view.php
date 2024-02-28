@@ -99,7 +99,7 @@ require "layouts/navbar.php"; ?>
 					<a href="javascript:void(0)" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
 				</div>
 				<div class="card-body recent-activ">
-					<div class="recent-comment">
+					<div class="today">
 						<a href="javascript:void(0)" class="dash-card text-dark">
 							<div class="dash-card-container">
 								<div class="dash-card-icon text-primary">
@@ -161,23 +161,12 @@ require "layouts/navbar.php"; ?>
 				<div class="card-header">
 					<h4 class="card-title mb-0 d-inline-block">Recent Activities</h4>
 					<button id="refresh" class="btn d-inline-block float-right text-primary">
-						<a href="javascript:void(0)"><i class="lnr lnr-sync"></i></a>
+						Refresh
 					</button>
 				</div>
 				<div class="card-body recent-activ admin-activ">
 					<div class="recent-comment">
-						<?php foreach ($todayLeaves as $leaves) { ?>
-							<div class="notice-board">
-								<div class="table-img">
-									<div class="e-avatar mr-3"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Danny Ward"></div>
-								</div>
-								<div class="notice-body">
-									<h6 class="mb-0">Leave request on <b><?= $leaves['leaveType_desc'] ?></b> was made Today</h6>
-									<span class="ctm-text-sm"><?= $leaves['first_name'] . " " . $leaves['last_name']  ?> | 1 hour ago</span>
-								</div>
-							</div>
-							<hr>
-						<?php } ?>
+
 					</div>
 				</div>
 			</div>
@@ -189,3 +178,26 @@ require "layouts/navbar.php"; ?>
 </div>
 <!--/Content-->
 <?php require "layouts/footer.php"; ?>
+<script>
+	$(document).ready(function() {
+
+		function load_unseen_notification(view = '') {
+			$.ajax({
+				url: "controllers/notification.controller/notification.php",
+				method: "POST",
+				data: {
+					view: view
+				},
+				dataType: "json",
+				success: function(data) {
+					$('.recent-comment').html(data.notification);
+				}
+			});
+		}
+
+		load_unseen_notification();
+		setInterval(function() {
+			load_unseen_notification();;
+		}, 5000);
+	})
+</script>
