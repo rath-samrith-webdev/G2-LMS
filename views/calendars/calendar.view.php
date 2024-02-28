@@ -269,7 +269,7 @@ require "layouts/navbar.php"; ?>
 			var today = new Date($.now());
 
 			var defaultEvents = [
-				<?php foreach ($leaverequest as $request) { ?> {
+				<?php foreach ($leaverequest as $request) { ?> { //show events on calendar
 						title: "<?= $request['first_name'] ?>",
 						start: "<?= $request['start_date'] ?>",
 						className: "bg-purple",
