@@ -14,7 +14,7 @@ include "layouts/navbar.php";
 	<div class="card shadow-sm ctm-border-radius grow">
 		<div class="card-header d-flex align-items-center justify-content-between">
 			<h4 class="card-title mb-0 d-inline-block">Reviews</h4>
-			<a href="create-review.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right"><span></span> Create Review</a>
+			<a href="/reviewForm" class="btn btn-theme button-1 ctm-border-radius text-white float-right"><span></span> Create Review</a>
 		</div>
 		<div class="card-body align-center">
 			<div class="tab-content" id="v-pills-tabContent">

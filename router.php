@@ -21,7 +21,8 @@ $routes = [
     '/leavetypeForm' => 'controllers/leaves/create_form.leave.type.controller.php',
     '/editLeaveType' => 'controllers/leaves/edit_leave.type.controller.php',
     '/removeall' => 'controllers\leaves\remove.all.request.controller.php',
-    '/employeelist' => 'controllers/admin/employee.list.controller.php'
+    '/employeelist' => 'controllers/admin/employee.list.controller.php',
+    '/reviewForm' => 'controllers/reviews/review.form.controller.php',
 ];
 $homeRoutes = [
     '/' => 'controllers/log.controll/login.controll.php',
