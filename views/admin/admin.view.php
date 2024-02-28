@@ -128,47 +128,6 @@ require "layouts/navbar.php"; ?>
 							</a>
 							<hr>
 						<?php } ?>
-						<!-- <a href="javascript:void(0)" class="dash-card text-dark">
-							<div class="dash-card-container">
-								<div class="dash-card-icon text-success">
-									<i class="fa fa-child" aria-hidden="true"></i>
-								</div>
-								<div class="dash-card-content">
-									<h6 class="mb-0">Ralph Baker is parenting leave today</h6>
-								</div>
-								<div class="dash-card-avatars">
-									<div class="e-avatar"><img class="img-fluid" src="assets/images/profiles/img-2.jpg" alt="Avatar"></div>
-								</div>
-							</div>
-						</a>
-						<hr>
-						<a href="javascript:void(0)" class="dash-card text-dark">
-							<div class="dash-card-container">
-								<div class="dash-card-icon text-danger">
-									<i class="fa fa-suitcase"></i>
-								</div>
-								<div class="dash-card-content">
-									<h6 class="mb-0">Danny ward is away today</h6>
-								</div>
-								<div class="dash-card-avatars">
-									<div class="e-avatar"><img class="img-fluid" src="assets/images/profiles/img-2.jpg" alt="Avatar"></div>
-								</div>
-							</div>
-						</a>
-						<hr>
-						<a href="javascript:void(0)" class="dash-card text-dark">
-							<div class="dash-card-container">
-								<div class="dash-card-icon text-pink">
-									<i class="fa fa-home" aria-hidden="true"></i>
-								</div>
-								<div class="dash-card-content">
-									<h6 class="mb-0">You are working from home today</h6>
-								</div>
-								<div class="dash-card-avatars">
-									<div class="e-avatar"><img class="img-fluid" src="assets/images/profiles/img-2.jpg" alt="Maria Cotton"></div>
-								</div>
-							</div>
-						</a> -->
 					</div>
 				</div>
 			</div>
@@ -226,12 +185,13 @@ require "layouts/navbar.php"; ?>
 		</div>
 
 		<div class="col-lg-6 col-md-12 d-flex">
-
 			<!-- Recent Activities -->
 			<div class="card recent-acti flex-fill shadow-sm grow">
 				<div class="card-header">
 					<h4 class="card-title mb-0 d-inline-block">Recent Activities</h4>
-					<a href="javascript:void(0)" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
+					<button id="refresh" class="btn d-inline-block float-right text-primary">
+						<a href="javascript:void(0)"><i class="lnr lnr-sync"></i></a>
+					</button>
 				</div>
 				<div class="card-body recent-activ admin-activ">
 					<div class="recent-comment">
