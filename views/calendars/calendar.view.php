@@ -270,9 +270,9 @@ require "layouts/navbar.php"; ?>
 
 			var defaultEvents = [
 				<?php foreach ($leaverequest as $request) { ?> { //show events on calendar
-						title: "<?= $request['first_name'] ?>",
+						title: "<?= $request['first_name'] . '|' . $request['leaveType_desc'] ?>",
 						start: "<?= $request['start_date'] ?>",
-						className: "bg-purple",
+						className: "bg-warning",
 					},
 				<?php } ?>
 			];
