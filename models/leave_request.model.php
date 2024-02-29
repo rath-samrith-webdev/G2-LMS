@@ -64,3 +64,12 @@ function deleteLeaveData(int $request_id): bool
     $statement->execute([':request_id' => $request_id]);
     return $statement->rowCount() > 0;
 }
+
+function getALlUserleaves(int $uid)
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where uid=:uid");
+    $statement->execute([":uid" => $uid]);
+
+    return $statement->fetchAll();
+}

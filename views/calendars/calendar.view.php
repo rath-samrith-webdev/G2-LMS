@@ -1,4 +1,20 @@
 <?php
+//Profile image management.
+if (isset($_SESSION['user'])) {
+	$userExist = true; //if the normal user has logged in 
+	if (isset($_SESSION['user']['profile'])) {
+		$img = $_SESSION['user']['profile'];
+		$username = $_SESSION['user']['first_name'];
+		$uid = $_SESSION['user']['uid']; //if the user already had a profile img
+	} else {
+		if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
+			$img = "assets/profile/img-2.jpg";
+			$adminExist = true;
+			$userExist = false;
+			$username = "Admin";
+		}
+	}
+}
 require "layouts/header.php";
 require "layouts/navbar.php"; ?>
 <div class="col-xl-9 col-lg-8 col-md-12">
@@ -23,13 +39,6 @@ require "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
-<!-- <div class="col-xl-9 col-lg-8  col-md-12">
-	<div class="card ctm-border-radius shadow-sm grow">
-		<div class="card-body">
-			<div id="calendar"></div>
-		</div>
-	</div>
-</div> -->
 <div id="add_event" class="modal fade" role="dialog">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
@@ -72,55 +81,20 @@ require "layouts/navbar.php"; ?>
 </div>
 
 
-<div class="modal fade none-border" id="my_event" role="dialog">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Add Event</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			</div>
-			<div class="modal-body"></div>
-			<div class="modal-footer justify-content-center">
-				<button type="button" class="btn btn-theme ctm-border-radius text-white save-event submit-btn button-1">Create event</button>
-				<button type="button" class="btn btn-danger ctm-border-radius delete-event submit-btn" data-dismiss="modal">Delete</button>
+<?php if ($userExist and !$adminExist) { { ?>
+		<div class="modal fade none-border" id="my_event" role="dialog">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Request Leave</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body"></div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-
-
-<div class="modal fade" id="add_new_event">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Add Category</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			</div>
-			<div class="modal-body">
-				<form>
-					<div class="form-group">
-						<label>Category Name</label>
-						<input class="form-control form-white" placeholder="Enter name" type="text" name="category-name">
-					</div>
-					<div class="form-group mb-0">
-						<label>Choose Category Color</label>
-						<select class="form-control select form-white" data-placeholder="Choose a color..." name="category-color">
-							<option value="success">Success</option>
-							<option value="danger">Danger</option>
-							<option value="info">Info</option>
-							<option value="primary">Primary</option>
-							<option value="warning">Warning</option>
-							<option value="inverse">Inverse</option>
-						</select>
-					</div>
-					<div class="submit-section text-center">
-						<button type="button" class="btn btn-theme ctm-border-radius text-white save-category submit-btn mt-3 button-1" data-dismiss="modal">Save</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+<?php	}
+} ?>
 <?php require "layouts/footer.php" ?>
 <script>
 	!(function($) {
@@ -181,23 +155,40 @@ require "layouts/navbar.php"; ?>
 			$this.$modal.modal({
 				backdrop: "static",
 			});
-			var form = $("<form></form>");
-			form.append("<div class='event-inputs'></div>");
+			var form = $("<form action='controllers/leaves/add.leave.controller.php' method='post'></form>");
+			form.append("<div class='row1 row'></div>");
+			form.append("<div class='row2 row'></div>");
+			form.append("<div class='row3 row'></div>");
+			form.append("<div class='row4 row'></div>");
 			form
-				.find(".event-inputs")
+				.find(".row1 ")
 				.append(
-					"<div class='form-group'><label class='control-label'>Event Name</label><input class='form-control' placeholder='Insert Event Name' type='text' name='title'/></div>"
+					"<div class='col-sm-6 leave_type'></div>"
 				)
+				.append("<div class='col-sm-6 leave-col'><div class='form-group'><label>Remaining Leaves</label><input type=text' class='form-control' placeholder='10' disabled></div></div>")
+
+				.find(".leave_type")
 				.append(
-					"<div class='form-group'><label class='control-label'>Category</label><select class='form-control' name='category'></select></div>"
+					"<div class='form-group type'></div>"
 				)
-				.find("select[name='category']")
-				.append("<option value='bg-danger'>Danger</option>")
-				.append("<option value='bg-success'>Success</option>")
-				.append("<option value='bg-purple'>Purple</option>")
-				.append("<option value='bg-primary'>Primary</option>")
-				.append("<option value='bg-info'>Info</option>")
-				.append("<option value='bg-warning'>Warning</option></div></div>");
+				.find(".type")
+				.append("<label>Leave Type <span class = 'text-danger'>*</span></label>")
+				.append("<select class='form-control select' name='leave_type'>")
+				.find(".select")
+			<?php foreach ($leaveTypes as $type) { ?>
+					.append("<option value='<?= $type['leaveType_id'] ?>'><?= $type['leaveType_desc'] ?></option>")
+			<?php } ?>
+			form
+				.find(".row2")
+				.append("<div class='col-sm-6'><div class='form-group'><label>From</label><input type='text' name='start_date' class='form-control datetimepicker'></div></div>")
+				.append("<div class='col-sm-6'><div class='form-group'><label>To</label><input type='text' name='end_date' class='form-control datetimepicker'> </div></div>")
+			form
+				.find(".row3")
+				.append("<div class='col-sm-12 leave-col'><divclass='form-group'><label>Number of Days Leave</label><input type='text' class='form-control' placeholder='2' disabled></div></div>")
+			form
+				.find(".row4")
+				.append("<div class='col-sm-12'><div class='form-group mb-0'><label>Reason</label><textarea class='form-control' rows=4></textarea></div></div>")
+			form.append("<button type='submit' class='btn btn-primary mt-5'>Create</button>")
 			$this.$modal
 				.find(".delete-event")
 				.hide()
@@ -215,11 +206,10 @@ require "layouts/navbar.php"; ?>
 					form.submit();
 				});
 			$this.$modal.find("form").on("submit", function() {
-				var title = form.find("input[name='title']").val();
-				var beginning = form.find("input[name='beginning']").val();
-				var ending = form.find("input[name='ending']").val();
+				var beginning = form.find("input[name='start_date']").val();
+				var ending = form.find("input[name='end_date']").val();
 				var categoryClass = form
-					.find("select[name='category'] option:checked")
+					.find("select[name='leave_type'] option:checked")
 					.val();
 				if (title !== null && title.length != 0) {
 					$this.$calendarObj.fullCalendar(
