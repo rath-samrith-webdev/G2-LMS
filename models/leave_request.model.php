@@ -73,3 +73,18 @@ function getALlUserleaves(int $uid)
 
     return $statement->fetchAll();
 }
+function addLeave($uid, $leaveType, $start_date, $end_date): bool
+{
+    global $connection;
+    $statement = $connection->prepare("INSERT INTO leave_requests (uid,leavetype_id,start_date,end_date,status_id) VALUES (:uid,:leaveType_id,:start_date,:end_date,:status_id)");
+    $statement->execute(
+        [
+            ':uid' => $uid,
+            ':leaveType_id' => $leaveType,
+            ':start_date' => $start_date,
+            ':end_date' => $end_date,
+            ':status_id' => 3
+        ]
+    );
+    return $statement->rowCount() > 0;
+}
