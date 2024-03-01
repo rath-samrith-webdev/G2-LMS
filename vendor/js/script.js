@@ -124,3 +124,19 @@ $(document).ready(function () {
     $("#request_id").val(data[0]);
   });
 });
+
+$(document).ready(function () {
+  $(".addleave").on("click", function () {
+    $("#add_leave").modal("show");
+
+    $tr = $(this).closest("tr");
+    var data = $tr
+      .children("td")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    console.log(data[0]);
+    $("#request_id").val(data[0]);
+  });
+});
