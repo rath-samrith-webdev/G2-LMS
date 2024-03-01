@@ -5,7 +5,7 @@ require "models/leavetype.model.php";
 if (isset($_SESSION['user']['uid'])) {
     $id=$_SESSION['user']['uid'];
     $leaverequest = getALluserleaves($id);  //get all leaves of the user from database
-} else {
+} else {    
     $leaverequest = getALlleaves();
 }
 $leaveTypes = getAlltypes();

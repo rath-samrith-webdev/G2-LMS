@@ -160,6 +160,7 @@ require "layouts/navbar.php"; ?>
 			form.append("<div class='row2 row'></div>");
 			form.append("<div class='row3 row'></div>");
 			form.append("<div class='row4 row'></div>");
+			form.append("<input type='hidden' value='<?= $_SESSION['user']['uid'] ?>' name='uid'>")
 			form
 				.find(".row1 ")
 				.append(
@@ -180,8 +181,12 @@ require "layouts/navbar.php"; ?>
 			<?php } ?>
 			form
 				.find(".row2")
-				.append("<div class='col-sm-6'><div class='form-group'><label>From</label><input type='text' name='start_date' class='form-control datetimepicker'></div></div>")
-				.append("<div class='col-sm-6'><div class='form-group'><label>To</label><input type='text' name='end_date' class='form-control datetimepicker'> </div></div>")
+				.append("<div class='col-sm-6'><div class='form-group'><label>From</label><input class='form-control' name='start_date' type=text value='" +
+					start.format() +
+					"' /></div></div>")
+				.append("<div class='col-sm-6'><div class='form-group'><label>To</label><input class='form-control' name='end_date' type=text value='" +
+					end.format() +
+					"' /> </div></div>")
 			form
 				.find(".row3")
 				.append("<div class='col-sm-12 leave-col'><divclass='form-group'><label>Number of Days Leave</label><input type='text' class='form-control' placeholder='2' disabled></div></div>")
@@ -211,22 +216,6 @@ require "layouts/navbar.php"; ?>
 				var categoryClass = form
 					.find("select[name='leave_type'] option:checked")
 					.val();
-				if (title !== null && title.length != 0) {
-					$this.$calendarObj.fullCalendar(
-						"renderEvent", {
-							title: title,
-							start: start,
-							end: end,
-							allDay: false,
-							className: categoryClass,
-						},
-						true
-					);
-					$this.$modal.modal("hide");
-				} else {
-					alert("You have to give a title to your event");
-				}
-				return false;
 			});
 			$this.$calendarObj.fullCalendar("unselect");
 		}),
