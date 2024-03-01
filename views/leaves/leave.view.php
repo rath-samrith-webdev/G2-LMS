@@ -22,9 +22,9 @@ include "layouts/navbar.php"; ?>
 											Leave Type
 											<span class="text-danger">*</span>
 										</label>
-										<select class="form-control select" name="selectData">
+										<select class="form-control select" name="leaveType">
 											<?php foreach ($leaveTypes as $type) { ?>
-												<option><?=$type['leaveType_desc']?></option>
+												<option value='<?= $type['leaveType_id']?>'><?=$type['leaveType_desc']?></option>
 											<?php } ?>
 										</select>
 									</div>
@@ -32,7 +32,7 @@ include "layouts/navbar.php"; ?>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>Remaining Leaves</label>
-										<input type="text" class="form-control" placeholder="10" disabled>
+										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave'];?>" disabled>
 									</div>
 								</div>
 							</div>
@@ -46,7 +46,7 @@ include "layouts/navbar.php"; ?>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>To</label>
-										<input type="text" class="form-control datetimepicker">
+										<input type="text" name="dataValueEnd" class="form-control datetimepicker">
 									</div>
 								</div>
 							</div>
@@ -57,17 +57,17 @@ include "layouts/navbar.php"; ?>
 											Half Day
 											<span class="text-danger">*</span>
 										</label>
-										<select class="form-control select">
-											<option>Select</option>
-											<option>First Half</option>
-											<option>Second Half</option>
+										<select class="form-control select" name = "statuID">
+											<?php foreach ($leaves as $leave) { ?>
+												<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
+											<?php } ?>
 										</select>
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>Number of Days Leave</label>
-										<input type="text" class="form-control" placeholder="2" disabled>
+										<input type="text" class="form-control" placeholder="2"disabled>
 									</div>
 								</div>
 							</div>
@@ -80,7 +80,7 @@ include "layouts/navbar.php"; ?>
 								</div>
 							</div>
 							<div class="text-center">
-								<a href="controllers/leaves/add.leave.controller.php" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Apply</a>
+								<button type="submit" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Add</button>
 								<a href="javascript:void(0);" class="btn btn-danger text-white ctm-border-radius mt-4">Cancel</a>
 							</div>
 						</form>
