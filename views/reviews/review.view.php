@@ -23,6 +23,7 @@ include "layouts/navbar.php";
 				<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 					<div class="employee-office-table">
 						<div class="table-responsive">
+
 							<table class="table custom-table table-hover">
 								<thead>
 									<tr>
@@ -35,151 +36,42 @@ include "layouts/navbar.php";
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>Monthly Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>15 Dec 2019</td>
-										<td>17 Dec 2019</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> In Progress <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> In Progress</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Completed</a>
 
+								<!-- ==========Get all reviews========= -->
+									<?php foreach ($reviews as $review) { ?>
+										<tr>
+											<td><?= $review['reviewType_name'] ?></td>
+											<td>
+												<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $review['profile'] ?>"></a>
+												<h2><a href="employment.html"> <?= $review['first_name'] . ' ' . $review['last_name'] ?></a></h2>
+											</td>
+											<td><?= $review['start_date'] ?></td>
+											<td><?= $review['end_date'] ?></td>
+											<td>
+												
+											 <!-- ==========Get reviews select all=========== -->
+												<select name="" class="form-control">
+													<?php foreach ($review_status as $status) {
+														if ($status['status_name'] == $status['status_name']) { ?>
+															<option value="<?= $status["status_id"] ?>" selected><?= $status['status_name'] ?></option>
+														<?php  } else { ?>
+															<option value="<?= $status["status_id"] ?>"><?= $status['status_name'] ?></option>
+													<?php }
+													} ?>
+												</select>
+											</td>
+											<td>
+												<div class="table-action">
+													<a href="edit-review.html" class="btn btn-sm btn-outline-success">
+														<span class="lnr lnr-pencil"></span> Edit
+													</a>
+													<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+														<span class="lnr lnr-trash"></span> Delete
+													</a>
 												</div>
-											</div>
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Employees Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>15 Dec 2019</td>
-										<td>17 Dec 2019</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> In Progress <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> In Progress</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Completed</a>
-
-												</div>
-											</div>
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Employees Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>15 Dec 2019</td>
-										<td>17 Dec 2019</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> In Progress <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> In Progress</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Completed</a>
-
-												</div>
-											</div>
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Employees Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>15 Dec 2019</td>
-										<td>17 Dec 2019</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> In Progress <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> In Progress</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Completed</a>
-
-												</div>
-											</div>
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Employees Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>15 Dec 2019</td>
-										<td>17 Dec 2019</td>
-										<td>
-											<div class="dropdown action-label drop-active">
-												<a href="javascript:void(0)" class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown"> In Progress <i class="caret"></i></a>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="javascript:void(0)"> In Progress</a>
-													<a class="dropdown-item" href="javascript:void(0)"> Completed</a>
-
-												</div>
-											</div>
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
+											</td>
+										</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>
@@ -202,107 +94,28 @@ include "layouts/navbar.php";
 								</thead>
 								<tbody>
 
-									<tr>
-										<td>Monthly Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>
-											Everyone
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Employees Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>
-											Everyone
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Employees Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>
-											Everyone
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Employees Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>
-											Everyone
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>Employees Review</td>
-										<td>
-											<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></a>
-											<h2><a href="employment.html"> Richard Wilson</a></h2>
-										</td>
-										<td>
-											Everyone
-										</td>
-										<td>
-											<div class="table-action">
-												<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-													<span class="lnr lnr-pencil"></span> Edit
-												</a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-													<span class="lnr lnr-trash"></span> Delete
-												</a>
-											</div>
-										</td>
-									</tr>
-
+									<?php foreach ($reviews as $review) { ?>
+										<tr>
+											<td><?= $review['reviewType_name'] ?></td>
+											<td>
+												<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $review['profile'] ?>"></a>
+												<h2><a href="employment.html"> <?= $review['first_name'] . ' ' . $review['last_name'] ?></a></h2>
+											</td>
+											<td>
+												Everyone
+											</td>
+											<td>
+												<div class="table-action">
+													<a href="edit-review.html" class="btn btn-sm btn-outline-success">
+														<span class="lnr lnr-pencil"></span> Edit
+													</a>
+													<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+														<span class="lnr lnr-trash"></span> Delete
+													</a>
+												</div>
+											</td>
+										</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>

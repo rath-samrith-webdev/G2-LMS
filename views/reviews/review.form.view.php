@@ -56,26 +56,6 @@ include "layouts/navbar.php";
                 </div>
             </div>
         </div>
-        <div class="card ctm-border-radius shadow-sm grow">
-            <div class="card-header">
-                <h4 class="card-title mb-0 d-inline-block">Form</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                        <textarea class="form-control" placeholder="Explain What This Review Is To, How It's Going To Be Run, How Everyone Can Prepare."></textarea>
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <textarea class="form-control" placeholder="Add Questions For The People Being Reviewed."></textarea>
-                        <a href="javascript:void(0)" class="text-primary">Add a Question</a><span class="float-right text-danger">Delete</span>
-                    </div>
-                    <div class="col-md-12 form-group mb-0">
-                        <textarea class="form-control" placeholder="Add Questions For Their Reviewers."></textarea>
-                        <a href="javascript:void(0)" class="text-primary">Add a Question</a><span class="float-right text-danger">Delete</span>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row grow">
             <div class="col-12">
                 <div class="submit-section text-center btn-add">
