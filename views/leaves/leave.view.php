@@ -20,7 +20,7 @@ include "layouts/navbar.php"; ?>
 											Leave Type
 											<span class="text-danger">*</span>
 										</label>
-										<select class="form-control select">
+										<select class="form-control select" name ="selectData">
 											<option>Select Leave</option>
 											<option>Working From Home</option>
 											<option>Sick Leave</option>
@@ -41,7 +41,7 @@ include "layouts/navbar.php"; ?>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label>From</label>
-										<input type="text" class="form-control datetimepicker">
+										<input name ="dateValue" type="text" class="form-control datetimepicker">
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
@@ -81,7 +81,7 @@ include "layouts/navbar.php"; ?>
 								</div>
 							</div>
 							<div class="text-center">
-								<a href="javascript:void(0);" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Apply</a>
+								<a href="controllers/leaves/add.leave.controller.php" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Apply</a>
 								<a href="javascript:void(0);" class="btn btn-danger text-white ctm-border-radius mt-4">Cancel</a>
 							</div>
 						</form>
