@@ -41,13 +41,14 @@ require "layouts/navbar.php"; ?>
                                             <img src="<?= $employee['profile'] ?>" alt="User Image">
                                         </a>
                                         <div class="profile-det-info">
-                                            <h4><a href="employment.html" class="text-primary"><?= $employee['first_name'] . " " . $employee['last_name'] ?></a></h4>
+                                            <h4><?= $employee['first_name'] . " " . $employee['last_name'] ?></a></h4>
                                             <div>
                                                 <p class="mb-0"><b>PHP Team Lead</b></p>
-                                                <p class="mb-0 ctm-text-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0964687b60686a667d7d6667496c71686479656c276a6664">[email&#160;protected]</a></p>
+                                                <!-- <p class="mb-0 ctm-text-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0964687b60686a667d7d6667496c71686479656c276a6664">[email&#160;protected]</a></p> -->
                                             </div>
                                         </div>
                                     </div>
+                                    <button type="button" class="btn text-center active button-5 text-white"><a href="/profiles?uid=<?= $employee['uid'] ?>">View</a></button>
                                 </div>
                             </div>
                         </div>
