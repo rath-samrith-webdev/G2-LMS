@@ -11,9 +11,9 @@ if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
             // Checking whether the user has permission to cancel this request or not
             $isCanceled = updatePersonalLeave($request_id, $uid);
             if ($isCanceled) { //Checking whether the data has been update 
-                header("location: /leaves");
+                header("location: /leaves"); //Redirect back if completed
             } else {
-                header("location: /leaves");
+                header("location: /leaves");//Redirect back if an error accurred
             }
         }
     };
