@@ -140,3 +140,10 @@ $(document).ready(function () {
     $("#request_id").val(data[0]);
   });
 });
+
+$(document).ready(function () {
+  $("#download").click(function () {
+    var table2excel = new Table2Excel();
+    table2excel.export(document.querySelectorAll("table"));
+  });
+});

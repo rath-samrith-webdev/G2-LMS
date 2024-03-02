@@ -24,7 +24,7 @@ include "layouts/navbar.php"; ?>
 										</label>
 										<select class="form-control select" name="leaveType">
 											<?php foreach ($leaveTypes as $type) { ?>
-												<option value='<?= $type['leaveType_id']?>'><?=$type['leaveType_desc']?></option>
+												<option value='<?= $type['leaveType_id'] ?>'><?= $type['leaveType_desc'] ?></option>
 											<?php } ?>
 										</select>
 									</div>
@@ -32,7 +32,7 @@ include "layouts/navbar.php"; ?>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>Remaining Leaves</label>
-										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave'];?>" disabled>
+										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave']; ?>" disabled>
 									</div>
 								</div>
 							</div>
@@ -57,7 +57,7 @@ include "layouts/navbar.php"; ?>
 											Half Day
 											<span class="text-danger">*</span>
 										</label>
-										<select class="form-control select" name = "statuID">
+										<select class="form-control select" name="statuID">
 											<?php foreach ($leaves as $leave) { ?>
 												<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
 											<?php } ?>
@@ -67,7 +67,7 @@ include "layouts/navbar.php"; ?>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>Number of Days Leave</label>
-										<input type="text" class="form-control" placeholder="2"disabled>
+										<input type="text" class="form-control" placeholder="2" disabled>
 									</div>
 								</div>
 							</div>
@@ -131,13 +131,13 @@ include "layouts/navbar.php"; ?>
 		<div class="card ctm-border-radius shadow-sm grow">
 			<div class="card-header d-flex justify-content-between">
 				<h4 class="card-title mb-0">Today Leaves</h4>
-				<a href="controllers/export/export.controller.php"><button class="btn btn-theme button-1 text-white">Export report</button></a> 
+				<a href="/export"><button class="btn btn-theme button-1 text-white">Export report</button></a>
 				<button type="button" class="btn btn-outline-danger removebtn"> Remove all requests </button>
 			</div>
 			<div class="card-body">
 				<div class="employee-office-table">
 					<div class="table-responsive">
-						<table class="table custom-table mb-0">
+						<table class="table custom-table mb-0" id="leave_request">
 							<thead>
 								<tr>
 									<th style=" display: none">Request ID</th>
@@ -194,10 +194,7 @@ include "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
-</div>
-</div>
-</div>
-</div>
+
 <!--/Content-->
 
 </div>

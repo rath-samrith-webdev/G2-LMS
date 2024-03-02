@@ -28,7 +28,8 @@
   <!-- Sticky sidebar JS -->
   <script src="vendor/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
   <script src="vendor/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
-
+  <!-- Table to excel -->
+  <script src="vendor/js/table2excel.js"></script>
   <!-- Custom Js -->
   <script src="vendor/js/script.js"></script>
 
