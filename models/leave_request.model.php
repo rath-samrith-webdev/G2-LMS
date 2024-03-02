@@ -88,3 +88,15 @@ function addLeave($uid, $leaveType, $start_date, $end_date): bool
     );
     return $statement->rowCount() > 0;
 }
+function updatePersonalLeave(int $request_id, int $uid): bool
+{
+    global $connection;
+    $statement = $connection->prepare("update leave_requests set status_id =:status_id where request_id = :request_id and uid=:uid");
+    $statement->execute([
+        ':request_id' => $request_id,
+        ':uid' => $uid,
+        ':status_id' => 4
+    ]);
+
+    return $statement->rowCount() > 0;
+}

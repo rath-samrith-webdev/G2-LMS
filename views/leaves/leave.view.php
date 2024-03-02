@@ -179,8 +179,13 @@ include "layouts/navbar.php"; ?>
 											</td>
 											<td></td>
 											<td class="text-right text-danger">
-												<a href="#" class="btn btn-sm btn-outline-danger deletebtn">
-													<span class="lnr lnr-trash"></span> Delete</a>
+												<?php if (!isset($_SESSION['user']['uid'])) { ?>
+													<a href="#" class="btn btn-sm btn-outline-danger deletebtn">
+														<span class="lnr lnr-trash"></span> Delete</a>
+												<?php } else { ?>
+													<a href="#" class="btn btn-sm btn-outline-danger cancelbtn">
+														<span class="lnr lnr-cross"></span> Cancel</a>
+												<?php } ?>
 											</td>
 										</tr>
 									<?php } ?>
@@ -245,6 +250,31 @@ include "layouts/navbar.php"; ?>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
 					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Remove </button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="cancelmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Cancel leave request</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<form action="controllers/leaves/cancel.leave.controller.php" method="POST">
+				<div class="modal-body">
+					<input type="hidden" name="request_id" id="leave_id">
+					<input type="hidden" name="cancelID" id="cancelID" value="4">
+					<h6> Are you sure you want to cancel request? </h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"> I'm not sure </button>
+					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Yes I'm sure </button>
 				</div>
 			</form>
 
