@@ -48,7 +48,7 @@ require "layouts/navbar.php"; ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn text-center active button-5 text-white"><a href="/profiles?uid=<?= $employee['uid'] ?>">View</a></button>
+                                    <button type="button" class="btn text-center active button-5 text-white detail<?= $employee['uid'] ?>">Detail</button>
                                 </div>
                             </div>
                         </div>
@@ -59,4 +59,58 @@ require "layouts/navbar.php"; ?>
     </div>
 </div>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
+
+<?php foreach ($allemployee as $employee) { ?>
+    <div class="modal fade " id="deletemodal<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex text-black ">
+                        <div class="flex-shrink-0">
+                            <img src="<?= $employee['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
+                        </div>
+                        <div class="flex-grow-1 ms-3 ml-4">
+                            <h5 class="mb-1"><?= $employee['first_name'] . " " . $employee['last_name'] ?></h5>
+                            <p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $employee['position_name'] ?></p>
+                            <div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
+                                <div>
+                                    <p class="small text-muted mb-1">Articles</p>
+                                    <p class="mb-0">41</p>
+                                </div>
+                                <div class="px-3">
+                                    <p class="small text-muted mb-1">Followers</p>
+                                    <p class="mb-0">976</p>
+                                </div>
+                                <div>
+                                    <p class="small text-muted mb-1">Rating</p>
+                                    <p class="mb-0">8.5</p>
+                                </div>
+                            </div>
+                            <div class="d-flex pt-1">
+                                <a href="/profiles?uid=<?= $employee['uid'] ?>" class="flex-grow-1"><button type="button" class="btn btn-outline-primary me-1 flex-grow-1">View</button></a>
+                                <button type="button" class="btn btn-primary ">Follow</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
 <?php require "layouts/footer.php" ?>
+<?php foreach ($allemployee as $employee) { ?>
+    <script>
+        $(document).ready(function() {
+            $(".detail<?= $employee['uid'] ?>").on("click", function() {
+                $("#deletemodal<?= $employee['uid'] ?>").modal("show");
+                console.log(data);
+            });
+        });
+    </script>
+<?php } ?>
