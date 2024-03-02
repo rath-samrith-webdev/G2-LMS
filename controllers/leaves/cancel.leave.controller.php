@@ -10,7 +10,7 @@ if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
         if (!empty($ID) && !empty($request_id)) {
             // Checking whether the user has permission to cancel this request or not
             $isCanceled = updatePersonalLeave($request_id, $uid);
-            if ($isCanceled) {
+            if ($isCanceled) { //Checking whether the data has been update 
                 header("location: /leaves");
             } else {
                 header("location: /leaves");
