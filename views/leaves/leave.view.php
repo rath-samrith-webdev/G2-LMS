@@ -8,7 +8,7 @@ include "layouts/navbar.php"; ?>
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel"> Remove leave requests</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Requests Leave Type </h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -31,7 +31,9 @@ include "layouts/navbar.php"; ?>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
-										<label>Remaining Leaves</label>
+										<label>Total days
+											<span class="text-danger">*</span>
+										</label>
 										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave'];?>" disabled>
 									</div>
 								</div>
@@ -39,35 +41,35 @@ include "layouts/navbar.php"; ?>
 							<div class="row">
 								<div class="col-sm-6">
 									<div class="form-group">
-										<label>From</label>
+										<label>Start From
+											<span class="text-danger">*</span>
+										</label>
 										<input name="dateValue" type="text" class="form-control datetimepicker">
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
-										<label>To</label>
+										<label>To end 
+											<span class="text-danger">*</span>
+										</label>
 										<input type="text" name="dataValueEnd" class="form-control datetimepicker">
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-6">
-									<div class="form-group">
+								<div class="col-sm-6" >
+									<div class="form-group" >
 										<label>
-											Half Day
+											Status of user
 											<span class="text-danger">*</span>
 										</label>
-										<select class="form-control select" name = "statuID">
-											<?php foreach ($leaves as $leave) { ?>
-												<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
-											<?php } ?>
-										</select>
+										<span class="form-control" name = "statuID">3</span>
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>Number of Days Leave</label>
-										<input type="text" class="form-control" placeholder="2"disabled>
+										<input type="text" class="form-control" placeholder="0"disabled>
 									</div>
 								</div>
 							</div>

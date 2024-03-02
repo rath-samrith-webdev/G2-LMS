@@ -64,3 +64,17 @@ function getUsers():array{
     $statment->execute();
     return $statment->fetchAll();
 }
+
+// ========= Update total request in user ===========
+function updateUserTotal( int $uid, int $total_allowed_leave): bool
+{
+    global $connection;
+    $statement = $connection->prepare("UPDATE users SET total_allowed_leave =:total_allowed_leave WHERE uid =:uid");
+    $statement->execute(
+        [
+            ':total_allowed_leave' => $total_allowed_leave,
+            ':uid' => $uid
+        ]
+    );
+    return $statement->rowCount() > 0;
+}
