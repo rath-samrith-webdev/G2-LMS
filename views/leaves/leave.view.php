@@ -5,7 +5,7 @@ include "layouts/navbar.php"; ?>
 	<?php
 	if (!isset($_SESSION['user']['admin_username'])) { ?>
 		<div class="modal fade" id="add_leave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Requests Leave Type </h5>
