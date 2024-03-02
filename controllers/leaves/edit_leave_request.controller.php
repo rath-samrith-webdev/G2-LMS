@@ -3,9 +3,11 @@ require "../../database/database.php";
 require "../../models/leave_request.model.php";
 require "../../models/employee.model.php";
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+
 //Load Composer's autoloader
 require '../../vendor/autoload.php';
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -13,9 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $status_id = $_POST['leave_status'];
     $request_id = $_POST['request_id'];
 
+    // ==Send email to employee==//
+    $username=$user['first_name'];
+    $request=getleave($request_id,$user['uid']);
+    $leaveType=$request['leaveType_desc'];
     if (updateLeaveData($status_id, $request_id)) {
         $email = $user['email'];
-        $content = "<div width='100%'><h4>Hello</h4></div>";
+        $content = "<div width='100%'><h1><b>Leave request</b></h1><h4>Dear ".$username.",</h4><p> I am writing to inform you that your ".$leaveType." has been approved, and you may take time off as requestd. Please ensure that your work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>LMS-Group2</p></b></div>";
+
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
         try {
@@ -45,4 +52,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
+    
 }
