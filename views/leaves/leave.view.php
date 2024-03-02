@@ -131,6 +131,7 @@ include "layouts/navbar.php"; ?>
 		<div class="card ctm-border-radius shadow-sm grow">
 			<div class="card-header d-flex justify-content-between">
 				<h4 class="card-title mb-0">Today Leaves</h4>
+				<a href="controllers/export/export.controller.php"><button class="btn btn-theme button-1 text-white">Export report</button></a> 
 				<button type="button" class="btn btn-outline-danger removebtn"> Remove all requests </button>
 			</div>
 			<div class="card-body">
