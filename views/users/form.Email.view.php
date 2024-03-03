@@ -19,10 +19,15 @@
     
                         <!--Grid column-->
                         <div class="col-md-6">
-                            <div class="md-form mb-0">
+                            <select class="form-control select" name="emailManager">
+								<?php foreach ($manager as $result) { ?>
+										<option value='<?= $result['manager_id']?>'><?=$result['manager_email']?></option>
+								<?php } ?>
+							</select>
+                            <!-- <div class="md-form mb-0">
                                 <input type="email" id="email" name="emailManager" class="form-control" placeholder=" Input email that you to send " ?>
                                 <label for="name" class="">Email Name</label>
-                            </div>
+                            </div> -->
                         </div>
                         <!--Grid column-->
     
