@@ -178,26 +178,3 @@ require "layouts/navbar.php"; ?>
 </div>
 <!--/Content-->
 <?php require "layouts/footer.php"; ?>
-<script>
-	$(document).ready(function() {
-
-		function load_unseen_notification(view = '') {
-			$.ajax({
-				url: "controllers/notification.controller/notification.php",
-				method: "POST",
-				data: {
-					view: view
-				},
-				dataType: "json",
-				success: function(data) {
-					$('.recent-comment').html(data.notification);
-				}
-			});
-		}
-
-		load_unseen_notification();
-		setInterval(function() {
-			load_unseen_notification();;
-		}, 5000);
-	})
-</script>

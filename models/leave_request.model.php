@@ -138,6 +138,7 @@ function hm_time_ago($timestamp)
         }
     }
 }
+//==========get user leaves today
 function getuserLeaveToday(int $uid, $date): array
 {
     global $connection;
@@ -148,5 +149,14 @@ function getuserLeaveToday(int $uid, $date): array
             ':uid' => $uid
         ]
     );
+    return $statement->fetchAll();
+}
+//==========get  all leave requests of a user=======
+function getUserLeavesNotify(int $uid, int $status)
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where uid=:uid and seen order by request_id limit 5");
+    $statement->execute();
+
     return $statement->fetchAll();
 }

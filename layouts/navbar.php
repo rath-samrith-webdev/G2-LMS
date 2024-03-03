@@ -45,19 +45,19 @@ if (isset($_SESSION['user'])) {
                                             </form>
                                         </div>
                                     </div>
-
                                     <!-- User notification-->
                                     <div class="user-notification-block align-right d-inline-block">
                                         <ul class="list-inline m-0">
                                             <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Apply Leave">
-                                                <a href="leave.html" class="font-23 menu-style text-white align-middle">
+                                                <a href="#" class="dropdown-toggle font-23 menu-style text-white align-middle" data-toggle="dropdown">
+                                                    <small class="count bg-danger circle"></small>
                                                     <span class="lnr lnr-briefcase position-relative"></span>
+                                                    <ul class="dropdown-menu notification"></ul>
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
                                     <!-- /User notification-->
-
                                     <!-- user info-->
                                     <div class="user-info align-right dropdown d-inline-block header-dropdown">
                                         <a href="javascript:void(0)" data-toggle="dropdown" class="menu-style dropdown-toggle">
@@ -110,7 +110,7 @@ if (isset($_SESSION['user'])) {
                                     <a href="javascript:void(0)" class="d-block menu-style text-white">
                                         <div class="user-avatar d-inline-block mr-3">
 
-                                            <img src="assets/images/profiles/img-2.jpg" alt="user avatar" class="rounded-circle img-fluid" width="55" />
+                                            <img src="<?= $img ?>" alt="user avatar" class="rounded-circle img-fluid" width="55" />
                                         </div>
                                     </a>
                                 </div>
@@ -126,30 +126,34 @@ if (isset($_SESSION['user'])) {
                                 </div>
                                 <hr />
                                 <div class="user-menu-items px-3 m-0">
-                                    <a class="px-0 pb-2 pt-0" href="/admin">
-                                        <span class="media align-items-center">
-                                            <span class="lnr lnr-home mr-3"></span>
-                                            <span class="media-body text-truncate text-left">
-                                                <span class="text-truncate text-left">Dashboard</span>
+
+                                    <?php if (!$userExist and $adminExist) { ?>
+                                        <a class="p-2" href="/admin">
+                                            <span class="media align-items-center">
+                                                <span class="lnr lnr-users mr-3"></span>
+                                                <span class="media-body text-truncate text-left">
+                                                    <span class="text-truncate text-left">Employees</span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </a>
-                                    <a class="p-2" href="/employees">
-                                        <span class="media align-items-center">
-                                            <span class="lnr lnr-users mr-3"></span>
-                                            <span class="media-body text-truncate text-left">
-                                                <span class="text-truncate text-left">Employees</span>
+                                        </a>
+                                        <a class="p-2" href="/companies">
+                                            <span class="media align-items-center">
+                                                <span class="lnr lnr-apartment mr-3"></span>
+                                                <span class="media-body text-truncate text-left">
+                                                    <span class="text-truncate text-left">Company</span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </a>
-                                    <a class="p-2" href="/companies">
-                                        <span class="media align-items-center">
-                                            <span class="lnr lnr-apartment mr-3"></span>
-                                            <span class="media-body text-truncate text-left">
-                                                <span class="text-truncate text-left">Company</span>
+                                        </a>
+                                    <?php } else { ?>
+                                        <a class="px-0 pb-2 pt-0" href="/employee">
+                                            <span class="media align-items-center">
+                                                <span class="lnr lnr-home mr-3"></span>
+                                                <span class="media-body text-truncate text-left">
+                                                    <span class="text-truncate text-left">Dashboard</span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </a>
+                                        </a>
+                                    <?php } ?>
                                     <a class="p-2" href="/calendars">
                                         <span class="media align-items-center">
                                             <span class="lnr lnr-calendar-full mr-3"></span>
@@ -166,31 +170,32 @@ if (isset($_SESSION['user'])) {
                                             </span>
                                         </span>
                                     </a>
-                                    <a class="p-2" href="/reviews">
-                                        <span class="media align-items-center">
-                                            <span class="lnr lnr-star mr-3"></span>
-                                            <span class="media-body text-truncate text-left">
-                                                <span class="text-truncate text-left">Reviews</span>
+                                    <?php if (!$userExist and $adminExist) { ?>
+                                        <a class="p-2" href="/reviews">
+                                            <span class="media align-items-center">
+                                                <span class="lnr lnr-star mr-3"></span>
+                                                <span class="media-body text-truncate text-left">
+                                                    <span class="text-truncate text-left">Reviews</span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </a>
-                                    <a class="p-2" href="/reports">
-                                        <span class="media align-items-center">
-                                            <span class="lnr lnr-rocket mr-3"></span>
-                                            <span class="media-body text-truncate text-left">
-                                                <span class="text-truncate text-left">Reports</span>
+                                        </a>
+                                        <a class="p-2" href="/reports">
+                                            <span class="media align-items-center">
+                                                <span class="lnr lnr-rocket mr-3"></span>
+                                                <span class="media-body text-truncate text-left">
+                                                    <span class="text-truncate text-left">Reports</span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </a>
-                                    <a class="p-2" href="/manages">
-                                        <span class="media align-items-center">
-                                            <span class="lnr lnr-sync mr-3"></span>
-                                            <span class="media-body text-truncate text-left">
-                                                <span class="text-truncate text-left">Manage</span>
+                                        </a>
+                                        <a class="p-2" href="/manages">
+                                            <span class="media align-items-center">
+                                                <span class="lnr lnr-sync mr-3"></span>
+                                                <span class="media-body text-truncate text-left">
+                                                    <span class="text-truncate text-left">Manage</span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </a>
-
+                                        </a>
+                                    <?php } ?>
                                     <a class="p-2" href="#">
                                         <span class="media align-items-center">
                                             <span class="lnr lnr-cog mr-3"></span>

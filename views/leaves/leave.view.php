@@ -163,7 +163,7 @@ include "layouts/navbar.php"; ?>
 											<td><?= $request['start_date'] ?></td>
 											<td><?= $request['end_date'] ?></td>
 											<td>
-												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
+												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post" id="approve">
 													<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
 													<select name="leave_status" class="form-control">
 														<?php foreach ($leaves as $leave) {
