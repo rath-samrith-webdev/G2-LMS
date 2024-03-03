@@ -8,8 +8,8 @@ function getAllReviews()
     return $statement->fetchAll();
 }
 
-// ==========Get reviews select all===========
-function getAllReview() : array
+// ==========Get reviews_status select all===========
+function getAllReviewStatus() : array
 {
     global $connection;
     $statement = $connection->prepare("select * from review_status");
@@ -17,4 +17,33 @@ function getAllReview() : array
     return $statement->fetchAll();
 }
 
+// ==========Get reviews_type select all===========
+function getAllReviewType() : array
+{
+    global $connection;
+    $statement = $connection->prepare("select * from review_types");
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+
+
+// ==========Post review in data===========
+function postReviewData($uid ,$reviewType_id, $start_date, $end_date, $status_id): bool
+{
+
+    global $connection;
+    $statement = $connection->prepare("INSERT INTO reviews(uid, reviewType_id, start_date,end_date,status_id) VALUES (:uid, :reviewType_id, :start_date, :end_date, :status_id)");
+    $statement->execute(
+        [
+        ':uid' => $uid,
+        ':reviewType_id' => $reviewType_id,
+        ':start_date' => $start_date,
+        ':end_date' => $end_date,
+        ':status_id' => $status_id
+    ]
+);
+
+    return $statement->rowCount() > 0;
+}
 
