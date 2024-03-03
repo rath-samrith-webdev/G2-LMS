@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "../../models/leave_request.model.php";
-if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['first_name'])) {
+if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['first_name'])) {//Check if the user is a normal user
     if (isset($_POST['view'])) {
 
         $con = mysqli_connect("localhost", "root", "", "leave_manage_db");
