@@ -64,3 +64,12 @@ function getUsers():array{
     $statment->execute();
     return $statment->fetchAll();
 }
+
+
+function getRolesAll(): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM userroles");
+    $statement->execute();
+    return $statement->fetchAll();
+}
