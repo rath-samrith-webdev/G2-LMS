@@ -73,3 +73,12 @@ function getRolesAll(): array
     $statement->execute();
     return $statement->fetchAll();
 }
+
+// ===== get All user manager =====
+function getAllManager(): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM user_manager");
+    $statement->execute();
+    return $statement->fetchAll();
+}
