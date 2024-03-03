@@ -138,3 +138,15 @@ function hm_time_ago($timestamp)
         }
     }
 }
+function getuserLeaveToday(int $uid, $date): array
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where start_date=:date and uid=:uid");
+    $statement->execute(
+        [
+            ':date' => $date,
+            ':uid' => $uid
+        ]
+    );
+    return $statement->fetchAll();
+}
