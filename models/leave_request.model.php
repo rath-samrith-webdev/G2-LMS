@@ -100,3 +100,12 @@ function updatePersonalLeave(int $request_id, int $uid): bool
 
     return $statement->rowCount() > 0;
 }
+// Get one requests
+function getOneleaves(int $request_id)
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where request_id=:request_id");
+    $statement->execute([":request_id" => $request_id]);
+
+    return $statement->fetch();
+}
