@@ -13,7 +13,7 @@ if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
             if ($isCanceled) { //Checking whether the data has been update 
                 header("location: /leaves"); //Redirect back if completed
             } else {
-                header("location: /leaves");//Redirect back if an error accurred
+                header("location: /leaves"); //Redirect back if an error accurred
             }
         }
     };
