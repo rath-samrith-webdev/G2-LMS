@@ -26,10 +26,8 @@ function getAllReviewType() : array
     return $statement->fetchAll();
 }
 
-
-
 // ==========Post review in data===========
-function postReviewData($uid ,$reviewType_id, $start_date, $end_date, $status_id): bool
+function postReviewData($uid ,$reviewType_id, $start_date, $end_date): bool
 {
 
     global $connection;
@@ -40,10 +38,25 @@ function postReviewData($uid ,$reviewType_id, $start_date, $end_date, $status_id
         ':reviewType_id' => $reviewType_id,
         ':start_date' => $start_date,
         ':end_date' => $end_date,
-        ':status_id' => $status_id
+        ':status_id' => 1
     ]
 );
 
     return $statement->rowCount() > 0;
 }
 
+
+// ==========Edit review in data===========
+
+function updateReview(int $uid, int $status_id): bool
+{
+    global $connection;
+    $statement = $connection->prepare("UPDATE reviews SET status_id=:status_id WHERE uid=:uid");
+    $statement->execute(
+        [
+            ':status_id' => $status_id,
+            ':uid' => $uid
+        ]
+    );
+    return $statement->rowCount() > 0;
+}

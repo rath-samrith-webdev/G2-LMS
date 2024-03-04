@@ -50,15 +50,19 @@ include "layouts/navbar.php";
 											<td>
 												
 											 <!-- ==========Get reviews select all=========== -->
-												<select name="" class="form-control">
-													<?php foreach ($review_status as $status) {
-														if ($status['status_name'] == $status['status_name']) { ?>
-															<option value="<?= $status["status_id"] ?>" selected><?= $status['status_name'] ?></option>
-														<?php  } else { ?>
-															<option value="<?= $status["status_id"] ?>"><?= $status['status_name'] ?></option>
-													<?php }
-													} ?>
-												</select>
+											 <form action="controllers/reviews/edit.status.review.controller.php" class="d-flex justify-content-between" method="post">
+											 <input type="hidden" value="<?= $review['review_id'] ?>" name="review_id">
+												 <select name="status_id" class="form-control">
+													 <?php foreach ($review_status as $status) {
+														 if ($status['status_name'] == $status['status_name']) { ?>
+															 <option value="<?= $status["status_id"] ?>" selected><?= $status['status_name'] ?></option>
+														 <?php  } else { ?>
+															 <option value="<?= $status["status_id"] ?>"><?= $status['status_name'] ?></option>
+													 <?php }
+													 } ?>
+												 </select>
+												 <button class="btn btn-theme button-1 text-white">Save</button>
+											 </form>
 											</td>
 											<td>
 												<div class="table-action">
