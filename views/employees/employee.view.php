@@ -150,61 +150,24 @@ require "layouts/navbar.php"; ?>
             <!-- Team Leads List -->
             <div class="card flex-fill team-lead shadow-sm grow">
                 <div class="card-header">
-                    <h4 class="card-title mb-0 d-inline-block">Team Leads</h4>
+                    <h4 class="card-title mb-0 d-inline-block"> Team Members</h4>
                     <a href="employees-team.html" class="dash-card d-inline-block float-right mb-0 text-primary">Manage Team
                     </a>
                 </div>
                 <div class="card-body">
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" class="img-fluid" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Maria Cotton</h6>
-                            <p class="mb-0 ctm-text-sm">PHP</p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img class="img-fluid" src="assets/img/profiles/img-5.jpg" alt="Linda Craver" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Danny Ward</h6>
-                            <p class="mb-0 ctm-text-sm">Design</p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img src="assets/img/profiles/img-4.jpg" alt="Linda Craver" class="img-fluid" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Linda Craver</h6>
-                            <p class="mb-0 ctm-text-sm">IOS</p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img class="img-fluid" src="assets/img/profiles/img-3.jpg" alt="Linda Craver" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Jenni Sims</h6>
-                            <p class="mb-0 ctm-text-sm">Android</p>
-                        </div>
-                    </div>
-                    <hr />
+                    <?php foreach ($managers as $employee) { ?>
 
-                    <div class="media">
-                        <div class="e-avatar avatar-offline mr-3">
-                            <img class="img-fluid" src="assets/img/profiles/img-8.jpg" alt="Linda Craver" />
+                        <div class="media mb-3">
+                            <div class="e-avatar avatar-online mr-3">
+                                <img src="<?=$employee['profile']?>" alt="Maria Cotton" class="img-fluid" />
+                            </div>
+                            <div class="media-body">
+                                <h6 class="m-0"><?=$employee['first_name']."  " .$employee['last_name']?></h6>
+                                <p><?=$employee['user_email']?></p>
+                            </div>
                         </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Stacey Linville</h6>
-                            <p class="mb-0 ctm-text-sm">Testing</p>
-                        </div>
-                    </div>
+                        <hr />
+                    <?php } ?>
                 </div>
             </div>
         </div>

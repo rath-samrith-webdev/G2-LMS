@@ -81,3 +81,14 @@ function accountExist(string $email): array {
         return [];
     };
 };
+
+function employeeUnderManager(int $uid):array {
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM user_manager WHERE manager_id = :uid");
+    $statement -> execute([':uid'=>$uid]);
+    if($statement->rowCount() > 0){
+        return $statement -> fetchAll();
+    }else{
+        return [];
+    }
+}
