@@ -169,7 +169,6 @@ require "layouts/navbar.php"; ?>
             </div>
         </div>
         <!-- / Recent Activities -->
-
         <div class="col-lg-6 col-md-12 d-flex">
             <!-- Today -->
             <div class="card flex-fill today-list shadow-sm grow">
