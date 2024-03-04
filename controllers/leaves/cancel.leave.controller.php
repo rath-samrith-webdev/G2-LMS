@@ -22,7 +22,7 @@ if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
         $manager = getManager($currentRequest['uid']);
         $leaveType = $currentRequest['leaveType_desc']; //leave type
         $username = $currentRequest['first_name'] . " " . $currentRequest['last_name']; //User name
-        $managerName = $manager['first_name'] . ' ' . $manager['last_name']; // Manager Name
+        $managerName = $manager['manager_firstname'] . ' ' . $manager['manager_lastname']; // Manager Name
         $managerEmail = $manager['manager_email'];  // manager email
         echo $username . '<br>';
         echo $managerName . '<br>';
@@ -33,7 +33,7 @@ if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
             $isCanceled = updatePersonalLeave($request_id, $uid);
             if ($isCanceled) { //Checking whether the data has been update 
                 $email = $manager['manager_email'] ?? '';
-                $content = "<div width='100%'><h1><b>Leave request</b></h1><h3>Dear " . $managerName . ",</h3><p> I am writing to inform your that " . $username . "'s request on " . $leaveType . " has been " . $status_message . ". Please ensure that your work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>LMS-Group2</p></b></div>";
+                $content = "<div width='100%'><h1><b>Leave request Cancel</b></h1><h3>Dear " . $managerName . ",</h3><p> I am writing to inform your that " . $username . "'s request on " . $leaveType . " has been " . $status_message . " by " . $username . ". Please ensure that his/her work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>LMS-Group2</p></b></div>";
                 //Create an instance; passing true enables exceptions
                 $mail = new PHPMailer(true);
                 try {
@@ -52,7 +52,7 @@ if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
 
                     //Content
                     $mail->isHTML(true);                                  //Set email format to HTML
-                    $mail->Subject = 'Here is the subject';
+                    $mail->Subject = 'Leave Request Cancel Announcement';
                     $mail->Body    = $content;
                     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
