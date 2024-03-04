@@ -20,7 +20,7 @@ $userfirst = $userIdManager['first_name'];
 $userlast = $userIdManager['last_name'];
 
 // Load PHPMailer classes
-require 'vendor/autoload.php'; // Adjust the path as needed
+require '../../vendor/autoload.php'; // Adjust the path as needed
 $mail = $userIdManager['manager_email'];
 
 // Create a new PHPMailer instance
