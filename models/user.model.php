@@ -65,16 +65,20 @@ function getUsers():array{
     return $statment->fetchAll();
 }
 
-// ========= Update total request in user ===========
-function updateUserTotal( int $uid, int $total_allowed_leave): bool
+
+function getRolesAll(): array
 {
     global $connection;
-    $statement = $connection->prepare("UPDATE users SET total_allowed_leave =:total_allowed_leave WHERE uid =:uid");
-    $statement->execute(
-        [
-            ':total_allowed_leave' => $total_allowed_leave,
-            ':uid' => $uid
-        ]
-    );
-    return $statement->rowCount() > 0;
+    $statement = $connection->prepare("SELECT * FROM userroles");
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+// ===== get All user manager =====
+function getUserIdManager(int $id) : array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM user_manager WHERE uid =:uid");
+    $statement->execute([':uid' => $id]);
+    return $statement->fetch();
 }

@@ -4,6 +4,11 @@ require "../../database/database.php";
 require "../../models/leave_request.model.php";
 require "../../models/user.model.php";
 
+// ====== get email =======
+$userIdManager = getUserIdManager($_SESSION['user']['uid']);
+$userId = $userIdManager['user_email'];
+$managerEmail = $userIdManager['manager_email'];
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $selectData = $_POST['dateValue'];          // data1
     $dataValueEnd = $_POST['dataValueEnd'];     // data2 
@@ -23,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
        if($add){
         header("location: /leaves");
        }
-    };
+    }
 
     // ======== updata total =========
     if ($total !== '') {
