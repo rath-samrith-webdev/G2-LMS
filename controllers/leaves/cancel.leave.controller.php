@@ -32,6 +32,7 @@ if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
             // Checking whether the user has permission to cancel this request or not
             $isCanceled = updatePersonalLeave($request_id, $uid);
             if ($isCanceled) { //Checking whether the data has been update 
+                header('location: /leaves');
                 $email = $manager['manager_email'] ?? '';
                 $content = "<div width='100%'><h1><b>Leave request Cancel</b></h1><h3>Dear " . $managerName . ",</h3><p> I am writing to inform your that " . $username . "'s request on " . $leaveType . " has been " . $status_message . " by " . $username . ". Please ensure that his/her work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>LMS-Group2</p></b></div>";
                 //Create an instance; passing true enables exceptions
@@ -58,7 +59,6 @@ if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
 
                     $mail->send();
                     echo 'Message has been sent';
-                    header('location: /leaves');
                 } catch (Exception $e) {
                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                 }

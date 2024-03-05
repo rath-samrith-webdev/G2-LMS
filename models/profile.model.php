@@ -80,7 +80,7 @@ function updateUser($uid, $first_name, $last_name, $date_of_birth, $phone_number
     ]);
     return $statement->rowCount() > 0;
 }
-//======== Get manager
+//======== Get manager===========================================
 function getManager($uid)
 {
     global $connection;
