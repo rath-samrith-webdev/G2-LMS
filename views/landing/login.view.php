@@ -1,4 +1,4 @@
-<?php require "layouts/header.php"; ?>
+<?php require "layouts/header.php"?>
 <!-- Main Wrapper -->
 <div class="inner-wrapper login-body">
     <div class="login-wrapper">
