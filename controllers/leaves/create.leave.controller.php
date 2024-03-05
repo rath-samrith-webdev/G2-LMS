@@ -27,6 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $total = $leaveRemain - $diff->format("%a"); // calculate date all
     $manager = getUserIdManager($uid);
     $managerEmail = $manager['manager_email'];
+    $firstNameManager = $manager['manager_firstname'];
+    $lastNameManager = $manager['manager_lastname'];
+    $firstNameUser = $manager['first_name'];
+    $lastNameUser = $manager['last_name'];
+
     //========= add request table ==========
     if ($selectData !== '' and $dataValueEnd !== '' and $uid !== '' and $leaveType !== '') {
         if ($total > 0) {
@@ -35,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $add = addLeaveRequest($selectData, $dataValueEnd, $uid, $leaveType); // insert add request new
                 if ($add) {
                     $email = $managerEmail;
-                    $content = "<div width='100%'><h4>Hello</h4></div>";
+                    $content = "<div width='100%'><h1><b>Leave request</b></h1><h3>Dear ".$firstNameManager.' '. $lastNameManager ."</h3><p> I am writing to inform you that your "." has been approved, and you may take time off as requestd. Please ensure that your work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>". $firstNameUser .' '. $lastNameUser ."</p></b></div>";
                     //Create an instance; passing `true` enables exceptions
                     $mail = new PHPMailer(true);
 
@@ -52,15 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         //Recipients
                         $mail->setFrom('lmsgrouptwo@gmail.com', 'LMS-Group2');
                         $mail->addAddress($email);     //Add a recipient
-                        // $mail->addAddress('ellen@example.com');               //Name is optional
-                        // $mail->addReplyTo('info@example.com', 'Information');
-                        // $mail->addCC('rathsamreth0200@gmail.com');
-                        // $mail->addBCC('bcc@example.com');
-
-                        //Attachments
-                        // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-                        // $mail->addAttachment('../../assets/document/Company List.xlsx', 'Company Name');    //Optional name
-                        // $mail->addAttachment('../../assets/images/testing_image.png', 'Image Test');    //Optional name
 
                         //Content
                         $mail->isHTML(true);                                  //Set email format to HTML
