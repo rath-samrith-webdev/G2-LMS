@@ -29,6 +29,9 @@
   <script src="vendor/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
   <script src="vendor/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
+  <!-- Notify JS -->
+
+  <script src="vendor/js/notify.min.js"></script>
   <!-- Custom Js -->
   <script src="vendor/js/script.js"></script>
 

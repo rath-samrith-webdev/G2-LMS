@@ -1,4 +1,4 @@
-<?php require "layouts/header.php";?>
+<?php require "layouts/header.php"; ?>
 
 <!-- Main Wrapper -->
 <div class="inner-wrapper login-body">
@@ -15,11 +15,11 @@
 
                         <!-- Form -->
                         <form action="controllers/log.controll/login_admin.controller.php" method="post">
-                            <?php if(isset($_GET['error'])) {?>
-                                <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error'];?></p>
+                            <?php if (isset($_GET['error'])) { ?>
+                                <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error']; ?></p>
                             <?php } ?>
-                        <!-- <?php if(isset($_GET['error'])) {?>
-                                <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error'];?></p>
+                            <!-- <?php if (isset($_GET['error'])) { ?>
+                                <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error']; ?></p>
                             <?php } ?> -->
                             <div class="form-group">
                                 <input class="form-control" type="text" placeholder="Admin Name" name="name">
@@ -33,7 +33,7 @@
                         </form>
                         <!-- /Form -->
 
-                        <div class="text-center forgotpass d-flex justify-content-between"><a href="forgot-password.html" class="btn btn-primary text-white ctm-border-radius">Forgot Password?</a>
+                        <div class="text-center forgotpass d-flex justify-content-between"><a href="/forgetPass" class="btn btn-primary text-white ctm-border-radius">Forgot Password?</a>
                             <a href='/' class="btn btn-primary text-white ctm-border-radius ">User Login</a>
                         </div>
                     </div>
