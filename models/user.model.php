@@ -1,7 +1,7 @@
 <?php
 
 // ======== create Users ========
-function createUser(string $fsname, string $lsname, string $dateOfbirth, string $phoneNumer, string $email, string $password, string $salary, string $positions,string $roles,string $departments,string $leaves) : bool
+function createUser(string $fsname, string $lsname, string $dateOfbirth, string $phoneNumer, string $email, string $password, string $salary, string $positions, string $roles, string $departments, string $leaves): bool
 {
     global $connection;
     $statement = $connection->prepare("insert into users (first_name, last_name, date_of_birth, phone_number, email, password,salary, position_id, role_id, department_id,total_allowed_leave)
@@ -15,17 +15,18 @@ function createUser(string $fsname, string $lsname, string $dateOfbirth, string 
         ':email' => $email,
         ':password' => $password,
         ':salary' => $salary,
-        ':postion_id'=> $positions,
-        ':role_id'=> $roles,
-        ':department_id'=>$departments,
-        ':total_allowed_leave'=>$leaves,
+        ':postion_id' => $positions,
+        ':role_id' => $roles,
+        ':department_id' => $departments,
+        ':total_allowed_leave' => $leaves,
     ]);
 
     return $statement->rowCount() > 0;
 }
 
 // ======== get select of departments ==========
-function getDepartments():array{
+function getDepartments(): array
+{
     global $connection;
     $statement = $connection->prepare("SELECT * FROM departments");
     $statement->execute();
@@ -33,7 +34,7 @@ function getDepartments():array{
 }
 
 // ======= delete of users ======== 
-function deleteUser(int $id) : bool
+function deleteUser(int $id): bool
 {
     global $connection;
     $statement = $connection->prepare("delete from users where uid = :id");
@@ -42,7 +43,8 @@ function deleteUser(int $id) : bool
 }
 
 // ======== get select of postions =========
-function getPositions():array{
+function getPositions(): array
+{
     global $connection;
     $statment = $connection->prepare("SELECT * FROM postions");
     $statment->execute();
@@ -50,7 +52,8 @@ function getPositions():array{
 }
 
 // ======== get select of user roles ========
-function getUserrole():array{
+function getUserrole(): array
+{
     global $connection;
     $statment = $connection->prepare("SELECT * FROM userroles");
     $statment->execute();
@@ -58,7 +61,8 @@ function getUserrole():array{
 }
 
 // ======== get select of users ========
-function getUsers():array{
+function getUsers(): array
+{
     global $connection;
     $statment = $connection->prepare("SELECT * FROM users");
     $statment->execute();
@@ -75,10 +79,21 @@ function getRolesAll(): array
 }
 
 // ===== get All user manager =====
-function getUserIdManager(int $id) : array
+function getUserIdManager(int $id): array
 {
     global $connection;
     $statement = $connection->prepare("SELECT * FROM user_manager WHERE uid =:uid");
     $statement->execute([':uid' => $id]);
     return $statement->fetch();
+}
+function updateCurrentLeave(int $id, int $total): bool
+{
+    global $connection;
+    $statment=$connection->prepare('UPDATE users SET total_allowed_leave=:total WHERE uid=:id');
+    if($statment) {
+        $statment -> execute([ ':total'=>$total ,':id'=>$id ]);
+        return true;
+    } else {
+        return false;
+    }
 }
