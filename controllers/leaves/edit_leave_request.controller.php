@@ -2,6 +2,7 @@
 require "../../database/database.php";
 require "../../models/leave_request.model.php";
 require "../../models/employee.model.php";
+require "../../models/leavetype.model.php";
 
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -19,9 +20,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $username=$user['first_name'];
     $request=getleave($request_id,$user['uid']);
     $leaveType=$request['leaveType_desc'];
+    $leaveStatus=getLeaveData();
+    $newStatus="";
+    foreach ($leaveStatus as $status){
+        if($status['status_id']==$status_id){
+            $newStatus=$status['status_desc'];
+        }
+    }
     if (updateLeaveData($status_id, $request_id)) {
         $email = $user['email'];
-        $content = "<div width='100%'><h1><b>Leave request</b></h1><h4>Dear ".$username.",</h4><p> I am writing to inform you that your ".$leaveType." has been approved, and you may take time off as requestd. Please ensure that your work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>LMS-Group2</p></b></div>";
+        $content = "<div width='100%'><h1><b>Leave request</b></h1><h3>Dear ".$username.",</h3><p> I am writing to inform you that your ".$leaveType." has been <b>"
+        
+        .$newStatus.
+        "</b>, and you may take time off as requestd. Please ensure that your work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>LMS-Group2</p></b></div>";
 
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
