@@ -24,6 +24,7 @@
                                 <button class="btn btn-theme button-1 text-white ctm-border-radius btn-block" type="submit">Submit</button>
                             </div>
                         </form>
+                        <a href="/"><button class="btn btn-theme button-1 text-white ctm-border-radius btn-block">Back to Login Page</button></a>
                     </div>
                 </div>
             </div>
