@@ -15,10 +15,10 @@ if (isset($_POST['name']) && isset($_POST['password'])){
     if (empty($name)){
         header("Location: /loginAdmin?error=User admin is not correct");
         exit();
-    }elseif(empty($password)){
+    }elseif (!$_POST['password'] || strlen($_POST['password']) < 6 ) {
         header("Location: /loginAdmin?error=Password is not correct");
         exit();
-    }else{
+    }{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $email = htmlspecialchars($_POST['name']);

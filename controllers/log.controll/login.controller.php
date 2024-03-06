@@ -14,11 +14,12 @@ if (isset($_POST['email']) && isset($_POST['password'])){
     $name = validate($_POST['email']);
     $password = validate($_POST['password']);
 
-    if (empty($name)){
-        header("Location: /?error=User name is not correct");
+    if (!$_POST['email'] || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        header("Location: /?error=User Please Enter a Valid Email.");
         exit();
-    }elseif(empty($password)){
-        header("Location: /?error=Password is not correct");
+    }
+    if (!$_POST['password'] || strlen($_POST['password']) < 8 ) {
+        header("Location: /?error=Password should be minimum 8.");
         exit();
     }else{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

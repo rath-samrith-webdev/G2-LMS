@@ -1,11 +1,4 @@
 <?php require "layouts/header.php"?>
-<!-- Bootstrap 5 -->
-<link rel="stylesheet" href="/path/to/cdn/bootstrap.min.css" />
-<script src="/path/to/cdn/bootstrap.bundle.min.js"></script>
-<!-- Icon Picker -->
-<script src="/path/to/dist/iconpicker.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-
 <div class="inner-wrapper login-body">
     <div class="login-wrapper">
         <div class="p-5 bg-image" style="
