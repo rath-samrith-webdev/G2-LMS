@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and $_POST['email'] !== "") {
     $verifier = rand(0, 9999);
     // if you are in actual web server, instead of http://" . $_SERVER['HTTP_HOST'] write your link 
     $isInserted = insertTokenAndEmail($email, $token, $verifier);
-    $url = "http://" . $_SERVER['HTTP_HOST'] . "//updatepass?token=" . $token;
+    $url = "http://" . $_SERVER['HTTP_HOST'] . "/updatepass?token=" . $token . "&vf=" . $verifier;
     if ($isInserted) {
         $_SESSION['email'] = 1;
         $mail = new PHPMailer(true);

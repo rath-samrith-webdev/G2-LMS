@@ -2,10 +2,21 @@
 require "../../database/database.php";
 require "../../models/reset.password.model.php";
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    echo $_POST['password'];
-    echo $_POST['token'];
-    $request = getEmail($_POST['token']);
+    $newpass = $_POST['password'];
+    $token= $_POST['token'];
+    $code = $_POST['vf'];
+    $request = getEmail($_POST['token'], $code);
     $email = $request['email'];
     $user = getUser($email);
-    var_dump($user);
+    $isupdated = updateNewpass($email, $newpass);
+    if (!$isupdated) {
+        header("Location: /forgetPass");
+    } else {
+        $isremoved = removeToken($email, $token, $code);
+        if (!$isremoved) {
+            die('Error');
+        } else {
+            header("Location: /");
+        }
+    }
 }

@@ -18,6 +18,7 @@
                                 <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error']; ?></p>
                             <?php } ?>
                             <input type="hidden" name="token" value="<?= $token ?>">
+                            <input type="hidden" name="vf" value="<?= $verifier ?>">
                             <div class="form-group">
                                 <input class="form-control" type="password" placeholder="Enter you new password" name="password" required>
                             </div>
