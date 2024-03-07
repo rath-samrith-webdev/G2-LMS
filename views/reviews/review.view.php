@@ -66,9 +66,11 @@ include "layouts/navbar.php";
 											</td>
 											<td>
 												<div class="table-action">
-													<a href="edit-review.html" class="btn btn-sm btn-outline-success">
-														<span class="lnr lnr-pencil"></span> Edit
-													</a>
+													<!-- ==========btn edit review=========== -->
+													<form action="/editReview" method="post" class="btn btn-sm">
+														<input type="hidden" value="<?=$review['review_id']?>" name="id">
+														<button type="submit" class="btn-sm btn-outline-success"><span class="lnr lnr-pencil"></span> Edit</button>
+													</form>
 													<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
 														<span class="lnr lnr-trash"></span> Delete
 													</a>

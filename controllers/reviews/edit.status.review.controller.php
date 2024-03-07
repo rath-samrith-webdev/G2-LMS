@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     
     if ($review_id !== '' and $uid !== '' and $status_id !== '' ) {
-        $addData = updateReview($uid, $status_id);
+        $addData = updateReviewStatus($uid, $status_id);
         if ($addData) {
             header('location: /reviews');
         };

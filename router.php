@@ -23,6 +23,7 @@ $routes = [
     '/removeall' => 'controllers\leaves\remove.all.request.controller.php',
     '/employeelist' => 'controllers/admin/employee.list.controller.php',
     '/reviewForm' => 'controllers/reviews/review.form.controller.php',
+    '/editReview' => 'controllers/reviews/edit.review.controller.php',
 ];
 $homeRoutes = [
     '/' => 'controllers/log.controll/login.controll.php',
