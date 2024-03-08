@@ -55,7 +55,7 @@ require "layouts/navbar.php"; ?>
             <div class="card shadow-sm flex-fill grow">
                 <div class="card-header">
                     <h4 class="card-title mb-0 d-inline-block">Today</h4>
-                    <a href="javascript:void(0)" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
+                    <a href="/manages" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
                 </div>
                 <div class="card-body recent-activ">
                     <div class="today_leave">
@@ -123,7 +123,7 @@ require "layouts/navbar.php"; ?>
                     <h4 class="card-title mb-0 d-inline-block">
                         Your Recent Activities
                     </h4>
-                    <a href="javascript:void(0)" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
+                    <a href="/manages" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
                 </div>
                 <div class="card-body recent-activ admin-activ">
                     <div class="recent-comment">

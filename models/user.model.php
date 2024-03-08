@@ -97,3 +97,13 @@ function updateCurrentLeave(int $id, int $total): bool
         return false;
     }
 }
+
+
+
+function getRolesAll(): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM userroles");
+    $statement->execute();
+    return $statement->fetchAll();
+}
