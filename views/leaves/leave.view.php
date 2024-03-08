@@ -6,7 +6,6 @@ include "layouts/navbar.php"; ?>
 	if (!isset($_SESSION['user']['admin_username'])) { ?>
 		<div class="modal fade" id="add_leave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Requests Leave Type </h5>
@@ -32,8 +31,10 @@ include "layouts/navbar.php"; ?>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
-										<label>Remaining Leaves</label>
-										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave'];?>" disabled>
+										<label>Total days
+											<span class="text-danger">*</span>
+										</label>
+										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave']; ?>" disabled>
 									</div>
 								</div>
 							</div>
@@ -48,29 +49,27 @@ include "layouts/navbar.php"; ?>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
-										<label>To</label>
+										<label>To end
+											<span class="text-danger">*</span>
+										</label>
 										<input type="text" name="dataValueEnd" class="form-control datetimepicker">
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-6" >
-									<div class="form-group" >
+								<div class="col-sm-6">
+									<div class="form-group">
 										<label>
 											Status of user
 											<span class="text-danger">*</span>
 										</label>
-										<select class="form-control select" name = "statuID">
-											<?php foreach ($leaves as $leave) { ?>
-												<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
-											<?php } ?>
-										</select>
+										<span class="form-control" name="statuID">3</span>
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>Number of Days Leave</label>
-										<input type="text" class="form-control" placeholder="2"disabled>
+										<input type="text" class="form-control" placeholder="0" disabled>
 									</div>
 								</div>
 							</div>
@@ -169,7 +168,6 @@ include "layouts/navbar.php"; ?>
 										<td>
 											<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
 												<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
-												<input type="hidden" value="<?= $request['uid'] ?>" name="uid">
 												<select name="leave_status" class="form-control">
 													<?php foreach ($leaves as $leave) {
 														if ($leave['status_desc'] == $request['status_desc']) { ?>
