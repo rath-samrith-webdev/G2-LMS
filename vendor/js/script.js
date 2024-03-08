@@ -177,9 +177,7 @@ $(document).ready(function () {
       },
     });
   }
-
   load_unseen_notification();
-
   $("#approve").on("submit", function (event) {
     event.preventDefault();
     load_unseen_notification();
