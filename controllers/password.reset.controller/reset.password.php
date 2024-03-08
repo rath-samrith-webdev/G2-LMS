@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and $_POST['email'] !== "") {
                   style="width: 100%; display: flex; justify-content: center"
                 >
                   <a
-                    href=" . $url . "
+                    href=" ' . $url . ' "
                     style="
                       text-decoration: none;
                       border: 1px solid dodgerblue;

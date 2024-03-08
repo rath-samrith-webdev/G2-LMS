@@ -89,9 +89,9 @@ function getUserIdManager(int $id): array
 function updateCurrentLeave(int $id, int $total): bool
 {
     global $connection;
-    $statment=$connection->prepare('UPDATE users SET total_allowed_leave=:total WHERE uid=:id');
-    if($statment) {
-        $statment -> execute([ ':total'=>$total ,':id'=>$id ]);
+    $statment = $connection->prepare('UPDATE users SET total_allowed_leave=:total WHERE uid=:id');
+    if ($statment) {
+        $statment->execute([':total' => $total, ':id' => $id]);
         return true;
     } else {
         return false;

@@ -24,7 +24,7 @@ include "layouts/navbar.php"; ?>
 										</label>
 										<select class="form-control select" name="leaveType">
 											<?php foreach ($leaveTypes as $type) { ?>
-												<option value='<?= $type['leaveType_id']?>'><?=$type['leaveType_desc']?></option>
+												<option value='<?= $type['leaveType_id'] ?>'><?= $type['leaveType_desc'] ?></option>
 											<?php } ?>
 										</select>
 									</div>
@@ -34,7 +34,7 @@ include "layouts/navbar.php"; ?>
 										<label>Total days
 											<span class="text-danger">*</span>
 										</label>
-										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave'];?>" disabled>
+										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave']; ?>" disabled>
 									</div>
 								</div>
 							</div>
@@ -49,7 +49,7 @@ include "layouts/navbar.php"; ?>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
-										<label>To end 
+										<label>To end
 											<span class="text-danger">*</span>
 										</label>
 										<input type="text" name="dataValueEnd" class="form-control datetimepicker">
@@ -57,19 +57,19 @@ include "layouts/navbar.php"; ?>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-6" >
-									<div class="form-group" >
+								<div class="col-sm-6">
+									<div class="form-group">
 										<label>
 											Status of user
 											<span class="text-danger">*</span>
 										</label>
-										<span class="form-control" name = "statuID">3</span>
+										<span class="form-control" name="statuID">3</span>
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>Number of Days Leave</label>
-										<input type="text" class="form-control" placeholder="0"disabled>
+										<input type="text" class="form-control" placeholder="0" disabled>
 									</div>
 								</div>
 							</div>
@@ -95,6 +95,9 @@ include "layouts/navbar.php"; ?>
 		<div class="card ctm-border-radius shadow-sm grow">
 			<div class="card-header d-flex justify-content-between">
 				<h4 class="card-title mb-0">Leave Details</h4>
+				<?php if (isset($_SESSION['user']['admin_username'])) { ?>
+					<a href="/export"><button class="btn btn-theme button-1 text-white">Export report</button></a>
+				<?php } ?>
 				<button class="btn btn-outline-primary addleave">Request for new leave</button>
 			</div>
 			<div class="card-body">
@@ -166,24 +169,34 @@ include "layouts/navbar.php"; ?>
 										<td><?= $request['start_date'] ?></td>
 										<td><?= $request['end_date'] ?></td>
 										<td>
-											<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
-												<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
-												<select name="leave_status" class="form-control">
-													<?php foreach ($leaves as $leave) {
-														if ($leave['status_desc'] == $request['status_desc']) { ?>
-															<option value="<?= $leave["status_id"] ?>" selected><?= $leave['status_desc'] ?></option>
-														<?php  } else { ?>
-															<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
-													<?php }
-													} ?>
-												</select>
-												<button class="btn btn-theme button-1 text-white">Save</button>
-											</form>
+											<?php if (!isset($_SESSION['user']['uid'])) { ?>
+												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
+													<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
+													<input type="hidden" value="<?= $request['uid'] ?>" name="uid">
+													<select name="leave_status" class="form-control">
+														<?php foreach ($leaves as $leave) {
+															if ($leave['status_desc'] == $request['status_desc']) { ?>
+																<option value="<?= $leave["status_id"] ?>" selected><?= $leave['status_desc'] ?></option>
+															<?php  } else { ?>
+																<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
+														<?php }
+														} ?>
+													</select>
+													<button class="btn btn-theme button-1 text-white">Save</button>
+												</form>
+											<?php } else { ?>
+												<p><?= $request['status_desc'] ?></p>
+											<?php } ?>
 										</td>
 										<td></td>
 										<td class="text-right text-danger">
-											<a href="#" class="btn btn-sm btn-outline-danger deletebtn">
-												<span class="lnr lnr-trash"></span> Delete</a>
+											<?php if (!isset($_SESSION['user']['uid'])) { ?>
+												<a href="#" class="btn btn-sm btn-outline-danger deletebtn">
+													<span class="lnr lnr-trash"></span> Delete</a>
+											<?php } else { ?>
+												<a href="#" class="btn btn-sm btn-outline-danger cancelbtn">
+													<span class="lnr lnr-cross"></span> Cancel</a>
+											<?php } ?>
 										</td>
 									</tr>
 								<?php } ?>
@@ -248,6 +261,31 @@ include "layouts/navbar.php"; ?>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
 					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Remove </button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="cancelmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Cancel leave request</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<form action="controllers/leaves/cancel.leave.controller.php" method="POST">
+				<div class="modal-body">
+					<input type="hidden" name="request_id" id="leave_id">
+					<input type="hidden" name="cancelID" id="cancelID" value="4">
+					<h6> Are you sure you want to cancel request? </h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"> I'm not sure </button>
+					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Yes I'm sure </button>
 				</div>
 			</form>
 

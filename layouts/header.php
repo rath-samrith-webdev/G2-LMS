@@ -19,6 +19,9 @@
   <!-- Select2 CSS -->
   <link rel="stylesheet" href="vendor/plugins/select2/select2.min.css">
 
+  <!-- icons bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
   <!-- Datetimepicker CSS -->
   <link rel="stylesheet" href="vendor/css/bootstrap-datetimepicker.min.css">
 
@@ -27,6 +30,9 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="vendor/css/style.css" />
+
+  <!--  -->
+  <link rel="stylesheet" href="vendor/js/script.js" />
 
   <title>LMS SYSTEM</title>
 
