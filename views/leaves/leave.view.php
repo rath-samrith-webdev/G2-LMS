@@ -169,6 +169,7 @@ include "layouts/navbar.php"; ?>
 											<?php if (!isset($_SESSION['user']['uid'])) { ?>
 												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
 													<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
+													<input type="hidden" value="<?= $request['uid'] ?>" name="uid">
 													<select name="leave_status" class="form-control">
 														<?php foreach ($leaves as $leave) {
 															if ($leave['status_desc'] == $request['status_desc']) { ?>
