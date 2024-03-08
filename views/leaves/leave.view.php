@@ -95,6 +95,9 @@ include "layouts/navbar.php"; ?>
 		<div class="card ctm-border-radius shadow-sm grow">
 			<div class="card-header d-flex justify-content-between">
 				<h4 class="card-title mb-0">Leave Details</h4>
+				<?php if (isset($_SESSION['user']['admin_username'])) { ?>
+					<a href="/export"><button class="btn btn-theme button-1 text-white">Export report</button></a>
+				<?php } ?>
 				<button class="btn btn-outline-primary addleave">Request for new leave</button>
 			</div>
 			<div class="card-body">
