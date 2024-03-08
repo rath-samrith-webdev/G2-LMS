@@ -125,17 +125,39 @@ $(document).ready(function () {
   });
 });
 
-$(document).ready(function() {
-  $("#show_hide_password a").on('click', function(event) {
-      event.preventDefault();
-      if($('#show_hide_password input').attr("type") == "text"){
-          $('#show_hide_password input').attr('type', 'password');
-          $('#show_hide_password i').addClass( "fa-eye-slash" );
-          $('#show_hide_password i').removeClass( "fa-eye" );
-      }else if($('#show_hide_password input').attr("type") == "password"){
-          $('#show_hide_password input').attr('type', 'text');
-          $('#show_hide_password i').removeClass( "fa-eye-slash" );
-          $('#show_hide_password i').addClass( "fa-eye" );
-      }
+$(document).ready(function () {
+  $("#show_hide_password a").on('click', function (event) {
+    event.preventDefault();
+    if ($('#show_hide_password input').attr("type") == "text") {
+      $('#show_hide_password input').attr('type', 'password');
+      $('#show_hide_password i').addClass("fa-eye-slash");
+      $('#show_hide_password i').removeClass("fa-eye");
+    } else if ($('#show_hide_password input').attr("type") == "password") {
+      $('#show_hide_password input').attr('type', 'text');
+      $('#show_hide_password i').removeClass("fa-eye-slash");
+      $('#show_hide_password i').addClass("fa-eye");
+    }
+  })
+})
+$(document).ready(function () {
+  $(".addleave").on("click", function () {
+    $("#add_leave").modal("show");
+
+    $tr = $(this).closest("tr");
+    var data = $tr
+      .children("td")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    console.log(data[0]);
+    $("#request_id").val(data[0]);
+  });
+});
+
+$(document).ready(function () {
+  $("#download").click(function () {
+    var table2excel = new Table2Excel();
+    table2excel.export(document.querySelectorAll("table"));
   });
 });

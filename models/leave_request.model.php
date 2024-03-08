@@ -64,3 +64,20 @@ function deleteLeaveData(int $request_id): bool
     $statement->execute([':request_id' => $request_id]);
     return $statement->rowCount() > 0;
 }
+
+// ======== add leave request ===============
+function addLeaveRequest($start_date, $end_date, $status_id, $uid, $leavetype_id): bool
+{
+    global $connection;
+    $statement = $connection->prepare("INSERT INTO leave_requests (start_date, end_date, status_id, uid, leavetype_id) VALUES (:start_date, :end_date, :status_id, :uid, :leavetype_id)");
+    $statement->execute(
+        [
+            ':uid' => $uid,
+            ':leavetype_id' => $leavetype_id, // Removed extra space here
+            ':start_date' => $start_date,
+            ':end_date' => $end_date,
+            ':status_id' => $status_id
+        ]
+    );
+    return $statement->rowCount() > 0;
+}
