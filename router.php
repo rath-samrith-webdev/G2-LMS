@@ -28,6 +28,8 @@ $routes = [
 $homeRoutes = [
     '/' => 'controllers/log.controll/login.controll.php',
     '/loginAdmin' => 'controllers/log.controll/login_admin.controll.php',
+    '/forgetPass' => 'controllers/password.reset.controller/reset.password.controller.php',
+    '/updatepass'=>'controllers/password.reset.controller/reset.view.controller.php'
 ];
 if (isset($_SESSION['login']) and $_SESSION['login'] === 1) {
     if (array_key_exists($uri, $routes)) {

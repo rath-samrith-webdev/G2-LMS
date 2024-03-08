@@ -49,7 +49,7 @@
                             </div>
                         </form>
                         <!-- /Form -->
-                        <div class="text-center forgotpass d-flex justify-content-between"><a href="forgot-password.html" class="btn btn-primary text-white ctm-border-radius">Forgot Password?</a> <a href='/loginAdmin' class="btn btn-primary text-white ctm-border-radius">Admin Login</a></div>
+                        <div class="text-center forgotpass d-flex justify-content-between"><a href="/forgetPass" class="btn btn-primary text-white ctm-border-radius">Forgot Password?</a> <a href='/loginAdmin' class="btn btn-primary text-white ctm-border-radius">Admin Login</a></div>
                     </div>
                 </div>
             </div>

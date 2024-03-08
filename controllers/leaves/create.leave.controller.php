@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         echo 'Message has been sent';
                     } catch (Exception $e) {
                         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                        header("location: /leaves?email=0");
                     }
                 } else {
                     header("location: /leaves");
