@@ -1,7 +1,6 @@
   <!-- <div class="sidebar-overlay" id="sidebar_overlay"></div> -->
   <!-- jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="vendor/js/jquery-3.2.1.min.js"></script>
 
   <!-- Bootstrap Core JS -->
@@ -32,6 +31,7 @@
   <script src="vendor/js/table2excel.js"></script>
   <!-- Custom Js -->
   <script src="vendor/js/script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
   </body>
 
