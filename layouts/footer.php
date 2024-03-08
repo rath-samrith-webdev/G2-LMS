@@ -23,7 +23,7 @@
   <script src="vendor/js/jquery-ui.min.js"></script>
 
   <script src="vendor/plugins/fullcalendar/fullcalendar.min.js"></script>
-  <script src="vendor/plugins/fullcalendar/jquery.fullcalendar.js"></script>
+  <!-- <script src="vendor/plugins/fullcalendar/jquery.fullcalendar.js"></script> -->
 
   <!-- Sticky sidebar JS -->
   <script src="vendor/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
