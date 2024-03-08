@@ -210,3 +210,18 @@ $(document).ready(function () {
     load_recents();
   }, 5000);
 });
+$(document).ready(function () {
+  $(".cancelbtn").on("click", function () {
+    $("#cancelmodal").modal("show");
+
+    $tr = $(this).closest("tr");
+    var data = $tr
+      .children("td")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    console.log(data[0]);
+    $("#leave_id").val(data[0]);
+  });
+});

@@ -22,12 +22,10 @@ function accountExist(string $password): array
         return [];
     }
 }
-function getTeamLeads()
+function getPersonalLeaves(int $uid): array
 {
     global $connection;
-    $statment = $connection->prepare("SELECT * FROM user_details WHERE position_name=:position_name");
-    $statment->execute(
-        [':position_name' => "Team lead"]
-    );
-    return $statment->fetchAll();
+    $statement = $connection->prepare("SELECT * FROM total_requests WHERE uid=:uid");
+    $statement->execute([":uid" => $uid]);
+    return $statement->fetchAll();
 }

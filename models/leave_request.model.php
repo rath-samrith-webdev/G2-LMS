@@ -209,3 +209,24 @@ function getUserLeavesNotify(int $uid, int $status)
 
     return $statement->fetchAll();
 }
+function updatePersonalLeave(int $request_id, int $uid): bool
+{
+    global $connection;
+    $statement = $connection->prepare("update leave_requests set status_id =:status_id where request_id = :request_id and uid=:uid");
+    $statement->execute([
+        ':request_id' => $request_id,
+        ':uid' => $uid,
+        ':status_id' => 4
+    ]);
+
+    return $statement->rowCount() > 0;
+}
+// Get one requests
+function getOneleaves(int $request_id)
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where request_id=:request_id");
+    $statement->execute([":request_id" => $request_id]);
+
+    return $statement->fetch();
+}
