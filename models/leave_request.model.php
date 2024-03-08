@@ -64,7 +64,15 @@ function deleteLeaveData(int $request_id): bool
     $statement->execute([':request_id' => $request_id]);
     return $statement->rowCount() > 0;
 }
-
+function getleave(int $id,int $uid) : array
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where request_id = :id and uid=:uid");
+    $statement->execute([
+        ':id' => $id,
+        ':uid'=>$uid]);
+    return $statement->fetch();
+}
 // ======== add leave request ===============
 function addLeaveRequest($start_date, $end_date, $status_id, $uid, $leavetype_id): bool
 {

@@ -92,3 +92,14 @@ function employeeUnderManager(int $uid):array {
         return [];
     }
 }
+function getUser(int $uid): array {
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM users WHERE uid = :uid");
+    $statement -> execute([':uid'=>$uid]);
+    if($statement->rowCount() > 0){
+        return $statement -> fetch();
+
+    }else{
+        return [];
+    };
+};
