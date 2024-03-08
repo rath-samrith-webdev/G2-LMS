@@ -29,3 +29,12 @@ function getPersonalLeaves(int $uid): array
     $statement->execute([":uid" => $uid]);
     return $statement->fetchAll();
 }
+function getTeamLeads()
+{
+    global $connection;
+    $statment = $connection->prepare("SELECT * FROM user_details WHERE position_name=:position_name");
+    $statment->execute(
+        [':position_name' => "Team lead"]
+    );
+    return $statment->fetchAll();
+}
