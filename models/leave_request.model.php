@@ -74,7 +74,7 @@ function getleave(int $id,int $uid) : array
     return $statement->fetch();
 }
 // ======== add leave request ===============
-function addLeaveRequest($start_date, $end_date, $status_id, $uid, $leavetype_id): bool
+function addLeaveRequest($start_date, $end_date, $uid, $leavetype_id): bool
 {
     global $connection;
     $statement = $connection->prepare("INSERT INTO leave_requests (start_date, end_date, status_id, uid, leavetype_id) VALUES (:start_date, :end_date, :status_id, :uid, :leavetype_id)");
@@ -84,7 +84,7 @@ function addLeaveRequest($start_date, $end_date, $status_id, $uid, $leavetype_id
             ':leavetype_id' => $leavetype_id, // Removed extra space here
             ':start_date' => $start_date,
             ':end_date' => $end_date,
-            ':status_id' => $status_id
+            ':status_id' => 3
         ]
     );
     return $statement->rowCount() > 0;
