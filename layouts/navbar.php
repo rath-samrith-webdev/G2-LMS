@@ -278,9 +278,6 @@ if (isset($_SESSION['user'])) {
                                             <div class="col-6 align-items-center text-center">
                                                 <a href="/admin" class="text-white active p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                             </div>
-                                            <div class="col-6 align-items-center text-center">
-                                                <a href="/admin" class="text-white active p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
-                                            </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/employeelist" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
                                             </div>
