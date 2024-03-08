@@ -80,66 +80,41 @@ require "layouts/navbar.php"; ?>
 								<table class="table custom-table">
 									<thead>
 										<tr>
-											<th>Type</th>
-											<th>Name</th>
-											<th>Date</th>
-											<th>Size</th>
+											<th style="display: none;">ID</th>
+											<th>Department Name</th>
+											<th>Mangaer Name</th>
+											<th>Company</th>
 											<th class="text-right">Action</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td class="text-primary"><i class="fa fa-file-pdf-o" data-toggle="tooltip" data-placement="top" title="PDF" aria-hidden="true"></i></td>
-											<td><a href="javascript:void(0)" class="text-primary">Leave & Attendance Policy</a></td>
-											<td>05 Jan 2019</td>
-											<td>20 MB</td>
-											<td class="text-right text-danger">
-												<div class="table-action">
-													<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-														<span class="lnr lnr-trash"></span> Delete
-													</a>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td class="text-primary"><i class="fa fa-file-pdf-o" data-toggle="tooltip" data-placement="top" title="PDF" aria-hidden="true"></i></td>
-											<td><a href="javascript:void(0)" class="text-primary">Dress Code Policy</a></td>
-											<td>10 May 2019</td>
-											<td>30 MB</td>
-											<td class="text-right text-danger">
-												<div class="table-action">
-													<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-														<span class="lnr lnr-trash"></span> Delete
-													</a>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td class="text-primary cursor-pointer"><i class="fa fa-file-word-o" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Word"></i></td>
-											<td><a href="javascript:void(0)" class="text-primary">ID Card Policy</a></td>
-											<td>12 Jun 2019</td>
-											<td>25 MB</td>
-											<td class="text-right text-danger">
-												<div class="table-action">
-													<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-														<span class="lnr lnr-trash"></span> Delete
-													</a>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td class="text-primary"><i class="fa fa-file-pdf-o" data-toggle="tooltip" data-placement="top" title="PDF" aria-hidden="true"></i></td>
-											<td><a href="javascript:void(0)" class="text-primary">Work From Home Policy</a></td>
-											<td>05 Jul 2019</td>
-											<td>10 MB</td>
-											<td class="text-right text-danger">
-												<div class="table-action">
-													<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
-														<span class="lnr lnr-trash"></span> Delete
-													</a>
-												</div>
-											</td>
-										</tr>
+										<?php foreach ($departments as $dept) { ?>
+											<tr>
+												<td style="display:none"><?= $dept['department_id'] ?></td>
+												<td class="text-primary"><?= $dept['department_name'] ?></td>
+												<td><a href="javascript:void(0)" class="text-primary">
+														<div class="avatar">
+															<img alt="avatar image" src="<?= $dept['profile'] ?>" class="img-fluid">
+														</div>
+														<?= $dept['first_name'] . " " . $dept['last_name'] ?>
+													</a></td>
+												<td><?= $dept['company_id'] ?></td>
+												<td>
+													<div class="table-action d-flex justify-content-between">
+														<form action="#">
+															<input type="hidden" name="dept_id" value="<?= $dept['department_id'] ?>">
+															<button type="submit" class="btn btn-sm btn-outline-warning"> <span class="lnr lnr-pencil"></span>Edit</button>
+														</form>
+														<a href="javascript:void(0);" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#delete">
+															<span class="lnr lnr-eye"></span> View
+														</a>
+														<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
+															<span class="lnr lnr-trash"></span> Delete
+														</a>
+													</div>
+												</td>
+											</tr>
+										<?php } ?>
 									</tbody>
 								</table>
 							</div>
@@ -179,11 +154,11 @@ require "layouts/navbar.php"; ?>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-6 col-6 text-center">
-							<h5 class="btn btn-outline-primary mt-3"><b>6</b></h5>
+							<h5 class="btn btn-outline-primary mt-3"><b><?= count($departments) ?></b></h5>
 							<p class="mb-3">Teams</p>
 						</div>
 						<div class="col-md-6 col-6 text-center">
-							<h5 class="btn btn-outline-primary mt-3"><b>7</b></h5>
+							<h5 class="btn btn-outline-primary mt-3"><b><?= count($users) ?></b></h5>
 							<p class="mb-3">People</p>
 						</div>
 					</div>
@@ -323,7 +298,6 @@ require "layouts/navbar.php"; ?>
 <div class="modal fade" id="NewFolder">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-
 			<!-- Modal body -->
 			<div class="modal-body">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -355,6 +329,12 @@ require "layouts/navbar.php"; ?>
 					<label for="departmentDESC">Department Description</label>
 					<input type="text" class="form-control" name="departmentDESC">
 				</div>
+				<div class="form-group">
+					<label for="manager">Select the managers</label>
+					<select name="manager" id="manager">
+						<option value="1">James bonds</option>
+					</select>
+				</div>
 				<button type="button" class="btn btn-danger text-white ctm-border-radius float-right ml-3" data-dismiss="modal">Cancel</button>
 				<button type="button" class="btn btn-theme ctm-border-radius text-white float-right button-1">Create</button>
 			</div>
@@ -366,7 +346,6 @@ require "layouts/navbar.php"; ?>
 <div class="modal fade" id="addOffice1">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-
 			<!-- Modal body -->
 			<div class="modal-body">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
