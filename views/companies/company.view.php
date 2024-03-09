@@ -163,16 +163,13 @@ require "layouts/navbar.php"; ?>
 						</div>
 					</div>
 					<div class="text-center">
-						<a href="employees.html" class="btn btn-theme text-white ctm-border-radius mt-2 button-1">People Directory</a>
+						<a href="/employeelist" class="btn btn-theme text-white ctm-border-radius mt-2 button-1">People Directory</a>
 					</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
-</div>
-</div>
-</div>
 </div>
 <!--/Content-->
 
@@ -321,22 +318,27 @@ require "layouts/navbar.php"; ?>
 			<div class="modal-body">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title mb-3">Create New Departments</h4>
-				<div class="form-group">
-					<label for="departementNmae">Department Name</label>
-					<input type="text" class="form-control" name="departmentName">
-				</div>
-				<div class="form-group">
-					<label for="departmentDESC">Department Description</label>
-					<input type="text" class="form-control" name="departmentDESC">
-				</div>
-				<div class="form-group">
-					<label for="manager">Select the managers</label>
-					<select name="manager" id="manager">
-						<option value="1">James bonds</option>
-					</select>
-				</div>
-				<button type="button" class="btn btn-danger text-white ctm-border-radius float-right ml-3" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-theme ctm-border-radius text-white float-right button-1">Create</button>
+				<form action="controllers/companies/add.department.controller.php" method="post">
+					<div class="form-group">
+						<label for="departementNmae">Department Name</label>
+						<input type="text" class="form-control" name="departmentName">
+					</div>
+					<div class="form-group">
+						<label for="departmentDESC">Department Description</label>
+						<input type="text" class="form-control" name="departmentDESC">
+					</div>
+					<div class="form-group">
+						<label for="manager">Manger</label>
+						<select class="select" name="manager" id="manager">
+							<option value="1">Please select a manager</option>
+							<?php foreach ($users as $manager) { ?>
+								<option value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " " . $manager['last_name'] ?></option>
+							<?php } ?>
+						</select>
+					</div>
+					<button type="button" class="btn btn-danger text-white ctm-border-radius float-right ml-3" data-dismiss="modal">Cancel</button>
+					<button type="submit" class="btn btn-theme ctm-border-radius text-white float-right button-1">Create</button>
+				</form>
 			</div>
 		</div>
 	</div>
