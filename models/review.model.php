@@ -3,7 +3,7 @@
 function getAllReviews()
 {
     global $connection;
-    $statement = $connection->prepare("  select review_id,reviews.uid,first_name,last_name,profile,reviewType_name,start_date,end_date,status_name from (((reviews inner join review_types on reviews.reviewType_id=review_types.reviewType_id)inner join review_status on reviews.status_id=review_status.status_id)inner join users on reviews.uid=users.uid);");
+    $statement = $connection->prepare("select review_id,reviews.uid,first_name,last_name,profile,reviewType_name,start_date,end_date,status_name from (((reviews inner join review_types on reviews.reviewType_id=review_types.reviewType_id)inner join review_status on reviews.status_id=review_status.status_id)inner join users on reviews.uid=users.uid)");
     $statement->execute();
     return $statement->fetchAll();
 }
@@ -21,7 +21,8 @@ function getAllReviewStatus() : array
 function getAllReviewType() : array
 {
     global $connection;
-    $statement = $connection->prepare("select * from review_types");
+    $statement = $connection->prepare("select reviewType_id,reviewType_name,review_types.uid,first_name,last_name,profile from review_types inner join users on review_types.uid=users.uid");
+    // $statement = $connection->prepare("select * from review_types");
     $statement->execute();
     return $statement->fetchAll();
 }
@@ -83,5 +84,15 @@ function updateReview($review_id,$reviewType_id,$start_date, $end_date): bool
             ':review_id' => $review_id
         ]
     );
+    return $statement->rowCount() > 0;
+}
+
+
+// ======== Delete review of data========
+function deleteReviewData(int $review_id): bool
+{
+    global $connection;
+    $statement = $connection->prepare("delete from reviews where review_id = :review_id");
+    $statement->execute([':review_id' => $review_id]);
     return $statement->rowCount() > 0;
 }

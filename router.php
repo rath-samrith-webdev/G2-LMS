@@ -24,6 +24,7 @@ $routes = [
     '/employeelist' => 'controllers/admin/employee.list.controller.php',
     '/reviewForm' => 'controllers/reviews/review.form.controller.php',
     '/editReview' => 'controllers/reviews/edit.review.controller.php',
+    '/editReviewType' => 'controllers/reviews/edit.review_type.controller.php',
 ];
 $homeRoutes = [
     '/' => 'controllers/log.controll/login.controll.php',
