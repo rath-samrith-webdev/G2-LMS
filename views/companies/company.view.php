@@ -105,7 +105,7 @@ require "layouts/navbar.php"; ?>
 															<input type="hidden" name="dept_id" value="<?= $dept['department_id'] ?>">
 															<button type="submit" class="btn btn-sm btn-outline-warning"> <span class="lnr lnr-pencil"></span>Edit</button>
 														</form>
-														<a href="javascript:void(0);" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#delete">
+														<a href="#" class="btn btn-sm btn-outline-success .detail<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#view<?= $dept['department_id'] ?>">
 															<span class="lnr lnr-eye"></span> View
 														</a>
 														<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
@@ -361,4 +361,80 @@ require "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
+<?php foreach ($departments as $dept) { ?>
+	<div class="modal fade " id="view<?= $dept['department_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Department Details</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="d-flex text-black ">
+						<div class="flex-shrink-0">
+							<img src="<?= $dept['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
+						</div>
+						<div class="flex-grow-1 ms-3 ml-4">
+							<h5 class="mb-1"><?= $dept['first_name'] . " " . $dept['last_name'] ?></h5>
+							<p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $dept['department_name'] ?></p>
+							<div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
+								<div>
+									<p class="small text-muted mb-1">Projects</p>
+									<p class="mb-0">41</p>
+								</div>
+								<div class="px-3">
+									<p class="small text-muted mb-1">Employees</p>
+									<p class="mb-0">976</p>
+								</div>
+								<div>
+									<p class="small text-muted mb-1">Rating</p>
+									<p class="mb-0">8.5</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex text-black ">
+						<div class="flex-grow-1 ms-3 mt-2">
+							<div class="rounded-3 p-2 mb-2" style="background-color: #efefef;">
+								<h5 class="text-center">Employee detail</h5>
+								<table class='table' style="width: 100%;">
+									<thead class="thead-dark">
+										<th style="display:none">ID</th>
+										<th>Employee Name</th>
+										<th>Total Request</th>
+										<th>Remain Leave</th>
+										<th>Carry over</th>
+										<th>Total Remain</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="display:none">1</td>
+											<td>Rath Samrith</td>
+											<td>9</td>
+											<td>2</td>
+											<td>8</td>
+											<td>10</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php } ?>
 <?php require "layouts/footer.php" ?>
+<?php foreach ($departments as $dept) { ?>
+	<script>
+		$(document).ready(function() {
+			$(".detail<?= $dept['department_id'] ?>").on("click", function() {
+				$("#view<?= $dept['department_id'] ?>").modal("show");
+				console.log(data);
+			});
+		});
+	</script>
+<?php } ?>
