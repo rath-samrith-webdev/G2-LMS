@@ -23,7 +23,10 @@ $routes = [
     '/editLeaveType' => 'controllers/leaves/edit_leave.type.controller.php',
     '/removeall' => 'controllers\leaves\remove.all.request.controller.php',
     '/employeelist' => 'controllers/admin/employee.list.controller.php',
-    '/export' => 'controllers/export.controller/export.controller.php',
+    '/export' => 'controllers/export.controller/export.controller.php',,
+    '/reviewForm' => 'controllers/reviews/review.form.controller.php',
+    '/editReview' => 'controllers/reviews/edit.review.controller.php',
+    '/editReviewType' => 'controllers/reviews/edit.review_type.controller.php',
 ];
 $homeRoutes = [
     '/' => 'controllers/log.controll/login.controll.php',
