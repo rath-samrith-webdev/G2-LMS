@@ -105,7 +105,7 @@ require "layouts/navbar.php"; ?>
 															<input type="hidden" name="dept_id" value="<?= $dept['department_id'] ?>">
 															<button type="submit" class="btn btn-sm btn-outline-warning"> <span class="lnr lnr-pencil"></span>Edit</button>
 														</form>
-														<a href="#" class="btn btn-sm btn-outline-success .detail<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#view<?= $dept['department_id'] ?>">
+														<a href="#" class="btn btn-sm btn-outline-success detail<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#view<?= $dept['department_id'] ?>">
 															<span class="lnr lnr-eye"></span> View
 														</a>
 														<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
@@ -361,7 +361,8 @@ require "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
-<?php foreach ($departments as $dept) { ?>
+<?php foreach ($departments as $dept) {
+	$emp = getEmployeeUnder($dept['department_id']); ?>
 	<div class="modal fade " id="view<?= $dept['department_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -409,14 +410,22 @@ require "layouts/navbar.php"; ?>
 										<th>Total Remain</th>
 									</thead>
 									<tbody>
-										<tr>
-											<td style="display:none">1</td>
-											<td>Rath Samrith</td>
-											<td>9</td>
-											<td>2</td>
-											<td>8</td>
-											<td>10</td>
-										</tr>
+										<?php if (count($emp) > 0) {
+											foreach ($emp as $per) { ?>
+												<tr>
+													<td style="display:none"><?= $per['uid'] ?> </td>
+													<td><?= $per['first_name'] . " " . $per['last_name'] ?></td>
+													<td>9</td>
+													<td>2</td>
+													<td>8</td>
+													<td>10</td>
+												</tr>
+											<?php }
+										} else { ?>
+											<tr>
+												<p>There is no employee in this departments</p>
+											</tr>
+										<?php } ?>
 									</tbody>
 								</table>
 							</div>
