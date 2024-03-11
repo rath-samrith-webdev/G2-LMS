@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $firstNameUser = $manager['first_name'];
     $lastNameUser = $manager['last_name'];
 
-    //========= add request table ==========
-    if ($selectData !== '' and $dataValueEnd !== '' and $uid !== '' and $leaveType !== '') {
-        if ($total > 0) {
+    // //========= add request table ==========
+    if ($selectData !== '' and $dataValueEnd !== '' and $uid !== '' and $leaveType !== '' and $total !== '') {
+        if ($total) {
             $iscreated = updateCurrentLeave($uid, $total); // insert updata of total
             if ($iscreated) {
                 $add = addLeaveRequest($selectData, $dataValueEnd, $uid, $leaveType); // insert add request new
@@ -79,6 +79,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
         } else {
             header("location: /leaves?error=outofLeave");
+        }
+    }
+    if ($total !== '') {
+        $iscreated = updateCurrentLeave($uid, $total);
+        if ($iscreated) {
+            header("location: /leaves");
+
         }
     }
 }
