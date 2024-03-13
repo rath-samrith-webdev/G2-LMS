@@ -1,8 +1,9 @@
 <?php
 require "database/database.php";
-require "models/profile.model.php";
+require "models/user.model.php";
 
 // ====== Capture function form profile model =========
-$users = getAll();
+$Roles = getRolesAll();
 
+// var_dump($users);
 require "views/manages/manage.view.php";

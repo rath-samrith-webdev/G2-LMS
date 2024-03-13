@@ -16,16 +16,24 @@ $routes = [
     '/leaveReports' => 'controllers/reports/report.controller.php',
     '/manages' => 'controllers/manages/manage.controller.php',
     '/profiles' => 'controllers/profiles/profile.controller.php',
+    // ===Create_form===
+    '/leavetype' => 'controllers/leaves/create_form.leave.type.controller.php',
     '/profileImage' => 'controllers/profiles/profile.upload.controller.php',
-    '/leavetype' => 'controllers/leaves/leave.type.view.controller.php',
     '/leavetypeForm' => 'controllers/leaves/create_form.leave.type.controller.php',
     '/editLeaveType' => 'controllers/leaves/edit_leave.type.controller.php',
     '/removeall' => 'controllers\leaves\remove.all.request.controller.php',
-    '/employeelist' => 'controllers/admin/employee.list.controller.php'
+    '/employeelist' => 'controllers/admin/employee.list.controller.php',
+    '/export' => 'controllers/export.controller/export.controller.php',
+    '/reviewForm' => 'controllers/reviews/review.form.controller.php',
+    '/editReview' => 'controllers/reviews/edit.review.controller.php',
+    '/editReviewType' => 'controllers/reviews/edit.review_type.controller.php',
+
 ];
 $homeRoutes = [
     '/' => 'controllers/log.controll/login.controll.php',
     '/loginAdmin' => 'controllers/log.controll/login_admin.controll.php',
+    '/forgetPass' => 'controllers/password.reset.controller/reset.password.controller.php',
+    '/updatepass'=>'controllers/password.reset.controller/reset.view.controller.php'
 ];
 if (isset($_SESSION['login']) and $_SESSION['login'] === 1) {
     if (array_key_exists($uri, $routes)) {

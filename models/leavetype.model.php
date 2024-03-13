@@ -50,10 +50,19 @@ function updateLeaveType($id, $desc, $detail): bool
 }
 
 // ======= delete leave Type ======
-function deleteLeaveType (int $id) : bool
+function deleteLeaveType(int $id): bool
 {
     global $connection;
     $statement = $connection->prepare("DELETE FROM leave_types WHERE leaveType_id = :id");
     $statement->execute([':id' => $id]);
     return $statement->rowCount() > 0;
+}
+//=========Get leave status=======
+
+function getLeaveStatus(int $id): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM leave_status WHERE status_id = :id");
+    $statement->execute([':id' => $id]);
+    return $statement->fetch();
 }

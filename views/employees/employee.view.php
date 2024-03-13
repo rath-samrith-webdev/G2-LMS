@@ -1,18 +1,15 @@
 <?php require "layouts/header.php";
 require "layouts/navbar.php"; ?>
 <div class="col-xl-9 col-lg-8 col-md-12">
-    <!-- <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
+    <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
         <div class="card-body">
             <ul class="list-group list-group-horizontal-lg">
-                <li class="list-group-item text-center button-6">
-                    <a href="/admin" class="text-dark">Admin Dashboard</a>
-                </li>
                 <li class="list-group-item text-center active button-5">
                     <a class="text-white" href="/employees">Employees Dashboard</a>
                 </li>
             </ul>
         </div>
-    </div> -->
+    </div>
     <div class="row">
         <div class="col-lg-6 col-md-12 d-flex">
             <div class="card shadow-sm flex-fill grow">
@@ -58,10 +55,10 @@ require "layouts/navbar.php"; ?>
             <div class="card shadow-sm flex-fill grow">
                 <div class="card-header">
                     <h4 class="card-title mb-0 d-inline-block">Today</h4>
-                    <a href="javascript:void(0)" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
+                    <a href="/manages" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
                 </div>
                 <div class="card-body recent-activ">
-                    <div class="recent-comment">
+                    <div class="today_leave">
                         <a href="javascript:void(0)" class="dash-card text-dark">
                             <div class="dash-card-container">
                                 <div class="dash-card-icon text-primary">
@@ -73,75 +70,23 @@ require "layouts/navbar.php"; ?>
                             </div>
                         </a>
                         <hr />
-                        <a href="javascript:void(0)" class="dash-card text-dark">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon text-warning">
-                                    <i class="fa fa-bed" aria-hidden="true"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <h6 class="mb-0">
-                                        Ralph Baker is off sick today
-                                    </h6>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar">
-                                        <img class="img-fluid" src="assets/img/profiles/img-9.jpg" alt="Avatar" />
+                        <?php
+                        foreach ($todayLeaves as $leaves) { ?>
+                            <a href="javascript:void(0)" class="dash-card text-dark">
+                                <div class="dash-card-container">
+                                    <div class="dash-card-icon text-warning">
+                                        <i class="fa fa-bed" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="dash-card-content">
+                                        <h6 class="mb-0">You are on <b><?= $leaves['leaveType_desc'] ?></b> Today</h6>
+                                    </div>
+                                    <div class="dash-card-avatars">
+                                        <div class="e-avatar"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Avatar"></div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        <hr />
-                        <a href="javascript:void(0)" class="dash-card text-dark">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon text-success">
-                                    <i class="fa fa-child" aria-hidden="true"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <h6 class="mb-0">
-                                        Ralph Baker is parenting leave today
-                                    </h6>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar">
-                                        <img class="img-fluid" src="assets/img/profiles/img-9.jpg" alt="Avatar" />
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <hr />
-                        <a href="javascript:void(0)" class="dash-card text-dark">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon text-danger">
-                                    <i class="fa fa-suitcase"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <h6 class="mb-0">Danny ward is away today</h6>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar">
-                                        <img class="img-fluid" src="assets/img/profiles/img-5.jpg" alt="Avatar" />
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <hr />
-                        <a href="javascript:void(0)" class="dash-card text-dark">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon text-pink">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <h6 class="mb-0">
-                                        John Gibbs is working from home today
-                                    </h6>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar">
-                                        <img class="img-fluid" src="assets/img/profiles/img-2.jpg" alt="John Gibbs" />
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                            </a>
+                            <hr>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -150,61 +95,24 @@ require "layouts/navbar.php"; ?>
             <!-- Team Leads List -->
             <div class="card flex-fill team-lead shadow-sm grow">
                 <div class="card-header">
-                    <h4 class="card-title mb-0 d-inline-block">Team Leads</h4>
+                    <h4 class="card-title mb-0 d-inline-block"> Team Members</h4>
                     <a href="employees-team.html" class="dash-card d-inline-block float-right mb-0 text-primary">Manage Team
                     </a>
                 </div>
                 <div class="card-body">
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" class="img-fluid" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Maria Cotton</h6>
-                            <p class="mb-0 ctm-text-sm">PHP</p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img class="img-fluid" src="assets/img/profiles/img-5.jpg" alt="Linda Craver" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Danny Ward</h6>
-                            <p class="mb-0 ctm-text-sm">Design</p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img src="assets/img/profiles/img-4.jpg" alt="Linda Craver" class="img-fluid" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Linda Craver</h6>
-                            <p class="mb-0 ctm-text-sm">IOS</p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img class="img-fluid" src="assets/img/profiles/img-3.jpg" alt="Linda Craver" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Jenni Sims</h6>
-                            <p class="mb-0 ctm-text-sm">Android</p>
-                        </div>
-                    </div>
-                    <hr />
+                    <?php foreach ($managers as $employee) { ?>
 
-                    <div class="media">
-                        <div class="e-avatar avatar-offline mr-3">
-                            <img class="img-fluid" src="assets/img/profiles/img-8.jpg" alt="Linda Craver" />
+                        <div class="media mb-3">
+                            <div class="e-avatar avatar-online mr-3">
+                                <img src="<?=$employee['profile']?>" alt="Maria Cotton" class="img-fluid" />
+                            </div>
+                            <div class="media-body">
+                                <h6 class="m-0"><?=$employee['first_name']."  " .$employee['last_name']?></h6>
+                                <p><?=$employee['user_email']?></p>
+                            </div>
                         </div>
-                        <div class="media-body">
-                            <h6 class="m-0">Stacey Linville</h6>
-                            <p class="mb-0 ctm-text-sm">Testing</p>
-                        </div>
-                    </div>
+                        <hr />
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -213,77 +121,17 @@ require "layouts/navbar.php"; ?>
             <div class="card recent-acti flex-fill shadow-sm grow">
                 <div class="card-header">
                     <h4 class="card-title mb-0 d-inline-block">
-                        Recent Activities
+                        Your Recent Activities
                     </h4>
-                    <a href="javascript:void(0)" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
+                    <a href="/manages" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
                 </div>
                 <div class="card-body recent-activ admin-activ">
                     <div class="recent-comment">
-                        <div class="notice-board">
-                            <div class="table-img">
-                                <div class="e-avatar mr-3">
-                                    <img class="img-fluid" src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" />
-                                </div>
-                            </div>
-                            <div class="notice-body">
-                                <h6 class="mb-0">Lorem ipsum dolor sit amet.</h6>
-                                <span class="ctm-text-sm">Maria Cotton | 1 hour ago</span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="notice-board">
-                            <div class="table-img">
-                                <div class="e-avatar mr-3">
-                                    <img class="img-fluid" src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" />
-                                </div>
-                            </div>
-                            <div class="notice-body">
-                                <h6 class="mb-0">Lorem ipsum dolor sit amet.</h6>
-                                <span class="ctm-text-sm">Maria Cotton | 2 hour ago</span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="notice-board">
-                            <div class="table-img">
-                                <div class="e-avatar mr-3">
-                                    <img class="img-fluid" src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" />
-                                </div>
-                            </div>
-                            <div class="notice-body">
-                                <h6 class="mb-0">Lorem ipsum dolor sit amet.</h6>
-                                <span class="ctm-text-sm">Maria Cotton | 3 hour ago</span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="notice-board">
-                            <div class="table-img">
-                                <div class="e-avatar mr-3">
-                                    <img class="img-fluid" src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" />
-                                </div>
-                            </div>
-                            <div class="notice-body">
-                                <h6 class="mb-0">Lorem ipsum dolor sit amet.</h6>
-                                <span class="ctm-text-sm">Maria Cotton | 4 hour ago</span>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="notice-board">
-                            <div class="table-img">
-                                <div class="e-avatar mr-3">
-                                    <img class="img-fluid" src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" />
-                                </div>
-                            </div>
-                            <div class="notice-body">
-                                <h6 class="mb-0">Lorem ipsum dolor sit amet.</h6>
-                                <span class="ctm-text-sm">Maria Cotton | 5 hour ago</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- / Recent Activities -->
-
         <div class="col-lg-6 col-md-12 d-flex">
             <!-- Today -->
             <div class="card flex-fill today-list shadow-sm grow">
@@ -294,7 +142,7 @@ require "layouts/navbar.php"; ?>
                     <a href="leave.html" class="d-inline-block float-right text-primary"><i class="fa fa-suitcase"></i></a>
                 </div>
                 <div class="card-body recent-activ">
-                    <div class="recent-comment">
+                    <div class="upcoming-leave">
                         <a href="javascript:void(0)" class="dash-card text-danger">
                             <div class="dash-card-container">
                                 <div class="dash-card-icon">

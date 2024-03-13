@@ -80,3 +80,19 @@ function updateUser($uid, $first_name, $last_name, $date_of_birth, $phone_number
     ]);
     return $statement->rowCount() > 0;
 }
+//======== Get manager===========================================
+function getManager($uid)
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM user_manager WHERE uid=:uid");
+    $statement->execute([":uid" => $uid]);
+    return $statement->fetch();
+}
+//=======get user details=======
+function getAlldetails(): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM user_details");
+    $statement->execute();
+    return $statement->fetchAll();
+}

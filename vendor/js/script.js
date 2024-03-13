@@ -124,3 +124,104 @@ $(document).ready(function () {
     $("#request_id").val(data[0]);
   });
 });
+
+$(document).ready(function () {
+  $("#show_hide_password a").on('click', function (event) {
+    event.preventDefault();
+    if ($('#show_hide_password input').attr("type") == "text") {
+      $('#show_hide_password input').attr('type', 'password');
+      $('#show_hide_password i').addClass("fa-eye-slash");
+      $('#show_hide_password i').removeClass("fa-eye");
+    } else if ($('#show_hide_password input').attr("type") == "password") {
+      $('#show_hide_password input').attr('type', 'text');
+      $('#show_hide_password i').removeClass("fa-eye-slash");
+      $('#show_hide_password i').addClass("fa-eye");
+    }
+  })
+})
+$(document).ready(function () {
+  $(".addleave").on("click", function () {
+    $("#add_leave").modal("show");
+
+    $tr = $(this).closest("tr");
+    var data = $tr
+      .children("td")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    console.log(data[0]);
+    $("#request_id").val(data[0]);
+  });
+});
+
+$(document).ready(function () {
+  $("#download").click(function () {
+    var table2excel = new Table2Excel();
+    table2excel.export(document.querySelectorAll("table"));
+  });
+});
+// ===recent notifications
+$(document).ready(function () {
+  function load_unseen_notification(view = "") {
+    $.ajax({
+      url: "controllers/notification.controller/user.notification.contoller.php",
+      method: "POST",
+      data: { view: view },
+      dataType: "json",
+      success: function (data) {
+        $(".notification").html(data.notification);
+        if (data.unseen_notification > 0) {
+          $(".count").html(data.unseen_notification);
+        }
+      },
+    });
+  }
+  load_unseen_notification();
+  $("#approve").on("submit", function (event) {
+    event.preventDefault();
+    load_unseen_notification();
+  });
+
+  $(document).on("click", ".dropdown-toggle", function () {
+    $(".count").html("");
+    load_unseen_notification("yes");
+  });
+
+  setInterval(function () {
+    load_unseen_notification();
+  }, 5000);
+});
+// ===recent activities
+$(document).ready(function () {
+  function load_recents(view = "") {
+    $.ajax({
+      url: "controllers/notification.controller/notification.php",
+      method: "POST",
+      data: { view: view },
+      dataType: "json",
+      success: function (data) {
+        $(".recent-comment").html(data.notification);
+      },
+    });
+  }
+  load_recents();
+  setInterval(function () {
+    load_recents();
+  }, 5000);
+});
+$(document).ready(function () {
+  $(".cancelbtn").on("click", function () {
+    $("#cancelmodal").modal("show");
+
+    $tr = $(this).closest("tr");
+    var data = $tr
+      .children("td")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    console.log(data[0]);
+    $("#leave_id").val(data[0]);
+  });
+});

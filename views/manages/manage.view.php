@@ -10,62 +10,18 @@ require "layouts/navbar.php"; ?>
 		</div>
 	</div>
 	<div class="row">
+		<?php foreach ($Roles as $Result_roles) {?>
 		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
 			<div class="card ctm-border-radius shadow-sm grow flex-fill">
 				<div class="card-header">
-					<h4 class="card-title mb-0">Super Admin</h4>
+					<h4 class="card-title mb-0"><?= $Result_roles['role_name']?></h4>
 				</div>
 				<div class="card-body">
-					<p class="card-text">They can see and do everything – best not to have many with this role.</p>
-					<div class="mt-2">
-						<span class="avatar" data-toggle="tooltip" data-placement="top" title="Richard Wilson"><img src="assets/img/profiles/img-10.jpg" alt="Richard Wilson" class="img-fluid"></span>
-						<a href="super-admin.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right text-white">View Permissions</a>
-					</div>
+					<p class="card-text"><?= $Result_roles['role_desc'] ?></p>
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
-			<div class="card ctm-border-radius shadow-sm grow flex-fill">
-				<div class="card-header">
-					<h4 class="card-title mb-0">Admin</h4>
-				</div>
-				<div class="card-body">
-					<p class="card-text">Admin to help sort stuff, but have less access to confidential information like salaries.</p>
-					<div class="mt-2">
-						<span class="avatar" data-toggle="tooltip" data-placement="top" title="Richard Wilson"><img src="assets/img/profiles/img-10.jpg" alt="Richard Wilson" class="img-fluid"></span>
-						<a href="admin.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right text-white">View Permissions</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
-			<div class="card ctm-border-radius shadow-sm grow flex-fill">
-				<div class="card-header">
-					<h4 class="card-title mb-0">Payroll Admin</h4>
-				</div>
-				<div class="card-body">
-					<p class="card-text">They sort out your payroll and have access to everyone's salary information.</p>
-					<div class="mt-2">
-						<span class="avatar" data-toggle="tooltip" data-placement="top" title="Richard Wilson"><img src="assets/img/profiles/img-10.jpg" alt="Richard Wilson" class="img-fluid"></span>
-						<a href="payroll-admin.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right text-white">View Permissions</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
-			<div class="card ctm-border-radius shadow-sm grow flex-fill">
-				<div class="card-header">
-					<h4 class="card-title mb-0">Team Member</h4>
-				</div>
-				<div class="card-body">
-					<p class="card-text">Team Members have the most limited access – most people should have this role.</p>
-					<div class="mt-2">
-						<span class="avatar" data-toggle="tooltip" data-placement="top" title="Maria Cotton"><img src="assets/img/profiles/img-6.jpg" alt="Maria Cotton" class="img-fluid"></span>
-						<a href="team-member.html" class="btn btn-theme button-1 ctm-border-radius text-white float-right text-white">View Permissions</a>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php }?>
 	</div>
 </div>
 </div>
