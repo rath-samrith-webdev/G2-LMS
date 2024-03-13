@@ -367,7 +367,7 @@ require "layouts/navbar.php"; ?>
 		<div class="modal-dialog modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Department Details</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><?= $dept['department_name'] ?></h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

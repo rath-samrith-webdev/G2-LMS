@@ -23,6 +23,18 @@ function getEmployeeUnder($uid)
     }
 }
 
+function getLeaves($uid)
+{
+    global $connection;
+    $stm = $connection->prepare(" SELECT *,COUNT(leave_requests.uid) AS total FROM ((departments INNER JOIN users ON departments.department_id=users.department_id)INNER JOIN leave_requests ON users.uid=leave_requests.uid) GROUP BY leave_requests.uid;");
+    $stm->execute([':uid' => $uid]);
+    if (!$stm) {
+        return [];
+    } else {
+        return $stm->fetchAll();
+    }
+}
+
 function getManager(): array
 {
     global $connection;
