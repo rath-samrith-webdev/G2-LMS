@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2024 at 12:05 PM
+-- Generation Time: Mar 08, 2024 at 10:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -78,8 +78,9 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`department_id`, `department_name`, `company_id`) VALUES
-(2, 'PHP Back end', 1),
-(3, 'Node Back-End', 1);
+(1, 'PHP Back end', 1),
+(2, 'Node Back-End', 1),
+(4, 'Vue FrontEnd', 1);
 
 -- --------------------------------------------------------
 
@@ -96,22 +97,16 @@ CREATE TABLE `leave_requests` (
   `status_id` int(11) DEFAULT NULL,
   `added_times` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `seen_status` int(1) NOT NULL
+  `seen_status` int(1) NOT NULL DEFAULT 1,
+  `admin_seen_status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `leave_requests`
 --
 
-INSERT INTO `leave_requests` (`request_id`, `uid`, `leavetype_id`, `start_date`, `end_date`, `status_id`, `added_times`, `update_time`, `seen_status`) VALUES
-(1, 26, 4, '2024-02-29', '2024-03-01', 1, '2024-02-29 05:47:30', '2024-03-03 04:45:13', 1),
-(3, 21, 2, '2024-03-08', '2024-02-16', 3, '2024-02-29 05:53:11', '2024-02-29 05:54:16', 0),
-(4, 14, 4, '2024-03-01', '2024-03-03', 3, '2024-02-29 10:46:50', '2024-02-29 10:46:50', 0),
-(5, 21, 4, '2024-03-01', '2024-03-03', 1, '2024-02-29 10:51:55', '2024-02-29 10:51:55', 0),
-(6, 14, 2, '2024-03-05', '2024-03-06', 3, '2024-03-01 02:17:45', '2024-03-01 02:17:45', 0),
-(7, 14, 3, '2024-03-03', '2024-03-04', 3, '2024-03-01 02:18:02', '2024-03-01 02:18:02', 0),
-(8, 14, 1, '2024-03-07', '2024-03-08', 3, '2024-03-01 02:49:37', '2024-03-01 02:49:37', 0),
-(9, 14, 4, '2024-03-08', '2024-02-16', 3, '2024-03-03 09:39:21', '2024-03-03 09:39:21', 0);
+INSERT INTO `leave_requests` (`request_id`, `uid`, `leavetype_id`, `start_date`, `end_date`, `status_id`, `added_times`, `update_time`, `seen_status`, `admin_seen_status`) VALUES
+(1, 1, 2, '2024-03-08', '2024-03-10', 3, '2024-03-08 09:07:36', '2024-03-08 09:08:05', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -155,6 +150,19 @@ INSERT INTO `leave_types` (`leaveType_id`, `leaveType_desc`, `leaveType_detail`)
 (2, 'Paid Leave', 'Daily allowed leaves'),
 (3, 'Holiday', 'Basically a day off'),
 (4, 'Annual Leave', 'Once a year');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_reset_request`
+--
+
+CREATE TABLE `password_reset_request` (
+  `id` int(11) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `token` text NOT NULL,
+  `verifier` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -235,6 +243,7 @@ CREATE TABLE `total_requests` (
 ,`added_times` timestamp
 ,`update_time` timestamp
 ,`seen_status` int(1)
+,`admin_seen_status` int(1)
 );
 
 -- --------------------------------------------------------
@@ -285,11 +294,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uid`, `first_name`, `last_name`, `date_of_birth`, `phone_number`, `email`, `password`, `position_id`, `role_id`, `department_id`, `salary`, `total_allowed_leave`, `profile`, `manager_id`) VALUES
-(14, 'Rath', 'Samreth', '2024-01-31', '097 86 37 282', 'rathsamrith.webdev@gmail.com', '', 1, 2, 3, 400, 12, 'assets/profile/profiles65d7ee699f2d79.44111168.jpg', 0),
-(15, 'Leysreng', 'OL', '2024-01-31', '08797978', 'jamesbond112@gmail.com', '', 0, 2, 0, 400, 12, 'assets/profile/profiles65dbde3084f520.42597471.jpg', 14),
-(21, 'Radit', 'Thy', '2002-02-21', '', 'radit.thy@gmail.com', '123', 1, 2, 2, 400, 0, 'assets/profile/profiles65dbe0359618d5.40990847.jpg', 14),
-(26, 'Neardey', 'Loem', '2024-02-26', '08797978', 'neardey.loem@gmail.com', '12', 1, 2, 2, 400, 12, 'assets/profile/profiles65dbe8b5bcd992.02867424.jpg', 14),
-(30, 'Veak', 'Khlorp', '2024-02-27', '08797978', 'veak.webdev@gmail.com', '12', 2, 2, 2, 400, 12, 'assets/profile/profiles65de9b4fc11817.11580505.jpg', 21);
+(1, 'Rath', 'Samreth', '2024-01-31', '097 86 37 282', 'rathsamrith.webdev@gmail.com', 'Rath', 1, 1, 1, 400, 12, 'assets/profile/profiles65d7ee699f2d79.44111168.jpg', 0),
+(2, 'Leysreng', 'OL', '2024-01-31', '08797978', 'jamesbond112@gmail.com', '', 1, 1, 1, 400, 12, 'assets/profile/profiles65dbde3084f520.42597471.jpg', 14),
+(3, 'Radit', 'Thy', '2002-02-21', '', 'radit.thy@gmail.com', '123', 1, 2, 2, 400, 11, 'assets/profile/profiles65dbe0359618d5.40990847.jpg', 14),
+(4, 'Neardey', 'Loem', '2024-02-26', '08797978', 'neardey.loem@gmail.com', '12', 1, 2, 2, 400, 12, 'assets/profile/profiles65dbe8b5bcd992.02867424.jpg', 14),
+(5, 'Veak', 'Khlorp', '2024-02-27', '08797978', 'veak.webdev@gmail.com', '12', 2, 2, 4, 400, 12, 'assets/profile/profiles65de9b4fc11817.11580505.jpg', 21);
 
 -- --------------------------------------------------------
 
@@ -337,7 +346,7 @@ CREATE TABLE `user_manager` (
 --
 DROP TABLE IF EXISTS `total_requests`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `total_requests`  AS SELECT `leave_requests`.`request_id` AS `request_id`, `users`.`uid` AS `uid`, `users`.`profile` AS `profile`, `users`.`first_name` AS `first_name`, `users`.`last_name` AS `last_name`, `users`.`email` AS `email`, `leave_types`.`leaveType_desc` AS `leaveType_desc`, `leave_requests`.`start_date` AS `start_date`, `leave_requests`.`end_date` AS `end_date`, `leave_status`.`status_desc` AS `status_desc`, `leave_requests`.`added_times` AS `added_times`, `leave_requests`.`update_time` AS `update_time`, `leave_requests`.`seen_status` AS `seen_status` FROM (((`leave_requests` left join `users` on(`leave_requests`.`uid` = `users`.`uid`)) left join `leave_types` on(`leave_requests`.`leavetype_id` = `leave_types`.`leaveType_id`)) left join `leave_status` on(`leave_requests`.`status_id` = `leave_status`.`status_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `total_requests`  AS SELECT `leave_requests`.`request_id` AS `request_id`, `users`.`uid` AS `uid`, `users`.`profile` AS `profile`, `users`.`first_name` AS `first_name`, `users`.`last_name` AS `last_name`, `users`.`email` AS `email`, `leave_types`.`leaveType_desc` AS `leaveType_desc`, `leave_requests`.`start_date` AS `start_date`, `leave_requests`.`end_date` AS `end_date`, `leave_status`.`status_desc` AS `status_desc`, `leave_requests`.`added_times` AS `added_times`, `leave_requests`.`update_time` AS `update_time`, `leave_requests`.`seen_status` AS `seen_status`, `leave_requests`.`admin_seen_status` AS `admin_seen_status` FROM (((`leave_requests` left join `users` on(`leave_requests`.`uid` = `users`.`uid`)) left join `leave_types` on(`leave_requests`.`leavetype_id` = `leave_types`.`leaveType_id`)) left join `leave_status` on(`leave_requests`.`status_id` = `leave_status`.`status_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -397,6 +406,12 @@ ALTER TABLE `leave_status`
 --
 ALTER TABLE `leave_types`
   ADD PRIMARY KEY (`leaveType_id`);
+
+--
+-- Indexes for table `password_reset_request`
+--
+ALTER TABLE `password_reset_request`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `postions`
@@ -460,25 +475,31 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `leave_requests`
 --
 ALTER TABLE `leave_requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `leave_status`
 --
 ALTER TABLE `leave_status`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `leave_types`
 --
 ALTER TABLE `leave_types`
   MODIFY `leaveType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `password_reset_request`
+--
+ALTER TABLE `password_reset_request`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `postions`
