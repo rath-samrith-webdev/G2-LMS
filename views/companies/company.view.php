@@ -83,12 +83,14 @@ require "layouts/navbar.php"; ?>
 											<th style="display: none;">ID</th>
 											<th>Department Name</th>
 											<th>Mangaer Name</th>
-											<th>Company</th>
+											<th>Total employee</th>
 											<th class="text-right">Action</th>
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach ($departments as $dept) { ?>
+										<?php foreach ($departments as $dept) {
+											$emp = getEmployeeUnder($dept['department_id']);
+										?>
 											<tr>
 												<td style="display:none"><?= $dept['department_id'] ?></td>
 												<td class="text-primary"><?= $dept['department_name'] ?></td>
@@ -98,15 +100,14 @@ require "layouts/navbar.php"; ?>
 														</div>
 														<?= $dept['first_name'] . " " . $dept['last_name'] ?>
 													</a></td>
-												<td><?= $dept['company_id'] ?></td>
+												<td><?= count($emp) ?></td>
 												<td>
 													<div class="table-action d-flex justify-content-between">
-														<form action="#">
-															<input type="hidden" name="dept_id" value="<?= $dept['department_id'] ?>">
-															<button type="submit" class="btn btn-sm btn-outline-warning"> <span class="lnr lnr-pencil"></span>Edit</button>
-														</form>
-														<a href="#" class="btn btn-sm btn-outline-success detail<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#view<?= $dept['department_id'] ?>">
-															<span class="lnr lnr-eye"></span> View
+														<a href="#" class="btn btn-sm btn-theme text-white edit<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#edit<?= $dept['department_id'] ?>">
+															<span class="lnr lnr-pencil"></span>Edit
+														</a>
+														<a href="#" class="btn btn-sm btn-theme text-white detail<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#view<?= $dept['department_id'] ?>">
+															<span class="lnr lnr-eye"></span> Details
 														</a>
 														<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
 															<span class="lnr lnr-trash"></span> Delete
@@ -136,12 +137,9 @@ require "layouts/navbar.php"; ?>
 				</div>
 				<div class="card-body">
 					<h4 class="card-title">Members</h4>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Danny Ward"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Linda Craver"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-4.jpg"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Jenni Sims"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-3.jpg"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Maria Cotton"><img alt="avatar image" src="assets/img/profiles/img-6.jpg" class="img-fluid"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="John Gibbs"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-2.jpg"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Richard Wilson"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></span></a>
+					<?php foreach ($users as $manager) { ?>
+						<a href="employment.html"><span class="avatar"><img alt="avatar image" src="<?= $manager['profile'] ?>" class="img-fluid"></span></a>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -362,7 +360,11 @@ require "layouts/navbar.php"; ?>
 	</div>
 </div>
 <?php foreach ($departments as $dept) {
-	$emp = getEmployeeUnder($dept['department_id']); ?>
+	$allEmpLeave = getLeaves($dept['department_id']);
+	$empls = getEmployeeUnder($dept['department_id']);
+	$most = getMax($allEmpLeave);
+	$least = getMin($allEmpLeave);
+?>
 	<div class="modal fade " id="view<?= $dept['department_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -379,19 +381,21 @@ require "layouts/navbar.php"; ?>
 						</div>
 						<div class="flex-grow-1 ms-3 ml-4">
 							<h5 class="mb-1"><?= $dept['first_name'] . " " . $dept['last_name'] ?></h5>
-							<p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $dept['department_name'] ?></p>
-							<div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
+							<p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $dept['department_desc'] ?></p>
+							<div class="d-flex justify-content-between rounded-3 p-2 mb-2" style="background-color: #efefef;">
 								<div>
-									<p class="small text-muted mb-1">Projects</p>
-									<p class="mb-0">41</p>
+									<p class="small text-muted mb-1">Most Taken</p>
+									<p class="mb-0"><?= $most['first_name'] . " " . $most['last_name'] ?></p>
+									<small>Total Requests <?= $most['total'] ?></small>
+								</div>
+								<div>
+									<p class="small text-muted mb-1">Least Taken</p>
+									<p class="mb-0"><?= $least['first_name'] . " " . $least['last_name'] ?></p>
+									<small>Total Requests <?= $least['total'] ?></small>
 								</div>
 								<div class="px-3">
-									<p class="small text-muted mb-1">Employees</p>
-									<p class="mb-0">976</p>
-								</div>
-								<div>
-									<p class="small text-muted mb-1">Rating</p>
-									<p class="mb-0">8.5</p>
+									<p class="small text-muted mb-1"><span class="lnr lnr-users"></span> Employees</p>
+									<p class="mb-0"><?= count($empls) ?></p>
 								</div>
 							</div>
 						</div>
@@ -410,15 +414,15 @@ require "layouts/navbar.php"; ?>
 										<th>Total Remain</th>
 									</thead>
 									<tbody>
-										<?php if (count($emp) > 0) {
-											foreach ($emp as $per) { ?>
+										<?php if (count($empls) > 0) {
+											foreach ($empls as $per) { ?>
 												<tr>
 													<td style="display:none"><?= $per['uid'] ?> </td>
 													<td><?= $per['first_name'] . " " . $per['last_name'] ?></td>
 													<td>9</td>
 													<td>2</td>
 													<td>8</td>
-													<td>10</td>
+													<td><?= $per['total_allowed_leave'] ?></td>
 												</tr>
 											<?php }
 										} else { ?>
@@ -435,6 +439,41 @@ require "layouts/navbar.php"; ?>
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="edit<?= $dept['department_id'] ?>">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title mb-3">Update Departments</h4>
+					<form action="controllers/companies/edit.department.controller.php" method="post">
+						<input type="hidden" class="form-control" name="departmentName" value="<?= $dept['department_id'] ?>">
+						<div class="form-group">
+							<label for="departementNmae">Department Name</label>
+							<input type="text" class="form-control" name="departmentName" value="<?= $dept['department_name'] ?>">
+						</div>
+						<div class="form-group">
+							<label for="departmentDESC">Department Description</label>
+							<input type="text" class="form-control" name="departmentDESC" value="<?= $dept['department_desc'] ?>">
+						</div>
+						<div class="form-group">
+							<label for="manager">Manger</label>
+							<select class="select" name="manager" id="manager">
+								<option value="">Please select a manager</option>
+								<?php foreach ($users as $manager) { ?>
+									<option value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " " . $manager['last_name'] ?></option>
+								<?php
+								} ?>
+							</select>
+						</div>
+						<button type="button" class="btn btn-danger text-white ctm-border-radius float-right ml-3" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-theme ctm-border-radius text-white float-right button-1">Create</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 <?php } ?>
 <?php require "layouts/footer.php" ?>
 <?php foreach ($departments as $dept) { ?>
@@ -442,6 +481,12 @@ require "layouts/navbar.php"; ?>
 		$(document).ready(function() {
 			$(".detail<?= $dept['department_id'] ?>").on("click", function() {
 				$("#view<?= $dept['department_id'] ?>").modal("show");
+				console.log(data);
+			});
+		});
+		$(document).ready(function() {
+			$(".edit<?= $dept['department_id'] ?>").on("click", function() {
+				$("#edit<?= $dept['department_id'] ?>").modal("show");
 				console.log(data);
 			});
 		});
