@@ -361,9 +361,9 @@ require "layouts/navbar.php"; ?>
 </div>
 <?php foreach ($departments as $dept) {
 	$allEmpLeave = getLeaves($dept['department_id']);
-	$empls = getEmployeeUnder($dept['department_id']);
 	$most = getMax($allEmpLeave);
 	$least = getMin($allEmpLeave);
+	$empls = getEmployeeUnder($dept['department_id']);
 ?>
 	<div class="modal fade " id="view<?= $dept['department_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog modal-lg" role="document">
