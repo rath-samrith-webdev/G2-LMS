@@ -53,7 +53,7 @@ function getMax(array $leaves): array
     $maxNum = 0;
     $most = [];
     for ($i = 0; $i < count($leaves); $i++) {
-        if ($leaves[$i]['total'] >= $maxNum) {
+        if ($leaves[$i]['total'] > $maxNum) {
             $maxNum = $leaves[$i]['total'];
             $most = $leaves[$i];
         }
@@ -61,12 +61,12 @@ function getMax(array $leaves): array
     return $most;
 }
 
-function getMin(array $leaves): array
+function getMin(array $leaves, int $maxNum): array
 {
-    $minNum = 1;
+    $minNum = $maxNum;
     $least = [];
     for ($i = 0; $i < count($leaves); $i++) {
-        if ($leaves[$i]['total'] <= $minNum) {
+        if ($leaves[$i]['total'] < $minNum) {
             $minNum = $leaves[$i]['total'];
             $least = $leaves[$i];
         }

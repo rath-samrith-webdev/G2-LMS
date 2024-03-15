@@ -364,7 +364,7 @@ require "layouts/navbar.php"; ?>
 	$empls = getEmployeeUnder($dept['department_id']);
 	if (count($allEmpLeave) > 0) {
 		$most = getMax($allEmpLeave);
-		$least = getMin($allEmpLeave);
+		$least = getMin($allEmpLeave, $most['total']);
 	} else {
 		$most = [];
 		$least = [];
@@ -395,7 +395,7 @@ require "layouts/navbar.php"; ?>
 								</div>
 								<div>
 									<p class="small text-muted mb-1">Least Taken</p>
-									<p class="mb-0"><?= (isset($least['first_name']) and isset($least['last_name'])) ? $least['first_name'] . " " . $least['last_name']  : "No request" ?></p>
+									<p class="mb-0"><?= (isset($least) and count($least) > 0) ? $least['first_name'] . " " . $least['last_name']  : "No Leave Record Yet." ?></p>
 									<small><?= (isset($least['total'])) ? $least['total'] : "No Leave Record Yet." ?></small>
 								</div>
 								<div class="px-3">
