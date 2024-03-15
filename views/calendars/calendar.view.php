@@ -35,7 +35,7 @@ require "layouts/navbar.php"; ?>
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Leave Requests</h4>
+				<h4 class="modal-title">Leave Request Action</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body"></div>
@@ -61,24 +61,31 @@ require "layouts/navbar.php"; ?>
 			/* on click on event */
 			(CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
 				var $this = this;
-				var form = $("<form></form>");
+				var form = $("<form action='controllers/calendars/leave.request.approval.php' method='post'></form>");
+				form.append("<input class='form-control' name='request_id' type='hidden' value='" + calEvent.id + "' /><span class='input-group-append'>")
 				form.append("<div class='row'></div>")
 				form
 					.find(".row")
 					.append("<div class='col-sm-12 eventName'></div>")
 				form
 					.find(".eventName")
-					.append("<label>Change event name</label>")
-					.append("<input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-append'>");
+					.append("<h4>Title: " + calEvent.title + "</h4>")
 				form
 					.find(".row")
-					.append("<div class='col-sm-12 approve mt-3'></div>")
+					.append("<div class='form-group col-sm-12 approve mt-3'></div>")
 				form
 					.find('.approve')
-					.append("<select class='form-control select'></select>")
+					.append("<label>Choose actions <span class = 'text-danger'>*</span></label>")
+					.append("<select name='request_act' class='form-control ap-action'><option hidden>Select an action</option></select>")
 				form
-					.find(".select")
-					.append("<option>HI<option>")
+					.find(".ap-action")
+					.append("<option value='1'>Approve</option><option value='2'>Reject</option>")
+				form
+					.find(".row")
+					.append("<div class='col-sm-12 action'></div>")
+				form
+					.find(".action")
+					.append("<button type='submit' class='btn btn-theme text-white'>Save</button>")
 				$this.$modal.modal({
 					backdrop: "static",
 				});
@@ -101,12 +108,6 @@ require "layouts/navbar.php"; ?>
 						});
 						$this.$modal.modal("hide");
 					});
-				$this.$modal.find("form").on("submit", function() {
-					calEvent.title = form.find("input[type=text]").val();
-					$this.$calendarObj.fullCalendar("updateEvent", calEvent);
-					$this.$modal.modal("hide");
-					return false;
-				});
 			}),
 			/* on select */
 			(CalendarApp.prototype.enableDrag = function() {
@@ -139,10 +140,22 @@ require "layouts/navbar.php"; ?>
 
 				var defaultEvents = [
 					<?php
-					foreach ($leaverequest as $request) { ?> {
-							title: "<?= $request['first_name'] . '|' . $request['leaveType_desc'] ?>",
+					foreach ($leaverequest as $request) {
+						$bg = "";
+						if ($request['status_desc'] === "Approved") {
+							$bg = "bg-success";
+						} elseif($request['status_desc'] === "Pending") {
+							$bg = "bg-warning";
+						}elseif($request['status_desc'] === "Canceled"){
+							$bg = "bg-theme";
+						}else {
+							$bg = "bg-danger";
+						}
+					?> {
+							id: <?= $request['request_id'] ?>,
+							title: "<?= $request['first_name'] . ' | ' . $request['leaveType_desc'] ?>",
 							start: "<?= $request['start_date'] ?>",
-							className: "bg-warning",
+							className: <?= json_encode($bg) ?>,
 						},
 					<?php } ?>
 				];

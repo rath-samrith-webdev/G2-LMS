@@ -447,7 +447,6 @@ require "layouts/navbar.php"; ?>
 	<div class="modal fade" id="edit<?= $dept['department_id'] ?>">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-
 				<!-- Modal body -->
 				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
