@@ -31,6 +31,8 @@
 
   <!-- Table to excel JS -->
   <script src="vendor/js/table2excel.js"></script>
+  <!-- Notify JS -->
+  <script src="vendor/js/notify.min.js"></script>
   <!-- Custom Js -->
   <script src="vendor/js/script.js"></script>
 

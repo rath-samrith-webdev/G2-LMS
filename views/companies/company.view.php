@@ -497,3 +497,9 @@ require "layouts/navbar.php"; ?>
 		});
 	</script>
 <?php } ?>
+<?php
+if (isset($_GET['error']) && $_GET['error'] == 0) { ?>
+	<script>
+		$.notify("Department has been created", "success");
+	</script>
+<?php } ?>

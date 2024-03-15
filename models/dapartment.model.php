@@ -73,3 +73,11 @@ function getMin(array $leaves): array
     };
     return $least;
 }
+
+function insertDepartment($dept_name, $dept_desc, $manager_id): bool
+{
+    global $connection;
+    $stm = $connection->prepare("INSERT INTO departments (department_name,department_desc,manager_id) VALUE (:dept_name,:dept_desc,:manager_id);");
+    $stm->execute([':dept_name' => $dept_name, ':dept_desc' => $dept_desc, ':manager_id' => $manager_id]);
+    return $stm->rowCount() > 0;
+}
