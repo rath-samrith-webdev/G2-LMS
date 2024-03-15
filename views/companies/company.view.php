@@ -390,13 +390,13 @@ require "layouts/navbar.php"; ?>
 							<div class="d-flex justify-content-between rounded-3 p-2 mb-2" style="background-color: #efefef;">
 								<div>
 									<p class="small text-muted mb-1">Most Taken</p>
-									<p class="mb-0"><?= (isset($most['first_name']) and isset($most['last_name'])) ? $most['first_name'] . " " . $most['last_name']  : "No request" ?></p>
-									<small><?= (isset($most['total'])) ? $most['total'] : "No Leave Record Yet." ?></small>
+									<p class="mb-0">Name<i> <?= (isset($most['first_name']) and isset($most['last_name'])) ? $most['first_name'] . " " . $most['last_name']  : "No request" ?></i></p>
+									<small>Total requested <?= (isset($most['total'])) ? $most['total'] : "No Leave Record Yet." ?></small>
 								</div>
 								<div>
 									<p class="small text-muted mb-1">Least Taken</p>
-									<p class="mb-0"><?= (isset($least) and count($least) > 0) ? $least['first_name'] . " " . $least['last_name']  : "No Leave Record Yet." ?></p>
-									<small><?= (isset($least['total'])) ? $least['total'] : "No Leave Record Yet." ?></small>
+									<p class="mb-0">Name<i> <?= (isset($least) and count($least) > 0) ? $least['first_name'] . " " . $least['last_name']  : "No Leave Record Yet." ?></i></p>
+									<small>Total requested <?= (isset($least['total'])) ? $least['total'] : "No Leave Record Yet." ?></small>
 								</div>
 								<div class="px-3">
 									<p class="small text-muted mb-1"><span class="lnr lnr-users"></span> Employees</p>
@@ -420,14 +420,14 @@ require "layouts/navbar.php"; ?>
 									</thead>
 									<tbody>
 										<?php if (count($empls) > 0) {
-											foreach ($empls as $per) { ?>
+											for ($i = 0; $i < count($empls); $i++) { ?>
 												<tr>
-													<td style="display:none"><?= $per['uid'] ?> </td>
-													<td><?= $per['first_name'] . " " . $per['last_name'] ?></td>
-													<td>9</td>
-													<td>2</td>
-													<td>8</td>
-													<td><?= $per['total_allowed_leave'] ?></td>
+													<td style="display:none"><?= $empls[$i]['uid'] ?> </td>
+													<td><?= $empls[$i]['first_name'] . " " . $empls[$i]['last_name'] ?></td>
+													<td><?= $allEmpLeave[$i]['total'] ?></td>
+													<td><?= $empls[$i]['total_allowed_leave'] ?></td>
+													<td>0</td>
+													<td><?= $empls[$i]['total_allowed_leave'] ?></td>
 												</tr>
 											<?php }
 										} else { ?>

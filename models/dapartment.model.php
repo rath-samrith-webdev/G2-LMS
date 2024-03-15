@@ -81,3 +81,11 @@ function insertDepartment($dept_name, $dept_desc, $manager_id): bool
     $stm->execute([':dept_name' => $dept_name, ':dept_desc' => $dept_desc, ':manager_id' => $manager_id]);
     return $stm->rowCount() > 0;
 }
+
+function  updateDepartment($dept_id, $manager_id): bool
+{
+    global $connection;
+    $stm = $connection->prepare('UPDATE departments SET manager_id=:manager_id WHERE department_id=:dept_id');
+    $stm->execute([':manager_id' => $manager_id, ':dept_id' => $dept_id]);
+    return $stm->rowCount() > 0;
+}
