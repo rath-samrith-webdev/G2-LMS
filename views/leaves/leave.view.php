@@ -154,7 +154,17 @@ include "layouts/navbar.php"; ?>
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach ($leave_requests as $request) { ?>
+								<?php foreach ($leave_requests as $request) {
+									$bg = "";
+									if ($request['status_desc'] === "Approved") {
+										$bg = "bg-success";
+									} elseif ($request['status_desc'] === "Pending") {
+										$bg = "bg-warning";
+									} elseif ($request['status_desc'] === "Canceled") {
+										$bg = "bg-theme";
+									} else {
+										$bg = "bg-danger";
+									} ?>
 									<tr>
 										<td style=" display: none"><?= $request['request_id'] ?></td>
 										<td>
@@ -185,7 +195,7 @@ include "layouts/navbar.php"; ?>
 													<button class="btn btn-theme button-1 text-white">Save</button>
 												</form>
 											<?php } else { ?>
-												<p><?= $request['status_desc'] ?></p>
+												<p class="<?= $bg ?> text-center text-white"><?= $request['status_desc'] ?></p>
 											<?php } ?>
 										</td>
 										<td></td>
@@ -193,7 +203,7 @@ include "layouts/navbar.php"; ?>
 											<?php if (!isset($_SESSION['user']['uid'])) { ?>
 												<a href="#" class="btn btn-sm btn-outline-danger deletebtn">
 													<span class="lnr lnr-trash"></span> Delete</a>
-											<?php } else { ?>
+											<?php } else if ($request['status_desc'] !== "Canceled" && $request['status_desc'] !== "Rejected") { ?>
 												<a href="#" class="btn btn-sm btn-outline-danger cancelbtn">
 													<span class="lnr lnr-cross"></span> Cancel</a>
 											<?php } ?>
