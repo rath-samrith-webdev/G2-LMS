@@ -26,7 +26,7 @@ function getEmployeeUnder($uid)
 function getLeaves($department_id)
 {
     global $connection;
-    $stm = $connection->prepare("SELECT *,COUNT(leave_requests.uid) AS total FROM ((departments INNER JOIN users ON departments.department_id=users.department_id)INNER JOIN leave_requests ON users.uid=leave_requests.uid) WHERE departments.department_id=:uid;");
+    $stm = $connection->prepare("SELECT * FROM department_requests WHERE department_id=:uid;");
     $stm->execute([':uid' => $department_id]);
     if (!$stm) {
         return [];
@@ -50,26 +50,26 @@ function getManager(): array
 
 function getMax(array $leaves): array
 {
-    $maxIndex = 0;
     $maxNum = 0;
+    $most = [];
     for ($i = 0; $i < count($leaves); $i++) {
-        if ($leaves[$i]['total'] > $maxNum) {
-            $maxNum = 0;
-            $maxIndex = $i;
+        if ($leaves[$i]['total'] >= $maxNum) {
+            $maxNum = $leaves[$i]['total'];
+            $most = $leaves[$i];
         }
-    }
-    return $leaves[$maxIndex];
+    };
+    return $most;
 }
 
 function getMin(array $leaves): array
 {
-    $maxIndex = 0;
-    $maxNum = 1;
+    $minNum = 1;
+    $least = [];
     for ($i = 0; $i < count($leaves); $i++) {
-        if ($leaves[$i]['total'] < $maxNum) {
-            $maxNum = 0;
-            $maxIndex = $i;
+        if ($leaves[$i]['total'] <= $minNum) {
+            $minNum = $leaves[$i]['total'];
+            $least = $leaves[$i];
         }
-    }
-    return $leaves[$maxIndex];
+    };
+    return $least;
 }

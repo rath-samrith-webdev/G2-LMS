@@ -361,9 +361,14 @@ require "layouts/navbar.php"; ?>
 </div>
 <?php foreach ($departments as $dept) {
 	$allEmpLeave = getLeaves($dept['department_id']);
-	$most = getMax($allEmpLeave);
-	$least = getMin($allEmpLeave);
 	$empls = getEmployeeUnder($dept['department_id']);
+	if (count($allEmpLeave) > 0) {
+		$most = getMax($allEmpLeave);
+		$least = getMin($allEmpLeave);
+	} else {
+		$most = [];
+		$least = [];
+	}
 ?>
 	<div class="modal fade " id="view<?= $dept['department_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog modal-lg" role="document">
@@ -385,13 +390,13 @@ require "layouts/navbar.php"; ?>
 							<div class="d-flex justify-content-between rounded-3 p-2 mb-2" style="background-color: #efefef;">
 								<div>
 									<p class="small text-muted mb-1">Most Taken</p>
-									<p class="mb-0"><?= $most['first_name'] . " " . $most['last_name'] ?></p>
-									<small>Total Requests <?= $most['total'] ?></small>
+									<p class="mb-0"><?= (isset($most['first_name']) and isset($most['last_name'])) ? $most['first_name'] . " " . $most['last_name']  : "No request" ?></p>
+									<small><?= (isset($most['total'])) ? $most['total'] : "No Leave Record Yet." ?></small>
 								</div>
 								<div>
 									<p class="small text-muted mb-1">Least Taken</p>
-									<p class="mb-0"><?= $least['first_name'] . " " . $least['last_name'] ?></p>
-									<small>Total Requests <?= $least['total'] ?></small>
+									<p class="mb-0"><?= (isset($least['first_name']) and isset($least['last_name'])) ? $least['first_name'] . " " . $least['last_name']  : "No request" ?></p>
+									<small><?= (isset($least['total'])) ? $least['total'] : "No Leave Record Yet." ?></small>
 								</div>
 								<div class="px-3">
 									<p class="small text-muted mb-1"><span class="lnr lnr-users"></span> Employees</p>
