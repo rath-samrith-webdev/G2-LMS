@@ -173,6 +173,9 @@ $(document).ready(function () {
         $(".notification").html(data.notification);
         if (data.unseen_notification > 0) {
           $(".count").html(data.unseen_notification);
+          if ($(".count").text() != "") {
+            $.notify("You have " + html(data.unseen_notification), "success");
+          }
         }
       },
     });
@@ -187,9 +190,6 @@ $(document).ready(function () {
     $(".count").html("");
     load_unseen_notification("yes");
   });
-  if ($(".count").text() != "") {
-    $.notify("You have " + html(data.unseen_notification), "success");
-  }
   setInterval(function () {
     load_unseen_notification();
   }, 5000);
