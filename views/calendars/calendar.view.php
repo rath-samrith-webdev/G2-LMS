@@ -62,6 +62,7 @@ require "layouts/navbar.php"; ?>
 			(CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
 				var $this = this;
 				var form = $("<form action='controllers/calendars/leave.request.approval.php' method='post'></form>");
+				form.append("<input class='form-control' name='uid' type='hidden' value='" + calEvent.uid + "' /><span class='input-group-append'>")
 				form.append("<input class='form-control' name='request_id' type='hidden' value='" + calEvent.id + "' /><span class='input-group-append'>")
 				form.append("<div class='row'></div>")
 				form
@@ -76,7 +77,7 @@ require "layouts/navbar.php"; ?>
 				form
 					.find('.approve')
 					.append("<label>Choose actions <span class = 'text-danger'>*</span></label>")
-					.append("<select name='request_act' class='form-control ap-action'><option hidden>Select an action</option></select>")
+					.append("<select name='leave_status' class='form-control ap-action'><option hidden>Select an action</option></select>")
 				form
 					.find(".ap-action")
 					.append("<option value='1'>Approve</option><option value='2'>Reject</option>")
@@ -152,6 +153,7 @@ require "layouts/navbar.php"; ?>
 							$bg = "bg-danger";
 						}
 					?> {
+							uid: <?= $request['uid']; ?>,
 							id: <?= $request['request_id'] ?>,
 							title: "<?= $request['first_name'] . ' | ' . $request['leaveType_desc'] ?>",
 							start: "<?= $request['start_date'] ?>",
