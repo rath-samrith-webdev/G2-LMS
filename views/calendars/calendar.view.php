@@ -144,11 +144,11 @@ require "layouts/navbar.php"; ?>
 						$bg = "";
 						if ($request['status_desc'] === "Approved") {
 							$bg = "bg-success";
-						} elseif($request['status_desc'] === "Pending") {
+						} elseif ($request['status_desc'] === "Pending") {
 							$bg = "bg-warning";
-						}elseif($request['status_desc'] === "Canceled"){
+						} elseif ($request['status_desc'] === "Canceled") {
 							$bg = "bg-theme";
-						}else {
+						} else {
 							$bg = "bg-danger";
 						}
 					?> {
@@ -395,10 +395,20 @@ require "layouts/navbar.php"; ?>
 
 				var defaultEvents = [
 					<?php
-					foreach ($leaverequest as $request) { ?> {
+					foreach ($leaverequest as $request) {
+						$bg = "";
+						if ($request['status_desc'] === "Approved") {
+							$bg = "bg-success";
+						} elseif ($request['status_desc'] === "Pending") {
+							$bg = "bg-warning";
+						} elseif ($request['status_desc'] === "Canceled") {
+							$bg = "bg-theme";
+						} else {
+							$bg = "bg-danger";
+						} ?> {
 							title: "<?= $request['leaveType_desc'] ?>",
 							start: "<?= $request['start_date'] ?>",
-							className: "bg-warning",
+							className: <?= json_encode($bg) ?>,
 						},
 					<?php } ?>
 				];
