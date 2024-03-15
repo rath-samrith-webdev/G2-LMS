@@ -424,7 +424,7 @@ require "layouts/navbar.php"; ?>
 												<tr>
 													<td style="display:none"><?= $empls[$i]['uid'] ?> </td>
 													<td><?= $empls[$i]['first_name'] . " " . $empls[$i]['last_name'] ?></td>
-													<td><?= $allEmpLeave[$i]['total'] ?></td>
+													<td><?= (isset($allEmpLeave[$i]['total'])) ? $allEmpLeave[$i]['total'] : 0 ?></td>
 													<td><?= $empls[$i]['total_allowed_leave'] ?></td>
 													<td>0</td>
 													<td><?= $empls[$i]['total_allowed_leave'] ?></td>
