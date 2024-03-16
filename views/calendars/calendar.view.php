@@ -260,42 +260,94 @@ require "layouts/navbar.php"; ?>
 			}),
 			/* on click on event */
 			(CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
-				var $this = this;
-				var form = $("<form></form>");
-				form.append("<label>Change event name</label>");
-				form.append(
-					"<div class='input-group'><input class='form-control' type=text value='" +
-					calEvent.title +
-					"' /><span class='input-group-append'><button type='submit' class='btn btn-success'><i class='fa fa-check'></i> Save</button></span></div>"
-				);
-				$this.$modal.modal({
-					backdrop: "static",
-				});
-				$this.$modal
-					.find(".delete-event")
-					.show()
-					.end()
-					.find(".save-event")
-					.hide()
-					.end()
-					.find(".modal-body")
-					.empty()
-					.prepend(form)
-					.end()
-					.find(".delete-event")
-					.unbind("click")
-					.click(function() {
-						$this.$calendarObj.fullCalendar("removeEvents", function(ev) {
-							return ev._id == calEvent._id;
-						});
-						$this.$modal.modal("hide");
+				<?php if ($role_id == 1) { ?>
+					var $this = this;
+					var form = $("<form action='controllers/calendars/leave.request.approval.php' method='post'></form>");
+					form.append("<input class='form-control' name='uid' type='hidden' value='" + calEvent.uid + "' /><span class='input-group-append'>")
+					form.append("<input class='form-control' name='request_id' type='hidden' value='" + calEvent.id + "' /><span class='input-group-append'>")
+					form.append("<div class='row'></div>")
+					form
+						.find(".row")
+						.append("<div class='col-sm-12 eventName'></div>")
+					form
+						.find(".eventName")
+						.append("<h4>Title: " + calEvent.title + "</h4>")
+					form
+						.find(".row")
+						.append("<div class='form-group col-sm-12 approve mt-3'></div>")
+					form
+						.find('.approve')
+						.append("<label>Choose actions <span class = 'text-danger'>*</span></label>")
+						.append("<select name='leave_status' class='form-control ap-action'><option hidden>Select an action</option></select>")
+					form
+						.find(".ap-action")
+						.append("<option value='1'>Approve</option><option value='2'>Reject</option>")
+					form
+						.find(".row")
+						.append("<div class='col-sm-12 action'></div>")
+					form
+						.find(".action")
+						.append("<button type='submit' class='btn btn-theme text-white'>Save</button>")
+					$this.$modal.modal({
+						backdrop: "static",
 					});
-				$this.$modal.find("form").on("submit", function() {
-					calEvent.title = form.find("input[type=text]").val();
-					$this.$calendarObj.fullCalendar("updateEvent", calEvent);
-					$this.$modal.modal("hide");
-					return false;
-				});
+					$this.$modal
+						.find(".delete-event")
+						.show()
+						.end()
+						.find(".save-event")
+						.hide()
+						.end()
+						.find(".modal-body")
+						.empty()
+						.prepend(form)
+						.end()
+						.find(".delete-event")
+						.unbind("click")
+						.click(function() {
+							$this.$calendarObj.fullCalendar("removeEvents", function(ev) {
+								return ev._id == calEvent._id;
+							});
+							$this.$modal.modal("hide");
+						});
+				<?php } else { ?>
+					var $this = this;
+					var form = $("<form></form>");
+					form.append("<label>Change event name</label>");
+					form.append(
+						"<div class='input-group'><input class='form-control' type=text value='" +
+						calEvent.title +
+						"' /><span class='input-group-append'><button type='submit' class='btn btn-success'><i class='fa fa-check'></i> Save</button></span></div>"
+					);
+					$this.$modal.modal({
+						backdrop: "static",
+					});
+					$this.$modal
+						.find(".delete-event")
+						.show()
+						.end()
+						.find(".save-event")
+						.hide()
+						.end()
+						.find(".modal-body")
+						.empty()
+						.prepend(form)
+						.end()
+						.find(".delete-event")
+						.unbind("click")
+						.click(function() {
+							$this.$calendarObj.fullCalendar("removeEvents", function(ev) {
+								return ev._id == calEvent._id;
+							});
+							$this.$modal.modal("hide");
+						});
+					$this.$modal.find("form").on("submit", function() {
+						calEvent.title = form.find("input[type=text]").val();
+						$this.$calendarObj.fullCalendar("updateEvent", calEvent);
+						$this.$modal.modal("hide");
+						return false;
+					});
+				<?php } ?>
 			}),
 			/* on select */
 			(CalendarApp.prototype.onSelect = function(start, end, allDay) {
@@ -408,7 +460,9 @@ require "layouts/navbar.php"; ?>
 						} else {
 							$bg = "bg-danger";
 						} ?> {
-							title: "<?= $request['leaveType_desc'] ?>",
+							uid: <?= $request['uid']; ?>,
+							id: <?= $request['request_id'] ?>,
+							title: "<?= ($role_id == 1) ? $request['first_name'] . ' | ' . $request['leaveType_desc'] : $request['leaveType_desc'] ?>",
 							start: "<?= $request['start_date'] ?>",
 							className: <?= json_encode($bg) ?>,
 						},

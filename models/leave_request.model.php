@@ -235,11 +235,11 @@ function getOneleaves(int $request_id)
 function getDepartRequest($department_id)
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM leave_requests INNER JOIN users ON leave_requests.uid=users.uid WHERE department_id=:dept_id;");
+    $statement = $connection->prepare("SELECT * FROM (((leave_requests INNER JOIN users ON leave_requests.uid=users.uid)INNER JOIN leave_status ON leave_requests.status_id=leave_status.status_id)INNER JOIN leave_types ON leave_requests.leavetype_id=leave_types.leaveType_id) WHERE department_id=:dept_id;");
     $statement->execute([":dept_id" => $department_id]);
-    if(!$statement){
+    if (!$statement) {
         return [];
-    }else{
+    } else {
         return $statement->fetchAll();
     }
 }
