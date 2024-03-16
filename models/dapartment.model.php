@@ -34,8 +34,6 @@ function getLeaves($department_id)
         return $stm->fetchAll();
     }
 }
-
-
 function getManager(): array
 {
     global $connection;

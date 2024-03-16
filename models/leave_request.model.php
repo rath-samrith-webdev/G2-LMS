@@ -88,13 +88,14 @@ function addLeave($uid, $leaveType, $start_date, $end_date): bool
     );
     return $statement->rowCount() > 0;
 }
-function getleave(int $id,int $uid) : array
+function getleave(int $id, int $uid): array
 {
     global $connection;
     $statement = $connection->prepare("select * from total_requests where request_id = :id and uid=:uid");
     $statement->execute([
         ':id' => $id,
-        ':uid'=>$uid]);
+        ':uid' => $uid
+    ]);
     return $statement->fetch();
 }
 // ======== add leave request ===============
@@ -229,4 +230,16 @@ function getOneleaves(int $request_id)
     $statement->execute([":request_id" => $request_id]);
 
     return $statement->fetch();
+}
+
+function getDepartRequest($department_id)
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM leave_requests INNER JOIN users ON leave_requests.uid=users.uid WHERE department_id=:dept_id;");
+    $statement->execute([":dept_id" => $department_id]);
+    if(!$statement){
+        return [];
+    }else{
+        return $statement->fetchAll();
+    }
 }
