@@ -40,8 +40,10 @@ if (isset($_POST['email']) && isset($_POST['password'])){
                     header('Location: /employees');
                 } else {
                     header('Location: /?error=Your password not correct!');
-                };
-            };
+                }
+            }else{
+                header('Location: /?error=Your password not correct!');
+            }
         }else{
             header('Location: /');
         };
