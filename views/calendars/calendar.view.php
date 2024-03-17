@@ -31,17 +31,31 @@ require "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
-<div class="modal fade none-border" id="my_event" role="dialog">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Leave Request Action</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<?php if (!isset($role_id)) { ?>
+	<div class="modal fade none-border" id="my_event" role="dialog">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Leave Request Action</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body"></div>
 			</div>
-			<div class="modal-body"></div>
 		</div>
 	</div>
-</div>
+<?php } else { ?>
+	<div class="modal fade none-border" id="my_event" role="dialog">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Request Details</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body"></div>
+			</div>
+		</div>
+	</div>
+<?php } ?>
 <?php require "layouts/footer.php" ?>
 <?php if ($adminExist) { ?>
 	<script>
@@ -312,13 +326,25 @@ require "layouts/navbar.php"; ?>
 						});
 				<?php } else { ?>
 					var $this = this;
-					var form = $("<form></form>");
-					form.append("<label>Change event name</label>");
-					form.append(
-						"<div class='input-group'><input class='form-control' type=text value='" +
-						calEvent.title +
-						"' /><span class='input-group-append'><button type='submit' class='btn btn-success'><i class='fa fa-check'></i> Save</button></span></div>"
-					);
+					var form = $("<div class='col-sm-12'></div>");
+					form.append("<div class='row1 row d-flex justify-content-between'></div>");
+					form.append("<div class='row2 row d-flex justify-content-between'></div>");
+					form.append("<div class='row3 row d-flex justify-content-between'></div>");
+					form
+						.find(".row1")
+						.append("<h5>Leave Title: " + calEvent.title + "</h5>");
+					form
+						.find(".row1")
+						.append("<h5>Approval Status: " + calEvent.status + "</h5>");
+					form
+						.find(".row2")
+						.append("<h5>Start Date: " + calEvent.startDate + "</h5>");
+					form
+						.find(".row2")
+						.append("<h5>End Date: " + calEvent.endDate + "</h5>");
+					form
+						.find(".row3")
+						.append("<h5>Request Date: " + calEvent.requestDate + "</h5>");
 					$this.$modal.modal({
 						backdrop: "static",
 					});
@@ -464,6 +490,10 @@ require "layouts/navbar.php"; ?>
 							id: <?= $request['request_id'] ?>,
 							title: "<?= ($role_id == 1) ? $request['first_name'] . ' | ' . $request['leaveType_desc'] : $request['leaveType_desc'] ?>",
 							start: "<?= $request['start_date'] ?>",
+							startDate: "<?= $request['start_date'] ?>",
+							endDate: "<?= $request['end_date'] ?>",
+							requestDate: "<?= $request['added_times'] ?>",
+							status: "<?= $request['status_desc'] ?>",
 							className: <?= json_encode($bg) ?>,
 						},
 					<?php } ?>
