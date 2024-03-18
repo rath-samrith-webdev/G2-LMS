@@ -16,7 +16,7 @@
                 </div>
                 <div class="login-right">
                     <div class="login-right-wrap">
-                        <h1><b>Login</b></h1>
+                        <h1><b>User Login</b></h1>
                         <p class="account-subtitle">Access to your dashboard</p>
 
                         <!-- Form -->
@@ -45,11 +45,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="text-center forgotpass d-flex justify-content-between">
+                                    <a href="/forgetPass">Forgot Password?</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <button class="btn btn-theme button-1 text-white ctm-border-radius btn-block" type="submit">Login</button>
                             </div>
                         </form>
                         <!-- /Form -->
-                        <div class="text-center forgotpass d-flex justify-content-between"><a href="/forgetPass" class="btn btn-primary text-white ctm-border-radius">Forgot Password?</a> <a href='/loginAdmin' class="btn btn-primary text-white ctm-border-radius">Admin Login</a></div>
+                        <div><span>Are you a admin? </span><a href='/loginAdmin'>Admin Login</a></div>
                     </div>
                 </div>
             </div>

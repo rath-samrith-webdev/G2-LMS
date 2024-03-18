@@ -17,7 +17,7 @@
                 </div>
                 <div class="login-right">
                     <div class="login-right-wrap">
-                        <h1><b>Login</b></h1>
+                        <h1><b>Admin Login</b></h1>
                         <p class="account-subtitle">Access to your dashboard</p>
 
                         <!-- Form -->
@@ -52,8 +52,8 @@
                         </form>
                         <!-- /Form -->
 
-                        <div class="text-center forgotpass d-flex justify-content-between"><a href="/forgetPass" class="btn btn-primary text-white ctm-border-radius">Forgot Password?</a>
-                            <a href='/' class="btn btn-primary text-white ctm-border-radius ">User Login</a>
+                        <div>
+                            <span>Are you a User? </span><a href='/'> User Login</a>
                         </div>
                     </div>
                 </div>
