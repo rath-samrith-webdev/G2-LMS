@@ -1,8 +1,10 @@
 <?php
 //Profile image management.
 if (isset($_SESSION['user'])) {
-	$userExist = true; //if the normal user has logged in 
+	$userExist = false; //if the normal user has logged in 
+	$adminExist = false;
 	if (isset($_SESSION['user']['profile'])) {
+		$userExist = true;
 		$img = $_SESSION['user']['profile'];
 		$username = $_SESSION['user']['first_name'];
 		$uid = $_SESSION['user']['uid']; //if the user already had a profile img
