@@ -278,7 +278,7 @@ if (isset($_SESSION['user'])) {
                                         function checkActive($path)
                                         {
                                             $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
-                                            return $uri == $path ? "active" : "";
+                                            return $uri == $path ? "active text-white" : "";
                                         }
                                         ?>
 
