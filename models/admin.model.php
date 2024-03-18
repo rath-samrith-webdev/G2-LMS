@@ -38,3 +38,15 @@ function getTeamLeads()
     );
     return $statment->fetchAll();
 }
+
+function getEmpBirthday($month, $day): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM users WHERE MONTH(date_of_birth)=:month AND DAY(date_of_birth)=:day;");
+    $statement->execute([':month' => $month, ':day' => $day]);
+    if (!$statement) {
+        return [];
+    } else {
+        return $statement->fetchAll();
+    }
+};
