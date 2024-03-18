@@ -243,3 +243,69 @@ function getDepartRequest($department_id)
         return $statement->fetchAll();
     }
 }
+function getApproveRequest($department_id)
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM (((leave_requests INNER JOIN users ON leave_requests.uid=users.uid)INNER JOIN leave_status ON leave_requests.status_id=leave_status.status_id)INNER JOIN leave_types ON leave_requests.leavetype_id=leave_types.leaveType_id) WHERE department_id=:dept_id AND status_desc= 'Approved';");
+    $statement->execute([":dept_id" => $department_id]);
+    if (!$statement) {
+        return [];
+    } else {
+        return $statement->fetchAll();
+    }
+}
+function getPendingRequest($department_id)
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM (((leave_requests INNER JOIN users ON leave_requests.uid=users.uid)INNER JOIN leave_status ON leave_requests.status_id=leave_status.status_id)INNER JOIN leave_types ON leave_requests.leavetype_id=leave_types.leaveType_id) WHERE department_id=:dept_id AND status_desc= 'Pending';");
+    $statement->execute([":dept_id" => $department_id]);
+    if (!$statement) {
+        return [];
+    } else {
+        return $statement->fetchAll();
+    }
+}
+function getempLeaveToday(int $dept_id, $date): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM (((leave_requests INNER JOIN users ON leave_requests.uid=users.uid)INNER JOIN leave_status ON leave_requests.status_id=leave_status.status_id)INNER JOIN leave_types ON leave_requests.leavetype_id=leave_types.leaveType_id) WHERE department_id=:dept_id AND start_date=:date");
+    $statement->execute([":dept_id" => $dept_id, ':date' => $date]);
+    if (!$statement) {
+        return [];
+    } else {
+        return $statement->fetchAll();
+    }
+}
+function getuserApproveLeave(int $uid): array
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where status_desc='Approved' and uid=:uid");
+    $statement->execute(
+        [
+            ':uid' => $uid
+        ]
+    );
+    return $statement->fetchAll();
+}
+function getuserPendingLeave(int $uid): array
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where status_desc='Pending' and uid=:uid");
+    $statement->execute(
+        [
+            ':uid' => $uid
+        ]
+    );
+    return $statement->fetchAll();
+}
+function getuserLeaves(int $uid): array
+{
+    global $connection;
+    $statement = $connection->prepare("select * from total_requests where uid=:uid");
+    $statement->execute(
+        [
+            ':uid' => $uid
+        ]
+    );
+    return $statement->fetchAll();
+}
