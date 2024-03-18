@@ -16,30 +16,31 @@ if (isset($_POST['name']) && isset($_POST['password'])){
         header("Location: /loginAdmin?error=User admin is not correct");
         exit();
     }elseif (!$_POST['password'] || strlen($_POST['password']) < 6 ) {
-        header("Location: /loginAdmin?error=Password is not correct");
+        header("Location: /loginAdmin?error=Your password is not correct!");
         exit();
-    }{
+    }else{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $email = htmlspecialchars($_POST['name']);
             $password = htmlspecialchars($_POST['password']);
 
-        // Get data from database
-        $user = accountExist($password);
+            // Get data from database
+            $user = accountExist($password);
 
-        // Check if user exists
-        if (count($user) > 0) {
+            // Check if user exists
+            if (count($user) > 0) {
 
-            // Check if password is correct
-            if (password_verify($password, $user["password"])) {
-                echo "Password is incorrect";
-            } else {
-                $_SESSION['user'] = $user;
-                $_SESSION['login'] = 1;
-                header('Location: /admin');
-            }
-        }else {
-                header('Location: /loginAdmin');
+                // Check if password is correct
+                $password = password_hash($password, PASSWORD_BCRYPT); // count Password encryption
+                if (password_verify($password, $user["password"])) {
+                } else {
+                    $_SESSION['user'] = $user;
+                    $_SESSION['login'] = 1;
+                    header('Location: /admin');
+                }
+            }else{
+                header('Location: /loginAdmin?error=Your password not correct!');
+
             };
         };
     };

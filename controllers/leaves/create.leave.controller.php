@@ -17,8 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $selectData = $_POST['dateValue'];          // data1
     $dataValueEnd = $_POST['dataValueEnd'];     // data2 
+    $dataReason = $_POST['reason'];             // reason
     $leaveType = $_POST['leaveType'];           // leaveType
     $uid = $_SESSION['user']['uid'];      // user id         
+
+    // echo $dataReason;
 
     $leaveRemain = $_SESSION['user']['total_allowed_leave']; // total_allowed_leave of user
     $date1 = date_create($selectData);
@@ -33,17 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $lastNameUser = $manager['last_name'];
 
     // //========= add request table ==========
-    if ($selectData !== '' and $dataValueEnd !== '' and $uid !== '' and $leaveType !== '' and $total !== '') {
+    if ($selectData !== '' and $dataValueEnd !== '' and $uid !== '' and $leaveType !== '' and $total !== '' and $dataReason !== '') {
         if ($total) {
             $iscreated = updateCurrentLeave($uid, $total); // insert updata of total
             if ($iscreated) {
-                $add = addLeaveRequest($selectData, $dataValueEnd, $uid, $leaveType); // insert add request new
+                $add = addLeaveRequest($selectData, $dataValueEnd, $uid, $leaveType, $dataReason); // insert add request new
                 if ($add) {
                     $email = $managerEmail;
                     $content = "<div width='100%'><h1><b>Leave request</b></h1><h3>Dear ".$firstNameManager.' '. $lastNameManager ."</h3><p> I am writing to inform you that your "." has been approved, and you may take time off as requestd. Please ensure that your work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>". $firstNameUser .' '. $lastNameUser ."</p></b></div>";
                     //Create an instance; passing `true` enables exceptions
                     $mail = new PHPMailer(true);
-
+                    
                     try {
                         //Server settings
                         $mail->isSMTP();                                            //Send using SMTP

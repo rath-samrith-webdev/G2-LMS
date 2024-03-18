@@ -77,7 +77,7 @@ include "layouts/navbar.php"; ?>
 								<div class="col-sm-12">
 									<div class="form-group mb-0">
 										<label>Reason</label>
-										<textarea class="form-control" rows=4></textarea>
+										<textarea name="reason" class="form-control" rows=4></textarea>
 									</div>
 								</div>
 							</div>

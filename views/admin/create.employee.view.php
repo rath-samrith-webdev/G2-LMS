@@ -16,6 +16,11 @@ require "layouts/navbar.php"; ?>
                 <div id="basic-one" class="collapse show ctm-padding" aria-labelledby="basic1" data-parent="#accordion-details">
                     <form action="../../controllers/admin/create.user.controller.php" method="post">
                         <div class="row">
+                            <div class="col-12 form-group">
+                                <?php if(isset($_GET['error1'])) {?>
+                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error1'];?></p>
+                                <?php } ?>
+                            </div>
                             <div class="col form-group">
                                 <input type="text" class="form-control" placeholder="First Name" name="fsname">
                             </div>
@@ -23,10 +28,16 @@ require "layouts/navbar.php"; ?>
                                 <input type="text" class="form-control" placeholder="Last Name" name="lsname">
                             </div>
                             <div class="col-12 form-group">
+                                <?php if(isset($_GET['error2'])) {?>
+                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error2'];?></p>
+                                <?php } ?>
                                 <input type="email" class="form-control" placeholder="Email" name="email">
                             </div>
                             <div class="col-12 form-group">
-                                <input type="password" class="form-control" placeholder="Password" name="password">
+                                <?php if(isset($_GET['error'])) {?>
+                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error'];?></p>
+                                <?php } ?>
+                                <input type="password" class="form-control" placeholder="Password" name="password" minlength="8">
                             </div>
                             <div class="col-md-12 form-group">
                                 <div class="cal-icon">
@@ -91,7 +102,7 @@ require "layouts/navbar.php"; ?>
                             </div>
                             <div class="col-md-12 form-group ">
                                 <select class="form-control select" name="salary" >
-                                    <option selected>Salay </option>
+                                    <option selected>Salary </option>
                                     <option value="250">250$</option>
                                     <option value="300">300$</option>
                                     <option value="350">350$</option>
