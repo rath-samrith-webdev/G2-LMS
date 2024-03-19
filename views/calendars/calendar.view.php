@@ -5,15 +5,11 @@ if (isset($_SESSION['user'])) {
 	$adminExist = false;
 	if (isset($_SESSION['user']['profile'])) {
 		$userExist = true;
-		$img = $_SESSION['user']['profile'];
-		$username = $_SESSION['user']['first_name'];
 		$uid = $_SESSION['user']['uid']; //if the user already had a profile img
 	} else {
 		if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
-			$img = "assets/profile/img-2.jpg";
 			$adminExist = true;
 			$userExist = false;
-			$username = "Admin";
 		}
 	}
 }
