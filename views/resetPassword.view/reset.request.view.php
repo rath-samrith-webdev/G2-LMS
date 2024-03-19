@@ -2,8 +2,16 @@
 <!-- Main Wrapper -->
 <div class="inner-wrapper login-body">
     <div class="login-wrapper">
+        <div class="p-5 bg-image" style="
+            background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+            height: 200px;
+            "></div>
         <div class="container">
-            <div class="loginbox shadow-sm grow">
+            <div class="loginbox shadow-sm " style="
+                margin-top: -100px;
+                background: hsla(0, 0%, 100%, 0.8);
+                backdrop-filter: blur(30px);
+                ">
                 <div class="login-left">
                     <img class="img-fluid" src="views/landing/image.login.views.png" alt="logo">
                 </div>
@@ -14,7 +22,7 @@
 
                         <!-- Form -->
                         <form action="controllers/password.reset.controller/reset.password.php" method="post">
-                            <?php if (isset($_GET['error'])) { ?>
+                            <?php if (isset($_GET['error'])){ ?>
                                 <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error']; ?></p>
                             <?php } ?>
                             <div class="form-group">
@@ -23,8 +31,10 @@
                             <div class="form-group">
                                 <button class="btn btn-theme button-1 text-white ctm-border-radius btn-block" type="submit">Submit</button>
                             </div>
+                            <div class="form-group">
+                                <span><a href="/">Back to Login Page</a></span>
+                            </div>
                         </form>
-                        <a href="/"><button class="btn btn-theme button-1 text-white ctm-border-radius btn-block">Back to Login Page</button></a>
                     </div>
                 </div>
             </div>

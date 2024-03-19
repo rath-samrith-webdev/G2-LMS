@@ -225,3 +225,27 @@ $(document).ready(function () {
     $("#leave_id").val(data[0]);
   });
 });
+
+
+// count day requset
+function calculateDays() {
+  var startDate = new Date(document.getElementById('start').value);
+  var endDate = new Date(document.getElementById('end').value);
+
+  // Calculate the difference in milliseconds
+
+  var difference = endDate.getTime() - startDate.getTime();
+
+  // Convert milliseconds to days
+  var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+  // Display the result
+  document.getElementById('result').innerText = daysDifference;
+}
+
+// Attach event listeners to the input fields to trigger the calculation
+document.getElementById('start').addEventListener('input', calculateDays);
+document.getElementById('end').addEventListener('input', calculateDays);
+
+// Call the function initially to display the initial count
+calculateDays();
