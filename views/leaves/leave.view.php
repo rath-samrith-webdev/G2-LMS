@@ -41,21 +41,18 @@ include "layouts/navbar.php"; ?>
 							<div class="row">
 								<div class="col-sm-6">
 									<div class="form-group">
-										<label for="start">Start From
+										<label>Start From
 											<span class="text-danger">*</span>
 										</label>
-										<input class="form-control" name="dateValue" type="date" id="start">
-										<!-- <input name="dateValue" type="text" id="start" class="form-control datetimepicker"> -->
+										<input name="dateValue" type="text" class="form-control datetimepicker">
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
-									<div class="form-group">										
-										<label for="end" >To end
+									<div class="form-group">
+										<label>To end
 											<span class="text-danger">*</span>
 										</label>
-										<input class="form-control" name="dataValueEnd" type="date" id="end">
-
-										<!-- <input type="text" id="end" name="dataValueEnd" class="form-control datetimepicker"> -->
+										<input type="text" name="dataValueEnd" class="form-control datetimepicker">
 									</div>
 								</div>
 							</div>
@@ -66,15 +63,13 @@ include "layouts/navbar.php"; ?>
 											Status of user
 											<span class="text-danger">*</span>
 										</label>
-										<input type="text" class="form-control" name="statuID" placeholder="Pending" disabled>
-										<!-- <span class="form-control" name="statuID">3</span> -->
+										<span class="form-control" name="statuID">3</span>
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
 										<label>Number of Days Leave</label>
-										<div id="result" class="form-control" disabled></div>
-										<!-- <input id="result" class="form-control" disabled> -->
+										<input type="text" class="form-control" placeholder="0" disabled>
 									</div>
 								</div>
 							</div>
@@ -82,7 +77,7 @@ include "layouts/navbar.php"; ?>
 								<div class="col-sm-12">
 									<div class="form-group mb-0">
 										<label>Reason</label>
-										<textarea class="form-control" rows=4></textarea>
+										<textarea name="reason" class="form-control" rows=4></textarea>
 									</div>
 								</div>
 							</div>
