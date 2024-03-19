@@ -309,3 +309,15 @@ function getuserLeaves(int $uid): array
     );
     return $statement->fetchAll();
 }
+
+function getRequestEachMonth($month)
+{
+    global  $connection;
+    $statement = $connection->prepare("select * from total_requests where MONTH(start_date)=:month;");
+    $statement->execute([':month' => $month]);
+    if (!$statement) {
+        return [];
+    } else {
+        return $statement->fetchAll();
+    }
+}

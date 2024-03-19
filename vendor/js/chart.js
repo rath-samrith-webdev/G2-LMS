@@ -1,10 +1,15 @@
 let title;
 let emp;
+let months;
+let totalEachmonth;
 fetch("controllers/admin/admin.chart.php")
   .then((response) => response.json())
   .then((data) => {
-    title = data.name;
-    emp = data.emp;
+    console.log(data);
+    title = data.dept_name;
+    emp = data.dept_emp;
+    months = data.request_months;
+    total_requests = data.total_requests;
   })
   .catch((error) => console.log(error));
 
@@ -46,30 +51,14 @@ $(function () {
   var lineChart = new Chart(ctx, {
     type: "line",
     data: {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+      labels: months,
       datasets: [
         {
-          label: "Developer",
-          data: [20, 10, 5, 5, 20],
+          label: "Total Requests",
+          data: total_requests,
           fill: false,
           borderColor: "#373651",
           backgroundColor: "#373651",
-          borderWidth: 1,
-        },
-        {
-          label: "Marketing",
-          data: [2, 2, 3, 4, 1],
-          fill: false,
-          borderColor: "#E65A26",
-          backgroundColor: "#E65A26",
-          borderWidth: 1,
-        },
-        {
-          label: "Marketing",
-          data: [1, 3, 6, 8, 10],
-          fill: false,
-          borderColor: "#a1a1a1",
-          backgroundColor: "#a1a1a1",
           borderWidth: 1,
         },
       ],

@@ -81,7 +81,7 @@ require "layouts/navbar.php"; ?>
 		<div class="col-md-6 d-flex">
 			<div class="card ctm-border-radius shadow-sm flex-fill grow">
 				<div class="card-header">
-					<h4 class="card-title mb-0">Total Salary By Unit</h4>
+					<h4 class="card-title mb-0">Request Each Months</h4>
 				</div>
 				<div class="card-body">
 					<canvas id="lineChart"></canvas>
