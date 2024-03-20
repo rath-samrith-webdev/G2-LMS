@@ -5,7 +5,6 @@ let totalEachmonth;
 fetch("controllers/admin/admin.chart.php")
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
     title = data.dept_name;
     emp = data.dept_emp;
     months = data.request_months;

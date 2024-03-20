@@ -103,7 +103,7 @@ require "layouts/navbar.php"; ?>
 												<td><?= count($emp) ?></td>
 												<td>
 													<div class="table-action d-flex justify-content-between">
-														<a href="#" class="btn btn-sm btn-theme text-white edit<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#edit<?= $dept['department_id'] ?>">
+														<a href="#" class="btn btn-sm btn-theme text-white edit<?= $dept['department_id'] ?>" data-toggle="modal">
 															<span class="lnr lnr-pencil"></span>Edit
 														</a>
 														<a href="#" class="btn btn-sm btn-theme text-white detail<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#view<?= $dept['department_id'] ?>">
@@ -370,6 +370,45 @@ require "layouts/navbar.php"; ?>
 		$least = [];
 	}
 ?>
+	<div class="modal fade" id="edit<?= $dept['department_id'] ?>">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<!-- Modal body -->
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title mb-3">Update Departments</h4>
+					<form action="controllers/companies/edit.department.controller.php" method="post">
+						<input type="hidden" class="form-control" name="department_id" value="<?= $dept['department_id'] ?>">
+						<div class="form-group">
+							<label for="departementNmae">Department Name</label>
+							<input type="text" class="form-control" name="department_name" value="<?= $dept['department_name'] ?>">
+						</div>
+						<div class="form-group">
+							<label for="departmentDESC">Department Description</label>
+							<input type="text" class="form-control" name="department_desc" value="<?= $dept['department_desc'] ?>">
+						</div>
+						<div class="form-group">
+							<label for="manager">Manger</label>
+							<select class="select" name="manager" id="manager">
+								<option value="">Please select a manager</option>
+								<?php foreach ($users as $manager) {
+									if ($manager['uid'] === $dept['uid']) { ?>
+										<option selected value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " " . $manager['last_name'] ?></option>
+
+									<?php
+									} else { ?>
+										<option value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " " . $manager['last_name'] ?></option>
+								<?php }
+								} ?>
+							</select>
+						</div>
+						<button type="button" class="btn btn-danger text-white ctm-border-radius float-right ml-3" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-theme ctm-border-radius text-white float-right button-1">Create</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade " id="view<?= $dept['department_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -444,40 +483,6 @@ require "layouts/navbar.php"; ?>
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="edit<?= $dept['department_id'] ?>">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<!-- Modal body -->
-				<div class="modal-body">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title mb-3">Update Departments</h4>
-					<form action="controllers/companies/edit.department.controller.php" method="post">
-						<input type="hidden" class="form-control" name="departmentName" value="<?= $dept['department_id'] ?>">
-						<div class="form-group">
-							<label for="departementNmae">Department Name</label>
-							<input type="text" class="form-control" name="departmentName" value="<?= $dept['department_name'] ?>">
-						</div>
-						<div class="form-group">
-							<label for="departmentDESC">Department Description</label>
-							<input type="text" class="form-control" name="departmentDESC" value="<?= $dept['department_desc'] ?>">
-						</div>
-						<div class="form-group">
-							<label for="manager">Manger</label>
-							<select class="select" name="manager" id="manager">
-								<option value="">Please select a manager</option>
-								<?php foreach ($users as $manager) { ?>
-									<option value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " " . $manager['last_name'] ?></option>
-								<?php
-								} ?>
-							</select>
-						</div>
-						<button type="button" class="btn btn-danger text-white ctm-border-radius float-right ml-3" data-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-theme ctm-border-radius text-white float-right button-1">Create</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
 <?php } ?>
 <?php require "layouts/footer.php" ?>
 <?php foreach ($departments as $dept) { ?>
@@ -488,6 +493,8 @@ require "layouts/navbar.php"; ?>
 				console.log(data);
 			});
 		});
+	</script>
+	<script>
 		$(document).ready(function() {
 			$(".edit<?= $dept['department_id'] ?>").on("click", function() {
 				$("#edit<?= $dept['department_id'] ?>").modal("show");
@@ -500,5 +507,16 @@ require "layouts/navbar.php"; ?>
 if (isset($_GET['error']) && $_GET['error'] == 0) { ?>
 	<script>
 		$.notify("Department has been created", "success");
+	</script>
+<?php } elseif (isset($_GET['success']) && $_GET['success'] == 1) { ?>
+	<script>
+		$.notify("Department has been updated", "success");
+	</script>
+<?php } elseif (isset($_GET['success']) && $_GET['success'] == 0) { ?>
+	<script>
+		$.notify("Department update has failed", {
+				position: "top-left"
+			},
+			"warn ");
 	</script>
 <?php } ?>
