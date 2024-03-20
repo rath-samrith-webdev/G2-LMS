@@ -48,7 +48,8 @@ require "layouts/navbar.php"; ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn text-center active button-5 text-white detail<?= $employee['uid'] ?>">Detail</button>
+                                    <button type="button" class="btn text-center btn-theme text-white detail<?= $employee['uid'] ?>">Detail</button>
+                                    <button type="button" class="btn btn-theme text-white edit<?= $employee['uid'] ?>">Edit</button>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +62,7 @@ require "layouts/navbar.php"; ?>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 
 <?php foreach ($allemployee as $employee) { ?>
-    <div class="modal fade " id="deletemodal<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="detail<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -92,12 +93,70 @@ require "layouts/navbar.php"; ?>
                                     <p class="mb-0">8.5</p>
                                 </div>
                             </div>
-                            <div class="d-flex pt-1">
-                                <a href="/profiles?uid=<?= $employee['uid'] ?>" class="flex-grow-1"><button type="button" class="btn btn-outline-primary me-1 flex-grow-1">View</button></a>
-                                <button type="button" class="btn btn-primary ">Follow</button>
-                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="edit<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="d-flex text-black ">
+                        <div class="flex-shrink-0">
+                            <img src="<?= $employee['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
+                            <input type="file" name="profile" style="display:none">
+                        </div>
+                        <div class="flex-grow-1 ms-3 ml-4">
+                            <h5 class="mb-1">Details</h5>
+                            <div class="d-flex">
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">First Name *</label>
+                                    <input type="text" class="form-control" name='first_name' id="first_name" value="<?= $employee['first_name'] ?>">
+                                </div>
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">Last Name *</label>
+                                    <input type="text" class="form-control" name='last_name' id="last_name" value="<?= $employee['last_name'] ?>">
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="form-group">
+                                    <label for="first_name">Email *</label>
+                                    <input type="text" class="form-control" name='first_name' id="first_name" value="<?= $employee['email'] ?>">
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">Postion *</label>
+                                    <select class="select form-control" name="position" id="position">
+                                        <option value="1">Project Manager</option>
+                                    </select>
+                                </div>
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">Role *</label>
+                                    <select class="select form-control" name="position" id="position">
+                                        <option value="1">Manager</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">Manager *</label>
+                                <select class="select form-control" name="position" id="position">
+                                    <option value="1">Radit Thy</option>
+                                </select>
+                            </div>
+                            <div class="d-flex pt-1">
+                                <button type="submit" class="btn btn-outline-primary me-1 flex-grow-1">Update</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -108,7 +167,13 @@ require "layouts/navbar.php"; ?>
     <script>
         $(document).ready(function() {
             $(".detail<?= $employee['uid'] ?>").on("click", function() {
-                $("#deletemodal<?= $employee['uid'] ?>").modal("show");
+                $("#detail<?= $employee['uid'] ?>").modal("show");
+                console.log(data);
+            });
+        });
+        $(document).ready(function() {
+            $(".edit<?= $employee['uid'] ?>").on("click", function() {
+                $("#edit<?= $employee['uid'] ?>").modal("show");
                 console.log(data);
             });
         });
