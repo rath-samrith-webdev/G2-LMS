@@ -34,7 +34,7 @@ function getLeaves($department_id)
         return $stm->fetchAll();
     }
 }
-function getManager(): array
+function getManagers(): array
 {
     global $connection;
     $stm = $connection->prepare("SELECT * FROM users WHERE role_id=1");
