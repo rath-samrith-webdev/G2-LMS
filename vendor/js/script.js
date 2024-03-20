@@ -126,19 +126,19 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  $("#show_hide_password a").on('click', function (event) {
+  $("#show_hide_password a").on("click", function (event) {
     event.preventDefault();
-    if ($('#show_hide_password input').attr("type") == "text") {
-      $('#show_hide_password input').attr('type', 'password');
-      $('#show_hide_password i').addClass("fa-eye-slash");
-      $('#show_hide_password i').removeClass("fa-eye");
-    } else if ($('#show_hide_password input').attr("type") == "password") {
-      $('#show_hide_password input').attr('type', 'text');
-      $('#show_hide_password i').removeClass("fa-eye-slash");
-      $('#show_hide_password i').addClass("fa-eye");
+    if ($("#show_hide_password input").attr("type") == "text") {
+      $("#show_hide_password input").attr("type", "password");
+      $("#show_hide_password i").addClass("fa-eye-slash");
+      $("#show_hide_password i").removeClass("fa-eye");
+    } else if ($("#show_hide_password input").attr("type") == "password") {
+      $("#show_hide_password input").attr("type", "text");
+      $("#show_hide_password i").removeClass("fa-eye-slash");
+      $("#show_hide_password i").addClass("fa-eye");
     }
-  })
-})
+  });
+});
 $(document).ready(function () {
   $(".addleave").on("click", function () {
     $("#add_leave").modal("show");
@@ -173,6 +173,9 @@ $(document).ready(function () {
         $(".notification").html(data.notification);
         if (data.unseen_notification > 0) {
           $(".count").html(data.unseen_notification);
+          if ($(".count").text() != "") {
+            $.notify("You have " + html(data.unseen_notification), "success");
+          }
         }
       },
     });
@@ -187,7 +190,6 @@ $(document).ready(function () {
     $(".count").html("");
     load_unseen_notification("yes");
   });
-
   setInterval(function () {
     load_unseen_notification();
   }, 5000);

@@ -1,17 +1,15 @@
 <?php
 //Profile image management.
 if (isset($_SESSION['user'])) {
-	$userExist = true; //if the normal user has logged in 
+	$userExist = false; //if the normal user has logged in 
+	$adminExist = false;
 	if (isset($_SESSION['user']['profile'])) {
-		$img = $_SESSION['user']['profile'];
-		$username = $_SESSION['user']['first_name'];
+		$userExist = true;
 		$uid = $_SESSION['user']['uid']; //if the user already had a profile img
 	} else {
 		if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
-			$img = "assets/profile/img-2.jpg";
 			$adminExist = true;
 			$userExist = false;
-			$username = "Admin";
 		}
 	}
 }
@@ -31,17 +29,31 @@ require "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
-<div class="modal fade none-border" id="my_event" role="dialog">
-	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Leave Requests</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<?php if (!isset($role_id)) { ?>
+	<div class="modal fade none-border" id="my_event" role="dialog">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Leave Request Action</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body"></div>
 			</div>
-			<div class="modal-body"></div>
 		</div>
 	</div>
-</div>
+<?php } else { ?>
+	<div class="modal fade none-border" id="my_event" role="dialog">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Request Details</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body"></div>
+			</div>
+		</div>
+	</div>
+<?php } ?>
 <?php require "layouts/footer.php" ?>
 <?php if ($adminExist) { ?>
 	<script>
@@ -61,24 +73,32 @@ require "layouts/navbar.php"; ?>
 			/* on click on event */
 			(CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
 				var $this = this;
-				var form = $("<form></form>");
+				var form = $("<form action='controllers/calendars/leave.request.approval.php' method='post'></form>");
+				form.append("<input class='form-control' name='uid' type='hidden' value='" + calEvent.uid + "' /><span class='input-group-append'>")
+				form.append("<input class='form-control' name='request_id' type='hidden' value='" + calEvent.id + "' /><span class='input-group-append'>")
 				form.append("<div class='row'></div>")
 				form
 					.find(".row")
 					.append("<div class='col-sm-12 eventName'></div>")
 				form
 					.find(".eventName")
-					.append("<label>Change event name</label>")
-					.append("<input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-append'>");
+					.append("<h4>Title: " + calEvent.title + "</h4>")
 				form
 					.find(".row")
-					.append("<div class='col-sm-12 approve mt-3'></div>")
+					.append("<div class='form-group col-sm-12 approve mt-3'></div>")
 				form
 					.find('.approve')
-					.append("<select class='form-control select'></select>")
+					.append("<label>Choose actions <span class = 'text-danger'>*</span></label>")
+					.append("<select name='leave_status' class='form-control ap-action'><option hidden>Select an action</option></select>")
 				form
-					.find(".select")
-					.append("<option>HI<option>")
+					.find(".ap-action")
+					.append("<option value='1'>Approve</option><option value='2'>Reject</option>")
+				form
+					.find(".row")
+					.append("<div class='col-sm-12 action'></div>")
+				form
+					.find(".action")
+					.append("<button type='submit' class='btn btn-theme text-white'>Save</button>")
 				$this.$modal.modal({
 					backdrop: "static",
 				});
@@ -101,12 +121,6 @@ require "layouts/navbar.php"; ?>
 						});
 						$this.$modal.modal("hide");
 					});
-				$this.$modal.find("form").on("submit", function() {
-					calEvent.title = form.find("input[type=text]").val();
-					$this.$calendarObj.fullCalendar("updateEvent", calEvent);
-					$this.$modal.modal("hide");
-					return false;
-				});
 			}),
 			/* on select */
 			(CalendarApp.prototype.enableDrag = function() {
@@ -139,10 +153,23 @@ require "layouts/navbar.php"; ?>
 
 				var defaultEvents = [
 					<?php
-					foreach ($leaverequest as $request) { ?> {
-							title: "<?= $request['first_name'] . '|' . $request['leaveType_desc'] ?>",
+					foreach ($leaverequest as $request) {
+						$bg = "";
+						if ($request['status_desc'] === "Approved") {
+							$bg = "bg-success";
+						} elseif ($request['status_desc'] === "Pending") {
+							$bg = "bg-warning";
+						} elseif ($request['status_desc'] === "Canceled") {
+							$bg = "bg-theme";
+						} else {
+							$bg = "bg-danger";
+						}
+					?> {
+							uid: <?= $request['uid']; ?>,
+							id: <?= $request['request_id'] ?>,
+							title: "<?= $request['first_name'] . ' | ' . $request['leaveType_desc'] ?>",
 							start: "<?= $request['start_date'] ?>",
-							className: "bg-warning",
+							className: <?= json_encode($bg) ?>,
 						},
 					<?php } ?>
 				];
@@ -245,42 +272,106 @@ require "layouts/navbar.php"; ?>
 			}),
 			/* on click on event */
 			(CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
-				var $this = this;
-				var form = $("<form></form>");
-				form.append("<label>Change event name</label>");
-				form.append(
-					"<div class='input-group'><input class='form-control' type=text value='" +
-					calEvent.title +
-					"' /><span class='input-group-append'><button type='submit' class='btn btn-success'><i class='fa fa-check'></i> Save</button></span></div>"
-				);
-				$this.$modal.modal({
-					backdrop: "static",
-				});
-				$this.$modal
-					.find(".delete-event")
-					.show()
-					.end()
-					.find(".save-event")
-					.hide()
-					.end()
-					.find(".modal-body")
-					.empty()
-					.prepend(form)
-					.end()
-					.find(".delete-event")
-					.unbind("click")
-					.click(function() {
-						$this.$calendarObj.fullCalendar("removeEvents", function(ev) {
-							return ev._id == calEvent._id;
-						});
-						$this.$modal.modal("hide");
+				<?php if ($role_id == 1) { ?>
+					var $this = this;
+					var form = $("<form action='controllers/calendars/leave.request.approval.php' method='post'></form>");
+					form.append("<input class='form-control' name='uid' type='hidden' value='" + calEvent.uid + "' /><span class='input-group-append'>")
+					form.append("<input class='form-control' name='request_id' type='hidden' value='" + calEvent.id + "' /><span class='input-group-append'>")
+					form.append("<div class='row'></div>")
+					form
+						.find(".row")
+						.append("<div class='col-sm-12 eventName'></div>")
+					form
+						.find(".eventName")
+						.append("<h4>Title: " + calEvent.title + "</h4>")
+					form
+						.find(".row")
+						.append("<div class='form-group col-sm-12 approve mt-3'></div>")
+					form
+						.find('.approve')
+						.append("<label>Choose actions <span class = 'text-danger'>*</span></label>")
+						.append("<select name='leave_status' class='form-control ap-action'><option hidden>Select an action</option></select>")
+					form
+						.find(".ap-action")
+						.append("<option value='1'>Approve</option><option value='2'>Reject</option>")
+					form
+						.find(".row")
+						.append("<div class='col-sm-12 action'></div>")
+					form
+						.find(".action")
+						.append("<button type='submit' class='btn btn-theme text-white'>Save</button>")
+					$this.$modal.modal({
+						backdrop: "static",
 					});
-				$this.$modal.find("form").on("submit", function() {
-					calEvent.title = form.find("input[type=text]").val();
-					$this.$calendarObj.fullCalendar("updateEvent", calEvent);
-					$this.$modal.modal("hide");
-					return false;
-				});
+					$this.$modal
+						.find(".delete-event")
+						.show()
+						.end()
+						.find(".save-event")
+						.hide()
+						.end()
+						.find(".modal-body")
+						.empty()
+						.prepend(form)
+						.end()
+						.find(".delete-event")
+						.unbind("click")
+						.click(function() {
+							$this.$calendarObj.fullCalendar("removeEvents", function(ev) {
+								return ev._id == calEvent._id;
+							});
+							$this.$modal.modal("hide");
+						});
+				<?php } else { ?>
+					var $this = this;
+					var form = $("<div class='col-sm-12'></div>");
+					form.append("<div class='row1 row d-flex justify-content-between'></div>");
+					form.append("<div class='row2 row d-flex justify-content-between'></div>");
+					form.append("<div class='row3 row d-flex justify-content-between'></div>");
+					form
+						.find(".row1")
+						.append("<h5>Leave Title: " + calEvent.title + "</h5>");
+					form
+						.find(".row1")
+						.append("<h5>Approval Status: " + calEvent.status + "</h5>");
+					form
+						.find(".row2")
+						.append("<h5>Start Date: " + calEvent.startDate + "</h5>");
+					form
+						.find(".row2")
+						.append("<h5>End Date: " + calEvent.endDate + "</h5>");
+					form
+						.find(".row3")
+						.append("<h5>Request Date: " + calEvent.requestDate + "</h5>");
+					$this.$modal.modal({
+						backdrop: "static",
+					});
+					$this.$modal
+						.find(".delete-event")
+						.show()
+						.end()
+						.find(".save-event")
+						.hide()
+						.end()
+						.find(".modal-body")
+						.empty()
+						.prepend(form)
+						.end()
+						.find(".delete-event")
+						.unbind("click")
+						.click(function() {
+							$this.$calendarObj.fullCalendar("removeEvents", function(ev) {
+								return ev._id == calEvent._id;
+							});
+							$this.$modal.modal("hide");
+						});
+					$this.$modal.find("form").on("submit", function() {
+						calEvent.title = form.find("input[type=text]").val();
+						$this.$calendarObj.fullCalendar("updateEvent", calEvent);
+						$this.$modal.modal("hide");
+						return false;
+					});
+				<?php } ?>
 			}),
 			/* on select */
 			(CalendarApp.prototype.onSelect = function(start, end, allDay) {
@@ -382,10 +473,26 @@ require "layouts/navbar.php"; ?>
 
 				var defaultEvents = [
 					<?php
-					foreach ($leaverequest as $request) { ?> {
-							title: "<?= $request['leaveType_desc'] ?>",
+					foreach ($leaverequest as $request) {
+						$bg = "";
+						if ($request['status_desc'] === "Approved") {
+							$bg = "bg-success";
+						} elseif ($request['status_desc'] === "Pending") {
+							$bg = "bg-warning";
+						} elseif ($request['status_desc'] === "Canceled") {
+							$bg = "bg-theme";
+						} else {
+							$bg = "bg-danger";
+						} ?> {
+							uid: <?= $request['uid']; ?>,
+							id: <?= $request['request_id'] ?>,
+							title: "<?= ($role_id == 1) ? $request['first_name'] . ' | ' . $request['leaveType_desc'] : $request['leaveType_desc'] ?>",
 							start: "<?= $request['start_date'] ?>",
-							className: "bg-warning",
+							startDate: "<?= $request['start_date'] ?>",
+							endDate: "<?= $request['end_date'] ?>",
+							requestDate: "<?= $request['added_times'] ?>",
+							status: "<?= $request['status_desc'] ?>",
+							className: <?= json_encode($bg) ?>,
 						},
 					<?php } ?>
 				];

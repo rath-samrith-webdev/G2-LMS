@@ -6,6 +6,7 @@ if (isset($_SESSION['user'])) {
         $img = $_SESSION['user']['profile'];
         $username = $_SESSION['user']['first_name'];
         $uid = $_SESSION['user']['uid']; //if the user already had a profile img
+        $user_role = $_SESSION['user']['role_id'];
     } else {
         if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
             $img = "assets/profile/img-2.jpg";
@@ -303,9 +304,6 @@ if (isset($_SESSION['user'])) {
                                         <div class="col-6 align-items-center shadow-none text-center">
                                             <a href="/leaves" class="text-dark p-4 ctm-border-right ctm-border-left <?=checkActive('/leaves')?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
                                         </div>
-                                        <div class="col-6 align-items-center shadow-none text-center">
-                                            <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right <?=checkActive('/reviews')?>"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
-                                        </div>
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/leaveReports" class="text-dark p-4 ctm-border-right ctm-border-left <?=checkActive('/leaveReports')?>"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Leave Reports</span></a>
@@ -316,7 +314,15 @@ if (isset($_SESSION['user'])) {
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/manages" class="text-dark p-4 ctm-border-right <?=checkActive('/manages')?>"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Manages</span></a>
                                             </div>
+                                            <div class="col-6 align-items-center shadow-none text-center">
+                                                <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
+                                            </div>
                                         <?php } else { ?>
+                                            <?php if ($user_role == 1) { ?>
+                                                <div class="col-6 align-items-center shadow-none text-center">
+                                                    <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
+                                                </div>
+                                            <?php } ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/profiles?uid=<?= $uid ?>" class="text-dark p-4 last-slider-btn ctm-border-right <?=checkActive('/profiles')?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
                                             </div>
