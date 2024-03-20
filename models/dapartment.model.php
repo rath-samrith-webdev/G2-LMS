@@ -80,10 +80,10 @@ function insertDepartment($dept_name, $dept_desc, $manager_id): bool
     return $stm->rowCount() > 0;
 }
 
-function  updateDepartment($dept_id, $manager_id): bool
+function  updateDepartment($dept_id, $dept_name, $dept_desc, $manager_id): bool
 {
     global $connection;
-    $stm = $connection->prepare('UPDATE departments SET manager_id=:manager_id WHERE department_id=:dept_id');
-    $stm->execute([':manager_id' => $manager_id, ':dept_id' => $dept_id]);
+    $stm = $connection->prepare('UPDATE departments SET department_name=:dept_name,department_desc=:dept_desc,manager_id=:manager_id WHERE department_id=:dept_id');
+    $stm->execute([':manager_id' => $manager_id, ':dept_name' => $dept_name, ':dept_desc' => $dept_desc, ':dept_id' => $dept_id]);
     return $stm->rowCount() > 0;
 }

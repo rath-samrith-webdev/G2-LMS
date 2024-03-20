@@ -470,9 +470,7 @@ require "layouts/navbar.php"; ?>
 												</tr>
 											<?php }
 										} else { ?>
-											<tr>
-												<p>There is no employee in this departments</p>
-											</tr>
+											<p>There is no employee in this departments</p>
 										<?php } ?>
 									</tbody>
 								</table>
@@ -493,8 +491,6 @@ require "layouts/navbar.php"; ?>
 				console.log(data);
 			});
 		});
-	</script>
-	<script>
 		$(document).ready(function() {
 			$(".edit<?= $dept['department_id'] ?>").on("click", function() {
 				$("#edit<?= $dept['department_id'] ?>").modal("show");
