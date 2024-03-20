@@ -7,7 +7,7 @@ require "layouts/navbar.php"; ?>
 			<div class="card ctm-border-radius shadow-sm grow flex-fill">
 				<div class="card-header">
 					<h4 class="card-title mb-0">
-						Focus Technologies
+						<?=$company[0]['company_name']?>
 						<a href="javascript:void(0)" class="float-right text-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 					</h4>
 				</div>
@@ -22,9 +22,9 @@ require "layouts/navbar.php"; ?>
 							<p>
 								<span class="text-primary">Address:</span><br>
 
-								Santiago de Surco
-								<br> Av.Caminos del Inca 1325<br>
-								United States
+								<?=$company[0]['address']?>
+								<br> <?=$company[0]['city']?><br>
+								<?=$company[0]['country']?>
 							</p>
 
 						</div>
