@@ -234,8 +234,5 @@ require "layouts/navbar.php"; ?>
                 console.log(data);
             });
         });
-        $(document).ready(function() {
-            $('select').selectpicker();
-        });
     </script>
 <?php } ?>

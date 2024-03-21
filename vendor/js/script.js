@@ -250,4 +250,6 @@ document.getElementById("end").addEventListener("input", calculateDays);
 
 // Call the function initially to display the initial count
 calculateDays();
-
+$(document).ready(function () {
+  $("select").selectpicker();
+});
