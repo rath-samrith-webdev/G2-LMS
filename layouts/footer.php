@@ -15,7 +15,8 @@
   <!-- Datetimepicker JS -->
   <script src="vendor/plugins/select2/moment.min.js"></script>
   <script src="vendor/js/bootstrap-datetimepicker.min.js"></script>
-
+  <!-- Select JS-->
+  <script src="vendor/plugins/select/select.min.js"></script>
   <!-- Select2 JS -->
   <script src="vendor/plugins/select2/select2.min.js"></script>
 
