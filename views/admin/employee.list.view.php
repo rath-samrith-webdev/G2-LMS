@@ -127,7 +127,7 @@ require "layouts/navbar.php"; ?>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" class="d-flex text-black ">
+                    <form action="controllers/admin/edit.employee.orocess.php" method="post" class="d-flex text-black ">
                         <div class="flex-shrink-0">
                             <img src="<?= $employee['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                             <input type="file" name="profile" style="display:none">
