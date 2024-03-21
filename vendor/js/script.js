@@ -228,11 +228,10 @@ $(document).ready(function () {
   });
 });
 
-
 // count day requset
 function calculateDays() {
-  var startDate = new Date(document.getElementById('start').value);
-  var endDate = new Date(document.getElementById('end').value);
+  var startDate = new Date(document.getElementById("start").value);
+  var endDate = new Date(document.getElementById("end").value);
 
   // Calculate the difference in milliseconds
 
@@ -242,12 +241,13 @@ function calculateDays() {
   var daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
   // Display the result
-  document.getElementById('result').innerText = daysDifference;
+  document.getElementById("result").innerText = daysDifference;
 }
 
 // Attach event listeners to the input fields to trigger the calculation
-document.getElementById('start').addEventListener('input', calculateDays);
-document.getElementById('end').addEventListener('input', calculateDays);
+document.getElementById("start").addEventListener("input", calculateDays);
+document.getElementById("end").addEventListener("input", calculateDays);
 
 // Call the function initially to display the initial count
 calculateDays();
+
