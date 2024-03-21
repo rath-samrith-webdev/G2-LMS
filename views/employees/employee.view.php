@@ -14,38 +14,22 @@ require "layouts/navbar.php"; ?>
         <div class="col-lg-6 col-md-12 d-flex">
             <div class="card shadow-sm flex-fill grow">
                 <div class="card-header">
-                    <h4 class="card-title mb-0 d-inline-block">Permission</h4>
+                    <h4 class="card-title mb-0 d-inline-block">Total Leave</h4>
                     <a href="leave.html" class="d-inline-block float-right text-primary"><i class="fa fa-suitcase"></i></a>
                 </div>
                 <div class="card-body text-center">
                     <div class="time-list">
                         <div class="dash-stats-list">
-                            <span class="btn btn-outline-primary">9.00 Hrs</span>
-                            <p class="mb-0">Approved</p>
+                            <span class="btn btn-outline-primary"><?= count($approveLeave) ?> Request<?= (count($approveLeave) > 1) ? "s" : "" ?></span>
+                            <p class="mb-0">Approved Request</p>
                         </div>
                         <div class="dash-stats-list">
-                            <span class="btn btn-outline-primary">10.00 Hrs</span>
-                            <p class="mb-0">Remaining</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-12 d-flex">
-            <div class="card shadow-sm flex-fill grow">
-                <div class="card-header">
-                    <h4 class="card-title mb-0 d-inline-block">Leave</h4>
-                    <a href="leave.html" class="d-inline-block float-right text-primary"><i class="fa fa-suitcase"></i></a>
-                </div>
-                <div class="card-body text-center">
-                    <div class="time-list">
-                        <div class="dash-stats-list">
-                            <span class="btn btn-outline-primary">4.5 Days</span>
-                            <p class="mb-0">Taken</p>
+                            <span class="btn btn-outline-primary"><?= count($pendingLeave) ?> Request<?= (count($pendingLeave) > 1) ? "s" : "" ?></span>
+                            <p class="mb-0">Pending</p>
                         </div>
                         <div class="dash-stats-list">
-                            <span class="btn btn-outline-primary">7.5 Days</span>
-                            <p class="mb-0">Remaining</p>
+                            <span class="btn btn-outline-primary"><?= count($allRequest) ?> Request<?= (count($allRequest) > 1) ? "s" : "" ?></span>
+                            <p class="mb-0">Total</p>
                         </div>
                     </div>
                 </div>
@@ -59,17 +43,33 @@ require "layouts/navbar.php"; ?>
                 </div>
                 <div class="card-body recent-activ">
                     <div class="today_leave">
-                        <a href="javascript:void(0)" class="dash-card text-dark">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon text-primary">
-                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                        <?php if (count($empBirth) > 0) {
+                            foreach ($empBirth as $userBirth) { ?>
+                                <a href="javascript:void(0)" class="dash-card text-dark">
+                                    <div class="dash-card-container">
+                                        <div class="dash-card-icon text-primary">
+                                            <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="dash-card-content">
+                                            <h6 class="mb-0"><?= $userBirth['first_name'] ?> Birthdays Today</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                                <hr />
+                            <?php }
+                        } else { ?>
+                            <a href="javascript:void(0)" class="dash-card text-dark">
+                                <div class="dash-card-container">
+                                    <div class="dash-card-icon text-primary">
+                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="dash-card-content">
+                                        <h6 class="mb-0">No Birthdays Today</h6>
+                                    </div>
                                 </div>
-                                <div class="dash-card-content">
-                                    <h6 class="mb-0">No Birthdays Today</h6>
-                                </div>
-                            </div>
-                        </a>
-                        <hr />
+                            </a>
+                            <hr />
+                        <?php } ?>
                         <?php
                         foreach ($todayLeaves as $leaves) { ?>
                             <a href="javascript:void(0)" class="dash-card text-dark">
@@ -104,11 +104,11 @@ require "layouts/navbar.php"; ?>
 
                         <div class="media mb-3">
                             <div class="e-avatar avatar-online mr-3">
-                                <img src="<?=$employee['profile']?>" alt="Maria Cotton" class="img-fluid" />
+                                <img src="<?= $employee['profile'] ?>" alt="Maria Cotton" class="img-fluid" />
                             </div>
                             <div class="media-body">
-                                <h6 class="m-0"><?=$employee['first_name']."  " .$employee['last_name']?></h6>
-                                <p><?=$employee['user_email']?></p>
+                                <h6 class="m-0"><?= $employee['first_name'] . "  " . $employee['last_name'] ?></h6>
+                                <p><?= $employee['user_email'] ?></p>
                             </div>
                         </div>
                         <hr />

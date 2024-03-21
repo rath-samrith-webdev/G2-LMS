@@ -16,4 +16,7 @@ $timestamp = time();
 $currentDate = gmdate('Y-m-d', $timestamp);
 $todayLeaves = allLeavesToday($currentDate);  // Get number of leaves for today
 $teamLeads = getTeamLeads();   //Get team
+$currentDay = gmdate('d', $timestamp);
+$currentMonth = gmdate('m', $timestamp);
+$usersBirthday = getEmpBirthday($currentMonth, $currentDay);
 require "views/admin/admin.view.php";

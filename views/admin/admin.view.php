@@ -81,7 +81,7 @@ require "layouts/navbar.php"; ?>
 		<div class="col-md-6 d-flex">
 			<div class="card ctm-border-radius shadow-sm flex-fill grow">
 				<div class="card-header">
-					<h4 class="card-title mb-0">Total Salary By Unit</h4>
+					<h4 class="card-title mb-0">Requests Each Month</h4>
 				</div>
 				<div class="card-body">
 					<canvas id="lineChart"></canvas>
@@ -100,17 +100,33 @@ require "layouts/navbar.php"; ?>
 				</div>
 				<div class="card-body recent-activ">
 					<div class="today">
-						<a href="javascript:void(0)" class="dash-card text-dark">
-							<div class="dash-card-container">
-								<div class="dash-card-icon text-primary">
-									<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+						<?php if (count($usersBirthday) > 0) {
+							foreach ($usersBirthday as $userBirth) { ?>
+								<a href="javascript:void(0)" class="dash-card text-dark">
+									<div class="dash-card-container">
+										<div class="dash-card-icon text-primary">
+											<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+										</div>
+										<div class="dash-card-content">
+											<h6 class="mb-0"><?= $userBirth['first_name'] ?> Birthdays Today</h6>
+										</div>
+									</div>
+								</a>
+								<hr />
+							<?php }
+						} else { ?>
+							<a href="javascript:void(0)" class="dash-card text-dark">
+								<div class="dash-card-container">
+									<div class="dash-card-icon text-primary">
+										<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+									</div>
+									<div class="dash-card-content">
+										<h6 class="mb-0">No Birthdays Today</h6>
+									</div>
 								</div>
-								<div class="dash-card-content">
-									<h6 class="mb-0">No Birthdays Today</h6>
-								</div>
-							</div>
-						</a>
-						<hr>
+							</a>
+							<hr />
+						<?php } ?>
 						<?php
 						foreach ($todayLeaves as $leaves) { ?>
 							<a href="javascript:void(0)" class="dash-card text-dark">

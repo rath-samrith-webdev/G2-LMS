@@ -1,7 +1,7 @@
 <?php
 
 // ======== create Post select title and descreiption =============
-function createPost(string $title, string $description) : bool
+function createPost(string $title, string $description): bool
 {
     global $connection;
     $statement = $connection->prepare("insert into posts (title, description) values (:title, :description)");
@@ -15,7 +15,7 @@ function createPost(string $title, string $description) : bool
 }
 
 // ======= Get Post select id ========
-function getPost(int $id) : array
+function getPost(int $id): array
 {
     global $connection;
     $statement = $connection->prepare("select * from posts where id = :id");
@@ -24,7 +24,7 @@ function getPost(int $id) : array
 }
 
 // ====== Get Posts select All ========
-function getPosts() : array
+function getPosts(): array
 {
     global $connection;
     $statement = $connection->prepare("select * from posts");
@@ -33,7 +33,7 @@ function getPosts() : array
 }
 
 // ======== Update Post ========
-function updatePost(string $title, string $description, int $id) : bool
+function updatePost(string $title, string $description, int $id): bool
 {
     global $connection;
     $statement = $connection->prepare("update posts set title = :title, description = :description where id = :id");
@@ -47,8 +47,8 @@ function updatePost(string $title, string $description, int $id) : bool
     return $statement->rowCount() > 0;
 }
 
- // ======= delete Post ========
-function deletePost(int $id) : bool
+// ======= delete Post ========
+function deletePost(int $id): bool
 {
     global $connection;
     $statement = $connection->prepare("delete from posts where id = :id");
@@ -57,49 +57,73 @@ function deletePost(int $id) : bool
 }
 
 // ====== create Account ======
-function createAccount(string $name, string $email, string $password): bool {
+function createAccount(string $name, string $email, string $password): bool
+{
     global $connection;
     $statement = $connection->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
     $statement->execute([
-        ':name'=>$name,
-        ':email'=>$email,
-        ':password'=>$password,
-        ':role'=>"user"
+        ':name' => $name,
+        ':email' => $email,
+        ':password' => $password,
+        ':role' => "user"
     ]);
     return $statement->rowCount() > 0;
 };
 
 // ====== check email =======
-function accountExist(string $email): array {
+function accountExist(string $email): array
+{
     global $connection;
     $statement = $connection->prepare("SELECT * FROM users WHERE email = :email");
-    $statement -> execute([':email'=>$email]);
-    if($statement->rowCount() > 0){
-        return $statement -> fetch();
-
-    }else{
+    $statement->execute([':email' => $email]);
+    if ($statement->rowCount() > 0) {
+        return $statement->fetch();
+    } else {
         return [];
     };
 };
 
-function employeeUnderManager(int $uid):array {
+function employeeUnderManager(int $uid): array
+{
     global $connection;
     $statement = $connection->prepare("SELECT * FROM user_manager WHERE manager_id = :uid");
-    $statement -> execute([':uid'=>$uid]);
-    if($statement->rowCount() > 0){
-        return $statement -> fetchAll();
-    }else{
+    $statement->execute([':uid' => $uid]);
+    if ($statement->rowCount() > 0) {
+        return $statement->fetchAll();
+    } else {
         return [];
     }
 }
-function getUser(int $uid): array {
+function getUser(int $uid): array
+{
     global $connection;
     $statement = $connection->prepare("SELECT * FROM users WHERE uid = :uid");
-    $statement -> execute([':uid'=>$uid]);
-    if($statement->rowCount() > 0){
-        return $statement -> fetch();
-
-    }else{
+    $statement->execute([':uid' => $uid]);
+    if ($statement->rowCount() > 0) {
+        return $statement->fetch();
+    } else {
         return [];
     };
+};
+function getUsersBirthday(int $dept_id, $month, $day): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM users WHERE department_id=:dept_id AND MONTH(date_of_birth)=:month AND DAY(date_of_birth)=:day;");
+    $statement->execute([":dept_id" => $dept_id, ':month' => $month, ':day' => $day]);
+    if (!$statement) {
+        return [];
+    } else {
+        return $statement->fetchAll();
+    }
+};
+function getUserBirthday(int $uid, $month, $day): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM users WHERE uid=:uid AND MONTH(date_of_birth)=:month AND DAY(date_of_birth)=:day;");
+    $statement->execute([":uid" => $uid, ':month' => $month, ':day' => $day]);
+    if (!$statement) {
+        return [];
+    } else {
+        return $statement->fetchAll();
+    }
 };

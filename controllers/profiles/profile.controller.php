@@ -1,6 +1,7 @@
 <?php
 require "database/database.php";
 require "models/profile.model.php";
+require "models/dapartment.model.php";
 
 $uid = 0;
 if (isset($_GET['uid']) and $_GET['uid'] !== '') {
