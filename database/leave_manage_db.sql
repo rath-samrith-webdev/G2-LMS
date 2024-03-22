@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 02:53 PM
+-- Generation Time: Mar 22, 2024 at 01:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -29,16 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admins` (
   `admin_id` int(11) NOT NULL,
+  `first_name` varchar(200) NOT NULL,
+  `last_name` varchar(191) NOT NULL,
+  `admin_email` varchar(200) NOT NULL,
+  `phone_number` varchar(191) NOT NULL,
   `admin_username` varchar(50) DEFAULT NULL,
-  `admin_password` varchar(50) DEFAULT NULL
+  `admin_password` varchar(50) DEFAULT NULL,
+  `admin_profile` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`admin_id`, `admin_username`, `admin_password`) VALUES
-(1, 'admin', 'lms123');
+INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `admin_email`, `phone_number`, `admin_username`, `admin_password`, `admin_profile`) VALUES
+(1, '', '', '', '', 'admin', 'lms123', '');
 
 -- --------------------------------------------------------
 
@@ -79,9 +84,9 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`department_id`, `department_name`, `department_desc`, `manager_id`) VALUES
-(1, 'PHP Back end', '', 31),
-(2, 'Node Back-End', '', 32),
-(4, 'Vue FrontEnd', '', 33),
+(1, 'PHP BackEnd', '', 33),
+(2, 'Node Back-End', 'Working with node to build wep app', 32),
+(4, 'Vuetify', '', 31),
 (5, 'Sale Department', '', 36),
 (6, 'API Development', 'Work on API', 31);
 
@@ -355,7 +360,7 @@ INSERT INTO `users` (`uid`, `first_name`, `last_name`, `date_of_birth`, `phone_n
 (32, 'Rath', 'Samreth', '2000-10-10', '097 86 37 281', 'rathsamreth0200@gmail.com', 'reath123', 1, 1, 2, 400, 8, 'assets/profile/profiles65ed6c1b736a58.18787890.jpg', 0),
 (33, 'Radit', 'Thy', '2002-06-15', '097 86 37 281', 'radit.thy0200@gmail.com', '', 1, 1, 4, 400, 12, 'assets/profile/profiles65ed74e11bca81.05818908.jpg', 32),
 (36, 'Veak', 'Khlorp', '2002-06-15', '097 86 37 281', 'veak.khlorp@gmail.com', '123', 1, 1, 5, 400, 11, 'assets/profile/profiles65f1085794c977.35485151.jpg', 32),
-(37, 'Leysreng', 'OL', '2006-03-18', '08797978', 'leysreng.ol@gmail.com', '081229190', 2, 2, 2, 400, 10, 'assets/profile/profiles65f2563569e5f6.62692194.jpg', 0);
+(37, 'Leysreng', 'OL', '2006-03-18', NULL, 'leysreng.ol@gmail.com', '081229190', 2, 2, 2, NULL, 10, 'assets/profile/profiles65f2563569e5f6.62692194.jpg', 33);
 
 -- --------------------------------------------------------
 
@@ -369,9 +374,18 @@ CREATE TABLE `user_details` (
 ,`last_name` varchar(50)
 ,`profile` text
 ,`date_of_birth` date
+,`email` varchar(100)
+,`password` text
 ,`phone_number` varchar(50)
+,`user_department_id` int(11)
 ,`department_name` varchar(50)
+,`role_id` int(11)
+,`role_name` varchar(50)
+,`position_id` int(11)
 ,`position_name` varchar(50)
+,`total_allowed_leave` int(11)
+,`salary` decimal(10,0)
+,`user_manager_id` int(1)
 );
 
 -- --------------------------------------------------------
@@ -421,7 +435,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `user_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_details`  AS SELECT `users`.`uid` AS `uid`, `users`.`first_name` AS `first_name`, `users`.`last_name` AS `last_name`, `users`.`profile` AS `profile`, `users`.`date_of_birth` AS `date_of_birth`, `users`.`phone_number` AS `phone_number`, `departments`.`department_name` AS `department_name`, `postions`.`position_name` AS `position_name` FROM ((`users` join `departments` on(`users`.`department_id` = `departments`.`department_id`)) join `postions` on(`users`.`position_id` = `postions`.`position_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_details`  AS SELECT `users`.`uid` AS `uid`, `users`.`first_name` AS `first_name`, `users`.`last_name` AS `last_name`, `users`.`profile` AS `profile`, `users`.`date_of_birth` AS `date_of_birth`, `users`.`email` AS `email`, `users`.`password` AS `password`, `users`.`phone_number` AS `phone_number`, `users`.`department_id` AS `user_department_id`, `departments`.`department_name` AS `department_name`, `users`.`role_id` AS `role_id`, `userroles`.`role_name` AS `role_name`, `users`.`position_id` AS `position_id`, `postions`.`position_name` AS `position_name`, `users`.`total_allowed_leave` AS `total_allowed_leave`, `users`.`salary` AS `salary`, `users`.`manager_id` AS `user_manager_id` FROM (((`users` join `departments` on(`users`.`department_id` = `departments`.`department_id`)) join `postions` on(`users`.`position_id` = `postions`.`position_id`)) join `userroles` on(`users`.`role_id` = `userroles`.`role_id`)) ;
 
 -- --------------------------------------------------------
 
