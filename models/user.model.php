@@ -97,3 +97,14 @@ function updateCurrentLeave(int $id, int $total): bool
         return false;
     }
 }
+function getAuser(int $uid)
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * from users WHERE uid=:uid");
+    $statement->execute([':uid' => $uid]);
+    if (!$statement) {
+        return [];
+    } else {
+        return $statement->fetch();
+    }
+}
