@@ -44,12 +44,12 @@ require "layouts/navbar.php"; ?>
                                             <h4><?= $employee['first_name'] . " " . $employee['last_name'] ?></a></h4>
                                             <div>
                                                 <p class="mb-0"><b><?= $employee['position_name'] ?></b></p>
-                                                <!-- <p class="mb-0 ctm-text-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0964687b60686a667d7d6667496c71686479656c276a6664">[email&#160;protected]</a></p> -->
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn text-center btn-theme text-white detail<?= $employee['uid'] ?>">Detail</button>
-                                    <button type="button" class="btn btn-theme text-white edit<?= $employee['uid'] ?>">Edit</button>
+                                    <button type="button" class="btn btn-outline-danger me-1 flex-grow-1 remove<?= $employee['uid'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn text-center btn-theme text-white detail<?= $employee['uid'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-theme text-white edit<?= $employee['uid'] ?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -218,6 +218,25 @@ require "layouts/navbar.php"; ?>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="staticBackdrop<?= $employee['uid'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Remove <?= $employee['first_name'] . " " . $employee['last_name'] ?></h5>
+                </div>
+                <form action="controllers/admin/employee.removal.php" method="post">
+                    <input type="hidden" name="emID" value='<?= $employee['uid'] ?>'>
+                    <div class="modal-body">
+                        <p>Employee name <?= $employee['first_name'] . " " . $employee['last_name'] ?> will be deleted</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Understood</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 <?php require "layouts/footer.php" ?>
 <?php foreach ($allemployee as $employee) { ?>
@@ -234,5 +253,17 @@ require "layouts/navbar.php"; ?>
                 console.log(data);
             });
         });
+        $(document).ready(function() {
+            $(".remove<?= $employee['uid'] ?>").on("click", function() {
+                $("#staticBackdrop<?= $employee['uid'] ?>").modal("show");
+                console.log(data);
+            });
+        });
+    </script>
+<?php } ?>
+<?php
+if (isset($_GET['delete']) and $_GET['delete'] == 1) { ?>
+    <script>
+        $.notify("Employee has been removed successfully", "success");
     </script>
 <?php } ?>

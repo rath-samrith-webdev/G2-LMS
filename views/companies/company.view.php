@@ -513,6 +513,6 @@ if (isset($_GET['error']) && $_GET['error'] == 0) { ?>
 		$.notify("Department update has failed", {
 				position: "top-left"
 			},
-			"warn ");
+			"warn");
 	</script>
 <?php } ?>
