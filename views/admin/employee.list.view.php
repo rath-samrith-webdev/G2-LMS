@@ -127,7 +127,8 @@ require "layouts/navbar.php"; ?>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" class="d-flex text-black ">
+                    <form action="controllers/admin/edit.employee.process.php" method="post" class="d-flex text-black ">
+                        <input type="hidden" value='<?= $employee['uid'] ?>' name='user_id'>
                         <div class="flex-shrink-0">
                             <img src="<?= $employee['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                             <input type="file" name="profile" style="display:none">
@@ -147,19 +148,19 @@ require "layouts/navbar.php"; ?>
                             <div class="flex-grow-1">
                                 <div class="form-group">
                                     <label for="first_name">Email *</label>
-                                    <input type="text" class="form-control" name='first_name' id="first_name" value="<?= $employee['email'] ?>">
+                                    <input type="text" class="form-control" name='email' id="email" value="<?= $employee['email'] ?>">
                                 </div>
                             </div>
                             <div class="flex-grow-1">
                                 <div class="form-group">
                                     <label for="first_name">Date of birth *</label>
-                                    <input type="text" class="form-control datetimepicker" name='first_name' id="first_name" value="<?= $employee['date_of_birth'] ?>">
+                                    <input type="text" class="form-control datetimepicker" name='date_of_birth' id="first_name" value="<?= $employee['date_of_birth'] ?>">
                                 </div>
                             </div>
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1">
                                     <label for="first_name">Postion *</label>
-                                    <select class="select form-control" name="position" id="position">
+                                    <select class="selectpicker form-control" name="position" id="position">
                                         <?php foreach ($positions as $position) {
                                             if ($position['position_id'] == $employee['position_id']) { ?>
                                                 <option selected value="<?= $position['position_id'] ?>"><?= $position['position_name'] ?></option>
@@ -171,7 +172,7 @@ require "layouts/navbar.php"; ?>
                                 </div>
                                 <div class="form-group flex-grow-1">
                                     <label for="first_name">Role *</label>
-                                    <select class="select form-control" name="position" id="position">
+                                    <select class="selectpicker form-control" name="roles" id="position">
                                         <?php foreach ($roles as $role) {
                                             if ($role['role_id'] == $employee['role_id']) { ?>
                                                 <option selected value="<?= $role['role_id'] ?>"><?= $role['role_name'] ?></option>
@@ -185,7 +186,7 @@ require "layouts/navbar.php"; ?>
                             <div class="d-flex">
                                 <div class="form-group flex-grow-1">
                                     <label for="first_name">Manager *</label>
-                                    <select class="select form-control" name="position" id="position">
+                                    <select class="selectpicker form-control" name="manager" id="position">
                                         <?php foreach ($managers as $manager) {
                                             if ($manager['uid'] == $employee['user_manager_id']) { ?>
                                                 <option selected value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " ", $manager['last_name'] ?></option>
@@ -197,7 +198,7 @@ require "layouts/navbar.php"; ?>
                                 </div>
                                 <div class="form-group flex-grow-1">
                                     <label for="first_name">Departments *</label>
-                                    <select class="select form-control" name="position" id="position">
+                                    <select class="form-control selectpicker" name="department" id="position" data-live-search="true">
                                         <?php foreach ($deparments as $dept) {
                                             if ($dept['department_id'] == $employee['user_department_id']) { ?>
                                                 <option selected value="<?= $dept['department_id'] ?>"><?= $dept['department_name'] ?></option>

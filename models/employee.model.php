@@ -127,3 +127,23 @@ function getUserBirthday(int $uid, $month, $day): array
         return $statement->fetchAll();
     }
 };
+
+function updateEmployee($uid, $first_name, $last_name, $email, $phone_number, $date_of_birth, $salary, $position, $role, $manager, $department)
+{
+    global $connection;
+    $statement = $connection->prepare("UPDATE users SET first_name=:first_name,last_name=:last_name,date_of_birth=:date_of_birth,phone_number=:phone_number,email=:email,position_id=:position_id,role_id=:role_id,department_id=:department_id,salary=:salary,manager_id=:manager_id WHERE uid=:uid");
+    $statement->execute([
+        ':first_name' => $first_name,
+        ':last_name' => $last_name,
+        ':date_of_birth' => $date_of_birth,
+        ':phone_number' => $phone_number,
+        ':email' => $email,
+        ':position_id' => $position,
+        ':role_id' => $role,
+        ':department_id' => $department,
+        ':salary' => $salary,
+        ':manager_id' => $manager,
+        ':uid' => $uid
+    ]);
+    return $statement->rowCount() > 0;
+}
