@@ -36,7 +36,7 @@ if (isset($_SESSION['user'])) {
                         <div class="user-block d-none d-lg-block">
                             <div class="row align-items-center">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="user-notification-block align-right d-inline-block">
+                                    <!-- <div class="user-notification-block align-right d-inline-block">
                                         <div class="top-nav-search">
                                             <form>
                                                 <input type="text" class="form-control" placeholder="Search here" />
@@ -45,7 +45,7 @@ if (isset($_SESSION['user'])) {
                                                 </button>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- User notification-->
                                     <div class="user-notification-block align-right d-inline-block">
                                         <ul class="list-inline m-0">
@@ -69,7 +69,8 @@ if (isset($_SESSION['user'])) {
 
                                         <!-- Notifications -->
                                         <div class="dropdown-menu notification-dropdown-menu shadow-lg border-0 p-3 m-0 dropdown-menu-right">
-                                            <a class="dropdown-item p-2" href="employment.html">
+                                            <?php if ($userExist and !$adminExist) { ?>
+                                            <a class="dropdown-item p-2" href="/profileImage">
                                                 <span class="media align-items-center">
                                                     <span class="lnr lnr-user mr-3"></span>
                                                     <span class="media-body text-truncate">
@@ -77,14 +78,26 @@ if (isset($_SESSION['user'])) {
                                                     </span>
                                                 </span>
                                             </a>
-                                            <a class="dropdown-item p-2" href="settings.html">
+                                            <?php } ?>
+
+                                            <?php if (!$userExist and $adminExist) { ?>
+                                            <a class="dropdown-item p-2" href="/proFileAdmins">
+                                                <span class="media align-items-center">
+                                                    <span class="lnr lnr-user mr-3"></span>
+                                                    <span class="media-body text-truncate">
+                                                        <span class="text-truncate">Profile</span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                            <?php } ?>
+                                            <!-- <a class="dropdown-item p-2" href="settings.html">
                                                 <span class="media align-items-center">
                                                     <span class="lnr lnr-cog mr-3"></span>
                                                     <span class="media-body text-truncate">
                                                         <span class="text-truncate">Settings</span>
                                                     </span>
                                                 </span>
-                                            </a>
+                                            </a> -->
                                             <a class="dropdown-item p-2" href="/logout">
                                                 <span class="media align-items-center">
                                                     <span class="lnr lnr-power-switch mr-3"></span>

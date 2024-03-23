@@ -10,6 +10,33 @@ function oneUser(int $uid): array
     return $statement->fetch();
 };
 
+// ======== Get one admin profile from admin ==========
+function oneAdmin($admin_id): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM admins WHERE admin_id=:admin_id LIMIT 1");
+    $statement->execute([
+        ':admin_id' => $admin_id
+    ]);
+    return $statement->fetch();
+};
+
+// ======== update profile image(file) ========
+function updateAdmin($admin_id, $admin_profile): bool
+{
+    global $connection;
+    $statement = $connection->prepare("UPDATE admins SET admin_profile=:admin_profile WHERE admin_id=:admin_id");
+    $statement->execute(
+        [
+            // ':path' => $newpath,
+            ':admin_id' => $admin_id,
+            ':admin_profile' => $admin_profile
+        ]
+    );
+    return $statement->rowCount() > 0;
+}
+
+
 // ======== get select all of data ==========
 function getAll(): array
 {

@@ -76,7 +76,7 @@ include "layouts/navbar.php";
 									<?php foreach($Admin as $data){ ?> 
 									<tr>
 										<td>
-											<a href="/prpfileAdmin?id=<?php echo $data['admin_id'] ?>" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $data['admin_profile'] ?>"></a>
+											<a href="/proFileAdmins?id=<?php echo $data['admin_id'] ?>" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $data['admin_profile'] ?>"></a>
 											<h2><a href="employment.html"> <?= $data['first_name'] . ' ' . $data['last_name'] ?></a></h2>
 										</td>
 										<td>
