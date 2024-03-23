@@ -50,3 +50,29 @@ function getEmpBirthday($month, $day): array
         return $statement->fetchAll();
     }
 };
+
+// Insert databases to admin 
+function CreateAdmin($first_name, $last_name, $admin_email, $phone_number, $admin_password): bool
+{
+    global $connection;
+    $statement = $connection->prepare("INSERT INTO admins (first_name, last_name, admin_email, phone_number, admin_username, admin_password) VALUES (:first_name, :last_name, :admin_email, :phone_number, :admin_username, :admin_password)");
+    $statement->execute([
+        ':first_name' => $first_name,
+        ':last_name' =>$last_name,
+        ':admin_email' =>$admin_email,
+        ':phone_number' =>$phone_number,
+        ':admin_username' => 'admin',
+        ':admin_password' =>$admin_password,
+    ]);
+    return $statement->rowCount() > 0;
+};
+
+// get admin all
+function getAllAdmin(): array
+{
+    global $connection;
+    $statement = $connection->prepare("SELECT * FROM admins");
+    $statement->execute();
+
+    return $statement->fetchAll();
+}

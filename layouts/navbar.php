@@ -306,7 +306,7 @@ if (isset($_SESSION['user'])) {
                                         </div>
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/leaveReports" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/leaveReports') ?>"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Leave Reports</span></a>
+                                                <a href="/prpfileAdmin" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/prpfileAdmin') ?>"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Admin manag</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/leavetype" class="text-dark p-4 ctm-border-right <?= checkActive('/leavetype') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>
