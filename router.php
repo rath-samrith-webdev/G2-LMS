@@ -13,10 +13,12 @@ $routes = [
     '/calendars' => 'controllers/calendars/calendar.controller.php',
     '/leaves' => 'controllers/leaves/leave.controller.php',
     '/reviews' => 'controllers/reviews/review.controller.php',
-    '/leaveReports' => 'controllers/reports/report.controller.php',
+    // '/leaveReports' => 'controllers/reports/report.controller.php',
     '/manages' => 'controllers/manages/manage.controller.php',
     '/profiles' => 'controllers/profiles/profile.controller.php',
     // ===Create_form===
+    '/proFileAdmins' => 'controllers/profiles/profile.upload.admin.controller.php',
+    '/prpfileAdmin' => 'controllers/admin/create.admin.controll.php',
     '/leavetype' => 'controllers/leaves/create_form.leave.type.controller.php',
     '/profileImage' => 'controllers/profiles/profile.upload.controller.php',
     '/leavetypeForm' => 'controllers/leaves/create_form.leave.type.controller.php',

@@ -29,15 +29,10 @@ if (isset($_POST['name']) && isset($_POST['password'])){
 
             // Check if user exists
             if (count($user) > 0) {
-
                 // Check if password is correct
-                $password = password_hash($password, PASSWORD_BCRYPT); // count Password encryption
-                if (password_verify($password, $user["password"])) {
-                } else {
                     $_SESSION['user'] = $user;
                     $_SESSION['login'] = 1;
                     header('Location: /admin');
-                }
             }else{
                 header('Location: /loginAdmin?error=Your password not correct!');
 
