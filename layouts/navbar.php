@@ -2,11 +2,11 @@
 //Profile image management.
 if (isset($_SESSION['user'])) {
     $userExist = true; //if the normal user has logged in 
+    $username = $_SESSION['user']['first_name'];
+    $uid = $_SESSION['user']['uid']; //if the user already had a profile img
+    $user_role = $_SESSION['user']['role_id'];
     if (isset($_SESSION['user']['profile'])) {
         $img = $_SESSION['user']['profile'];
-        $username = $_SESSION['user']['first_name'];
-        $uid = $_SESSION['user']['uid']; //if the user already had a profile img
-        $user_role = $_SESSION['user']['role_id'];
     } else {
         if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
             $img = "assets/profile/img-2.jpg";
@@ -70,25 +70,25 @@ if (isset($_SESSION['user'])) {
                                         <!-- Notifications -->
                                         <div class="dropdown-menu notification-dropdown-menu shadow-lg border-0 p-3 m-0 dropdown-menu-right">
                                             <?php if ($userExist and !$adminExist) { ?>
-                                            <a class="dropdown-item p-2" href="/profileImage">
-                                                <span class="media align-items-center">
-                                                    <span class="lnr lnr-user mr-3"></span>
-                                                    <span class="media-body text-truncate">
-                                                        <span class="text-truncate">Profile</span>
+                                                <a class="dropdown-item p-2" href="/profileImage">
+                                                    <span class="media align-items-center">
+                                                        <span class="lnr lnr-user mr-3"></span>
+                                                        <span class="media-body text-truncate">
+                                                            <span class="text-truncate">Profile</span>
+                                                        </span>
                                                     </span>
-                                                </span>
-                                            </a>
+                                                </a>
                                             <?php } ?>
 
                                             <?php if (!$userExist and $adminExist) { ?>
-                                            <a class="dropdown-item p-2" href="/proFileAdmins">
-                                                <span class="media align-items-center">
-                                                    <span class="lnr lnr-user mr-3"></span>
-                                                    <span class="media-body text-truncate">
-                                                        <span class="text-truncate">Profile</span>
+                                                <a class="dropdown-item p-2" href="/proFileAdmins">
+                                                    <span class="media align-items-center">
+                                                        <span class="lnr lnr-user mr-3"></span>
+                                                        <span class="media-body text-truncate">
+                                                            <span class="text-truncate">Profile</span>
+                                                        </span>
                                                     </span>
-                                                </span>
-                                            </a>
+                                                </a>
                                             <?php } ?>
                                             <!-- <a class="dropdown-item p-2" href="settings.html">
                                                 <span class="media align-items-center">
