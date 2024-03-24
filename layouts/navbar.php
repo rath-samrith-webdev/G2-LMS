@@ -2,20 +2,22 @@
 //Profile image management.
 if (isset($_SESSION['user'])) {
     $userExist = true; //if the normal user has logged in 
+    $adminExist = false;
     $username = $_SESSION['user']['first_name'];
-    $uid = $_SESSION['user']['uid']; //if the user already had a profile img
-    $user_role = $_SESSION['user']['role_id'];
+
     if (isset($_SESSION['user']['profile'])) {
         $img = $_SESSION['user']['profile'];
-    } else {
+        $uid = $_SESSION['user']['uid']; //if the user already had a profile img
+        $user_role = $_SESSION['user']['role_id'];
+    }else{
+        $adminExist = true;
         if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
-            $img = "assets/profile/img-2.jpg";
-            $adminExist = true;
+            $img=(isset($_SESSION['user']['admin_profile']) && $_SESSION['user']['admin_profile']!="")? $_SESSION['user']['admin_profile']:"assets/profile/img-2.jpg" ;
             $userExist = false;
             $username = "Admin";
-        }
-    }
-}
+        };
+    };
+};
 ?>
 <!-- Inner wrapper -->
 <div class="inner-wrapper">
@@ -319,7 +321,7 @@ if (isset($_SESSION['user'])) {
                                         </div>
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/createAdmin" class="text-dark p-3 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Admin manag</span></a>
+                                                <a href="/createAdmin" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Admin manag</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/leavetype" class="text-dark p-4 ctm-border-right <?= checkActive('/leavetype') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>
