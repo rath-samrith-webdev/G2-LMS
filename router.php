@@ -18,7 +18,7 @@ $routes = [
     '/profiles' => 'controllers/profiles/profile.controller.php',
     // ===Create_form===
     '/proFileAdmins' => 'controllers/profiles/profile.upload.admin.controller.php',
-    '/prpfileAdmin' => 'controllers/admin/create.admin.controll.php',
+    '/createAdmin' => 'controllers/admin/create.admin.controll.php',
     '/leavetype' => 'controllers/leaves/create_form.leave.type.controller.php',
     '/profileImage' => 'controllers/profiles/profile.upload.controller.php',
     '/leavetypeForm' => 'controllers/leaves/create_form.leave.type.controller.php',

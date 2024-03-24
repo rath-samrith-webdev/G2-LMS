@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     // $admin_password = password_hash($password, PASSWORD_BCRYPT); // count Password encryption
     $iscreated = CreateAdmin($first_name, $last_name, $admin_email, $phone_number, $password);
     if ($passwords) {
-        header('Location: /Add_admin');
+        header('Location: /createAdmin');
     }else{
-        header('Location: /Add_admin');
+        header('Location: /createAdmin');
     }
 }

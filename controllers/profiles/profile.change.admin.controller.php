@@ -32,21 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         } else {
                             move_uploaded_file($filetmpName, $directory);
                         }
-                        header('location: /prpfileAdmin?uid='.$admin_id);
+                        header('location: /createAdmin?uid='.$admin_id);
                     }
                 } else {
-                    header('location: /proFileAdmins?user=notfound');
+                    header('location: /createAdmin?user=notfound');
                 }
             } else {
-                header('location: /proFileAdmins?filesize=large');
+                header('location: /createAdmin?filesize=large');
                 echo "You file size is too large";
             }
         } else {
             echo "An upload error have been accurred";
-            header('location: /proFileAdmins?error=uploaderror');
+            header('location: /createAdmin?error=uploaderror');
         }
     } else {
         // echo "You are not allow to upload this file";
-        header('location: /proFileAdmins');
+        header('location: /createAdmin');
     };
 };
