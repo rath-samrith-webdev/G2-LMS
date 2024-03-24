@@ -2,16 +2,18 @@ let title;
 let emp;
 let months;
 let totalEachmonth;
-fetch("controllers/admin/admin.chart.php")
-  .then((response) => response.json())
-  .then((data) => {
-    title = data.dept_name;
-    emp = data.dept_emp;
-    months = data.request_months;
-    total_requests = data.total_requests;
-  })
-  .catch((error) => console.log(error));
-
+function getData() {
+  fetch("controllers/admin/admin.chart.php")
+    .then((response) => response.json())
+    .then((data) => {
+      title = data.dept_name;
+      emp = data.dept_emp;
+      months = data.request_months;
+      total_requests = data.total_requests;
+    })
+    .catch((error) => console.log(error));
+}
+setInterval(50, getData());
 $(function () {
   // Pie Chart
 

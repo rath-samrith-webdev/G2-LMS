@@ -9,10 +9,10 @@ if (isset($_SESSION['user'])) {
         $img = $_SESSION['user']['profile'];
         $uid = $_SESSION['user']['uid']; //if the user already had a profile img
         $user_role = $_SESSION['user']['role_id'];
-    }else{
+    } else {
         $adminExist = true;
         if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
-            $img=(isset($_SESSION['user']['admin_profile']) && $_SESSION['user']['admin_profile']!="")? $_SESSION['user']['admin_profile']:"assets/profile/img-2.jpg" ;
+            $img = (isset($_SESSION['user']['admin_profile']) && $_SESSION['user']['admin_profile'] != "") ? $_SESSION['user']['admin_profile'] : "assets/profile/img-2.jpg";
             $userExist = false;
             $username = "Admin";
         };
@@ -92,14 +92,6 @@ if (isset($_SESSION['user'])) {
                                                     </span>
                                                 </a>
                                             <?php } ?>
-                                            <!-- <a class="dropdown-item p-2" href="settings.html">
-                                                <span class="media align-items-center">
-                                                    <span class="lnr lnr-cog mr-3"></span>
-                                                    <span class="media-body text-truncate">
-                                                        <span class="text-truncate">Settings</span>
-                                                    </span>
-                                                </span>
-                                            </a> -->
                                             <a class="dropdown-item p-2" href="/logout">
                                                 <span class="media align-items-center">
                                                     <span class="lnr lnr-power-switch mr-3"></span>
@@ -321,7 +313,7 @@ if (isset($_SESSION['user'])) {
                                         </div>
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/createAdmin" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Admin manag</span></a>
+                                                <a href="/createAdmin" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Manage Admin</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/leavetype" class="text-dark p-4 ctm-border-right <?= checkActive('/leavetype') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>

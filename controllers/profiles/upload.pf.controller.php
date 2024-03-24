@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "../../database/database.php";
 require "../../models/profile.model.php";
 
@@ -29,10 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (file_exists($searchfile)) {
                             unlink($searchfile);
                             move_uploaded_file($filetmpName, $directory);
+                            $_SESSION['user']['profile'] = $newdirect;
                         } else {
                             move_uploaded_file($filetmpName, $directory);
                         }
-                        header('location: /profiles?uid='.$uid);
+                        header('location: /profiles?uid=' . $uid);
                     }
                 } else {
                     header('location: /profileImage?user=notfound');

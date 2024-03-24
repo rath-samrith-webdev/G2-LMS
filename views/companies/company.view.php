@@ -389,7 +389,7 @@ require "layouts/navbar.php"; ?>
 						</div>
 						<div class="form-group">
 							<label for="manager">Manger</label>
-							<select class="select" name="manager" id="manager">
+							<select class="select selectpicker" name="manager" id="manager">
 								<option value="">Please select a manager</option>
 								<?php foreach ($users as $manager) {
 									if ($manager['uid'] === $dept['uid']) { ?>

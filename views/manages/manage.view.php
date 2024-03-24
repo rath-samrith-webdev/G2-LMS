@@ -4,34 +4,26 @@ require "layouts/navbar.php"; ?>
 	<div class="quicklink-sidebar-menu ctm-border-radius shadow-sm grow bg-white card">
 		<div class="card-body">
 			<ul class="list-group list-group-horizontal-lg">
-				<li class="list-group-item text-center active button-5"><a href="manage.html" class="text-white">Account Roles</a></li>
-				<li class="list-group-item text-center button-6"><a class="text-dark" href="manage-leadership.html">Leadership Roles</a></li>
+				<li class="list-group-item text-center active button-5"><a href="/manages" class="text-white">Account Roles</a></li>
 			</ul>
 		</div>
 	</div>
 	<div class="row">
-		<?php foreach ($Roles as $Result_roles) {?>
-		<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
-			<div class="card ctm-border-radius shadow-sm grow flex-fill">
-				<div class="card-header">
-					<h4 class="card-title mb-0"><?= $Result_roles['role_name']?></h4>
-				</div>
-				<div class="card-body">
-					<p class="card-text"><?= $Result_roles['role_desc'] ?></p>
+		<?php foreach ($Roles as $Result_roles) { ?>
+			<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
+				<div class="card ctm-border-radius shadow-sm grow flex-fill">
+					<div class="card-header">
+						<h4 class="card-title mb-0"><?= $Result_roles['role_name'] ?></h4>
+					</div>
+					<div class="card-body">
+						<p class="card-text"><?= $Result_roles['role_desc'] ?></p>
+					</div>
 				</div>
 			</div>
-		</div>
-		<?php }?>
+		<?php } ?>
 	</div>
 </div>
-</div>
-</div>
-</div>
-
-</div>
-
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
-
 <div class="modal fade" id="addWorkWeek">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
