@@ -120,7 +120,7 @@ include "layouts/navbar.php";
 													<a href="/editReviewType" class="btn btn-sm btn-outline-success">
 														<span class="lnr lnr-pencil"></span> Edit
 													</a>
-													<a href="#" class="btn btn-sm btn-outline-danger deletebtnReviewTypes" data-target="#delete"">
+													<a href="#" class="btn btn-sm btn-outline-danger deletebtnReviewTypes" data-target="#delete">
 														<span class=" lnr lnr-trash"></span> Delete
 													</a>
 												</div>
