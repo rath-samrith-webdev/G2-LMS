@@ -6,7 +6,7 @@ require "layouts/navbar.php"; ?>
     <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm grow bg-white card">
         <div class="card-body">
             <ul class="list-group list-group-horizontal-lg">
-                <li class="list-group-item text-center active button-5"><a href="employees.html" class="text-white">All users</a></li>
+                <li class="list-group-item text-center active button-5"><a href="/employeelist" class="text-white">All users</a></li>
             </ul>
         </div>
     </div>
