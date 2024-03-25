@@ -35,14 +35,14 @@ if (isset($_POST['email']) && isset($_POST['password'])){
 
                 // Check if password is correct
                 if (password_verify($password, $user["password"])) {
-                    echo "Password is incorrect";
-                } else {
                     $_SESSION['user'] = $user;
                     $_SESSION['login'] = 1;
                     header('Location: /employees');
+                } else {
+                    header('Location: /?error=Your password not correct!');
                 }
             }else{
-                header('Location: /');
+                header('Location: /?error=Your password not correct!');
             }
         }else{
             header('Location: /');

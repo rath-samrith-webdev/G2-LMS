@@ -2,19 +2,22 @@
 //Profile image management.
 if (isset($_SESSION['user'])) {
     $userExist = true; //if the normal user has logged in 
+    $adminExist = false;
+    $username = $_SESSION['user']['first_name'];
+
     if (isset($_SESSION['user']['profile'])) {
         $img = $_SESSION['user']['profile'];
-        $username = $_SESSION['user']['first_name'];
         $uid = $_SESSION['user']['uid']; //if the user already had a profile img
+        $user_role = $_SESSION['user']['role_id'];
     } else {
+        $adminExist = true;
         if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
-            $img = "assets/profile/img-2.jpg";
-            $adminExist = true;
+            $img = (isset($_SESSION['user']['admin_profile']) && $_SESSION['user']['admin_profile'] != "") ? $_SESSION['user']['admin_profile'] : "assets/profile/img-2.jpg";
             $userExist = false;
             $username = "Admin";
-        }
-    }
-}
+        };
+    };
+};
 ?>
 <!-- Inner wrapper -->
 <div class="inner-wrapper">
@@ -35,7 +38,7 @@ if (isset($_SESSION['user'])) {
                         <div class="user-block d-none d-lg-block">
                             <div class="row align-items-center">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="user-notification-block align-right d-inline-block">
+                                    <!-- <div class="user-notification-block align-right d-inline-block">
                                         <div class="top-nav-search">
                                             <form>
                                                 <input type="text" class="form-control" placeholder="Search here" />
@@ -44,7 +47,7 @@ if (isset($_SESSION['user'])) {
                                                 </button>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- User notification-->
                                     <div class="user-notification-block align-right d-inline-block">
                                         <ul class="list-inline m-0">
@@ -68,22 +71,27 @@ if (isset($_SESSION['user'])) {
 
                                         <!-- Notifications -->
                                         <div class="dropdown-menu notification-dropdown-menu shadow-lg border-0 p-3 m-0 dropdown-menu-right">
-                                            <a class="dropdown-item p-2" href="employment.html">
-                                                <span class="media align-items-center">
-                                                    <span class="lnr lnr-user mr-3"></span>
-                                                    <span class="media-body text-truncate">
-                                                        <span class="text-truncate">Profile</span>
+                                            <?php if ($userExist and !$adminExist) { ?>
+                                                <a class="dropdown-item p-2" href="/profileImage">
+                                                    <span class="media align-items-center">
+                                                        <span class="lnr lnr-user mr-3"></span>
+                                                        <span class="media-body text-truncate">
+                                                            <span class="text-truncate">Profile</span>
+                                                        </span>
                                                     </span>
-                                                </span>
-                                            </a>
-                                            <a class="dropdown-item p-2" href="settings.html">
-                                                <span class="media align-items-center">
-                                                    <span class="lnr lnr-cog mr-3"></span>
-                                                    <span class="media-body text-truncate">
-                                                        <span class="text-truncate">Settings</span>
+                                                </a>
+                                            <?php } ?>
+
+                                            <?php if (!$userExist and $adminExist) { ?>
+                                                <a class="dropdown-item p-2" href="/proFileAdmins">
+                                                    <span class="media align-items-center">
+                                                        <span class="lnr lnr-user mr-3"></span>
+                                                        <span class="media-body text-truncate">
+                                                            <span class="text-truncate">Profile</span>
+                                                        </span>
                                                     </span>
-                                                </span>
-                                            </a>
+                                                </a>
+                                            <?php } ?>
                                             <a class="dropdown-item p-2" href="/logout">
                                                 <span class="media align-items-center">
                                                     <span class="lnr lnr-power-switch mr-3"></span>
@@ -274,43 +282,56 @@ if (isset($_SESSION['user'])) {
                             <div class="card ctm-border-radius shadow-sm border-none grow">
                                 <div class="card-body">
                                     <div class="row no-gutters">
+                                        <?php
+                                        function checkActive($path)
+                                        {
+                                            $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
+                                            return $uri == $path ? "active text-white" : "";
+                                        }
+                                        ?>
+
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center text-center">
-                                                <a href="/admin" class="text-white active p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
+                                                <a href="/admin" class="text-dark p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top <?= checkActive('/admin') ?>"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/employeelist" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
+                                                <a href="/employeelist" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top <?= checkActive('/employeelist') ?>"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/companies" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
+                                                <a href="/companies" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/companies') ?>"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
                                             </div>
                                         <?php } else { ?>
                                             <div class="col-6 align-items-center text-center">
-                                                <a href="/employees" class="text-white active p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
+                                                <a href="/employees" class="text-dark p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top <?= checkActive('/employees') ?>"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                             </div>
                                         <?php } ?>
                                         <div class="col-6 align-items-center shadow-none text-center">
-                                            <a href="/calendars" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-calendar-full pr-0 pb-lg-2 font-23"></span><span class="">Calendar</span></a>
+                                            <a href="/calendars" class="text-dark p-4 ctm-border-right <?= checkActive('/calendars') ?>"><span class="lnr lnr-calendar-full pr-0 pb-lg-2 font-23"></span><span class="">Calendar</span></a>
                                         </div>
                                         <div class="col-6 align-items-center shadow-none text-center">
-                                            <a href="/leaves" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
-                                        </div>
-                                        <div class="col-6 align-items-center shadow-none text-center">
-                                            <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
+                                            <a href="/leaves" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/leaves') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
                                         </div>
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/leaveReports" class="text-dark p-4 ctm-border-right ctm-border-left"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Leave Reports</span></a>
+                                                <a href="/createAdmin" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Admin</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/leavetype" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>
+                                                <a href="/leavetype" class="text-dark p-4 ctm-border-right <?= checkActive('/leavetype') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/manages" class="text-dark p-4 ctm-border-right"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Manages</span></a>
+                                                <a href="/manages" class="text-dark p-4 ctm-border-right <?= checkActive('/manages') ?>"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Manages</span></a>
+                                            </div>
+                                            <div class="col-6 align-items-center shadow-none text-center">
+                                                <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right <?= checkActive('/reviews') ?>"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
                                             </div>
                                         <?php } else { ?>
+                                            <?php if ($user_role == 1) { ?>
+                                                <div class="col-6 align-items-center shadow-none text-center">
+                                                    <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
+                                                </div>
+                                            <?php } ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/profiles?uid=<?= $uid ?>" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
+                                                <a href="/profiles?uid=<?= $uid ?>" class="text-dark p-4 last-slider-btn ctm-border-right <?= checkActive('/profiles') ?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
                                             </div>
                                         <?php } ?>
                                     </div>

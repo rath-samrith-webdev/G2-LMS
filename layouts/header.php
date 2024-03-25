@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="vendor/css/font-awesome.min.css">
   <!-- Full calendar -->
   <link rel="stylesheet" href="vendor/plugins/fullcalendar/fullcalendar.min.css">
+  <!-- Select CSS -->
+  <link rel="stylesheet" href="vendor/plugins/select/select.min.css">
   <!-- Select2 CSS -->
   <link rel="stylesheet" href="vendor/plugins/select2/select2.min.css">
 

@@ -14,17 +14,17 @@ include "layouts/navbar.php";
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 form-group">
-                        <select class="form-control select" name="type">
+                        <select class="form-control select" name="type" required>
                             <?php foreach($review_type as $type){ ?> 
                                 <option value="<?= $type['reviewType_id'] ?>"><?=$type['reviewType_name'] ?></option>
                             <?php } ?>
                         </select>
                     </div>
                     <div class="col form-group">
-                        <input type="text" name="start_date" class="form-control datetimepicker" placeholder="Review Begins On">
+                        <input type="text" name="start_date" class="form-control datetimepicker" placeholder="Review Begins On" required>
                     </div>
                     <div class="col form-group">
-                        <input type="text" name="end_date" class="form-control datetimepicker" placeholder="Reviews Completion Date">
+                        <input type="text" name="end_date" class="form-control datetimepicker" placeholder="Reviews Completion Date" required>
                     </div>
                     <div class="col-md-12 form-group mb-0">
                         <select class="form-control select">

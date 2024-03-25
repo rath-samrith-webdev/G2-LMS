@@ -39,7 +39,7 @@ include "layouts/navbar.php";
 		<div class="col-xl-4 col-lg-6 col-md-6 d-flex">
 			<div class="card flex-fill  ctm-border-radius shadow-sm grow">
 				<div class="card-header">
-					<h4 class="card-title mb-0">Contact</h4>
+					<h4 class="card-title mb-0">Actions</h4>
 				</div>
 				<div class="card-body text-center">
 					<a href="/editEmployee?uid=<?= $user['uid'] ?>" class="btn btn-sm btn-outline-warning" data-target="#delete">

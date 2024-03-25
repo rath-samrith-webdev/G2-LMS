@@ -1,3 +1,8 @@
+<?php if (isset($_GET['id'])) {
+    $uid = $_GET['id'];
+} else if (isset($_SESSION['user']['uid'])) {
+    $uid = $_SESSION['user']['uid'];
+} ?>
 <?php require "layouts/header.php"; ?>
 <!-- Main Wrapper -->
 <div class="inner-wrapper login-body">
@@ -15,7 +20,7 @@
                         <!-- Form -->
                         <form action="controllers/profiles/upload.pf.controller.php" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                                <input class="form-control" type="hidden" name="uid" value="<?php if (isset($_GET['id'])) { echo $_GET['id']; } ?>">
+                                <input class="form-control" type="hidden" name="uid" value="<?= $uid ?>">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" type="file" name="file">

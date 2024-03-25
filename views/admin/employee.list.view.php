@@ -43,12 +43,13 @@ require "layouts/navbar.php"; ?>
                                         <div class="profile-det-info">
                                             <h4><?= $employee['first_name'] . " " . $employee['last_name'] ?></a></h4>
                                             <div>
-                                                <p class="mb-0"><b>PHP Team Lead</b></p>
-                                                <!-- <p class="mb-0 ctm-text-sm"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0964687b60686a667d7d6667496c71686479656c276a6664">[email&#160;protected]</a></p> -->
+                                                <p class="mb-0"><b><?= $employee['position_name'] ?></b></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn text-center active button-5 text-white detail<?= $employee['uid'] ?>">Detail</button>
+                                    <button type="button" class="btn btn-outline-danger me-1 flex-grow-1 remove<?= $employee['uid'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn text-center btn-theme text-white detail<?= $employee['uid'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-theme text-white edit<?= $employee['uid'] ?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +62,7 @@ require "layouts/navbar.php"; ?>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 
 <?php foreach ($allemployee as $employee) { ?>
-    <div class="modal fade " id="deletemodal<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="detail<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,29 +77,163 @@ require "layouts/navbar.php"; ?>
                             <img src="<?= $employee['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                         </div>
                         <div class="flex-grow-1 ms-3 ml-4">
-                            <h5 class="mb-1"><?= $employee['first_name'] . " " . $employee['last_name'] ?></h5>
-                            <p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $employee['position_name'] ?></p>
+                            <h5 class="mb-1">Full Name: <?= $employee['first_name'] . " " . $employee['last_name'] ?></h5>
+                            <p class="mb-2 pb-1" style="color: #2b2a2a;">Postion: <?= $employee['position_name'] ?></p>
                             <div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
                                 <div>
-                                    <p class="small text-muted mb-1">Articles</p>
-                                    <p class="mb-0">41</p>
+                                    <p class="small text-muted mb-1">Date of birth</p>
+                                    <p class="mb-0"><?= $employee['date_of_birth'] ?></p>
                                 </div>
                                 <div class="px-3">
-                                    <p class="small text-muted mb-1">Followers</p>
-                                    <p class="mb-0">976</p>
+                                    <p class="small text-muted mb-1">Departments</p>
+                                    <p class="mb-0"><?= $employee['department_name'] ?></p>
+                                </div>
+                                <div class="px-3">
+                                    <p class="small text-muted mb-1">Total allowed leaves</p>
+                                    <p class="mb-0"><?= $employee['total_allowed_leave'] ?></p>
                                 </div>
                                 <div>
-                                    <p class="small text-muted mb-1">Rating</p>
-                                    <p class="mb-0">8.5</p>
+                                    <p class="small text-muted mb-1">Salary</p>
+                                    <p class="mb-0"><?= $employee['salary'] ?></p>
                                 </div>
                             </div>
-                            <div class="d-flex pt-1">
-                                <a href="/profiles?uid=<?= $employee['uid'] ?>" class="flex-grow-1"><button type="button" class="btn btn-outline-primary me-1 flex-grow-1">View</button></a>
-                                <button type="button" class="btn btn-primary ">Follow</button>
+                            <div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
+                                <div>
+                                    <p class="small text-muted mb-1">Email</p>
+                                    <p class="mb-0"><?= $employee['email'] ?></p>
+                                </div>
+                                <div class="px-3">
+                                    <p class="small text-muted mb-1">Phone</p>
+                                    <p class="mb-0"><?= $employee['phone_number'] ?></p>
+                                </div>
+                                <div class="px-3">
+                                    <p class="small text-muted mb-1">Role</p>
+                                    <p class="mb-0"><?= $employee['role_name'] ?></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="edit<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="controllers/admin/edit.employee.process.php" method="post" class="d-flex text-black ">
+                        <input type="hidden" value='<?= $employee['uid'] ?>' name='user_id'>
+                        <div class="flex-shrink-0">
+                            <img src="<?= $employee['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
+                            <input type="file" name="profile" style="display:none">
+                        </div>
+                        <div class="flex-grow-1 ms-3 ml-4">
+                            <h5 class="mb-1">Details</h5>
+                            <div class="d-flex">
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">First Name *</label>
+                                    <input type="text" class="form-control" name='first_name' id="first_name" value="<?= $employee['first_name'] ?>">
+                                </div>
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">Last Name *</label>
+                                    <input type="text" class="form-control" name='last_name' id="last_name" value="<?= $employee['last_name'] ?>">
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="form-group">
+                                    <label for="first_name">Email *</label>
+                                    <input type="text" class="form-control" name='email' id="email" value="<?= $employee['email'] ?>">
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="form-group">
+                                    <label for="first_name">Date of birth *</label>
+                                    <input type="text" class="form-control datetimepicker" name='date_of_birth' id="first_name" value="<?= $employee['date_of_birth'] ?>">
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">Postion *</label>
+                                    <select class="selectpicker form-control" name="position" id="position">
+                                        <?php foreach ($positions as $position) {
+                                            if ($position['position_id'] == $employee['position_id']) { ?>
+                                                <option selected value="<?= $position['position_id'] ?>"><?= $position['position_name'] ?></option>
+                                            <?php } else { ?>
+                                                <option value="<?= $position['position_id'] ?>"><?= $position['position_name'] ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">Role *</label>
+                                    <select class="selectpicker form-control" name="roles" id="position">
+                                        <?php foreach ($roles as $role) {
+                                            if ($role['role_id'] == $employee['role_id']) { ?>
+                                                <option selected value="<?= $role['role_id'] ?>"><?= $role['role_name'] ?></option>
+                                            <?php } else { ?>
+                                                <option value="<?= $role['role_id'] ?>"><?= $role['role_name'] ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">Manager *</label>
+                                    <select class="selectpicker form-control" name="manager" id="position">
+                                        <?php foreach ($managers as $manager) {
+                                            if ($manager['uid'] == $employee['user_manager_id']) { ?>
+                                                <option selected value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " ", $manager['last_name'] ?></option>
+                                            <?php } else { ?>
+                                                <option value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " ", $manager['last_name'] ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group flex-grow-1">
+                                    <label for="first_name">Departments *</label>
+                                    <select class="form-control selectpicker" name="department" id="position" data-live-search="true">
+                                        <?php foreach ($deparments as $dept) {
+                                            if ($dept['department_id'] == $employee['user_department_id']) { ?>
+                                                <option selected value="<?= $dept['department_id'] ?>"><?= $dept['department_name'] ?></option>
+                                            <?php } else { ?>
+                                                <option value="<?= $dept['department_id'] ?>"><?= $dept['department_name'] ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-flex pt-1">
+                                <button type="submit" class="btn btn-outline-primary me-1 flex-grow-1">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop<?= $employee['uid'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Remove <?= $employee['first_name'] . " " . $employee['last_name'] ?></h5>
+                </div>
+                <form action="controllers/admin/employee.removal.php" method="post">
+                    <input type="hidden" name="emID" value='<?= $employee['uid'] ?>'>
+                    <div class="modal-body">
+                        <p>Employee name <?= $employee['first_name'] . " " . $employee['last_name'] ?> will be deleted</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Understood</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -108,9 +243,27 @@ require "layouts/navbar.php"; ?>
     <script>
         $(document).ready(function() {
             $(".detail<?= $employee['uid'] ?>").on("click", function() {
-                $("#deletemodal<?= $employee['uid'] ?>").modal("show");
+                $("#detail<?= $employee['uid'] ?>").modal("show");
                 console.log(data);
             });
         });
+        $(document).ready(function() {
+            $(".edit<?= $employee['uid'] ?>").on("click", function() {
+                $("#edit<?= $employee['uid'] ?>").modal("show");
+                console.log(data);
+            });
+        });
+        $(document).ready(function() {
+            $(".remove<?= $employee['uid'] ?>").on("click", function() {
+                $("#staticBackdrop<?= $employee['uid'] ?>").modal("show");
+                console.log(data);
+            });
+        });
+    </script>
+<?php } ?>
+<?php
+if (isset($_GET['delete']) and $_GET['delete'] == 1) { ?>
+    <script>
+        $.notify("Employee has been removed successfully", "success");
     </script>
 <?php } ?>

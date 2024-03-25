@@ -7,7 +7,7 @@ require "layouts/navbar.php"; ?>
 			<div class="card ctm-border-radius shadow-sm grow flex-fill">
 				<div class="card-header">
 					<h4 class="card-title mb-0">
-						Focus Technologies
+						<?=$company[0]['company_name']?>
 						<a href="javascript:void(0)" class="float-right text-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 					</h4>
 				</div>
@@ -22,9 +22,9 @@ require "layouts/navbar.php"; ?>
 							<p>
 								<span class="text-primary">Address:</span><br>
 
-								Santiago de Surco
-								<br> Av.Caminos del Inca 1325<br>
-								United States
+								<?=$company[0]['address']?>
+								<br> <?=$company[0]['city']?><br>
+								<?=$company[0]['country']?>
 							</p>
 
 						</div>
@@ -83,12 +83,14 @@ require "layouts/navbar.php"; ?>
 											<th style="display: none;">ID</th>
 											<th>Department Name</th>
 											<th>Mangaer Name</th>
-											<th>Company</th>
+											<th>Total employee</th>
 											<th class="text-right">Action</th>
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach ($departments as $dept) { ?>
+										<?php foreach ($departments as $dept) {
+											$emp = getEmployeeUnder($dept['department_id']);
+										?>
 											<tr>
 												<td style="display:none"><?= $dept['department_id'] ?></td>
 												<td class="text-primary"><?= $dept['department_name'] ?></td>
@@ -98,15 +100,14 @@ require "layouts/navbar.php"; ?>
 														</div>
 														<?= $dept['first_name'] . " " . $dept['last_name'] ?>
 													</a></td>
-												<td><?= $dept['company_id'] ?></td>
+												<td><?= count($emp) ?></td>
 												<td>
 													<div class="table-action d-flex justify-content-between">
-														<form action="#">
-															<input type="hidden" name="dept_id" value="<?= $dept['department_id'] ?>">
-															<button type="submit" class="btn btn-sm btn-outline-warning"> <span class="lnr lnr-pencil"></span>Edit</button>
-														</form>
-														<a href="#" class="btn btn-sm btn-outline-success detail<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#view<?= $dept['department_id'] ?>">
-															<span class="lnr lnr-eye"></span> View
+														<a href="#" class="btn btn-sm btn-theme text-white edit<?= $dept['department_id'] ?>" data-toggle="modal">
+															<span class="lnr lnr-pencil"></span>Edit
+														</a>
+														<a href="#" class="btn btn-sm btn-theme text-white detail<?= $dept['department_id'] ?>" data-toggle="modal" data-target="#view<?= $dept['department_id'] ?>">
+															<span class="lnr lnr-eye"></span> Details
 														</a>
 														<a href="javascript:void(0);" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete">
 															<span class="lnr lnr-trash"></span> Delete
@@ -136,12 +137,9 @@ require "layouts/navbar.php"; ?>
 				</div>
 				<div class="card-body">
 					<h4 class="card-title">Members</h4>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Danny Ward"><img alt="avatar image" src="assets/img/profiles/img-5.jpg" class="img-fluid"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Linda Craver"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-4.jpg"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Jenni Sims"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-3.jpg"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Maria Cotton"><img alt="avatar image" src="assets/img/profiles/img-6.jpg" class="img-fluid"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="John Gibbs"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-2.jpg"></span></a>
-					<a href="employment.html"><span class="avatar" data-toggle="tooltip" data-placement="top" title="Richard Wilson"><img class="img-fluid" alt="avatar image" src="assets/img/profiles/img-10.jpg"></span></a>
+					<?php foreach ($users as $manager) { ?>
+						<a href="employment.html"><span class="avatar"><img alt="avatar image" src="<?= $manager['profile'] ?>" class="img-fluid"></span></a>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -362,12 +360,60 @@ require "layouts/navbar.php"; ?>
 	</div>
 </div>
 <?php foreach ($departments as $dept) {
-	$emp = getEmployeeUnder($dept['department_id']); ?>
+	$allEmpLeave = getLeaves($dept['department_id']);
+	$empls = getEmployeeUnder($dept['department_id']);
+	if (count($allEmpLeave) > 0) {
+		$most = getMax($allEmpLeave);
+		$least = getMin($allEmpLeave, $most['total']);
+	} else {
+		$most = [];
+		$least = [];
+	}
+?>
+	<div class="modal fade" id="edit<?= $dept['department_id'] ?>">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<!-- Modal body -->
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title mb-3">Update Departments</h4>
+					<form action="controllers/companies/edit.department.controller.php" method="post">
+						<input type="hidden" class="form-control" name="department_id" value="<?= $dept['department_id'] ?>">
+						<div class="form-group">
+							<label for="departementNmae">Department Name</label>
+							<input type="text" class="form-control" name="department_name" value="<?= $dept['department_name'] ?>">
+						</div>
+						<div class="form-group">
+							<label for="departmentDESC">Department Description</label>
+							<input type="text" class="form-control" name="department_desc" value="<?= $dept['department_desc'] ?>">
+						</div>
+						<div class="form-group">
+							<label for="manager">Manger</label>
+							<select class="select selectpicker" name="manager" id="manager">
+								<option value="">Please select a manager</option>
+								<?php foreach ($users as $manager) {
+									if ($manager['uid'] === $dept['uid']) { ?>
+										<option selected value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " " . $manager['last_name'] ?></option>
+
+									<?php
+									} else { ?>
+										<option value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " " . $manager['last_name'] ?></option>
+								<?php }
+								} ?>
+							</select>
+						</div>
+						<button type="button" class="btn btn-danger text-white ctm-border-radius float-right ml-3" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-theme ctm-border-radius text-white float-right button-1">Create</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade " id="view<?= $dept['department_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Department Details</h5>
+					<h5 class="modal-title" id="exampleModalLabel"><?= $dept['department_name'] ?></h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -379,19 +425,21 @@ require "layouts/navbar.php"; ?>
 						</div>
 						<div class="flex-grow-1 ms-3 ml-4">
 							<h5 class="mb-1"><?= $dept['first_name'] . " " . $dept['last_name'] ?></h5>
-							<p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $dept['department_name'] ?></p>
-							<div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
+							<p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $dept['department_desc'] ?></p>
+							<div class="d-flex justify-content-between rounded-3 p-2 mb-2" style="background-color: #efefef;">
 								<div>
-									<p class="small text-muted mb-1">Projects</p>
-									<p class="mb-0">41</p>
+									<p class="small text-muted mb-1">Most Taken</p>
+									<p class="mb-0">Name<i> <?= (isset($most['first_name']) and isset($most['last_name'])) ? $most['first_name'] . " " . $most['last_name']  : "No request" ?></i></p>
+									<small>Total requested <?= (isset($most['total'])) ? $most['total'] : "No Leave Record Yet." ?></small>
+								</div>
+								<div>
+									<p class="small text-muted mb-1">Least Taken</p>
+									<p class="mb-0">Name<i> <?= (isset($least) and count($least) > 0) ? $least['first_name'] . " " . $least['last_name']  : "No Leave Record Yet." ?></i></p>
+									<small>Total requested <?= (isset($least['total'])) ? $least['total'] : "No Leave Record Yet." ?></small>
 								</div>
 								<div class="px-3">
-									<p class="small text-muted mb-1">Employees</p>
-									<p class="mb-0">976</p>
-								</div>
-								<div>
-									<p class="small text-muted mb-1">Rating</p>
-									<p class="mb-0">8.5</p>
+									<p class="small text-muted mb-1"><span class="lnr lnr-users"></span> Employees</p>
+									<p class="mb-0"><?= count($empls) ?></p>
 								</div>
 							</div>
 						</div>
@@ -410,21 +458,19 @@ require "layouts/navbar.php"; ?>
 										<th>Total Remain</th>
 									</thead>
 									<tbody>
-										<?php if (count($emp) > 0) {
-											foreach ($emp as $per) { ?>
+										<?php if (count($empls) > 0) {
+											for ($i = 0; $i < count($empls); $i++) { ?>
 												<tr>
-													<td style="display:none"><?= $per['uid'] ?> </td>
-													<td><?= $per['first_name'] . " " . $per['last_name'] ?></td>
-													<td>9</td>
-													<td>2</td>
-													<td>8</td>
-													<td>10</td>
+													<td style="display:none"><?= $empls[$i]['uid'] ?> </td>
+													<td><?= $empls[$i]['first_name'] . " " . $empls[$i]['last_name'] ?></td>
+													<td><?= (isset($allEmpLeave[$i]['total'])) ? $allEmpLeave[$i]['total'] : 0 ?></td>
+													<td><?= $empls[$i]['total_allowed_leave'] ?></td>
+													<td>0</td>
+													<td><?= $empls[$i]['total_allowed_leave'] ?></td>
 												</tr>
 											<?php }
 										} else { ?>
-											<tr>
-												<p>There is no employee in this departments</p>
-											</tr>
+											<p>There is no employee in this departments</p>
 										<?php } ?>
 									</tbody>
 								</table>
@@ -445,5 +491,28 @@ require "layouts/navbar.php"; ?>
 				console.log(data);
 			});
 		});
+		$(document).ready(function() {
+			$(".edit<?= $dept['department_id'] ?>").on("click", function() {
+				$("#edit<?= $dept['department_id'] ?>").modal("show");
+				console.log(data);
+			});
+		});
+	</script>
+<?php } ?>
+<?php
+if (isset($_GET['error']) && $_GET['error'] == 0) { ?>
+	<script>
+		$.notify("Department has been created", "success");
+	</script>
+<?php } elseif (isset($_GET['success']) && $_GET['success'] == 1) { ?>
+	<script>
+		$.notify("Department has been updated", "success");
+	</script>
+<?php } elseif (isset($_GET['success']) && $_GET['success'] == 0) { ?>
+	<script>
+		$.notify("Department update has failed", {
+				position: "top-left"
+			},
+			"warn");
 	</script>
 <?php } ?>

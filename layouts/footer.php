@@ -15,7 +15,8 @@
   <!-- Datetimepicker JS -->
   <script src="vendor/plugins/select2/moment.min.js"></script>
   <script src="vendor/js/bootstrap-datetimepicker.min.js"></script>
-
+  <!-- Select JS-->
+  <script src="vendor/plugins/select/select.min.js"></script>
   <!-- Select2 JS -->
   <script src="vendor/plugins/select2/select2.min.js"></script>
 
@@ -31,6 +32,8 @@
 
   <!-- Table to excel JS -->
   <script src="vendor/js/table2excel.js"></script>
+  <!-- Notify JS -->
+  <script src="vendor/js/notify.min.js"></script>
   <!-- Custom Js -->
   <script src="vendor/js/script.js"></script>
 

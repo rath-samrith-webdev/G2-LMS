@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and $_POST['email'] !== "") {
                         sans-serif;
                      "
                   >
-                    <b>LMG-G2</b>.
+                    <b>LMS-G2</b>.
                   </p>
                 </div>
               </div>

@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $addData = updateReviewStatus($uid, $status_id);
         if ($addData) {
             header('location: /reviews');
+        }else{
+            header('location: /reviews');
         };
     }
 }
