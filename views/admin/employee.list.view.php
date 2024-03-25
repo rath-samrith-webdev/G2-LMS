@@ -6,9 +6,7 @@ require "layouts/navbar.php"; ?>
     <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm grow bg-white card">
         <div class="card-body">
             <ul class="list-group list-group-horizontal-lg">
-                <li class="list-group-item text-center active button-5"><a href="employees.html" class="text-white">All</a></li>
-                <li class="list-group-item text-center button-6"><a class="text-dark" href="employees-team.html">Teams</a></li>
-                <li class="list-group-item text-center button-6"><a class="text-dark" href="employees-offices.html">Offices</a></li>
+                <li class="list-group-item text-center active button-5"><a href="employees.html" class="text-white">All users</a></li>
             </ul>
         </div>
     </div>
@@ -16,12 +14,6 @@ require "layouts/navbar.php"; ?>
         <div class="card-body align-center">
             <h4 class="card-title float-left mb-0 mt-2"><?= count($allemployee) ?> People</h4>
             <ul class="nav nav-tabs float-right border-0 tab-list-emp">
-                <li class="nav-item">
-                    <a class="nav-link active border-0 font-23 grid-view" href="employees.html"><i class="fa fa-th-large" aria-hidden="true"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link border-0 font-23 list-view" href="employees-list.html"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
-                </li>
                 <li class="nav-item pl-3">
                     <a href="/createEmployee" class="btn btn-theme button-1 text-white ctm-border-radius p-2 add-person ctm-btn-padding"><i class="fa fa-plus"></i> Add Person</a>
                 </li>

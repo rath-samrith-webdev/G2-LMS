@@ -154,7 +154,7 @@ require "layouts/navbar.php"; ?>
 			<div class="card flex-fill team-lead shadow-sm grow">
 				<div class="card-header">
 					<h4 class="card-title mb-0 d-inline-block">Team Leads </h4>
-					<a href="employees.html" class="dash-card float-right mb-0 text-primary">Manage Team </a>
+					<a href="javascript:void(0)" class="dash-card float-right mb-0 text-primary">Manage Team </a>
 				</div>
 				<div class="card-body">
 					<?php foreach ($teamLeads as $leader) { ?>
