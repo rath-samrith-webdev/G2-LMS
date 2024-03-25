@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     } else {
         $type_name = htmlspecialchars($_POST['type_name']);
-        $user_id = htmlspecialchars($_SESSION['user']['admin_uid']);
+        $user_id = htmlspecialchars($_SESSION['user']['admin_id']);
         $isAdded = addReviewTypeAdmin($user_id, $type_name);
         if ($isAdded) {
             header("location: /reviews?add=1");

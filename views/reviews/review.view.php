@@ -207,7 +207,7 @@ if (isset($_SESSION['user']['first_name'])) { ?>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title mb-3">Add Review Type</h4>
 					<form action="controllers/reviews/add.reviewtype.controller.php" method="post">
-						<input type="hidden" class="form-control" name="uid" value="<?= (isset($_SESSION['user']['admin_id'])) ? $_SESSION['user']['admin_id'] : "" ?>">
+						<input type="hidden" class="form-control" name="admin_uid" value="<?= (isset($_SESSION['user']['admin_id'])) ? $_SESSION['user']['admin_id'] : "" ?>">
 						<div class="form-group">
 							<label for="type_name">Review Type Name</label>
 							<input type="text" class="form-control" name="type_name" id="type_name">
