@@ -2,18 +2,18 @@
 //Profile image management.
 if (isset($_SESSION['user'])) {
     $userExist = true; //if the normal user has logged in 
-    $adminExist = false;
+    $adminExist = true;
     $username = $_SESSION['user']['first_name'];
     $user_role = (isset($_SESSION['user']['role_id'])) ? $_SESSION['user']['role_id'] : null;
 
     if (isset($_SESSION['user']['first_name'])) {
         $img = (isset($_SESSION['user']['profile']) && $_SESSION['user']['profile'] != "") ? $_SESSION['user']['profile'] : "views/landing/image.login.views.png";
-        $uid = $_SESSION['user']['uid']; //if the user already had a profile img
+        $adminExist = false; //if the user already had a profile img
     } else {
-        $adminExist = true;
         if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
-            $img = (isset($_SESSION['user']['admin_profile']) && $_SESSION['user']['admin_profile'] != "") ? $_SESSION['user']['admin_profile'] : "assets/profile/img-2.jpg";
+            $img = (isset($_SESSION['user']['admin_profile']) && $_SESSION['uzser']['admin_profile'] != "") ? $_SESSION['user']['admin_profile'] : "assets/profile/img-2.jpg";
             $userExist = false;
+            $adminExist = true;
             $username = "Admin";
         };
     };
