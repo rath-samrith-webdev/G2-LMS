@@ -15,7 +15,7 @@ require "layouts/navbar.php"; ?>
             <div class="card shadow-sm flex-fill grow">
                 <div class="card-header">
                     <h4 class="card-title mb-0 d-inline-block">Total Leave</h4>
-                    <a href="leave.html" class="d-inline-block float-right text-primary"><i class="fa fa-suitcase"></i></a>
+                    <a href="javascript:void(0)" class="d-inline-block float-right text-primary"><i class="fa fa-suitcase"></i></a>
                 </div>
                 <div class="card-body text-center">
                     <div class="time-list">
@@ -96,7 +96,7 @@ require "layouts/navbar.php"; ?>
             <div class="card flex-fill team-lead shadow-sm grow">
                 <div class="card-header">
                     <h4 class="card-title mb-0 d-inline-block"> Team Members</h4>
-                    <a href="employees-team.html" class="dash-card d-inline-block float-right mb-0 text-primary">Manage Team
+                    <!-- <a href="employees-team.html" class="dash-card d-inline-block float-right mb-0 text-primary">Manage Team -->
                     </a>
                 </div>
                 <div class="card-body">
@@ -139,7 +139,7 @@ require "layouts/navbar.php"; ?>
                     <h4 class="card-title mb-0 d-inline-block">
                         Your Upcoming Leave
                     </h4>
-                    <a href="leave.html" class="d-inline-block float-right text-primary"><i class="fa fa-suitcase"></i></a>
+                    <a href="javascript:void(0)" class="d-inline-block float-right text-primary"><i class="fa fa-suitcase"></i></a>
                 </div>
                 <div class="card-body recent-activ">
                     <div class="upcoming-leave">

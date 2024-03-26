@@ -29,8 +29,8 @@ if (isset($_SESSION['user'])) {
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-6">
                         <div class="logo my-3 my-sm-0">
-                            <a href="index.html">
-                                <h3 class="text-white">LOGO</h3>
+                            <a href="#">
+                                <img src="assets/logo/lms-logo.png" alt="image">
                             </a>
                         </div>
                     </div>
