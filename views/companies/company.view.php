@@ -147,7 +147,7 @@ require "layouts/navbar.php"; ?>
 			<div class="card shadow-sm grow ctm-border-radius flex-fill">
 				<div class="card-header">
 					<h4 class="card-title mb-0 d-inline-block">Overview </h4>
-					<a href="employees-team.html" class="float-right text-primary">Manage Teams</a>
+					<a href="javascript:void(0)" class="float-right text-primary">Manage Teams</a>
 				</div>
 				<div class="card-body">
 					<div class="row">

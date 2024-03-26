@@ -6,8 +6,8 @@ if (isset($_SESSION['user'])) {
     $username = $_SESSION['user']['first_name'];
     $user_role = (isset($_SESSION['user']['role_id'])) ? $_SESSION['user']['role_id'] : null;
 
-    if (isset($_SESSION['user']['profile'])) {
-        $img = $_SESSION['user']['profile'];
+    if (isset($_SESSION['user']['first_name'])) {
+        $img = (isset($_SESSION['user']['profile']) && $_SESSION['user']['profile'] != "") ? $_SESSION['user']['profile'] : "views/landing/image.login.views.png";
         $uid = $_SESSION['user']['uid']; //if the user already had a profile img
     } else {
         $adminExist = true;
@@ -29,8 +29,8 @@ if (isset($_SESSION['user'])) {
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-6">
                         <div class="logo my-3 my-sm-0">
-                            <a href="index.html">
-                                <h3 class="text-white">LOGO</h3>
+                            <a href="#">
+                                <img src="assets/logo/lms-logo.png" alt="image">
                             </a>
                         </div>
                     </div>
@@ -313,7 +313,7 @@ if (isset($_SESSION['user'])) {
                                         </div>
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/createAdmin" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-rocket pr-0 pb-lg-2 font-23"></span><span class="">Manage Admin</span></a>
+                                                <a href="/createAdmin" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Admin</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/leavetype" class="text-dark p-4 ctm-border-right <?= checkActive('/leavetype') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>

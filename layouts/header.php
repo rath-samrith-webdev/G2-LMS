@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="vendor/img/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="assets/logo/lms.jpg" />
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="vendor/css/bootstrap.min.css">
