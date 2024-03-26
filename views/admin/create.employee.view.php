@@ -17,8 +17,8 @@ require "layouts/navbar.php"; ?>
                     <form action="../../controllers/admin/create.user.controller.php" method="post">
                         <div class="row">
                             <div class="col-12 form-group">
-                                <?php if(isset($_GET['error1'])) {?>
-                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error1'];?></p>
+                                <?php if (isset($_GET['error1'])) { ?>
+                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error1']; ?></p>
                                 <?php } ?>
                             </div>
                             <div class="col form-group">
@@ -28,14 +28,14 @@ require "layouts/navbar.php"; ?>
                                 <input type="text" class="form-control" placeholder="Last Name" name="lsname">
                             </div>
                             <div class="col-12 form-group">
-                                <?php if(isset($_GET['error2'])) {?>
-                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error2'];?></p>
+                                <?php if (isset($_GET['error2'])) { ?>
+                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error2']; ?></p>
                                 <?php } ?>
                                 <input type="email" class="form-control" placeholder="Email" name="email">
                             </div>
                             <div class="col-12 form-group">
-                                <?php if(isset($_GET['error'])) {?>
-                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error'];?></p>
+                                <?php if (isset($_GET['error'])) { ?>
+                                    <p class="alert alert-danger text-danger" role="alert"><?= $_GET['error']; ?></p>
                                 <?php } ?>
                                 <input type="password" class="form-control" placeholder="Password" name="password" minlength="8">
                             </div>
@@ -47,61 +47,49 @@ require "layouts/navbar.php"; ?>
                             <div class="col-md-12 form-group">
                                 <input class="form-control" type="text" placeholder="Phone Number" name="phone">
                             </div>
-                            
+                            <div class="col-md-12 form-group ">
+                                <select class="form-control select" name="gen">
+                                    <option selected>Gender </option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
                             <div class="col-md-12 form-group">
-                                <select class="form-control select" name="roles" >
-                                    <option selected>Role OF User</option>
-                                    <?php foreach ($roles as $role){?>
-                                        <option value="<?=$role['role_id']?>"><?=$role['role_name']?></option>
-                                    <?php }?>
+                                <select class="form-control select" name="roles">
+                                    <option selected>User role</option>
+                                    <?php foreach ($roles as $role) { ?>
+                                        <option value="<?= $role['role_id'] ?>"><?= $role['role_name'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="col-md-12 form-group">
                                 <select class="form-control select" name="positions">
                                     <option selected>Position</option>
-                                    <?php foreach ($positions as $position){?>
-                                        <option value="<?=$position['position_id']?>"><?=$position['position_name']?></option>
-                                    <?php }?>
+                                    <?php foreach ($positions as $position) { ?>
+                                        <option value="<?= $position['position_id'] ?>"><?= $position['position_name'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="col-md-12 form-group">
-                                <select class="form-control select" name="departments" >
+                                <select class="form-control select" name="departments">
                                     <option selected>Department</option>
-                                    <?php foreach ($departments as $department){?>
-                                        <option value="<?=$department['department_id']?>"><?=$department['department_name']?></option>
-                                    <?php }?>
-                                    
-                                    
-                                </select>
-                            </div>
+                                    <?php foreach ($departments as $department) { ?>
+                                        <option value="<?= $department['department_id'] ?>"><?= $department['department_name'] ?></option>
+                                    <?php } ?>
 
-                            <div class="col-12 form-group">
-                                <input type="text" class="form-control" placeholder="Job Title">
-                            </div>
-            
-                            <div class="col-md-12 form-group">
-                                <select class="form-control select" name="manager" >
-                                    <option selected>Line Manager</option>
-                                    <option value="1">Robert Wilson</option>
-                                    <option value="2">Maria Cotton</option>
-                                    <option value="3">Danny Ward</option>
-                                    <option value="4">Linda Craver</option>
-                                    <option value="5">Jenni Sims</option>
-                                    <option value="6">John Gibbs</option>
-                                    <option value="7">Stacey Linville</option>
+
                                 </select>
                             </div>
                             <div class="col-md-12 form-group">
-                                <select class="form-control select" name="office" >
-                                    <option selected>Office Name</option>
-                                    <option value="1">Focus Technology</option>
-                                    <option value="1">Officer society</option>
-                                    <option value="1">IT support</option>
-                                    <option value="1">Controller</option>
+                                <select class="form-control select" name="manager">
+                                    <option selected>Manager</option>
+                                    <?php foreach ($managers as $manager) { ?>
+                                        <option value="<?= $manager['uid'] ?>"><?= $manager['first_name'] . " " . $manager['last_name'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="col-md-12 form-group ">
-                                <select class="form-control select" name="salary" >
+                                <select class="form-control select" name="salary">
                                     <option selected>Salary </option>
                                     <option value="250">250$</option>
                                     <option value="300">300$</option>
@@ -116,23 +104,15 @@ require "layouts/navbar.php"; ?>
                                 </select>
                             </div>
                             <div class="col-12 form-group">
-                                <input type="leaves" class="form-control" placeholder="total allow leave" name="leaves">
-                            </div>
-                            
-            
-                            <div class="col-md-12 ">
-                                <div class=" custom-control custom-checkbox mb-0 ">
-                                    <input type="checkbox" id="send-email" name="send-email" class="custom-control-input">
-                                    <label class="mb-0 custom-control-label" for="send-email">Send them an invite email so they can log in immediately</label>
-                                </div>
+                                <input type="leaves" class="form-control" placeholder="Total allow leave" name="leaves">
                             </div>
                         </div>
                         <a href="/manages"><button class="btn btn-theme text-white ctm-border-radius button-1">Add Team Member</button></a>
                     </form>
 
-                    
+
                 </div>
             </div>
         </div>
-</div>
-<?php require "layouts/footer.php"; ?>
+    </div>
+    <?php require "layouts/footer.php"; ?>

@@ -2,7 +2,7 @@
 //Profile image management.
 if (isset($_SESSION['user'])) {
 	$userExist = false; //if the normal user has logged in 
-	$adminExist = false;
+	$adminExist = false; 
 	if (isset($_SESSION['user']['profile'])) {
 		$userExist = true;
 		$uid = $_SESSION['user']['uid']; //if the user already had a profile img
@@ -59,7 +59,6 @@ require "layouts/navbar.php"; ?>
 	<script>
 		!(function($) {
 			"use strict";
-
 			var CalendarApp = function() {
 				this.$body = $("body");
 				(this.$calendar = $("#calendar")),

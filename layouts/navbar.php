@@ -4,11 +4,11 @@ if (isset($_SESSION['user'])) {
     $userExist = true; //if the normal user has logged in 
     $adminExist = false;
     $username = $_SESSION['user']['first_name'];
+    $user_role = (isset($_SESSION['user']['role_id'])) ? $_SESSION['user']['role_id'] : null;
 
-    if (isset($_SESSION['user']['profile'])) {
-        $img = $_SESSION['user']['profile'];
+    if (isset($_SESSION['user']['first_name'])) {
+        $img = (isset($_SESSION['user']['profile']) && $_SESSION['user']['profile'] != "") ? $_SESSION['user']['profile'] : "views/landing/image.login.views.png";
         $uid = $_SESSION['user']['uid']; //if the user already had a profile img
-        $user_role = $_SESSION['user']['role_id'];
     } else {
         $adminExist = true;
         if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
@@ -295,7 +295,7 @@ if (isset($_SESSION['user'])) {
                                                 <a href="/admin" class="text-dark p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top <?= checkActive('/admin') ?>"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/employeelist" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top <?= checkActive('/employeelist') ?>"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
+                                                <a href="/employeelist" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top <?= (parse_url($_SERVER["REQUEST_URI"])["path"] == "/createEmployee") ? "active " : "" ?> <?= checkActive('/employeelist') ?>"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/companies" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/companies') ?>"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
