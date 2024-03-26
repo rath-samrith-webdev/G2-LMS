@@ -6,7 +6,7 @@ if (isset($_SESSION['user'])) {
     $username = $_SESSION['user']['first_name'];
     $user_role = (isset($_SESSION['user']['role_id'])) ? $_SESSION['user']['role_id'] : null;
 
-    if (isset($_SESSION['user']['profile'])) {
+    if (isset($_SESSION['user']['role_id'])) {
         $img = (isset($_SESSION['user']['profile']) && $_SESSION['user']['profile'] != "") ? $_SESSION['user']['profile'] : "views/landing/image.login.views.png";
         $uid = $_SESSION['user']['uid']; //if the user already had a profile img
     } else {
