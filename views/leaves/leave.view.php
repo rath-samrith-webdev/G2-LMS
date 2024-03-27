@@ -49,7 +49,7 @@ include "layouts/navbar.php"; ?>
 								</div>
 								<div class="col-sm-6 leave-col">
 									<div class="form-group">
-										<label for="end" >To end
+										<label for="end">To end
 											<span class="text-danger">*</span>
 										</label>
 										<input class="form-control" name="dataValueEnd" type="date" id="end">
@@ -323,3 +323,12 @@ include "layouts/navbar.php"; ?>
 	</div>
 </div>
 <?php require "layouts/footer.php"; ?>
+<?php
+if (isset($_GET['leaveerror']) &&  $_GET['leaveerror'] === 'notvalid') { ?>
+	<script>
+		$.notify("You've entered the wrong date", {
+				position: "top-center"
+			},
+			"warn");
+	</script>
+<?php } ?>

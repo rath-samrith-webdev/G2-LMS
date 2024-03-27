@@ -2,7 +2,7 @@
 //Profile image management.
 if (isset($_SESSION['user'])) {
 	$userExist = false; //if the normal user has logged in 
-	$adminExist = false; 
+	$adminExist = false;
 	if (isset($_SESSION['user']['profile'])) {
 		$userExist = true;
 		$uid = $_SESSION['user']['uid']; //if the user already had a profile img
@@ -556,5 +556,14 @@ require "layouts/navbar.php"; ?>
 			"use strict";
 			$.CalendarApp.init();
 		})(window.jQuery);
+	</script>
+<?php } ?>
+<?php
+if (isset($_GET['leaveerror']) &&  $_GET['leaveerror'] === 'notvalid') { ?>
+	<script>
+		$.notify("You've entered the wrong date", {
+				position: "top-center"
+			},
+			"warn");
 	</script>
 <?php } ?>
