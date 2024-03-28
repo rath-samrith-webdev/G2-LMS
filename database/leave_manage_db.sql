@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2024 at 01:33 AM
+-- Generation Time: Mar 28, 2024 at 05:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -121,24 +121,21 @@ CREATE TABLE `leave_requests` (
   `added_times` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `seen_status` int(1) NOT NULL DEFAULT 1,
-  `admin_seen_status` int(1) NOT NULL DEFAULT 0
+  `admin_seen_status` int(1) NOT NULL DEFAULT 0,
+  `reason` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `leave_requests`
 --
 
-INSERT INTO `leave_requests` (`request_id`, `uid`, `leavetype_id`, `start_date`, `end_date`, `status_id`, `added_times`, `update_time`, `seen_status`, `admin_seen_status`) VALUES
-(1, 31, 2, '2024-03-08', '2024-03-10', 1, '2024-03-08 09:07:36', '2024-03-16 12:57:12', 0, 1),
-(2, 32, 2, '2024-03-11', '2024-03-12', 4, '2024-03-11 00:50:55', '2024-03-13 00:43:38', 0, 1),
-(3, 32, 3, '2024-03-13', '2024-03-14', 2, '2024-03-13 00:39:42', '2024-03-13 03:00:18', 0, 1),
-(4, 32, 4, '2024-03-13', '2024-03-15', 1, '2024-03-13 00:47:37', '2024-03-15 16:53:41', 0, 1),
-(5, 32, 4, '2024-03-25', '2024-03-27', 3, '2024-03-13 00:49:08', '2024-03-13 00:49:55', 0, 1),
-(6, 32, 2, '2024-03-05', '2024-03-06', 2, '2024-03-13 02:35:48', '2024-03-17 10:03:31', 0, 1),
-(7, 32, 1, '2024-03-13', '2024-03-14', 3, '2024-03-13 02:55:58', '2024-03-13 04:29:54', 0, 1),
-(8, 36, 2, '2024-03-13', '2024-03-14', 3, '2024-03-13 02:56:59', '2024-03-13 04:29:54', 1, 1),
-(9, 37, 2, '2024-03-15', '2024-03-16', 3, '2024-03-15 00:32:02', '2024-03-15 00:34:04', 0, 1),
-(10, 37, 3, '2024-03-15', '2024-03-16', 1, '2024-03-15 05:44:27', '2024-03-16 13:06:51', 0, 1);
+INSERT INTO `leave_requests` (`request_id`, `uid`, `leavetype_id`, `start_date`, `end_date`, `status_id`, `added_times`, `update_time`, `seen_status`, `admin_seen_status`, `reason`) VALUES
+(12, 32, 1, '2024-03-26', '2024-03-27', 3, '2024-03-26 11:56:56', '2024-03-26 11:58:22', 0, 1, ''),
+(13, 46, 2, '2024-03-27', '2024-03-28', 4, '2024-03-26 11:59:09', '2024-03-26 12:01:10', 0, 1, ''),
+(14, 46, 1, '2024-03-28', '2024-03-29', 1, '2024-03-26 13:33:38', '2024-03-27 00:14:17', 0, 1, ''),
+(15, 32, 2, '2024-03-13', '2024-03-14', 3, '2024-03-27 01:43:35', '2024-03-27 04:30:49', 0, 0, ''),
+(16, 32, 1, '2024-03-27', '2023-03-27', 3, '2024-03-27 04:31:23', '2024-03-27 04:35:45', 0, 0, 'Test'),
+(17, 32, 1, '2024-03-06', '2023-03-07', 3, '2024-03-27 04:49:16', '2024-03-27 04:52:45', 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -201,7 +198,8 @@ CREATE TABLE `password_reset_request` (
 --
 
 INSERT INTO `password_reset_request` (`id`, `email`, `token`, `verifier`) VALUES
-(4, 'rathsamreth0200@gmail.com', '165f1166f3b0f5', '6572');
+(4, 'rathsamreth0200@gmail.com', '165f1166f3b0f5', '6572'),
+(6, 'rathsamreth0200@gmail.com', '16602b4bb3500d', '1797');
 
 -- --------------------------------------------------------
 
@@ -275,15 +273,20 @@ CREATE TABLE `review_types` (
   `reviewType_id` int(11) NOT NULL,
   `reviewType_name` varchar(200) DEFAULT NULL,
   `uid` int(11) DEFAULT NULL,
-  `added_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `added_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `admin_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `review_types`
 --
 
-INSERT INTO `review_types` (`reviewType_id`, `reviewType_name`, `uid`, `added_time`) VALUES
-(1, 'Monthly Review', 32, '2024-03-10 13:17:36');
+INSERT INTO `review_types` (`reviewType_id`, `reviewType_name`, `uid`, `added_time`, `admin_id`) VALUES
+(1, 'Monthly Review', 32, '2024-03-10 13:17:36', NULL),
+(3, 'Yearly Review', 39, '2024-03-24 15:59:30', NULL),
+(9, 'Anually Review', 39, '2024-03-25 00:16:19', NULL),
+(10, 'Daily Review', NULL, '2024-03-26 02:14:43', 1),
+(11, 'Day off', NULL, '2024-03-26 11:55:59', 1);
 
 -- --------------------------------------------------------
 
@@ -338,6 +341,7 @@ CREATE TABLE `users` (
   `uid` int(11) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
+  `gender` varchar(11) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
   `phone_number` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -355,12 +359,16 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uid`, `first_name`, `last_name`, `date_of_birth`, `phone_number`, `email`, `password`, `position_id`, `role_id`, `department_id`, `salary`, `total_allowed_leave`, `profile`, `manager_id`) VALUES
-(31, 'Neardey', 'Loem', '2005-03-05', '08797978', 'radit.thy@gmail.com', '123', 1, 1, 1, 400, 12, 'assets/profile/profiles65ed75d55c2096.00444588.jpg', 32),
-(32, 'Rath', 'Samreth', '2000-10-10', '097 86 37 281', 'rathsamreth0200@gmail.com', 'reath123', 1, 1, 2, 400, 8, 'assets/profile/profiles65ed6c1b736a58.18787890.jpg', 0),
-(33, 'Radit', 'Thy', '2002-06-15', '097 86 37 281', 'radit.thy0200@gmail.com', '', 1, 1, 4, 400, 12, 'assets/profile/profiles65ed74e11bca81.05818908.jpg', 32),
-(36, 'Veak', 'Khlorp', '2002-06-15', '097 86 37 281', 'veak.khlorp@gmail.com', '123', 1, 1, 5, 400, 11, 'assets/profile/profiles65f1085794c977.35485151.jpg', 32),
-(37, 'Leysreng', 'OL', '2006-03-18', NULL, 'leysreng.ol@gmail.com', '081229190', 2, 2, 2, NULL, 10, 'assets/profile/profiles65f2563569e5f6.62692194.jpg', 33);
+INSERT INTO `users` (`uid`, `first_name`, `last_name`, `gender`, `date_of_birth`, `phone_number`, `email`, `password`, `position_id`, `role_id`, `department_id`, `salary`, `total_allowed_leave`, `profile`, `manager_id`) VALUES
+(31, 'Neardey', 'Loem', NULL, '2005-03-05', '08797978', 'radit.thy@gmail.com', '123', 1, 1, 1, 400, 12, 'assets/profile/profiles65ed75d55c2096.00444588.jpg', 32),
+(32, 'Rath', 'Samreth', NULL, '2000-10-10', '097 86 37 281', 'rathsamreth0200@gmail.com', '$2y$10$1QgvCpSxqfCDOVvfh2eNy.BQqCO0DmX5hhDku64TwagiHLaFSD2h6', 1, 1, 2, 400, 9, 'assets/profile/profiles65ed6c1b736a58.18787890.jpg', 0),
+(33, 'Radit', 'Thy', NULL, '2002-06-15', NULL, 'radit.thy0200@gmail.com', '', 1, 1, 4, NULL, 12, 'assets/profile/profiles65ed74e11bca81.05818908.jpg', 32),
+(37, 'Leysreng', 'OL', NULL, '2006-03-18', NULL, 'leysreng.ol@gmail.com', '081229190', 2, 2, 2, NULL, 10, 'assets/profile/profiles65f2563569e5f6.62692194.jpg', 33),
+(39, 'Veak', 'Khlorp', NULL, '2002-03-24', NULL, 'veak.khlorp@gmail.com', '$2y$10$4v5fTJA02agSAuKj8Z3DF.kFUyzD7MLZEhzIeYvD6Op0tkuKeGIXm', 2, 1, 1, NULL, 12, 'assets/profile/profiles660035ab83b160.99590563.jpg', 31),
+(40, 'Veak', 'Khlorp', NULL, '2024-03-18', '08797978', 'rathsamrith.webdev@gmail.com', '$2y$10$f1E4Wb4F47iaHSWZymKiAOV8LhIoy2Falf1XJoyNkXovTztT35HgO', 2, 2, 2, 1000, 12, 'assets/profile/profiles66022c69031776.41462052.jpg', 0),
+(45, 'Lucas', 'Traumen', NULL, '2024-03-26', '08797978', 'rathsamrith@gmail.com', '$2y$10$SuhqSyt6TIbf2OC8c4bhaeYGmLdOQrn0pmcKM5Edtk6B0kmK252cK', 2, 2, 2, 0, 12, 'assets/profile/profiles66022d1b032e01.75856544.jpg', 0),
+(46, 'Emily', 'Jessy', NULL, '2024-03-26', NULL, 'emi@gmail.com', '$2y$10$IuFCUmyiLGMKkGfVRPf6hu8FSswU7aPQDqpmlpQsCXLfDUhrQCiPS', 2, 2, 2, NULL, 12, 'assets/profile/profiles660364f76e01b6.40456152.jpg', 32),
+(47, 'Chanthou', 'Voeun', NULL, '2005-10-10', NULL, 'voeunchanthou74@gmail.com', '$2y$10$0kroAcja/2FQhGfDxixD5.M0bL3Z8tJhaNRu7mpRzRQ80tUdbjbNC', 1, 1, 1, NULL, 12, 'assets/profile/profiles66036dcd2f66e5.35730186.jpg', 33);
 
 -- --------------------------------------------------------
 
@@ -519,7 +527,7 @@ ALTER TABLE `review_status`
 --
 ALTER TABLE `review_types`
   ADD PRIMARY KEY (`reviewType_id`),
-  ADD KEY `uid` (`uid`);
+  ADD KEY `review_types_ibfk_1` (`uid`);
 
 --
 -- Indexes for table `userroles`
@@ -561,7 +569,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `leave_requests`
 --
 ALTER TABLE `leave_requests`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `leave_status`
@@ -579,7 +587,7 @@ ALTER TABLE `leave_types`
 -- AUTO_INCREMENT for table `password_reset_request`
 --
 ALTER TABLE `password_reset_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `postions`
@@ -603,7 +611,7 @@ ALTER TABLE `review_status`
 -- AUTO_INCREMENT for table `review_types`
 --
 ALTER TABLE `review_types`
-  MODIFY `reviewType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `reviewType_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `userroles`
@@ -615,7 +623,7 @@ ALTER TABLE `userroles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables
@@ -639,7 +647,7 @@ ALTER TABLE `reviews`
 -- Constraints for table `review_types`
 --
 ALTER TABLE `review_types`
-  ADD CONSTRAINT `review_types_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`);
+  ADD CONSTRAINT `review_types_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `users`
