@@ -1,0 +1,181 @@
+CREATE TABLE userRole(
+  id INTEGER PRIMARY KEY  AUTOINCREMENT,
+  name varchar(250) unique,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    key VARCHAR(250),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE role_permissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    can_read BOOLEAN DEFAULT NULL,
+    can_update BOOLEAN DEFAULT NULL,
+    can_create BOOLEAN DEFAULT NULL,
+    can_delete BOOLEAN DEFAULT NULL,
+    role_id INT,
+    permission_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES userRole(id),
+    FOREIGN KEY (permission_id) REFERENCES permission(id)
+);
+
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email VARCHAR(250) UNIQUE,
+    password VARCHAR(20),
+    role_id INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES userRole(id)
+);
+
+CREATE TABLE user_has_Roles(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INT,
+    role_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES userRole(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE positions(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(250) DEFAULT  NULL,
+    description TEXT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE persons(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INT,
+    civil_title TEXT CHECK(gender IN ('Mr', 'Mrs','Miss')) DEFAULT NULL,
+    first_name VARCHAR(250),
+    last_name VARCHAR(250),
+    gender TEXT CHECK(gender IN ('Male', 'Female')) DEFAULT 'Male',
+    date_of_birth DATE,
+    position_id int,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (position_id) REFERENCES positions(id)
+
+);
+
+CREATE TABLE leave_types(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(250),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE leave_allowances(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    leave_type_id INT,
+    used INT DEFAULT 0,
+    remains INT DEFAULT 0,
+    total INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (leave_type_id) REFERENCES leave_types(id)
+);
+
+CREATE TABLE leave_requests(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    leave_type_id INT,
+    status CHECK ( status IN ('Approved','Rejected','Pending') ) DEFAULT 'Pending',
+    employee_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (leave_type_id) REFERENCES leave_types(id),
+    FOREIGN KEY (employee_id) REFERENCES persons(id)
+);
+
+CREATE TRIGGER update_leave_requests_updated_at
+AFTER UPDATE ON leave_requests
+FOR EACH ROW
+BEGIN
+    UPDATE leave_requests
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_users_updated_at
+AFTER UPDATE ON users
+FOR EACH ROW
+BEGIN
+    UPDATE users
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_permission_updated_at
+AFTER UPDATE ON permission
+FOR EACH ROW
+BEGIN
+    UPDATE permission
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_leave_types_updated_at
+AFTER UPDATE ON leave_types
+FOR EACH ROW
+BEGIN
+    UPDATE leave_types
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_leave_allowances_updated_at
+AFTER UPDATE ON leave_allowances
+FOR EACH ROW
+BEGIN
+    UPDATE leave_allowances
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_role_permissions_updated_at
+AFTER UPDATE ON role_permissions
+FOR EACH ROW
+BEGIN
+    UPDATE role_permissions
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_userRole_updated_at
+AFTER UPDATE ON userRole
+FOR EACH ROW
+BEGIN
+    UPDATE userRole
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_positions_updated_at
+AFTER UPDATE ON positions
+FOR EACH ROW
+BEGIN
+    UPDATE positions
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_person_updated_at
+AFTER UPDATE ON persons
+FOR EACH ROW
+BEGIN
+    UPDATE persons
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;

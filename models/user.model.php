@@ -28,7 +28,7 @@ function createUser(string $fsname, string $lsname, string $dateOfbirth, string 
 function getDepartments(): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM departments");
+    $statement = $connection->prepare("SELECT * FROM users");
     $statement->execute();
     return $statement->fetchAll();
 }
