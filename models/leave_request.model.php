@@ -18,7 +18,7 @@ function postLeaveData(string $title, string $description): bool
 function getLeaveData(): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from leave_status");
+    $statement = $connection->prepare("select * from leave_requests");
     $statement->execute();
 
     return $statement->fetchAll();

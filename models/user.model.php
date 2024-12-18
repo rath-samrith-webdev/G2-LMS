@@ -7,41 +7,53 @@
 function getLogginUser(string $email, string $password)
 {
     global $connection;
-    try {
-        $statement = $connection->prepare("SELECT users.id,users.email,persons.civil_title,persons.first_name,persons.last_name,persons.gender,persons.profile_img,persons.date_of_birth FROM users 
-        INNER JOIN persons ON users.id = persons.user_id 
-        WHERE users.email = :email AND users.password = :password LIMIT 1");
-        $statement->execute([
-            ':email' => $email,
-            ':password' => $password
-        ]);
-        return $statement->fetch();
-    } catch (Exception) {
-        return;
-    }
+    $statement = $connection->prepare("SELECT users.id,users.email,persons.civil_title,persons.first_name,persons.last_name,persons.gender,persons.profile_img,persons.date_of_birth,userRole.name AS role_name FROM users 
+    INNER JOIN persons ON users.id = persons.user_id INNER JOIN user_has_Roles ON user_has_Roles.user_id =users.id INNER JOIN userRole ON userRole.id==user_has_Roles.role_id
+    WHERE users.email = :email AND users.password = :password LIMIT 1");
+    $statement->execute([
+        ':email' => $email,
+        ':password' => $password
+    ]);
+    return  $statement->fetch();
 }
 
 
 function createUser(string $fsname, string $lsname, string $dateOfbirth, string $phoneNumer, string $email, string $password, string $salary, string $positions, string $roles, string $departments, string $leaves): bool
 {
     global $connection;
-    $statement = $connection->prepare("insert into users (first_name, last_name, date_of_birth, phone_number, email, password,salary, position_id, role_id, department_id,total_allowed_leave)
-    values (:first_name, :last_name,:date_of_birth, :phone_number, :email, :password, :salary, :postion_id, :role_id, :department_id, :total_allowed_leave)");
+    $userStatement = $connection->prepare("insert into users (email, password, role_id)
+    values (:email, :password, :role_id)");
+    $statement = $connection->prepare("insert into persons (user_id,first_name, last_name,person_detail_id, date_of_birth)
+    values (:user_id,:first_name, :last_name,:person_detail_id,:date_of_birth)");
+    $personDetails = $connection->prepare("insert into person_details (position_id, department_id)
+    values (:department_id,:position_id)");
+
+    $userStatement->execute([
+        ':email' => $email,
+        ':password' => $password,
+        ':role_id' => $roles,
+    ]);
+    $userId = $connection->lastInsertId();
+
+    $userRoleStatement = $connection->prepare("INSERT INTO user_has_roles (user_id, role_id) VALUES (:user_id, :role_id)");
+    $userRoleStatement->execute([
+        ':user_id' => $userId,
+        ':role_id' => $roles
+    ]);
+
+    $personDetails->execute([
+        ':department_id' => $departments,
+        ':position_id' => $positions,
+    ]);
+    $personDetailsId = $connection->lastInsertId();
 
     $statement->execute([
+        ':user_id' => $userId,
+        ':person_detail_id' => $personDetailsId,
         ':first_name' => $fsname,
         ':last_name' => $lsname,
         ':date_of_birth' => $dateOfbirth,
-        ':phone_number' => $phoneNumer,
-        ':email' => $email,
-        ':password' => $password,
-        ':salary' => $salary,
-        ':postion_id' => $positions,
-        ':role_id' => $roles,
-        ':department_id' => $departments,
-        ':total_allowed_leave' => $leaves,
     ]);
-
     return $statement->rowCount() > 0;
 }
 
@@ -49,7 +61,7 @@ function createUser(string $fsname, string $lsname, string $dateOfbirth, string 
 function getDepartments(): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM users");
+    $statement = $connection->prepare("SELECT * FROM departments");
     $statement->execute();
     return $statement->fetchAll();
 }
@@ -67,7 +79,7 @@ function deleteUser(int $id): bool
 function getPositions(): array
 {
     global $connection;
-    $statment = $connection->prepare("SELECT * FROM postions");
+    $statment = $connection->prepare("SELECT * FROM positions");
     $statment->execute();
     return $statment->fetchAll();
 }
@@ -76,7 +88,7 @@ function getPositions(): array
 function getUserrole(): array
 {
     global $connection;
-    $statment = $connection->prepare("SELECT * FROM userroles");
+    $statment = $connection->prepare("SELECT * FROM userRole");
     $statment->execute();
     return $statment->fetchAll();
 }

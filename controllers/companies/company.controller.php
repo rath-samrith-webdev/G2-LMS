@@ -4,5 +4,5 @@ require "models/dapartment.model.php";
 require "models/company.model.php";
 $departments = getAllDepartment();
 $users = getManagers();
-$company = getAllCompany();
+// $company = getAllCompany();
 require "views/companies/company.view.php";

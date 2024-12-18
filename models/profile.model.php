@@ -119,8 +119,8 @@ function getManager($uid)
 function getAlldetails(): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT persons.id,persons.first_name,persons.profile_img,persons.date_of_birth,users.email,persons.last_name,positions.name as position_name,userRole.name as role_name,userRole.id as role_id,
-    positions.id as position_id FROM persons INNER JOIN user_has_Roles ON user_has_Roles.user_id=persons.user_id INNER JOIN userRole ON userRole.id=user_has_Roles.role_id INNER JOIN users ON persons.user_id = users.id INNER JOIN positions ON positions.id=persons.position_id");
+    $statement = $connection->prepare("SELECT persons.id,persons.user_id,persons.first_name,persons.profile_img,persons.date_of_birth,users.email,persons.last_name,positions.name as position_name,userRole.name as role_name,userRole.id as role_id,
+    positions.id as position_id,departments.name as department_name,departments.id as department_id FROM persons INNER JOIN user_has_Roles ON user_has_Roles.user_id=persons.user_id INNER JOIN userRole ON userRole.id=user_has_Roles.role_id INNER JOIN users ON persons.user_id = users.id INNER JOIN person_details ON person_details.id = persons.person_detail_id INNER JOIN positions ON person_details.position_id = positions.id INNER JOIN departments ON departments.id = person_details.department_id");
     $statement->execute();
     return $statement->fetchAll();
 }

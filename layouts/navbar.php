@@ -1,7 +1,7 @@
 <?php
 //Profile image management.
 if (isset($_SESSION['user'])) {
-    $adminExist = true; //if the normal user has logged in
+    $adminExist = $_SESSION['user']['role_name'] === 'Super Admin'; //if the normal user has logged in
     $username = $_SESSION['user']['first_name'];
     $user_role = (isset($_SESSION['user']['role_id'])) ? $_SESSION['user']['role_id'] : null;
     if (isset($_SESSION['user']['role_id']) and $_SESSION['user']['role_id'] === 1) { //if that user is an admin user
@@ -277,12 +277,12 @@ if (isset($_SESSION['user'])) {
                                         }
                                         ?>
 
-                                        <?php if (!$userExist and $adminExist) { ?>
+                                        <?php if ($adminExist) { ?>
                                             <div class="col-6 align-items-center text-center">
                                                 <a href="/admin" class="p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top <?= checkActive('/admin') ?>"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/employeelist" class="p-4 second-slider-btn ctm-border-right ctm-border-top <?= (parse_url($_SERVER["REQUEST_URI"])["path"] == "/createEmployee") ? "active " : "" ?> <?= checkActive('/employeelist') ?>"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
+                                                <a href="/employeelist" class="p-4 second-slider-btn ctm-border-right ctm-border-top <?= (parse_url($_SERVER["REQUEST_URI"])["path"] == "/createEmployee") || parse_url($_SERVER["REQUEST_URI"])["path"] == '/employeelist' ? "active text-white" : "text-dark" ?>"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/companies" class="p-4 ctm-border-right ctm-border-left <?= checkActive('/companies') ?>"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
@@ -298,7 +298,7 @@ if (isset($_SESSION['user'])) {
                                         <div class="col-6 align-items-center shadow-none text-center">
                                             <a href="/leaves" class="p-4 ctm-border-right ctm-border-left <?= checkActive('/leaves') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
                                         </div>
-                                        <?php if (!$userExist and $adminExist) { ?>
+                                        <?php if ($adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
                                                 <a href="/createAdmin" class="p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Admin</span></a>
                                             </div>
@@ -312,7 +312,7 @@ if (isset($_SESSION['user'])) {
                                                 <a href="/reviews" class="p-4 last-slider-btn ctm-border-right <?= checkActive('/reviews') ?>"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
                                             </div>
                                         <?php } else { ?>
-                                            <?php if ($user_role == 1) { ?>
+                                            <?php if ($adminExist) { ?>
                                                 <div class="col-6 align-items-center shadow-none text-center">
                                                     <a href="/reviews" class="p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
                                                 </div>

@@ -2,7 +2,7 @@
 function getAllDepartment(): array
 {
     global $connection;
-    $stm = $connection->prepare(" SELECT departments.department_id,department_name,department_desc,departments.manager_id,uid,first_name,last_name,date_of_birth,phone_number,email,password,position_id,role_id,salary,profile,users.department_id as user_department,users.manager_id as user_manager_id,total_allowed_leave FROM departments INNER JOIN users ON users.uid=departments.manager_id;");
+    $stm = $connection->prepare("SELECT * FROM departments");
     $stm->execute();
     if (!$stm) {
         return [];

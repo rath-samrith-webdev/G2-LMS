@@ -3,8 +3,8 @@ require "database/database.php";
 require "models/leave_request.model.php";
 require "models/leavetype.model.php";
 $leaverequest = [];
-if (isset($_SESSION['user']['uid'])) {
-    $id = $_SESSION['user']['uid'];
+if (isset($_SESSION['user']['id'])) {
+    $id = $_SESSION['user']['id'];
     $role_id = $_SESSION['user']['role_id'];
     $dept_id = $_SESSION['user']['department_id'];
     if ($role_id == 1) {

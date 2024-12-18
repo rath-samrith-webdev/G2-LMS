@@ -46,6 +46,14 @@ CREATE TABLE IF NOT EXISTS user_has_Roles(
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE IF NOT EXISTS departments(
+    id INTEGER PRIMARY KEY  AUTOINCREMENT,
+    name VARCHAR(250),
+    description TEXT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS positions(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(250) DEFAULT  NULL,
@@ -54,21 +62,31 @@ CREATE TABLE IF NOT EXISTS positions(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS person_details(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    position_id INT,
+    department_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (position_id) REFERENCES positions(id),
+    FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+
 CREATE TABLE IF NOT EXISTS persons(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INT,
+    person_detail_id INT,
     civil_title TEXT CHECK(civil_title IN ('Mr', 'Mrs','Miss')) DEFAULT NULL,
     first_name VARCHAR(250),
     last_name VARCHAR(250),
     profile_img VARCHAR(250),
     gender TEXT CHECK(gender IN ('Male', 'Female')) DEFAULT 'Male',
     date_of_birth DATE,
-    position_id int,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (position_id) REFERENCES positions(id)
-
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (person_detail_id) REFERENCES person_details(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS leave_types(

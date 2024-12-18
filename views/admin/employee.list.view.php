@@ -29,7 +29,7 @@ require "layouts/navbar.php"; ?>
                             <div class="card-body">
                                 <div class="pro-widget-content text-center">
                                     <div class="profile-info-widget">
-                                        <a href="/profiles?uid=<?= $employee['id'] ?>" class="booking-doc-img">
+                                        <a href="/profiles?uid=<?= $employee['user_id'] ?>" class="booking-doc-img">
                                             <img src="<?= $employee['profile_img'] ?>" alt="User Image">
                                         </a>
                                         <div class="profile-det-info">
@@ -78,7 +78,7 @@ require "layouts/navbar.php"; ?>
                                 </div>
                                 <div class="px-3">
                                     <p class="small text-muted mb-1">Departments</p>
-                                    <p class="mb-0">Test department</p>
+                                    <p class="mb-0"><?= $employee['department_name'] ?></p>
                                 </div>
                                 <div class="px-3">
                                     <p class="small text-muted mb-1">Total allowed leaves</p>
@@ -120,7 +120,7 @@ require "layouts/navbar.php"; ?>
                 </div>
                 <div class="modal-body">
                     <form action="controllers/admin/edit.employee.process.php" method="post" class="d-flex text-black ">
-                        <input type="hidden" value='<?= $employee['id'] ?>' name='user_id'>
+                        <input type="hidden" value='<?= $employee['user_id'] ?>' name='user_id'>
                         <div class="flex-shrink-0">
                             <img src="<?= $employee['profile_img'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                             <input type="file" name="profile" style="display:none">
@@ -192,10 +192,10 @@ require "layouts/navbar.php"; ?>
                                     <label for="first_name">Departments *</label>
                                     <select class="form-control selectpicker" name="department" id="position" data-live-search="true">
                                         <?php foreach ($deparments as $dept) {
-                                            if ($dept['department_id'] == $employee['user_department_id']) { ?>
-                                                <option selected value="<?= $dept['department_id'] ?>"><?= $dept['department_name'] ?></option>
+                                            if ($dept['id'] == $employee['department_id']) { ?>
+                                                <option selected value="<?= $dept['id'] ?>"><?= $dept['name'] ?></option>
                                             <?php } else { ?>
-                                                <option value="<?= $dept['department_id'] ?>"><?= $dept['department_name'] ?></option>
+                                                <option value="<?= $dept['id'] ?>"><?= $dept['name'] ?></option>
                                         <?php }
                                         } ?>
                                     </select>

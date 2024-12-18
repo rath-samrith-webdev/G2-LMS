@@ -1,4 +1,5 @@
-<?php require "layouts/header.php";
+<?php
+require "layouts/header.php";
 require "layouts/navbar.php"; ?>
 <div class="col-xl-9 col-lg-8 col-md-12">
     <div class="quicklink-sidebar-menu ctm-border-radius shadow-sm bg-white card grow">
@@ -20,15 +21,15 @@ require "layouts/navbar.php"; ?>
                 <div class="card-body text-center">
                     <div class="time-list">
                         <div class="dash-stats-list">
-                            <span class="btn btn-outline-primary"><?= count($approveLeave) ?> Request<?= (count($approveLeave) > 1) ? "s" : "" ?></span>
+                            <span class="btn btn-outline-primary">0</span>
                             <p class="mb-0">Approved Request</p>
                         </div>
                         <div class="dash-stats-list">
-                            <span class="btn btn-outline-primary"><?= count($pendingLeave) ?> Request<?= (count($pendingLeave) > 1) ? "s" : "" ?></span>
+                            <span class="btn btn-outline-primary">0</span>
                             <p class="mb-0">Pending</p>
                         </div>
                         <div class="dash-stats-list">
-                            <span class="btn btn-outline-primary"><?= count($allRequest) ?> Request<?= (count($allRequest) > 1) ? "s" : "" ?></span>
+                            <span class="btn btn-outline-primary">0</span>
                             <p class="mb-0">Total</p>
                         </div>
                     </div>
@@ -42,51 +43,44 @@ require "layouts/navbar.php"; ?>
                     <a href="/manages" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
                 </div>
                 <div class="card-body recent-activ">
+
                     <div class="today_leave">
-                        <?php if (count($empBirth) > 0) {
-                            foreach ($empBirth as $userBirth) { ?>
-                                <a href="javascript:void(0)" class="dash-card text-dark">
-                                    <div class="dash-card-container">
-                                        <div class="dash-card-icon text-primary">
-                                            <i class="fa fa-birthday-cake" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="dash-card-content">
-                                            <h6 class="mb-0"><?= $userBirth['first_name'] ?> Birthdays Today</h6>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr />
-                            <?php }
-                        } else { ?>
-                            <a href="javascript:void(0)" class="dash-card text-dark">
-                                <div class="dash-card-container">
-                                    <div class="dash-card-icon text-primary">
-                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="dash-card-content">
-                                        <h6 class="mb-0">No Birthdays Today</h6>
-                                    </div>
+                        <a href="javascript:void(0)" class="dash-card text-dark">
+                            <div class="dash-card-container">
+                                <div class="dash-card-icon text-primary">
+                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>
                                 </div>
-                            </a>
-                            <hr />
-                        <?php } ?>
-                        <?php
-                        foreach ($todayLeaves as $leaves) { ?>
-                            <a href="javascript:void(0)" class="dash-card text-dark">
-                                <div class="dash-card-container">
-                                    <div class="dash-card-icon text-warning">
-                                        <i class="fa fa-bed" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="dash-card-content">
-                                        <h6 class="mb-0">You are on <b><?= $leaves['leaveType_desc'] ?></b> Today</h6>
-                                    </div>
-                                    <div class="dash-card-avatars">
-                                        <div class="e-avatar"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Avatar"></div>
-                                    </div>
+                                <div class="dash-card-content">
+                                    <h6 class="mb-0"><?= $userBirth['first_name'] ?> Birthdays Today</h6>
                                 </div>
-                            </a>
-                            <hr>
-                        <?php } ?>
+                            </div>
+                        </a>
+                        <hr />
+                        <a href="javascript:void(0)" class="dash-card text-dark">
+                            <div class="dash-card-container">
+                                <div class="dash-card-icon text-primary">
+                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                </div>
+                                <div class="dash-card-content">
+                                    <h6 class="mb-0">No Birthdays Today</h6>
+                                </div>
+                            </div>
+                        </a>
+                        <hr />
+                        <a href="javascript:void(0)" class="dash-card text-dark">
+                            <div class="dash-card-container">
+                                <div class="dash-card-icon text-warning">
+                                    <i class="fa fa-bed" aria-hidden="true"></i>
+                                </div>
+                                <div class="dash-card-content">
+                                    <h6 class="mb-0">You are on <b><?= $leaves['leaveType_desc'] ?></b> Today</h6>
+                                </div>
+                                <div class="dash-card-avatars">
+                                    <div class="e-avatar"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Avatar"></div>
+                                </div>
+                            </div>
+                        </a>
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -100,19 +94,15 @@ require "layouts/navbar.php"; ?>
                     </a>
                 </div>
                 <div class="card-body">
-                    <?php foreach ($managers as $employee) { ?>
-
-                        <div class="media mb-3">
-                            <div class="e-avatar avatar-online mr-3">
-                                <img src="<?= $employee['profile'] ?>" alt="Maria Cotton" class="img-fluid" />
-                            </div>
-                            <div class="media-body">
-                                <h6 class="m-0"><?= $employee['first_name'] . "  " . $employee['last_name'] ?></h6>
-                                <p><?= $employee['user_email'] ?></p>
-                            </div>
+                    <div class="media mb-3">
+                        <div class="e-avatar avatar-online mr-3">
+                            <img src="<?= $employee['profile'] ?>" alt="Maria Cotton" class="img-fluid" />
                         </div>
-                        <hr />
-                    <?php } ?>
+                        <div class="media-body">
+                            <h6 class="m-0"><?= $employee['first_name'] . "  " . $employee['last_name'] ?></h6>
+                            <p><?= $employee['user_email'] ?></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,9 +193,6 @@ require "layouts/navbar.php"; ?>
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
 </div>
 <!--/Content-->
 <?php require "layouts/footer.php"; ?>
