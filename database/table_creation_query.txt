@@ -1,18 +1,18 @@
-CREATE TABLE userRole(
+CREATE TABLE IF NOT EXISTS userRole(
   id INTEGER PRIMARY KEY  AUTOINCREMENT,
   name varchar(250) unique,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE permission(
+CREATE TABLE IF NOT EXISTS permission(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     key VARCHAR(250),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE role_permissions (
+CREATE TABLE IF NOT EXISTS role_permissions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     can_read BOOLEAN DEFAULT NULL,
     can_update BOOLEAN DEFAULT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE role_permissions (
     FOREIGN KEY (permission_id) REFERENCES permission(id)
 );
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email VARCHAR(250) UNIQUE,
     password VARCHAR(20),
@@ -36,7 +36,7 @@ CREATE TABLE users (
     FOREIGN KEY (role_id) REFERENCES userRole(id)
 );
 
-CREATE TABLE user_has_Roles(
+CREATE TABLE IF NOT EXISTS user_has_Roles(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INT,
     role_id INT,
@@ -46,7 +46,7 @@ CREATE TABLE user_has_Roles(
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE positions(
+CREATE TABLE IF NOT EXISTS positions(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(250) DEFAULT  NULL,
     description TEXT DEFAULT NULL,
@@ -54,10 +54,10 @@ CREATE TABLE positions(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE persons(
+CREATE TABLE IF NOT EXISTS persons(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INT,
-    civil_title TEXT CHECK(gender IN ('Mr', 'Mrs','Miss')) DEFAULT NULL,
+    civil_title TEXT CHECK(civil_title IN ('Mr', 'Mrs','Miss')) DEFAULT NULL,
     first_name VARCHAR(250),
     last_name VARCHAR(250),
     gender TEXT CHECK(gender IN ('Male', 'Female')) DEFAULT 'Male',
@@ -70,14 +70,14 @@ CREATE TABLE persons(
 
 );
 
-CREATE TABLE leave_types(
+CREATE TABLE IF NOT EXISTS leave_types(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(250),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE leave_allowances(
+CREATE TABLE IF NOT EXISTS leave_allowances(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     leave_type_id INT,
     used INT DEFAULT 0,
@@ -88,7 +88,7 @@ CREATE TABLE leave_allowances(
     FOREIGN KEY (leave_type_id) REFERENCES leave_types(id)
 );
 
-CREATE TABLE leave_requests(
+CREATE TABLE IF NOT EXISTS leave_requests(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     leave_type_id INT,
     status CHECK ( status IN ('Approved','Rejected','Pending') ) DEFAULT 'Pending',

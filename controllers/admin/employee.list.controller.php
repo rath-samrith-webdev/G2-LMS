@@ -5,8 +5,8 @@ require "models/dapartment.model.php";
 
 // ======= Capture function form profile model ========
 $allemployee = getAlldetails();
-$deparments = getDepartments();
+// $deparments = getDepartments();
 $roles = getRoles();
 $positions = getpositions();
-$managers = getManagers();
+// $managers = getManagers();
 require "views/admin/employee.list.view.php";

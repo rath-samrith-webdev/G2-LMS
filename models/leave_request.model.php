@@ -28,7 +28,7 @@ function getLeaveData(): array
 function getALlleaves()
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests");
+    $statement = $connection->prepare("select * from leave_requests");
     $statement->execute();
 
     return $statement->fetchAll();
@@ -99,7 +99,7 @@ function getleave(int $id, int $uid): array
     return $statement->fetch();
 }
 // ======== add leave request ===============
-function addLeaveRequest($start_date, $end_date, $uid, $leavetype_id,$reason): bool
+function addLeaveRequest($start_date, $end_date, $uid, $leavetype_id, $reason): bool
 {
     global $connection;
     $statement = $connection->prepare("INSERT INTO leave_requests (start_date, end_date, status_id, uid, leavetype_id, reason) VALUES (:start_date, :end_date, :status_id, :uid, :leavetype_id, :reason)");
@@ -120,7 +120,7 @@ function addLeaveRequest($start_date, $end_date, $uid, $leavetype_id,$reason): b
 function allLeavesToday($date)
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where start_date=:date");
+    $statement = $connection->prepare("select * from leave_requests where start_date=:date");
     $statement->execute(
         [':date' => $date]
     );

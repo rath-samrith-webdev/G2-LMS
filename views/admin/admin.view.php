@@ -32,7 +32,7 @@ require "layouts/navbar.php"; ?>
 					</div>
 					<div class="card-right">
 						<h4 class="card-title">Companies</h4>
-						<p class="card-text"><?= count($allCompany) ?></p>
+						<p class="card-text">0</p>
 					</div>
 				</div>
 			</div>
@@ -100,50 +100,30 @@ require "layouts/navbar.php"; ?>
 				</div>
 				<div class="card-body recent-activ">
 					<div class="today">
-						<?php if (count($usersBirthday) > 0) {
-							foreach ($usersBirthday as $userBirth) { ?>
-								<a href="javascript:void(0)" class="dash-card text-dark">
-									<div class="dash-card-container">
-										<div class="dash-card-icon text-primary">
-											<i class="fa fa-birthday-cake" aria-hidden="true"></i>
-										</div>
-										<div class="dash-card-content">
-											<h6 class="mb-0"><?= $userBirth['first_name'] ?> Birthdays Today</h6>
-										</div>
-									</div>
-								</a>
-								<hr />
-							<?php }
-						} else { ?>
-							<a href="javascript:void(0)" class="dash-card text-dark">
-								<div class="dash-card-container">
-									<div class="dash-card-icon text-primary">
-										<i class="fa fa-birthday-cake" aria-hidden="true"></i>
-									</div>
-									<div class="dash-card-content">
-										<h6 class="mb-0">No Birthdays Today</h6>
-									</div>
+						<a href="javascript:void(0)" class="dash-card text-dark">
+							<div class="dash-card-container">
+								<div class="dash-card-icon text-primary">
+									<i class="fa fa-birthday-cake" aria-hidden="true"></i>
 								</div>
-							</a>
-							<hr />
-						<?php } ?>
-						<?php
-						foreach ($todayLeaves as $leaves) { ?>
-							<a href="javascript:void(0)" class="dash-card text-dark">
-								<div class="dash-card-container">
-									<div class="dash-card-icon text-warning">
-										<i class="fa fa-bed" aria-hidden="true"></i>
-									</div>
-									<div class="dash-card-content">
-										<h6 class="mb-0"><?= $leaves['first_name'] ?> is on <b><?= $leaves['leaveType_desc'] ?></b> Today</h6>
-									</div>
-									<div class="dash-card-avatars">
-										<div class="e-avatar"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Avatar"></div>
-									</div>
+								<div class="dash-card-content">
+									<h6 class="mb-0">No Birthdays Today</h6>
 								</div>
-							</a>
-							<hr>
-						<?php } ?>
+							</div>
+						</a>
+						<a href="javascript:void(0)" class="dash-card text-dark">
+							<div class="dash-card-container">
+								<div class="dash-card-icon text-warning">
+									<i class="fa fa-bed" aria-hidden="true"></i>
+								</div>
+								<div class="dash-card-content">
+									<h6 class="mb-0">Test is on <b><?= $leaves['leaveType_desc'] ?></b> Today</h6>
+								</div>
+								<div class="dash-card-avatars">
+									<div class="e-avatar"><img class="img-fluid" src="assets/profile/profiles65ffdeb559a492.95130141.jpg" alt="Avatar"></div>
+								</div>
+							</div>
+						</a>
+						<hr>
 					</div>
 				</div>
 			</div>

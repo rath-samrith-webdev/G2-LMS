@@ -29,19 +29,19 @@ require "layouts/navbar.php"; ?>
                             <div class="card-body">
                                 <div class="pro-widget-content text-center">
                                     <div class="profile-info-widget">
-                                        <a href="/profiles?uid=<?= $employee['uid'] ?>" class="booking-doc-img">
-                                            <img src="<?= $employee['profile'] ?>" alt="User Image">
+                                        <a href="/profiles?uid=<?= $employee['id'] ?>" class="booking-doc-img">
+                                            <img src="<?= $employee['profile_img'] ?>" alt="User Image">
                                         </a>
                                         <div class="profile-det-info">
                                             <h4><?= $employee['first_name'] . " " . $employee['last_name'] ?></a></h4>
                                             <div>
-                                                <p class="mb-0"><b><?= $employee['position_name'] ?></b></p>
+                                                <p class="mb-0"><b><?= $employee['role_name'] ?></b></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-outline-danger me-1 flex-grow-1 remove<?= $employee['uid'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    <button type="button" class="btn text-center btn-theme text-white detail<?= $employee['uid'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                                    <button type="button" class="btn btn-theme text-white edit<?= $employee['uid'] ?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-outline-danger me-1 flex-grow-1 remove<?= $employee['id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn text-center btn-theme text-white detail<?= $employee['id'] ?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-theme text-white edit<?= $employee['id'] ?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@ require "layouts/navbar.php"; ?>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 
 <?php foreach ($allemployee as $employee) { ?>
-    <div class="modal fade " id="detail<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="detail<?= $employee['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -66,7 +66,7 @@ require "layouts/navbar.php"; ?>
                 <div class="modal-body">
                     <div class="d-flex text-black ">
                         <div class="flex-shrink-0">
-                            <img src="<?= $employee['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
+                            <img src="<?= $employee['profile_img'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                         </div>
                         <div class="flex-grow-1 ms-3 ml-4">
                             <h5 class="mb-1">Full Name: <?= $employee['first_name'] . " " . $employee['last_name'] ?></h5>
@@ -74,19 +74,19 @@ require "layouts/navbar.php"; ?>
                             <div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
                                 <div>
                                     <p class="small text-muted mb-1">Date of birth</p>
-                                    <p class="mb-0"><?= $employee['date_of_birth'] ?></p>
+                                    <p class="mb-0"><?= date("Y-m-d", strtotime($employee['date_of_birth'])) ?></p>
                                 </div>
                                 <div class="px-3">
                                     <p class="small text-muted mb-1">Departments</p>
-                                    <p class="mb-0"><?= $employee['department_name'] ?></p>
+                                    <p class="mb-0">Test department</p>
                                 </div>
                                 <div class="px-3">
                                     <p class="small text-muted mb-1">Total allowed leaves</p>
-                                    <p class="mb-0"><?= $employee['total_allowed_leave'] ?></p>
+                                    <p class="mb-0">10</p>
                                 </div>
                                 <div>
                                     <p class="small text-muted mb-1">Salary</p>
-                                    <p class="mb-0"><?= $employee['salary'] ?></p>
+                                    <p class="mb-0">5000</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-start rounded-3 p-2 mb-2" style="background-color: #efefef;">
@@ -96,7 +96,7 @@ require "layouts/navbar.php"; ?>
                                 </div>
                                 <div class="px-3">
                                     <p class="small text-muted mb-1">Phone</p>
-                                    <p class="mb-0"><?= $employee['phone_number'] ?></p>
+                                    <p class="mb-0">0991</p>
                                 </div>
                                 <div class="px-3">
                                     <p class="small text-muted mb-1">Role</p>
@@ -109,7 +109,7 @@ require "layouts/navbar.php"; ?>
             </div>
         </div>
     </div>
-    <div class="modal fade " id="edit<?= $employee['uid'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="edit<?= $employee['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -120,9 +120,9 @@ require "layouts/navbar.php"; ?>
                 </div>
                 <div class="modal-body">
                     <form action="controllers/admin/edit.employee.process.php" method="post" class="d-flex text-black ">
-                        <input type="hidden" value='<?= $employee['uid'] ?>' name='user_id'>
+                        <input type="hidden" value='<?= $employee['id'] ?>' name='user_id'>
                         <div class="flex-shrink-0">
-                            <img src="<?= $employee['profile'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
+                            <img src="<?= $employee['profile_img'] ?>" alt="Generic placeholder image" class="img-fluid" style="width: 180px; border-radius: 10px;">
                             <input type="file" name="profile" style="display:none">
                         </div>
                         <div class="flex-grow-1 ms-3 ml-4">
@@ -146,7 +146,7 @@ require "layouts/navbar.php"; ?>
                             <div class="flex-grow-1">
                                 <div class="form-group">
                                     <label for="first_name">Date of birth *</label>
-                                    <input type="text" class="form-control datetimepicker" name='date_of_birth' id="first_name" value="<?= $employee['date_of_birth'] ?>">
+                                    <input type="text" class="form-control datetimepicker" name='date_of_birth' id="first_name" value="<?= date(strtotime($employee['date_of_birth'])) ?>">
                                 </div>
                             </div>
                             <div class="d-flex">
@@ -154,10 +154,10 @@ require "layouts/navbar.php"; ?>
                                     <label for="first_name">Postion *</label>
                                     <select class="selectpicker form-control" name="position" id="position">
                                         <?php foreach ($positions as $position) {
-                                            if ($position['position_id'] == $employee['position_id']) { ?>
-                                                <option selected value="<?= $position['position_id'] ?>"><?= $position['position_name'] ?></option>
+                                            if ($position['id'] == $employee['position_id']) { ?>
+                                                <option selected value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
                                             <?php } else { ?>
-                                                <option value="<?= $position['position_id'] ?>"><?= $position['position_name'] ?></option>
+                                                <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
                                         <?php }
                                         } ?>
                                     </select>
@@ -166,10 +166,10 @@ require "layouts/navbar.php"; ?>
                                     <label for="first_name">Role *</label>
                                     <select class="selectpicker form-control" name="roles" id="position">
                                         <?php foreach ($roles as $role) {
-                                            if ($role['role_id'] == $employee['role_id']) { ?>
-                                                <option selected value="<?= $role['role_id'] ?>"><?= $role['role_name'] ?></option>
+                                            if ($role['id'] == $employee['role_id']) { ?>
+                                                <option selected value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
                                             <?php } else { ?>
-                                                <option value="<?= $role['role_id'] ?>"><?= $role['role_name'] ?></option>
+                                                <option value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
                                         <?php }
                                         } ?>
                                     </select>
@@ -210,14 +210,14 @@ require "layouts/navbar.php"; ?>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="staticBackdrop<?= $employee['uid'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop<?= $employee['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Remove <?= $employee['first_name'] . " " . $employee['last_name'] ?></h5>
                 </div>
                 <form action="controllers/admin/employee.removal.php" method="post">
-                    <input type="hidden" name="emID" value='<?= $employee['uid'] ?>'>
+                    <input type="hidden" name="emID" value='<?= $employee['id'] ?>'>
                     <div class="modal-body">
                         <p>Employee name <?= $employee['first_name'] . " " . $employee['last_name'] ?> will be deleted</p>
                     </div>
@@ -232,23 +232,19 @@ require "layouts/navbar.php"; ?>
 <?php } ?>
 <?php require "layouts/footer.php" ?>
 <?php foreach ($allemployee as $employee) { ?>
+    <?= $employee['id'] ?>
     <script>
         $(document).ready(function() {
-            $(".detail<?= $employee['uid'] ?>").on("click", function() {
-                $("#detail<?= $employee['uid'] ?>").modal("show");
-                console.log(data);
+            $(".detail<?= $employee['id'] ?>").on("click", function() {
+                console.log('Clicked')
+                $("#detail<?= $employee['id'] ?>").modal("show");
             });
-        });
-        $(document).ready(function() {
-            $(".edit<?= $employee['uid'] ?>").on("click", function() {
-                $("#edit<?= $employee['uid'] ?>").modal("show");
-                console.log(data);
+            $(".edit<?= $employee['id'] ?>").on("click", function() {
+                console.log('Clicked')
+                $("#edit<?= $employee['id'] ?>").modal("show");
             });
-        });
-        $(document).ready(function() {
-            $(".remove<?= $employee['uid'] ?>").on("click", function() {
-                $("#staticBackdrop<?= $employee['uid'] ?>").modal("show");
-                console.log(data);
+            $(".remove<?= $employee['id'] ?>").on("click", function() {
+                $("#staticBackdrop<?= $employee['id'] ?>").modal("show");
             });
         });
     </script>

@@ -10,6 +10,7 @@ function getData() {
       emp = data.dept_emp;
       months = data.request_months;
       total_requests = data.total_requests;
+      console.log(total_requests);
     })
     .catch((error) => console.log(error));
 }
@@ -21,11 +22,11 @@ $(function () {
   var pieChart = new Chart(ctx, {
     type: "pie",
     data: {
-      labels: title,
+      labels: ["PHP", "IOS", "Design", "Android", "Business", "Testing"],
       datasets: [
         {
           label: "# of Votes",
-          data: emp,
+          data: [12, 19, 3, 5, 2, 3],
           backgroundColor: [
             "rgba(255, 99, 132, 1)",
             "#3E007C",
@@ -52,14 +53,30 @@ $(function () {
   var lineChart = new Chart(ctx, {
     type: "line",
     data: {
-      labels: months,
+      labels: ["Jan", "Feb", "Mar", "Apr", "May"],
       datasets: [
         {
-          label: "Total Requests",
-          data: total_requests,
+          label: "Developer",
+          data: [20, 10, 5, 5, 20],
           fill: false,
           borderColor: "#373651",
           backgroundColor: "#373651",
+          borderWidth: 1,
+        },
+        {
+          label: "Marketing",
+          data: [2, 2, 3, 4, 1],
+          fill: false,
+          borderColor: "#E65A26",
+          backgroundColor: "#E65A26",
+          borderWidth: 1,
+        },
+        {
+          label: "Marketing",
+          data: [1, 3, 6, 8, 10],
+          fill: false,
+          borderColor: "#a1a1a1",
+          backgroundColor: "#a1a1a1",
           borderWidth: 1,
         },
       ],

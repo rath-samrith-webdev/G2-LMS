@@ -1,6 +1,27 @@
 <?php
 
 // ======== create Users ========
+
+// ===== Get Logged in user ====
+
+function getLogginUser(string $email, string $password)
+{
+    global $connection;
+    try {
+        $statement = $connection->prepare("SELECT users.id,users.email,persons.civil_title,persons.first_name,persons.last_name,persons.gender,persons.profile_img,persons.date_of_birth FROM users 
+        INNER JOIN persons ON users.id = persons.user_id 
+        WHERE users.email = :email AND users.password = :password LIMIT 1");
+        $statement->execute([
+            ':email' => $email,
+            ':password' => $password
+        ]);
+        return $statement->fetch();
+    } catch (Exception) {
+        return;
+    }
+}
+
+
 function createUser(string $fsname, string $lsname, string $dateOfbirth, string $phoneNumer, string $email, string $password, string $salary, string $positions, string $roles, string $departments, string $leaves): bool
 {
     global $connection;

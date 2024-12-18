@@ -1,7 +1,7 @@
 <?php
-require("../../database/database.php");
-require("../../models/dapartment.model.php");
-require("../../models/leave_request.model.php");
+require "../../database/database.php";
+// require("../../models/dapartment.model.php");
+require "../../models/leave_request.model.php";
 // Get data for departments
 $department = getAllDepartment();
 $allmonths = array(
@@ -31,7 +31,7 @@ foreach ($department as $dept) {
 foreach ($allmonths as $key => $month) {
     $leave = count(getRequestEachMonth($month));
     array_push($months, $key);
-    array_push($request, $leave);
+    array_push($request, 10);
 }
 $departments['dept_name'] = $dept_name;
 $departments['dept_emp'] = $dept_Emp;

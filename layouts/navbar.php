@@ -1,25 +1,19 @@
 <?php
 //Profile image management.
 if (isset($_SESSION['user'])) {
-    $userExist = true;
-    $adminExist = true; //if the normal user has logged in 
+    $adminExist = true; //if the normal user has logged in
     $username = $_SESSION['user']['first_name'];
     $user_role = (isset($_SESSION['user']['role_id'])) ? $_SESSION['user']['role_id'] : null;
-    if (isset($_SESSION['user']['profile'])) {
-        $uid = $_SESSION['user']['uid'];
-        $img = (isset($_SESSION['user']['profile']) && $_SESSION['user']['profile'] !== "") ? $_SESSION['user']['profile'] : "views/landing/image.login.views.png";
+    if (isset($_SESSION['user']['role_id']) and $_SESSION['user']['role_id'] === 1) { //if that user is an admin user
+        $img = "assets/profile/img-2.jpg";
+        $adminExist = $_SESSION['user']['role_id'] === 1;
+        $username = "Admin";
+    }
+    if (isset($_SESSION['user']['profile_img'])) {
+        $uid = $_SESSION['user']['id'];
+        $img = (isset($_SESSION['user']['profile_img']) && $_SESSION['user']['profile_img'] !== "") ? $_SESSION['user']['profile_img'] : "views/landing/image.login.views.png";
         $username = $_SESSION['user']['first_name'];
-        $uid = $_SESSION['user']['uid']; //if the user already had a profile img
         $user_role = $_SESSION['user']['role_id'];
-        $userExist = true;
-        $adminExist = false;
-    } else {
-        if (isset($_SESSION['user']['admin_username'])) { //if that user is an admin user
-            $img = "assets/profile/img-2.jpg";
-            $adminExist = true;
-            $userExist = false;
-            $username = "Admin";
-        }
     }
 }
 ?>
@@ -75,7 +69,7 @@ if (isset($_SESSION['user'])) {
 
                                         <!-- Notifications -->
                                         <div class="dropdown-menu notification-dropdown-menu shadow-lg border-0 p-3 m-0 dropdown-menu-right">
-                                            <?php if ($userExist and !$adminExist) { ?>
+                                            <?php if ($adminExist) { ?>
                                                 <a class="dropdown-item p-2" href="/profileImage">
                                                     <span class="media align-items-center">
                                                         <span class="lnr lnr-user mr-3"></span>
@@ -128,7 +122,7 @@ if (isset($_SESSION['user'])) {
                                 <hr />
                                 <div class="user-menu-items px-3 m-0">
 
-                                    <?php if (!$userExist and $adminExist) { ?>
+                                    <?php if ($adminExist) { ?>
                                         <a class="p-2" href="/admin">
                                             <span class="media align-items-center">
                                                 <span class="lnr lnr-users mr-3"></span>
@@ -171,7 +165,7 @@ if (isset($_SESSION['user'])) {
                                             </span>
                                         </span>
                                     </a>
-                                    <?php if (!$userExist and $adminExist) { ?>
+                                    <?php if ($adminExist) { ?>
                                         <a class="p-2" href="/reviews">
                                             <span class="media align-items-center">
                                                 <span class="lnr lnr-star mr-3"></span>
@@ -279,52 +273,52 @@ if (isset($_SESSION['user'])) {
                                         function checkActive($path)
                                         {
                                             $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
-                                            return $uri == $path ? "active text-white" : "";
+                                            return $uri == $path ? "active text-white" : "text-dark ";
                                         }
                                         ?>
 
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center text-center">
-                                                <a href="/admin" class="text-dark p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top <?= checkActive('/admin') ?>"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
+                                                <a href="/admin" class="p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top <?= checkActive('/admin') ?>"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/employeelist" class="text-dark p-4 second-slider-btn ctm-border-right ctm-border-top <?= (parse_url($_SERVER["REQUEST_URI"])["path"] == "/createEmployee") ? "active " : "" ?> <?= checkActive('/employeelist') ?>"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
+                                                <a href="/employeelist" class="p-4 second-slider-btn ctm-border-right ctm-border-top <?= (parse_url($_SERVER["REQUEST_URI"])["path"] == "/createEmployee") ? "active " : "" ?> <?= checkActive('/employeelist') ?>"><span class="lnr lnr-users pr-0 pb-lg-2 font-23"></span><span class="">Employees</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/companies" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/companies') ?>"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
+                                                <a href="/companies" class="p-4 ctm-border-right ctm-border-left <?= checkActive('/companies') ?>"><span class="lnr lnr-apartment pr-0 pb-lg-2 font-23"></span><span class="">Departments</span></a>
                                             </div>
                                         <?php } else { ?>
                                             <div class="col-6 align-items-center text-center">
-                                                <a href="/employees" class="text-dark p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top <?= checkActive('/employees') ?>"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
+                                                <a href="/employees" class="p-4 first-slider-btn ctm-border-right ctm-border-left ctm-border-top <?= checkActive('/employees') ?>"><span class="lnr lnr-home pr-0 pb-lg-2 font-23"></span><span class="">Dashboard</span></a>
                                             </div>
                                         <?php } ?>
                                         <div class="col-6 align-items-center shadow-none text-center">
-                                            <a href="/calendars" class="text-dark p-4 ctm-border-right <?= checkActive('/calendars') ?>"><span class="lnr lnr-calendar-full pr-0 pb-lg-2 font-23"></span><span class="">Calendar</span></a>
+                                            <a href="/calendars" class="p-4 ctm-border-right <?= checkActive('/calendars') ?>"><span class="lnr lnr-calendar-full pr-0 pb-lg-2 font-23"></span><span class="">Calendar</span></a>
                                         </div>
                                         <div class="col-6 align-items-center shadow-none text-center">
-                                            <a href="/leaves" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/leaves') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
+                                            <a href="/leaves" class="p-4 ctm-border-right ctm-border-left <?= checkActive('/leaves') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave</span></a>
                                         </div>
                                         <?php if (!$userExist and $adminExist) { ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/createAdmin" class="text-dark p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Admin</span></a>
+                                                <a href="/createAdmin" class="p-4 ctm-border-right ctm-border-left <?= checkActive('/createAdmin') ?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Admin</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/leavetype" class="text-dark p-4 ctm-border-right <?= checkActive('/leavetype') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>
+                                                <a href="/leavetype" class="p-4 ctm-border-right <?= checkActive('/leavetype') ?>"><span class="lnr lnr-briefcase pr-0 pb-lg-2 font-23"></span><span class="">Leave type</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/manages" class="text-dark p-4 ctm-border-right <?= checkActive('/manages') ?>"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Manages</span></a>
+                                                <a href="/manages" class="p-4 ctm-border-right <?= checkActive('/manages') ?>"><span class="lnr lnr-sync pr-0 pb-lg-2 font-23"></span><span class="">Manages</span></a>
                                             </div>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right <?= checkActive('/reviews') ?>"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
+                                                <a href="/reviews" class="p-4 last-slider-btn ctm-border-right <?= checkActive('/reviews') ?>"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
                                             </div>
                                         <?php } else { ?>
                                             <?php if ($user_role == 1) { ?>
                                                 <div class="col-6 align-items-center shadow-none text-center">
-                                                    <a href="/reviews" class="text-dark p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
+                                                    <a href="/reviews" class="p-4 last-slider-btn ctm-border-right"><span class="lnr lnr-star pr-0 pb-lg-2 font-23"></span><span class="">Reviews</span></a>
                                                 </div>
                                             <?php } ?>
                                             <div class="col-6 align-items-center shadow-none text-center">
-                                                <a href="/profiles?uid=<?= $uid ?>" class="text-dark p-4 last-slider-btn ctm-border-right <?= checkActive('/profiles') ?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
+                                                <a href="/profiles?uid=<?= $uid ?>" class="p-4 last-slider-btn ctm-border-right <?= checkActive('/profiles') ?>"><span class="lnr lnr-user pr-0 pb-lg-2 font-23"></span><span class="">Profile</span></a>
                                             </div>
                                         <?php } ?>
                                     </div>
