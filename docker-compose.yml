@@ -1,0 +1,13 @@
+# version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    # Removed depends_on and DB environment variables since SQLite is file-based
+
+volumes:
+  db_data: 

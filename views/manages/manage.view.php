@@ -13,10 +13,10 @@ require "layouts/navbar.php"; ?>
 			<div class="col-xl-6 col-lg-6 col-md-6 d-flex">
 				<div class="card ctm-border-radius shadow-sm grow flex-fill">
 					<div class="card-header">
-						<h4 class="card-title mb-0"><?= $Result_roles['role_name'] ?></h4>
+						<h4 class="card-title mb-0"><?= $Result_roles['name'] ?></h4>
 					</div>
 					<div class="card-body">
-						<p class="card-text"><?= $Result_roles['role_desc'] ?></p>
+						<p class="card-text">No desc</p>
 					</div>
 				</div>
 			</div>

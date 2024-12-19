@@ -76,14 +76,14 @@ include "layouts/navbar.php";
 									<?php foreach($Admin as $data){ ?> 
 									<tr>
 										<td>
-											<a href="/proFileAdmins?id=<?php echo $data['admin_id'] ?>" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $data['admin_profile'] ?>"></a>
+											<a href="/proFileAdmins?id=<?php echo $data['id'] ?>" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $data['profile'] ?>"></a>
 											<h2><a href="employment.html"> <?= $data['first_name'] . ' ' . $data['last_name'] ?></a></h2>
 										</td>
 										<td>
-											<h2><?= $data['phone_number']?></h2>
+											<h2>012345678</h2>
 										</td>
 										<td>
-											<h2><?= $data['admin_email']?></h2>
+											<h2><?= $data['email']?></h2>
 										</td>
 									</tr>
 									<?php }?>

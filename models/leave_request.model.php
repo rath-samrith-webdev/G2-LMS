@@ -28,9 +28,8 @@ function getLeaveData(): array
 function getALlleaves()
 {
     global $connection;
-    $statement = $connection->prepare("select * from leave_requests");
+    $statement = $connection->prepare("SELECT * FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_types.id = leave_requests.leave_type_id");
     $statement->execute();
-
     return $statement->fetchAll();
 }
 
@@ -120,7 +119,7 @@ function addLeaveRequest($start_date, $end_date, $uid, $leavetype_id, $reason): 
 function allLeavesToday($date)
 {
     global $connection;
-    $statement = $connection->prepare("select * from leave_requests where start_date=:date");
+    $statement = $connection->prepare("SELECT * FROM leave_requests WHERE start_date=:date");
     $statement->execute(
         [':date' => $date]
     );
@@ -193,7 +192,7 @@ function hm_time_ago($timestamp)
 function getuserLeaveToday(int $uid, $date): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where start_date=:date and uid=:uid");
+    $statement = $connection->prepare("SELECT * FROM leave_requests WHERE start_date=:date and employee_id=:uid");
     $statement->execute(
         [
             ':date' => $date,

@@ -100,30 +100,50 @@ require "layouts/navbar.php"; ?>
 				</div>
 				<div class="card-body recent-activ">
 					<div class="today">
-						<a href="javascript:void(0)" class="dash-card text-dark">
-							<div class="dash-card-container">
-								<div class="dash-card-icon text-primary">
-									<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+						<?php if ($usersBirthday) {
+							foreach ($usersBirthday as $userBirth) { ?>
+								<a href="javascript:void(0)" class="dash-card text-dark">
+									<div class="dash-card-container">
+										<div class="dash-card-icon text-primary">
+											<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+										</div>
+										<div class="dash-card-content">
+											<h6 class="mb-0"><?= $userBirth['first_name'] ?> Birthdays Today</h6>
+										</div>
+									</div>
+								</a>
+								<hr />
+							<?php }
+						} else { ?>
+							<a href="javascript:void(0)" class="dash-card text-dark">
+								<div class="dash-card-container">
+									<div class="dash-card-icon text-primary">
+										<i class="fa fa-birthday-cake" aria-hidden="true"></i>
+									</div>
+									<div class="dash-card-content">
+										<h6 class="mb-0">No Birthdays Today</h6>
+									</div>
 								</div>
-								<div class="dash-card-content">
-									<h6 class="mb-0">No Birthdays Today</h6>
+							</a>
+							<hr />
+						<?php } ?>
+						<?php
+						foreach ($todayLeaves as $leaves) { ?>
+							<a href="javascript:void(0)" class="dash-card text-dark">
+								<div class="dash-card-container">
+									<div class="dash-card-icon text-warning">
+										<i class="fa fa-bed" aria-hidden="true"></i>
+									</div>
+									<div class="dash-card-content">
+										<h6 class="mb-0"><?= $leaves['first_name'] ?> is on <b><?= $leaves['leaveType_desc'] ?></b> Today</h6>
+									</div>
+									<div class="dash-card-avatars">
+										<div class="e-avatar"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Avatar"></div>
+									</div>
 								</div>
-							</div>
-						</a>
-						<a href="javascript:void(0)" class="dash-card text-dark">
-							<div class="dash-card-container">
-								<div class="dash-card-icon text-warning">
-									<i class="fa fa-bed" aria-hidden="true"></i>
-								</div>
-								<div class="dash-card-content">
-									<h6 class="mb-0">Test is on <b><?= $leaves['leaveType_desc'] ?></b> Today</h6>
-								</div>
-								<div class="dash-card-avatars">
-									<div class="e-avatar"><img class="img-fluid" src="assets/profile/profiles65ffdeb559a492.95130141.jpg" alt="Avatar"></div>
-								</div>
-							</div>
-						</a>
-						<hr>
+							</a>
+							<hr>
+						<?php } ?>
 					</div>
 				</div>
 			</div>
@@ -139,7 +159,7 @@ require "layouts/navbar.php"; ?>
 				<div class="card-body">
 					<?php foreach ($teamLeads as $leader) { ?>
 						<div class="media mb-3">
-							<div class="e-avatar avatar-online mr-3"><img src="<?= $leader['profile'] ?>" alt="<?= $leader['first_name'] . " " . $leader['last_name'] ?>" class="img-fluid"></div>
+							<div class="e-avatar avatar-online mr-3"><img src="<?= $leader['profile_img'] ?>" alt="<?= $leader['first_name'] ?>" class="img-fluid"></div>
 							<div class="media-body">
 								<h6 class="m-0"><?= $leader['first_name'] . " " . $leader['last_name'] ?></h6>
 								<p class="mb-0 ctm-text-sm"><?= $leader['department_name'] ?></p>

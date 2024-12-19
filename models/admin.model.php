@@ -1,27 +1,4 @@
 <?php
-function createAccount(string $name, string $password): bool
-{
-    global $connection;
-    $statement = $connection->prepare("INSERT INTO admins (admin_username, admin_password) VALUES (:admin_username, :admin_password,)");
-    $statement->execute([
-        ':admin_username' => $name,
-        ':admin_password' => $password,
-    ]);
-    return $statement->rowCount() > 0;
-};
-
-// ======= check password ==========
-function accountExist(string $password): array
-{
-    global $connection;
-    $statement = $connection->prepare("SELECT * FROM admins WHERE admin_password = :admin_password");
-    $statement->execute([':admin_password' => $password]);
-    if ($statement->rowCount() > 0) {
-        return $statement->fetch();
-    } else {
-        return [];
-    }
-}
 function getPersonalLeaves(int $uid): array
 {
     global $connection;
@@ -32,9 +9,9 @@ function getPersonalLeaves(int $uid): array
 function getTeamLeads()
 {
     global $connection;
-    $statment = $connection->prepare("SELECT * FROM user_details WHERE position_name=:position_name");
+    $statment = $connection->prepare("SELECT *,departments.name as department_name FROM person_details INNER JOIN persons ON persons.person_detail_id = person_details.id INNER JOIN departments ON departments.id = person_details.department_id WHERE position_id=:position_id");
     $statment->execute(
-        [':position_name' => "Team lead"]
+        [':position_id' => "1"]
     );
     return $statment->fetchAll();
 }
@@ -42,36 +19,28 @@ function getTeamLeads()
 function getEmpBirthday($month, $day): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM users WHERE MONTH(date_of_birth)=:month AND DAY(date_of_birth)=:day;");
-    $statement->execute([':month' => $month, ':day' => $day]);
+    $statement = $connection->prepare("SELECT * FROM users 
+        INNER JOIN persons ON persons.user_id = users.id 
+        WHERE strftime('%m', persons.date_of_birth) = :month 
+        AND strftime('%d', persons.date_of_birth) = :day");
+    $statement->execute([
+        ':month' => sprintf("%02d", $month),
+        ':day' => sprintf("%02d", $day)
+    ]);
     if (!$statement) {
         return [];
     } else {
         return $statement->fetchAll();
     }
 };
-
-// Insert databases to admin 
-function CreateAdmin($first_name, $last_name, $admin_email, $phone_number, $admin_password): bool
-{
-    global $connection;
-    $statement = $connection->prepare("INSERT INTO admins (first_name, last_name, admin_email, phone_number, admin_username, admin_password) VALUES (:first_name, :last_name, :admin_email, :phone_number, :admin_username, :admin_password)");
-    $statement->execute([
-        ':first_name' => $first_name,
-        ':last_name' =>$last_name,
-        ':admin_email' =>$admin_email,
-        ':phone_number' =>$phone_number,
-        ':admin_username' => 'admin',
-        ':admin_password' =>$admin_password,
-    ]);
-    return $statement->rowCount() > 0;
-};
-
 // get admin all
 function getAllAdmin(): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM admins");
+    $statement = $connection->prepare("SELECT DISTINCT persons.*,users.email FROM users 
+        INNER JOIN user_has_Roles ON user_has_Roles.role_id = users.role_id 
+        INNER JOIN persons ON persons.user_id = users.id 
+        WHERE users.role_id = 1");
     $statement->execute();
 
     return $statement->fetchAll();

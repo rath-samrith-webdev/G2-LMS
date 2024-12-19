@@ -1,19 +1,19 @@
 <?php
 //Profile image management.
 if (isset($_SESSION['user'])) {
-    $adminExist = $_SESSION['user']['role_name'] === 'Super Admin'; //if the normal user has logged in
+    $adminExist = $_SESSION['user']['role_name'] === 'Administrator'; //if the normal user has logged in
     $username = $_SESSION['user']['first_name'];
-    $user_role = (isset($_SESSION['user']['role_id'])) ? $_SESSION['user']['role_id'] : null;
-    if (isset($_SESSION['user']['role_id']) and $_SESSION['user']['role_id'] === 1) { //if that user is an admin user
+    $user_role = (isset($_SESSION['user']['role_name'])) ? $_SESSION['user']['role_name'] : null;
+    if (isset($_SESSION['user']['role_name']) and $_SESSION['user']['role_name'] === 'Administrator') { //if that user is an admin user
         $img = "assets/profile/img-2.jpg";
-        $adminExist = $_SESSION['user']['role_id'] === 1;
+        $adminExist = $_SESSION['user']['role_name'] === 'Administrator';
         $username = "Admin";
     }
     if (isset($_SESSION['user']['profile_img'])) {
         $uid = $_SESSION['user']['id'];
         $img = (isset($_SESSION['user']['profile_img']) && $_SESSION['user']['profile_img'] !== "") ? $_SESSION['user']['profile_img'] : "views/landing/image.login.views.png";
         $username = $_SESSION['user']['first_name'];
-        $user_role = $_SESSION['user']['role_id'];
+        $user_role = $_SESSION['user']['role_name'];
     }
 }
 ?>
@@ -36,7 +36,7 @@ if (isset($_SESSION['user'])) {
                         <div class="user-block d-none d-lg-block">
                             <div class="row align-items-center">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <!-- <div class="user-notification-block align-right d-inline-block">
+                                    <div class="user-notification-block align-right d-inline-block">
                                         <div class="top-nav-search">
                                             <form>
                                                 <input type="text" class="form-control" placeholder="Search here" />
@@ -45,7 +45,7 @@ if (isset($_SESSION['user'])) {
                                                 </button>
                                             </form>
                                         </div>
-                                    </div> -->
+                                    </div>
                                     <!-- User notification-->
                                     <div class="user-notification-block align-right d-inline-block">
                                         <ul class="list-inline m-0">

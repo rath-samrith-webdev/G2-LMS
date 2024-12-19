@@ -4,12 +4,12 @@ require '../../database/database.php';
 require '../../models/user.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /loginAdmin?error=Invalid request method');
+    header('Location: /?error=Invalid request method');
     exit();
 }
 
 if (!isset($_POST['name']) || !isset($_POST['password'])) {
-    header('Location: /loginAdmin?error=Missing credentials');
+    header('Location: /?error=Missing credentials');
     exit();
 }
 
@@ -19,13 +19,13 @@ $password = $_POST['password'];
 
 // Validate email
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header('Location: /loginAdmin?error=Invalid email format');
+    header('Location: /?error=Invalid email format');
     exit();
 }
 
 // Validate password length
 if (strlen($password) < 6) {
-    header('Location: /loginAdmin?error=Password must be at least 6 characters');
+    header('Location: /?error=Password must be at least 6 characters');
     exit();
 }
 
@@ -38,7 +38,7 @@ if (empty($user)) {
 }
 
 // Check if user is admin, if not redirect to employees page
-if (isset($user['role_name']) and $user['role_name'] !== 'Super Admin') {
+if (isset($user['role_name']) and $user['role_name'] !== 'Administrator') {
     $_SESSION['user'] = $user;
     $_SESSION['login'] = 1;
     header('Location: /employees');

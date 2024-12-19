@@ -7,7 +7,7 @@
 function getLogginUser(string $email, string $password)
 {
     global $connection;
-    $statement = $connection->prepare("SELECT users.id,users.email,persons.civil_title,persons.first_name,persons.last_name,persons.gender,persons.profile_img,persons.date_of_birth,userRole.name AS role_name FROM users 
+    $statement = $connection->prepare("SELECT users.id,users.email,persons.civil_title,persons.first_name,persons.last_name,persons.gender,persons.profile_img,persons.date_of_birth,userRole.name AS role_name,user_has_Roles.company_id  FROM users 
     INNER JOIN persons ON users.id = persons.user_id INNER JOIN user_has_Roles ON user_has_Roles.user_id =users.id INNER JOIN userRole ON userRole.id==user_has_Roles.role_id
     WHERE users.email = :email AND users.password = :password LIMIT 1");
     $statement->execute([
@@ -106,7 +106,7 @@ function getUsers(): array
 function getRolesAll(): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM userroles");
+    $statement = $connection->prepare("SELECT * FROM userRole");
     $statement->execute();
     return $statement->fetchAll();
 }

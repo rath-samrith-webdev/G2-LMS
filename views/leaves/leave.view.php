@@ -161,11 +161,11 @@ include "layouts/navbar.php"; ?>
 							<tbody>
 								<?php foreach ($leave_requests as $request) {
 									$bg = "";
-									if ($request['status_desc'] === "Approved") {
+									if ($request['status'] === "Approved") {
 										$bg = "bg-success";
-									} elseif ($request['status_desc'] === "Pending") {
+									} elseif ($request['status'] === "Pending") {
 										$bg = "bg-warning";
-									} elseif ($request['status_desc'] === "Canceled") {
+									} elseif ($request['status'] === "Canceled") {
 										$bg = "bg-theme";
 									} else {
 										$bg = "bg-danger";
@@ -180,50 +180,38 @@ include "layouts/navbar.php"; ?>
 												<a href="employment.html"><?= $request['first_name'] . " " . $request['last_name'] ?></a>
 											</h2>
 										</td>
-										<td><?= $request['leaveType_desc'] ?></td>
+										<td><?= $request['name'] ?></td>
 										<td><?= $request['start_date'] ?></td>
 										<td><?= $request['end_date'] ?></td>
 										<td>
-											<?php if (!isset($_SESSION['user']['uid'])) { ?>
+											<?php if (!isset($_SESSION['user']['id'])) { ?>
 												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
-													<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
-													<input type="hidden" value="<?= $request['uid'] ?>" name="uid">
+													<input type="hidden" value="<?= $request['id'] ?>" name="request_id">
+													<input type="hidden" value="<?= $request['employee_id'] ?>" name="uid">
 													<select name="leave_status" class="form-control">
-														<?php foreach ($leaves as $leave) {
-															if ($leave['status_desc'] == $request['status_desc']) { ?>
-																<option value="<?= $leave["status_id"] ?>" selected><?= $leave['status_desc'] ?></option>
-															<?php  } else { ?>
-																<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
-														<?php }
-														} ?>
+														<option value="<?= $request["status"] ?>" selected><?= $request["status"] ?></option>
 													</select>
 													<button class="btn btn-theme button-1 text-white">Save</button>
 												</form>
-											<?php } else if ($role_id == 1) { ?>
+											<?php } else if ($_SESSION['user']['role_name'] == 'Administrator') { ?>
 												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
-													<input type="hidden" value="<?= $request['request_id'] ?>" name="request_id">
-													<input type="hidden" value="<?= $request['uid'] ?>" name="uid">
+													<input type="hidden" value="<?= $request['id'] ?>" name="request_id">
+													<input type="hidden" value="<?= $request['employee_id'] ?>" name="uid">
 													<select name="leave_status" class="form-control">
-														<?php foreach ($leaves as $leave) {
-															if ($leave['status_desc'] == $request['status_desc']) { ?>
-																<option value="<?= $leave["status_id"] ?>" selected><?= $leave['status_desc'] ?></option>
-															<?php  } else { ?>
-																<option value="<?= $leave["status_id"] ?>"><?= $leave['status_desc'] ?></option>
-														<?php }
-														} ?>
+														<option value="<?= $request["status"] ?>" selected><?= $request["status"] ?></option>
 													</select>
 													<button class="btn btn-theme button-1 text-white">Save</button>
 												</form>
 											<?php } else { ?>
-												<p class="<?= $bg ?> text-center text-white"><?= $request['status_desc'] ?></p>
+												<p class="<?= $bg ?> text-center text-white"><?= $request['status'] ?></p>
 											<?php } ?>
 										</td>
 										<td></td>
 										<td class="text-right text-danger">
-											<?php if (!isset($_SESSION['user']['uid'])) { ?>
+											<?php if (isset($_SESSION['user']['id']) &&  $_SESSION['user']['id'] == $request['employee_id']) { ?>
 												<a href="#" class="btn btn-sm btn-outline-danger deletebtn">
 													<span class="lnr lnr-trash"></span> Delete</a>
-											<?php } else if ($request['status_desc'] === "Pending" && $role_id != 1) { ?>
+											<?php } else if ($request['status'] === "Pending" && $_SESSION['user']['role_name'] !== 'Administrator') { ?>
 												<a href="#" class="btn btn-sm btn-outline-danger cancelbtn">
 													<span class="lnr lnr-cross"></span> Cancel</a>
 											<?php } ?>
@@ -237,10 +225,6 @@ include "layouts/navbar.php"; ?>
 			</div>
 		</div>
 	</div>
-</div>
-</div>
-</div>
-</div>
 </div>
 <!--/Content-->
 

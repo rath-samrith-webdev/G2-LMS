@@ -23,7 +23,7 @@ $routes = [
     '/profileImage' => 'controllers/profiles/profile.upload.controller.php',
     '/leavetypeForm' => 'controllers/leaves/create_form.leave.type.controller.php',
     '/editLeaveType' => 'controllers/leaves/edit_leave.type.controller.php',
-    '/removeall' => 'controllers\leaves\remove.all.request.controller.php',
+    '/removeall' => 'controllers/leaves/remove.all.request.controller.php',
     '/employeelist' => 'controllers/admin/employee.list.controller.php',
     '/export' => 'controllers/export.controller/export.controller.php',
     '/reviewForm' => 'controllers/reviews/review.form.controller.php',
@@ -41,9 +41,13 @@ if (isset($_SESSION['login']) and $_SESSION['login'] === 1) {
         $page = $routes[$uri];
     } else {
         http_response_code(404);
-        $page = 'views/errors/404.php';
+        $page = $routes['/admin'];
     }
 } else {
-    $page = $homeRoutes['/'];
+    if (array_key_exists($uri, $homeRoutes)) {
+        $page = $homeRoutes[$uri];
+    } else {
+        $page = $homeRoutes['/'];
+    }
 }
 require $page;
