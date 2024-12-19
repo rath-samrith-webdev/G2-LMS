@@ -2,7 +2,7 @@
 function getPersonalLeaves(int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM total_requests WHERE uid=:uid");
+    $statement = $connection->prepare("SELECT profile_img,leave_requests.*,first_name,last_name,name FROM leave_requests INNER JOIN persons ON persons.id = leave_requests.employee_id INNER JOIN leave_types ON leave_types.id=leave_requests.leave_type_id WHERE employee_id=:uid");
     $statement->execute([":uid" => $uid]);
     return $statement->fetchAll();
 }

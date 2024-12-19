@@ -3,7 +3,7 @@
 function getAllReviews()
 {
     global $connection;
-    $statement = $connection->prepare("select review_id,reviews.uid,first_name,last_name,profile,reviewType_name,start_date,end_date,status_name from (((reviews inner join review_types on reviews.reviewType_id=review_types.reviewType_id)inner join review_status on reviews.status_id=review_status.status_id)inner join users on reviews.uid=users.uid)");
+    $statement = $connection->prepare("SELECT reviews.*,accounted.id,accounted.first_name as accounted_fname,accounted.first_name as accounted_lname FROM reviews INNER JOIN persons AS accounted ON accounted.id = reviews.accounted_by INNER JOIN persons AS assigned ON reviews.assigned_to=assigned.id");
     $statement->execute();
     return $statement->fetchAll();
 }

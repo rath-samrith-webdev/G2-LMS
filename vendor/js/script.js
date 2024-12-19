@@ -170,7 +170,6 @@ $(document).ready(function () {
       data: { view: view },
       dataType: "json",
       success: function (data) {
-        console.log(data.notification);
         $(".notification").html(data.notification);
         if (data.unseen_notification > 0) {
           $(".count").html(data.unseen_notification);
@@ -204,7 +203,6 @@ $(document).ready(function () {
       data: { view: view },
       dataType: "json",
       success: function (data) {
-        console.log(data);
         $(".recent-comment").html(data.notification);
       },
     });
@@ -225,7 +223,6 @@ $(document).ready(function () {
         return $(this).text();
       })
       .get();
-    console.log(data[0]);
     $("#leave_id").val(data[0]);
   });
 });

@@ -13,24 +13,19 @@ use PHPMailer\PHPMailer\Exception;
 require '../../vendor/autoload.php';
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $user = getUser($_POST['uid']);
-    $status_id = $_POST['leave_status'];
+    $status = $_POST['leave_status'];
     $request_id = $_POST['request_id'];
+    echo 'leave requests'.$request_id;
+    echo 'USER'. $_POST['uid'];
     // ==Send email to employee==//
     $username = $user['first_name'];
-    $request = getleave($request_id, $user['uid']);
-    $leaveType = $request['leaveType_desc'];
-    $leaveStatus = getLeaveData();
-    $newStatus = "";
-    foreach ($leaveStatus as $status) {
-        if ($status['status_id'] == $status_id) {
-            $newStatus = $status['status_desc'];
-        }
-    }
-    if (updateLeaveData($status_id, $request_id)) {
+    $request = getleave($request_id, $user['id']);
+    $leaveType = $request['name'];
+    if (updateLeaveData($status, $request_id)) {
         $email = $user['email'];
         $content = "<div width='100%'><h1><b>Leave request</b></h1><h3>Dear " . $username . ",</h3><p> I am writing to inform you that your " . $leaveType . " has been <b>"
 
-            . $newStatus .
+            . $status .
             "</b>, and you may take time off as requestd. Please ensure that your work is completed before you leave and that you have arranged for someone to cover your responsibilities while you are away.</p><br>If you have any questions or concerns, please do not hesitate to contact me.<p><b>Best regards,<br>LMS-Group2</p></b></div>";
 
         //Create an instance; passing `true` enables exceptions
@@ -56,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             $mail->send();
-            echo 'Message has been sent';
             header("location: /calendars");
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

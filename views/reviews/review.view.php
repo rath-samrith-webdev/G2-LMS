@@ -34,29 +34,24 @@ include "layouts/navbar.php";
 									</tr>
 								</thead>
 								<tbody>
-
 									<!-- ==========Get all reviews========= -->
 									<?php foreach ($reviews as $review) { ?>
 										<tr>
-											<td><?= $review['reviewType_name'] ?></td>
+											<td><?= $review['topic'] ?></td>
 											<td>
 												<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $review['profile'] ?>"></a>
-												<h2><a href="employment.html"> <?= $review['first_name'] . ' ' . $review['last_name'] ?></a></h2>
+												<h2><a href="employment.html"> <?= $review['accounted_fname'] . ' ' . $review['accounted_lname'] ?></a></h2>
 											</td>
 											<td><?= $review['start_date'] ?></td>
 											<td><?= $review['end_date'] ?></td>
 											<td>
 												<!-- ==========Get reviews select all=========== -->
 												<form action="controllers/reviews/edit.status.review.controller.php" class="d-flex justify-content-between" method="post">
-													<input type="hidden" value="<?= $review['review_id'] ?>" name="review_id">
+													<input type="hidden" value="<?= $review['id'] ?>" name="review_id">
 													<select name="status_id" class="form-control">
-														<?php foreach ($review_status as $status) {
-															if ($status['status_name'] == $status['status_name']) { ?>
-																<option value="<?= $status["status_id"] ?>" selected><?= $status['status_name'] ?></option>
-															<?php  } else { ?>
-																<option value="<?= $status["status_id"] ?>"><?= $status['status_name'] ?></option>
-														<?php }
-														} ?>
+														<option value="New" <?php $review['status'] == 'New' ? 'selected' : '' ?>>New</option>
+														<option value="In Progress" <?php $review['status'] == 'In Progress' ? 'selected' : '' ?>>In Progress</option>
+														<option value="Completed" <?php $review['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
 													</select>
 													<button class="btn btn-theme button-1 text-white">Save</button>
 												</form>
@@ -65,7 +60,7 @@ include "layouts/navbar.php";
 												<div class="table-action">
 													<!-- ==========btn edit review=========== -->
 													<form action="/editReview" method="post" class="btn btn-sm">
-														<input type="hidden" value="<?= $review['review_id'] ?>" name="id">
+														<input type="hidden" value="<?= $review['id'] ?>" name="id">
 														<button type="submit" class="btn-sm btn-outline-success"><span class="lnr lnr-pencil"></span> Edit</button>
 													</form>
 													<a href="#" class="btn btn-sm btn-outline-danger deletebtn" data-target="#delete">

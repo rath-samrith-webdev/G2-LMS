@@ -86,29 +86,21 @@ function accountExist(string $email): array
 function employeeUnderManager(int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM user_manager WHERE manager_id = :uid");
+    $statement = $connection->prepare("SELECT users.email,first_name,last_name,profile_img FROM persons INNER JOIN users ON persons.user_id=users.id INNER JOIN person_details ON persons.person_detail_id =person_details.id INNER JOIN departments ON departments.id =person_details.department_id WHERE departments.manager_id = :uid");
     $statement->execute([':uid' => $uid]);
-    if ($statement->rowCount() > 0) {
-        return $statement->fetchAll();
-    } else {
-        return [];
-    }
+    return $statement->fetchAll();
 }
 function getUser(int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM users WHERE uid = :uid");
+    $statement = $connection->prepare("SELECT * FROM users INNER JOIN persons ON persons.user_id = users.id WHERE users.id = :uid LIMIT 1");
     $statement->execute([':uid' => $uid]);
-    if ($statement->rowCount() > 0) {
-        return $statement->fetch();
-    } else {
-        return [];
-    };
+    return $statement->fetch();
 };
 function getUsersBirthday(int $dept_id, $month, $day): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM users WHERE department_id=:dept_id AND MONTH(date_of_birth)=:month AND DAY(date_of_birth)=:day;");
+    $statement = $connection->prepare("SELECT * FROM persons INNER JOIN person_details ON person_details.id=persons.person_detail_id INNER JOIN departments ON departments.id =person_details.department_id WHERE departments.manager_id=:dept_id AND strftime('%m', date_of_birth)=:month AND strftime('%d', date_of_birth)=:day;");
     $statement->execute([":dept_id" => $dept_id, ':month' => $month, ':day' => $day]);
     if (!$statement) {
         return [];
@@ -119,7 +111,7 @@ function getUsersBirthday(int $dept_id, $month, $day): array
 function getUserBirthday(int $uid, $month, $day): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM persons WHERE uid=:uid AND MONTH(date_of_birth)=:month AND DAY(date_of_birth)=:day;");
+    $statement = $connection->prepare("SELECT * FROM persons WHERE user_id=:uid AND strftime('%m', date_of_birth)=:month AND strftime('%d', date_of_birth)=:day;");
     $statement->execute([":uid" => $uid, ':month' => $month, ':day' => $day]);
     if (!$statement) {
         return [];

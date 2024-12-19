@@ -31,7 +31,7 @@ function getLeaves($department_id)
 function getManagers(): array
 {
     global $connection;
-    $stm = $connection->prepare("SELECT * FROM users INNER JOIN persons ON persons.user_id=users.id INNER JOIN person_details ON person_details.id = persons.person_detail_id WHERE role_id=1");
+    $stm = $connection->prepare("SELECT * FROM users INNER JOIN persons ON persons.user_id=users.id INNER JOIN person_details ON person_details.id = persons.person_detail_id");
     $stm->execute();
     if (!$stm) {
         return [];

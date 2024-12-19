@@ -43,69 +43,77 @@ require "layouts/navbar.php"; ?>
                     <a href="/manages" class="d-inline-block float-right text-primary"><i class="lnr lnr-sync"></i></a>
                 </div>
                 <div class="card-body recent-activ">
-
                     <div class="today_leave">
-                        <a href="javascript:void(0)" class="dash-card text-dark">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon text-primary">
-                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                        <?php if ($empBirth) { ?>
+                            <a href="javascript:void(0)" class="dash-card text-dark">
+                                <div class="dash-card-container">
+                                    <div class="dash-card-icon text-primary">
+                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="dash-card-content">
+                                        <h6 class="mb-0"><?= $empBirth['first_name'] ?> Birthdays Today</h6>
+                                    </div>
                                 </div>
-                                <div class="dash-card-content">
-                                    <h6 class="mb-0"><?= $userBirth['first_name'] ?> Birthdays Today</h6>
+                            </a>
+                            <hr />
+                        <?php } else { ?>
+                            <a href="javascript:void(0)" class="dash-card text-dark">
+                                <div class="dash-card-container">
+                                    <div class="dash-card-icon text-primary">
+                                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="dash-card-content">
+                                        <h6 class="mb-0">No Birthdays Today</h6>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                        <hr />
-                        <a href="javascript:void(0)" class="dash-card text-dark">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon text-primary">
-                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                            </a>
+                            <hr />
+                        <?php } ?>
+                        <?php if ($todayLeaves) { ?>
+                            <a href="javascript:void(0)" class="dash-card text-dark">
+                                <div class="dash-card-container">
+                                    <div class="dash-card-icon text-warning">
+                                        <i class="fa fa-bed" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="dash-card-content">
+                                        <h6 class="mb-0">You are on <b><?= $todayLeaves['name'] ?></b> Today</h6>
+                                    </div>
+                                    <div class="dash-card-avatars">
+                                        <div class="e-avatar"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Avatar"></div>
+                                    </div>
                                 </div>
-                                <div class="dash-card-content">
-                                    <h6 class="mb-0">No Birthdays Today</h6>
-                                </div>
-                            </div>
-                        </a>
-                        <hr />
-                        <a href="javascript:void(0)" class="dash-card text-dark">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon text-warning">
-                                    <i class="fa fa-bed" aria-hidden="true"></i>
-                                </div>
-                                <div class="dash-card-content">
-                                    <h6 class="mb-0">You are on <b><?= $leaves['leaveType_desc'] ?></b> Today</h6>
-                                </div>
-                                <div class="dash-card-avatars">
-                                    <div class="e-avatar"><img class="img-fluid" src="<?= $leaves['profile'] ?>" alt="Avatar"></div>
-                                </div>
-                            </div>
-                        </a>
-                        <hr>
+                            </a>
+                            <hr>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-12 d-flex">
-            <!-- Team Leads List -->
-            <div class="card flex-fill team-lead shadow-sm grow">
-                <div class="card-header">
-                    <h4 class="card-title mb-0 d-inline-block"> Team Members</h4>
-                    <!-- <a href="employees-team.html" class="dash-card d-inline-block float-right mb-0 text-primary">Manage Team -->
-                    </a>
-                </div>
-                <div class="card-body">
-                    <div class="media mb-3">
-                        <div class="e-avatar avatar-online mr-3">
-                            <img src="<?= $employee['profile'] ?>" alt="Maria Cotton" class="img-fluid" />
-                        </div>
-                        <div class="media-body">
-                            <h6 class="m-0"><?= $employee['first_name'] . "  " . $employee['last_name'] ?></h6>
-                            <p><?= $employee['user_email'] ?></p>
+        <?php if ($_SESSION['user']['role_name'] == 'Manager') { ?>
+            <div class="col-lg-6 col-md-12 d-flex">
+                <!-- Team Leads List -->
+                <div class="card flex-fill team-lead shadow-sm grow">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0 d-inline-block"> Team Members</h4>
+                        <a href="employees-team.html" class="dash-card d-inline-block float-right mb-0 text-primary">Manage Team
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="media mb-3">
+                            <?php foreach ($managers as $employee) { ?>
+                                <div class="e-avatar avatar-online mr-3">
+                                    <img src="<?= $employee['profile_img'] ?>" alt="Maria Cotton" class="img-fluid" />
+                                </div>
+                                <div class="media-body">
+                                    <h6 class="m-0"><?= $employee['first_name'] . "  " . $employee['last_name'] ?></h6>
+                                    <p><?= $employee['email'] ?></p>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
         <div class="col-lg-6 col-md-12 d-flex">
             <!-- Recent Activities -->
             <div class="card recent-acti flex-fill shadow-sm grow">

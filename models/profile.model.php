@@ -3,7 +3,7 @@
 function oneUser(int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM users WHERE uid=:id LIMIT 1");
+    $statement = $connection->prepare("SELECT * FROM users INNER JOIN persons ON persons.user_id = users.id WHERE users.id=:id LIMIT 1");
     $statement->execute([
         ':id' => $uid
     ]);

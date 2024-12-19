@@ -92,9 +92,9 @@ require "layouts/navbar.php"; ?>
 												<td class="text-primary"><?= $dept['name'] ?></td>
 												<td><a href="javascript:void(0)" class="text-primary">
 														<div class="avatar">
-															<img alt="avatar image" src="<?=$dept['profile_img'] ?>" class="img-fluid">
+															<img alt="avatar image" src="<?= $dept['profile_img'] ?>" class="img-fluid">
 														</div>
-														<?=$dept['first_name'] . " " . $dept['last_name']  ?>
+														<?= $dept['first_name'] . " " . $dept['last_name']  ?>
 													</a></td>
 												<td><?= count($emp) ?></td>
 												<td>
@@ -146,7 +146,7 @@ require "layouts/navbar.php"; ?>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-6 col-6 text-center">
-							<h5 class="btn btn-outline-primary mt-3"><b>0</b></h5>
+							<h5 class="btn btn-outline-primary mt-3"><b><?= count($departments) ?></b></h5>
 							<p class="mb-3">Teams</p>
 						</div>
 						<div class="col-md-6 col-6 text-center">
@@ -452,7 +452,7 @@ require "layouts/navbar.php"; ?>
 										<?php foreach ($empls as $emp) { ?>
 											<tr>
 												<td style="display:none"><?= $emp['id'] ?></td>
-												<td><?= $emp['first_name']. " ". $emp['last_name'] ?></td>
+												<td><?= $emp['first_name'] . " " . $emp['last_name'] ?></td>
 												<td>0</td>
 												<td>0</td>
 												<td>0</td>

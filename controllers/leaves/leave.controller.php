@@ -5,14 +5,14 @@ require "models/leavetype.model.php";
 require "models/admin.model.php";
 // ======== Capture function leave request model =========
 $leaves = getLeaveData();
-$leave_requests = getALlleaves();
+$leave_requests = [];
 $leaveTypes = getAlltypes();
 // ======== Capture function leave request model =========
 $leaves = getLeaveData();
-if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['email'])) {
-    $id = $_SESSION['user']['uid'];
-    $role_id = $_SESSION['user']['role_id'];
-    $dept_id = $_SESSION['user']['department_id'];
+if (isset($_SESSION['user']['id']) and $_SESSION['user']['role_name'] == 'Manager') {
+    $id = $_SESSION['user']['id'];
+    $role_id = $_SESSION['user']['role_name'];
+    $dept_id = $_SESSION['user']['company_id'];
     if ($role_id == 1) {
         $leave_requests = getDepartRequest($dept_id);
     } else {
