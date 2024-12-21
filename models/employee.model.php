@@ -90,7 +90,7 @@ function employeeUnderManager(int $uid): array
     $statement->execute([':uid' => $uid]);
     return $statement->fetchAll();
 }
-function getUser(int $uid): array
+function getUserById(int $uid)
 {
     global $connection;
     $statement = $connection->prepare("SELECT * FROM users INNER JOIN persons ON persons.user_id = users.id WHERE users.id = :uid LIMIT 1");

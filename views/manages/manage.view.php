@@ -16,7 +16,7 @@ require "layouts/navbar.php"; ?>
 						<h4 class="card-title mb-0"><?= $Result_roles['name'] ?></h4>
 					</div>
 					<div class="card-body">
-						<p class="card-text">No desc</p>
+						<p class="card-text"><?= $Result_roles['description'] ?></p>
 					</div>
 				</div>
 			</div>

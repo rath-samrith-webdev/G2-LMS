@@ -6,6 +6,7 @@ require "../../models/profile.model.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file = $_FILES['file'];
     $uid = $_POST['uid'];
+    echo $_POST['uid'];
     $user = oneUser($uid);
     $filename = $_FILES['file']['name'];
     $filetmpName = $_FILES['file']['tmp_name'];
@@ -23,14 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $filenewName = uniqid('', true) . "." . $fileActualExt;
                 $directory = '../../assets/profile/profiles' . $filenewName;
                 $newdirect = 'assets/profile/profiles' . $filenewName;
-                $searchfile = "../../" . $user['profile'];
+                $searchfile = "../../" . $user['profile_img'];
 
                 if ($uid !== '') {
                     if (updateProfile($uid, $newdirect)) {
                         if (file_exists($searchfile)) {
                             unlink($searchfile);
                             move_uploaded_file($filetmpName, $directory);
-                            $_SESSION['user']['profile'] = $newdirect;
+                            $_SESSION['user']['profile_img'] = $newdirect;
                         } else {
                             move_uploaded_file($filetmpName, $directory);
                         }

@@ -22,9 +22,9 @@ include "layouts/navbar.php"; ?>
 											Leave Type
 											<span class="text-danger">*</span>
 										</label>
-										<select class="form-control select" name="leaveType">
+										<select class="form-control select" id="leave_type" name="leaveType">
 											<?php foreach ($leaveTypes as $type) { ?>
-												<option value='<?= $type['leaveType_id'] ?>'><?= $type['leaveType_desc'] ?></option>
+												<option value='<?= $type['id'] ?>'><?= $type['name'] ?></option>
 											<?php } ?>
 										</select>
 									</div>
@@ -34,7 +34,7 @@ include "layouts/navbar.php"; ?>
 										<label>Total days
 											<span class="text-danger">*</span>
 										</label>
-										<input type="text" class="form-control" placeholder="<?= $_SESSION['user']['total_allowed_leave']; ?>" disabled>
+										<input type="text" class="form-control" id="remain_leaves" placeholder="" disabled>
 									</div>
 								</div>
 							</div>
@@ -64,7 +64,6 @@ include "layouts/navbar.php"; ?>
 											<span class="text-danger">*</span>
 										</label>
 										<input type="text" class="form-control" name="statuID" placeholder="Pending" disabled>
-										<!-- <span class="form-control" name="statuID">3</span> -->
 									</div>
 								</div>
 								<div class="col-sm-6 leave-col">
@@ -84,7 +83,7 @@ include "layouts/navbar.php"; ?>
 								</div>
 							</div>
 							<div class="text-center">
-								<button type="submit" class="btn btn-theme button-1 text-white ctm-border-radius mt-4">Add Request</button>
+								<button type="submit" class="btn btn-theme button-1 text-white ctm-border-radius mt-4 add_request">Add Request</button>
 								<a href="#" class="btn btn-danger text-white ctm-border-radius mt-4">Cancel</a>
 							</div>
 						</form>
@@ -209,10 +208,10 @@ include "layouts/navbar.php"; ?>
 										<td></td>
 										<td class="text-right text-danger">
 											<?php if (isset($_SESSION['user']['id']) &&  $_SESSION['user']['id'] == $request['employee_id']) { ?>
-												<a href="#" class="btn btn-sm btn-outline-danger deletebtn">
+												<a href="#" class="btn btn-sm btn-outline-danger deletebtn" id="<?= $request['id'] ?>">
 													<span class="lnr lnr-trash"></span> Delete</a>
 											<?php } else if ($request['status'] === "Pending" && $_SESSION['user']['role_name'] !== 'Administrator') { ?>
-												<a href="#" class="btn btn-sm btn-outline-danger cancelbtn">
+												<a href=" #" class="btn btn-sm btn-outline-danger cancelbtn">
 													<span class="lnr lnr-cross"></span> Cancel</a>
 											<?php } ?>
 										</td>
@@ -302,11 +301,34 @@ include "layouts/navbar.php"; ?>
 					<button type="submit" name="deletedata" class="btn btn-outline-danger"> Yes I'm sure </button>
 				</div>
 			</form>
-
 		</div>
 	</div>
 </div>
+
 <?php require "layouts/footer.php"; ?>
+<script>
+	$(document).ready(function() {
+		$(".deletebtn").on("click", function(event) {
+			$("#deletebtn").modal("show");
+			console.log(event.target.id);
+			$("#request_id").val(event.target.id);
+		});
+		$("#leave_type").on("change", function(event) {
+			$.ajax({
+				url: "controllers/leaves/leave_allowances.php",
+				method: "GET",
+				data: {
+					type_id: event.target.value
+				},
+				dataType: "json",
+				success: function(data) {
+					$("#remain_leaves").val(data.remains)
+					$(".add_request").attr("disabled", data.remains === 0)
+				},
+			});
+		});
+	});
+</script>
 <?php
 if (isset($_GET['leaveerror']) &&  $_GET['leaveerror'] === 'notvalid') { ?>
 	<script>

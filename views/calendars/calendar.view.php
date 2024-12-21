@@ -63,6 +63,13 @@ require "layouts/navbar.php"; ?>
 		/* on click on event */
 		(CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
 			<?php if ($role_id == 'Administrator') { ?>
+				if (calEvent.uid == <?php echo json_encode($_SESSION['user']['id']) ?>) {
+					$.notify("You cannot approve your own requests", {
+							position: "bottom-right"
+						},
+						"warn");
+					return;
+				}
 				var $this = this;
 				var form = $("<form action='controllers/calendars/leave.request.approval.php' method='post'></form>");
 				form.append("<input class='form-control' name='uid' type='hidden' value='" + calEvent.uid + "' /><span class='input-group-append'>")
@@ -83,7 +90,7 @@ require "layouts/navbar.php"; ?>
 					.append(`<select name='leave_status' class='form-control ap-action'><option hidden>Select an action</option></select>`)
 				form
 					.find(".ap-action")
-					.append("<option value='1'>Approve</option><option value='2'>Reject</option>")
+					.append("<option value='Approved'>Approve</option><option value='Rejected'>Reject</option>")
 				form
 					.find(".row")
 					.append("<div class='col-sm-12 action'></div>")
@@ -180,7 +187,7 @@ require "layouts/navbar.php"; ?>
 				.append(
 					"<div class='col-sm-6 leave_type'></div>"
 				)
-				.append("<div class='col-sm-6 leave-col'><div class='form-group'><label>Remaining Leaves</label><input type=text' class='form-control' placeholder='10' disabled></div></div>")
+				.append("<div class='col-sm-6 leave-col'><div class='form-group'><label>Remaining Leaves</label><input type=text' id='remain_leaves' class='form-control' disabled></div></div>")
 
 				.find(".leave_type")
 				.append(
@@ -188,7 +195,7 @@ require "layouts/navbar.php"; ?>
 				)
 				.find(".type")
 				.append("<label>Leave Type <span class = 'text-danger'>*</span></label>")
-				.append("<select class='form-control select' name='leave_type'>")
+				.append("<select class='form-control select' id='leave_type' name='leave_type'>")
 				.find(".select")
 			<?php foreach ($leaveTypes as $type) { ?>
 					.append("<option value='<?= $type['id'] ?>'><?= $type['name'] ?></option>")
@@ -207,7 +214,7 @@ require "layouts/navbar.php"; ?>
 			form
 				.find(".row4")
 				.append("<div class='col-sm-12'><div class='form-group mb-0'><label>Reason</label><textarea class='form-control' rows=4></textarea></div></div>")
-			form.append("<button type='submit' class='btn btn-primary mt-5'>Create</button>")
+			form.append(`<button type='submit' class='btn btn-primary mt-5 add_request'>Create</button>`)
 			$this.$modal
 				.find(".delete-event")
 				.hide()
@@ -224,6 +231,21 @@ require "layouts/navbar.php"; ?>
 				.click(function() {
 					form.submit();
 				});
+			$this.$modal.find("#leave_type").on("change", function() {
+				console.log('changed');
+				$.ajax({
+					url: "controllers/leaves/leave_allowances.php",
+					method: "GET",
+					data: {
+						type_id: event.target.value
+					},
+					dataType: "json",
+					success: function(data) {
+						$("#remain_leaves").val(data.remains)
+						$this.$modal.find(".add_request").attr("disabled", data.remains === 0)
+					},
+				});
+			});
 			$this.$modal.find("form").on("submit", function() {
 				var beginning = form.find("input[name='start_date']").val();
 				var ending = form.find("input[name='end_date']").val();

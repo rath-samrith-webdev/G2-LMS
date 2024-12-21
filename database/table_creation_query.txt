@@ -114,12 +114,14 @@ CREATE TABLE IF NOT EXISTS leave_types(
 CREATE TABLE IF NOT EXISTS leave_allowances(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     leave_type_id INT,
+    belong_to INT,
     used INT DEFAULT 0,
     remains INT DEFAULT 0,
     total INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (leave_type_id) REFERENCES leave_types(id)
+    FOREIGN KEY (leave_type_id) REFERENCES leave_types(id),
+    FOREIGN KEY (belong_to) REFERENCES persons(id)
 );
 
 CREATE TABLE IF NOT EXISTS leave_requests(
@@ -316,9 +318,11 @@ VALUES ('Annual Leave'),
        ('Paid Leave');
 
 -- Inserting a record into the `leave_allowances` table
-INSERT INTO leave_allowances (leave_type_id, used, remains, total)
-VALUES (1, 0, 10, 10),
-       (1, 0, 10, 10);
+INSERT INTO leave_allowances (leave_type_id, used,belong_to, remains, total)
+VALUES (1, 0,1, 10, 10),
+       (2, 0,2, 10, 10),
+       (2, 0,1, 10, 10),
+       (1, 0,2, 10, 10);
 
 -- Inserting a record into the `leave_requests` table
 INSERT INTO leave_requests (leave_type_id, status, employee_id, start_date, end_date)
@@ -338,5 +342,25 @@ VALUES ('Monthly Performance Review',
         '2023-10-01',
         '2023-10-31',
         'New');
+
+CREATE TRIGGER deduct_remains_on_approval
+    AFTER UPDATE ON leave_requests
+    FOR EACH ROW
+    WHEN NEW.status = 'Approved' AND OLD.status != 'Approved'
+BEGIN
+    -- Calculate the leave days
+    UPDATE leave_allowances
+    SET remains = remains - (
+        SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER)
+    ),
+        used = used + (
+            SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER)
+        )
+    WHERE leave_type_id = NEW.leave_type_id
+      AND belong_to = NEW.employee_id
+      AND remains >= (
+        SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER)
+    );
+END;
 
 

@@ -12,14 +12,12 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require '../../vendor/autoload.php';
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $user = getUser($_POST['uid']);
+    $user = getUserById($_POST['uid']);
     $status = $_POST['leave_status'];
     $request_id = $_POST['request_id'];
-    echo 'leave requests'.$request_id;
-    echo 'USER'. $_POST['uid'];
     // ==Send email to employee==//
     $username = $user['first_name'];
-    $request = getleave($request_id, $user['id']);
+    $request = getleave($request_id, $_POST['uid']);
     $leaveType = $request['name'];
     if (updateLeaveData($status, $request_id)) {
         $email = $user['email'];

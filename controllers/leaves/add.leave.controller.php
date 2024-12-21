@@ -8,9 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $type = $_POST['leave_type'];
     $start = $_POST['start_date'];
     $end = $_POST['end_date'];
-    $diff = date_diff($end, $start);
-    $leaveRemain = $_SESSION['user']['total_allowed_leave'];
-    $total = $leaveRemain - $diff->format("%a");
     if (date('Y', strtotime($start)) > date('Y', strtotime($end))) {
         header("location: /calendars?leaveerror=notvalid");
     } elseif (date('m', strtotime($start)) > date('m', strtotime($end))) {
@@ -22,12 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
         $isCreate = addLeave($userid, $type, $start, $end);
         if ($isCreate) {
-            if ($total !== '' and $leaveRemain > 0) {
-                $iscreated = updateCurrentLeave($userid, $total);
-                if ($iscreated) {
-                    header("location: /calendars");
-                }
-            }
+            header("location: /calendars");
         }
     }
 }

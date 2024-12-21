@@ -1,19 +1,5 @@
 <?php
 
-// ======== post insert in data ======== 
-function postLeaveData(string $title, string $description): bool
-{
-
-    global $connection;
-    $statement = $connection->prepare("insert into leave_status (title, description) values (:title, :description)");
-    $statement->execute([
-        ':title' => $title,
-        ':description' => $description
-    ]);
-
-    return $statement->rowCount() > 0;
-}
-
 // ======== get select data All =========
 function getLeaveData(): array
 {
@@ -28,7 +14,7 @@ function getLeaveData(): array
 function getALlleaves()
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_types.id = leave_requests.leave_type_id");
+    $statement = $connection->prepare("SELECT leave_requests.*,name,first_name,last_name,profile_img FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_types.id = leave_requests.leave_type_id");
     $statement->execute();
     return $statement->fetchAll();
 }
@@ -59,7 +45,7 @@ function removeAll(): bool
 function deleteLeaveData(int $request_id): bool
 {
     global $connection;
-    $statement = $connection->prepare("delete from leave_requests where request_id = :request_id");
+    $statement = $connection->prepare("DELETE FROM leave_requests WHERE id = :request_id");
     $statement->execute([':request_id' => $request_id]);
     return $statement->rowCount() > 0;
 }
@@ -74,14 +60,14 @@ function getALlUserleaves(int $uid)
 function addLeave($uid, $leaveType, $start_date, $end_date): bool
 {
     global $connection;
-    $statement = $connection->prepare("INSERT INTO leave_requests (uid,leavetype_id,start_date,end_date,status_id) VALUES (:uid,:leaveType_id,:start_date,:end_date,:status_id)");
+    $statement = $connection->prepare("INSERT INTO leave_requests (employee_id,leave_type_id,start_date,end_date,status) VALUES (:uid,:leaveType_id,:start_date,:end_date,:status_id)");
     $statement->execute(
         [
             ':uid' => $uid,
             ':leaveType_id' => $leaveType,
             ':start_date' => $start_date,
             ':end_date' => $end_date,
-            ':status_id' => 3
+            ':status_id' => "Pending"
         ]
     );
     return $statement->rowCount() > 0;
@@ -95,23 +81,6 @@ function getleave(int $id, int $uid): array
         ':uid' => $uid
     ]);
     return $statement->fetch();
-}
-// ======== add leave request ===============
-function addLeaveRequest($start_date, $end_date, $uid, $leavetype_id, $reason): bool
-{
-    global $connection;
-    $statement = $connection->prepare("INSERT INTO leave_requests (start_date, end_date, status_id, uid, leavetype_id, reason) VALUES (:start_date, :end_date, :status_id, :uid, :leavetype_id, :reason)");
-    $statement->execute(
-        [
-            ':uid' => $uid,
-            ':leavetype_id' => $leavetype_id, // Removed extra space here
-            ':start_date' => $start_date,
-            ':end_date' => $end_date,
-            ':status_id' => 3,
-            ':reason' => $reason
-        ]
-    );
-    return $statement->rowCount() > 0;
 }
 // =========Get leave request on specific date======
 
@@ -315,4 +284,18 @@ function getRequestEachMonth($month)
     } else {
         return $statement->fetchAll();
     }
+}
+
+/**
+ * @func getleaverequestsAllowancesByType
+ */
+function getLeaveAllowanceByType(int $type_id, int $user_id): array
+{
+    global $connection;
+    $statement = $connection->prepare('SELECT used,total,remains FROM leave_allowances WHERE leave_type_id=:id AND belong_to=:user_id LIMIT 1');
+    $statement->execute([
+        ":id" => $type_id,
+        ":user_id" => $user_id
+    ]);
+    return $statement->fetch();
 }
