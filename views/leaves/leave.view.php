@@ -197,7 +197,9 @@ include "layouts/navbar.php"; ?>
 													<input type="hidden" value="<?= $request['id'] ?>" name="request_id">
 													<input type="hidden" value="<?= $request['employee_id'] ?>" name="uid">
 													<select name="leave_status" class="form-control">
-														<option value="<?= $request["status"] ?>" selected><?= $request["status"] ?></option>
+														<option value="Pending" <?= $request["status"] == 'Pending' ? 'selected' : '' ?>>Pending</option>
+														<option value="Approved" <?= $request["status"] == 'Approved' ? 'selected' : '' ?>>Approved</option>
+														<option value="Rejected" <?= $request["status"] == 'Rejected' ? 'selected' : '' ?>>Rejected</option>
 													</select>
 													<button class="btn btn-theme button-1 text-white">Save</button>
 												</form>
@@ -236,7 +238,7 @@ include "layouts/navbar.php"; ?>
 <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
+			<div class="modal-header">`
 				<h5 class="modal-title" id="exampleModalLabel">Delete you leave requests</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>

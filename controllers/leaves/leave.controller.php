@@ -9,16 +9,18 @@ $leave_requests = [];
 $leaveTypes = getAlltypes();
 // ======== Capture function leave request model =========
 $leaves = getLeaveData();
-if (isset($_SESSION['user']['id']) and $_SESSION['user']['role_name'] == 'Manager') {
-    $id = $_SESSION['user']['id'];
-    $role_id = $_SESSION['user']['role_name'];
-    $dept_id = $_SESSION['user']['company_id'];
-    if ($role_id == 1) {
-        $leave_requests = getDepartRequest($dept_id);
-    } else {
-        $leave_requests = getPersonalLeaves($id);
-    } // Get the leaves of current user from database
-} else {
-    $leave_requests = getALlleaves(); //get all request for admin
+$id = $_SESSION['user']['id'];
+$role_id = $_SESSION['user']['role_name'];
+$dept_id = $_SESSION['user']['company_id'];
+if ($role_id == 'Manager') {
+    $leave_requests = getDepartRequest($id);
+    require "views/leaves/leave.view.php";
+    return;
 }
+if (isset($_SESSION['user']['role_name']) && $role_id === 'Administrator') {
+    $leave_requests = getALlleaves();
+    require "views/leaves/leave.view.php";
+    return;
+}
+$leave_requests = getALluserleaves($id);
 require "views/leaves/leave.view.php";

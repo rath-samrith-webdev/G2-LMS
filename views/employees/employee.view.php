@@ -99,8 +99,8 @@ require "layouts/navbar.php"; ?>
                         </a>
                     </div>
                     <div class="card-body">
-                        <div class="media mb-3">
-                            <?php foreach ($managers as $employee) { ?>
+                        <?php foreach ($managers as $employee) { ?>
+                            <div class="media mb-3">
                                 <div class="e-avatar avatar-online mr-3">
                                     <img src="<?= $employee['profile_img'] ?>" alt="Maria Cotton" class="img-fluid" />
                                 </div>
@@ -108,8 +108,9 @@ require "layouts/navbar.php"; ?>
                                     <h6 class="m-0"><?= $employee['first_name'] . "  " . $employee['last_name'] ?></h6>
                                     <p><?= $employee['email'] ?></p>
                                 </div>
-                            <?php } ?>
-                        </div>
+                            </div>
+                        <?php } ?>
+
                     </div>
                 </div>
             </div>

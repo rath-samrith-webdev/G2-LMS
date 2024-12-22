@@ -60,7 +60,7 @@ function getALlUserleaves(int $uid)
 function addLeave($uid, $leaveType, $start_date, $end_date): bool
 {
     global $connection;
-    $statement = $connection->prepare("INSERT INTO leave_requests (employee_id,leave_type_id,start_date,end_date,status) VALUES (:uid,:leaveType_id,:start_date,:end_date,:status_id)");
+    $statement = $connection->prepare("INSERT INTO leave_requests (leave_type_id,employee_id,start_date,end_date,status) VALUES (:uid,:leaveType_id,:start_date,:end_date,:status_id)");
     $statement->execute(
         [
             ':uid' => $uid,
@@ -203,7 +203,7 @@ function getOneleaves(int $request_id)
 function getDepartRequest($department_id)
 {
     global $connection;
-    $statement = $connection->prepare("SELECT leave_requests.*,leave_types.name FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_requests.leave_type_id=leave_types.id INNER JOIN person_details ON person_details.id=persons.person_detail_id INNER JOIN departments ON departments.id = person_details.department_id WHERE departments.manager_id = :user_id ORDER BY leave_requests.id DESC");
+    $statement = $connection->prepare("SELECT leave_requests.*,leave_types.name,first_name,last_name,profile_img FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_requests.leave_type_id=leave_types.id INNER JOIN person_details ON person_details.id=persons.person_detail_id INNER JOIN departments ON departments.id = person_details.department_id WHERE departments.manager_id = :user_id ORDER BY leave_requests.id DESC");
     $statement->execute([":user_id" => $department_id]);
     return $statement->fetchAll();
 }

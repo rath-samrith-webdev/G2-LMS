@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $type = $_POST['leave_type'];
     $start = $_POST['start_date'];
     $end = $_POST['end_date'];
+    echo $userid;
+    echo $type;
     if (date('Y', strtotime($start)) > date('Y', strtotime($end))) {
         header("location: /calendars?leaveerror=notvalid");
     } elseif (date('m', strtotime($start)) > date('m', strtotime($end))) {
@@ -17,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } elseif ($leaveRemain < 0) {
         header("location: /calendars?leaveerror=out");
     } else {
-        $isCreate = addLeave($userid, $type, $start, $end);
+        $isCreate = addLeave($type, $userid, $start, $end);
         if ($isCreate) {
             header("location: /calendars");
         }

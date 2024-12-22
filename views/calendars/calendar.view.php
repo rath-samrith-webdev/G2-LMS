@@ -62,15 +62,63 @@ require "layouts/navbar.php"; ?>
 		};
 		/* on click on event */
 		(CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
-			<?php if ($role_id == 'Administrator') { ?>
+			var $this = this;
+			<?php if ($role_id == 'Administrator' || $role_id == 'Manager') { ?>
 				if (calEvent.uid == <?php echo json_encode($_SESSION['user']['id']) ?>) {
 					$.notify("You cannot approve your own requests", {
 							position: "bottom-right"
 						},
 						"warn");
+					var form = $("<div class='col-sm-12'></div>");
+					form.append("<div class='row1 row d-flex justify-content-between'></div>");
+					form.append("<div class='row2 row d-flex justify-content-between'></div>");
+					form.append("<div class='row3 row d-flex justify-content-between'></div>");
+					form
+						.find(".row1")
+						.append("<h5>Leave Title: " + calEvent.title + "</h5>");
+					form
+						.find(".row1")
+						.append("<h5>Approval Status: " + calEvent.status + "</h5>");
+					form
+						.find(".row2")
+						.append("<h5>Start Date: " + calEvent.startDate + "</h5>");
+					form
+						.find(".row2")
+						.append("<h5>End Date: " + calEvent.endDate + "</h5>");
+					form
+						.find(".row3")
+						.append("<h5>Request Date: " + calEvent.requestDate + "</h5>");
+					$this.$modal.modal({
+						backdrop: "static",
+					});
+					$this.$modal
+						.find(".delete-event")
+						.show()
+						.end()
+						.find(".save-event")
+						.hide()
+						.end()
+						.find(".modal-body")
+						.empty()
+						.prepend(form)
+						.end()
+						.find(".delete-event")
+						.unbind("click")
+						.click(function() {
+							$this.$calendarObj.fullCalendar("removeEvents", function(ev) {
+								return ev._id == calEvent._id;
+							});
+							$this.$modal.modal("hide");
+						});
+					$this.$modal.find("form").on("submit", function() {
+						calEvent.title = form.find("input[type=text]").val();
+						$this.$calendarObj.fullCalendar("updateEvent", calEvent);
+						$this.$modal.modal("hide");
+						return false;
+					});
+
 					return;
 				}
-				var $this = this;
 				var form = $("<form action='controllers/calendars/leave.request.approval.php' method='post'></form>");
 				form.append("<input class='form-control' name='uid' type='hidden' value='" + calEvent.uid + "' /><span class='input-group-append'>")
 				form.append("<input class='form-control' name='request_id' type='hidden' value='" + calEvent.id + "' /><span class='input-group-append'>")
@@ -119,56 +167,8 @@ require "layouts/navbar.php"; ?>
 						});
 						$this.$modal.modal("hide");
 					});
-			<?php } else { ?>
-				var $this = this;
-				var form = $("<div class='col-sm-12'></div>");
-				form.append("<div class='row1 row d-flex justify-content-between'></div>");
-				form.append("<div class='row2 row d-flex justify-content-between'></div>");
-				form.append("<div class='row3 row d-flex justify-content-between'></div>");
-				form
-					.find(".row1")
-					.append("<h5>Leave Title: " + calEvent.title + "</h5>");
-				form
-					.find(".row1")
-					.append("<h5>Approval Status: " + calEvent.status + "</h5>");
-				form
-					.find(".row2")
-					.append("<h5>Start Date: " + calEvent.startDate + "</h5>");
-				form
-					.find(".row2")
-					.append("<h5>End Date: " + calEvent.endDate + "</h5>");
-				form
-					.find(".row3")
-					.append("<h5>Request Date: " + calEvent.requestDate + "</h5>");
-				$this.$modal.modal({
-					backdrop: "static",
-				});
-				$this.$modal
-					.find(".delete-event")
-					.show()
-					.end()
-					.find(".save-event")
-					.hide()
-					.end()
-					.find(".modal-body")
-					.empty()
-					.prepend(form)
-					.end()
-					.find(".delete-event")
-					.unbind("click")
-					.click(function() {
-						$this.$calendarObj.fullCalendar("removeEvents", function(ev) {
-							return ev._id == calEvent._id;
-						});
-						$this.$modal.modal("hide");
-					});
-				$this.$modal.find("form").on("submit", function() {
-					calEvent.title = form.find("input[type=text]").val();
-					$this.$calendarObj.fullCalendar("updateEvent", calEvent);
-					$this.$modal.modal("hide");
-					return false;
-				});
 			<?php } ?>
+
 		}),
 		/* on select */
 		(CalendarApp.prototype.onSelect = function(start, end, allDay) {
@@ -284,43 +284,36 @@ require "layouts/navbar.php"; ?>
 			var today = new Date($.now());
 
 			var defaultEvents = [
-				<?php if ($adminExist) {
-					foreach ($leaverequest as $request) {
-						$bg = "";
-						if ($request['status'] === "Approved") {
-							$bg = "bg-success";
-						} elseif ($request['status'] === "Pending") {
-							$bg = "bg-warning";
-						} else {
-							$bg = "bg-danger";
-						}
-				?> {
+				<?php
+				foreach ($leaverequest as $request) {
+					$bg = "";
+					if ($request['status'] === "Approved") {
+						$bg = "bg-success";
+					} elseif ($request['status'] === "Pending") {
+						$bg = "bg-warning";
+					} else {
+						$bg = "bg-danger";
+					}
+					if ($role_id == 'Administrator' || $role_id == 'Manager') { ?> {
 							uid: <?= $request['employee_id']; ?>,
 							id: <?= $request['id'] ?>,
 							title: "<?= $request['employee_id'] == $_SESSION['user']['id'] ? "Me" . ' | ' . $request['name']  :  $request['first_name'] . ' | ' . $request['name'] ?>",
 							start: "<?= $request['start_date'] ?>",
-							className: <?= json_encode($bg) ?>,
-						},
-					<?php }
-				} else { ?>
-					<?php
-					foreach ($leaverequest as $request) {
-						$bg = "";
-						if ($request['status'] === "Approved") {
-							$bg = "bg-success";
-						} elseif ($request['status'] === "Pending") {
-							$bg = "bg-warning";
-						} else {
-							$bg = "bg-danger";
-						} ?> {
-							uid: <?= $request['employee_id']; ?>,
-							id: <?= $request['id'] ?>,
-							title: "<?= $request['name'] ?>",
-							start: "<?= $request['start_date'] ?>",
+							end: "<?= $request['end_date'] ?>",
 							startDate: "<?= $request['start_date'] ?>",
 							endDate: "<?= $request['end_date'] ?>",
 							requestDate: "<?= $request['created_at'] ?>",
+							className: <?= json_encode($bg) ?>,
+						},
+					<?php } else { ?> {
+							id: <?= $request['id'] ?>,
+							title: "<?= $request['name'] ?>",
+							start: "<?= $request['start_date'] ?>",
+							end: "<?= $request['end_date'] ?>",
 							status: "<?= $request['status'] ?>",
+							startDate: "<?= $request['start_date'] ?>",
+							endDate: "<?= $request['end_date'] ?>",
+							requestDate: "<?= $request['created_at'] ?>",
 							className: <?= json_encode($bg) ?>,
 						},
 				<?php }
