@@ -236,11 +236,9 @@ require "layouts/navbar.php"; ?>
     <script>
         $(document).ready(function() {
             $(".detail<?= $employee['id'] ?>").on("click", function() {
-                console.log('Clicked')
                 $("#detail<?= $employee['id'] ?>").modal("show");
             });
             $(".edit<?= $employee['id'] ?>").on("click", function() {
-                console.log('Clicked')
                 $("#edit<?= $employee['id'] ?>").modal("show");
             });
             $(".remove<?= $employee['id'] ?>").on("click", function() {

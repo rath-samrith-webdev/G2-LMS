@@ -6,7 +6,6 @@ require "../../models/profile.model.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file = $_FILES['file'];
     $uid = $_POST['uid'];
-    echo $_POST['uid'];
     $user = oneUser($uid);
     $filename = $_FILES['file']['name'];
     $filetmpName = $_FILES['file']['tmp_name'];
@@ -35,21 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         } else {
                             move_uploaded_file($filetmpName, $directory);
                         }
-                        header('location: /profiles?uid=' . $uid);
+                        header('location: /profiles?uid=' . $uid . '&&success=true');
                     }
                 } else {
                     header('location: /profileImage?user=notfound');
                 }
             } else {
                 header('location: /profileImage?filesize=large');
-                echo "You file size is too large";
             }
         } else {
-            echo "An upload error have been accurred";
             header('location: /profileImage?error=uploaderror');
         }
     } else {
-        echo "You are not allow to upload this file";
         header('location: /profileImage?file=unsupported');
     };
 };

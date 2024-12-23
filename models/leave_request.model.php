@@ -274,11 +274,12 @@ function getuserLeaves(int $uid): array
     return $statement->fetchAll();
 }
 
-function getRequestEachMonth($month)
+function getRequestEachMonth($month, $type = null)
 {
     global  $connection;
-    $statement = $connection->prepare("select * from total_requests where MONTH(start_date)=:month;");
-    $statement->execute([':month' => $month]);
+    $statement = $type ? $connection->prepare("SELECT * FROM leave_requests INNER JOIN leave_types ON leave_types.id=leave_requests.leave_type_id  WHERE strftime('%m', start_date)=:month AND leave_type_id=:type_id ") : $connection->prepare("SELECT * FROM leave_requests INNER JOIN leave_types ON leave_types.id=leave_requests.leave_type_id  WHERE strftime('%m', start_date)=:month");
+    $executable = $type ? [':month' => $month, ':type_id' => $type] : [':month' => $month];
+    $statement->execute($executable);
     if (!$statement) {
         return [];
     } else {

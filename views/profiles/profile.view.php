@@ -81,3 +81,8 @@ include "layouts/navbar.php";
 </div>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 <?php include "layouts/footer.php"; ?>
+<?php if (isset($_GET['success']) && $_GET['success']) { ?>
+	<script>
+		$.notify("Profile Image have been changed", "success")
+	</script>
+<?php } ?>

@@ -281,6 +281,30 @@ BEGIN
                           END);
 END;
 
+CREATE TRIGGER deduct_remains_on_approval
+    AFTER UPDATE
+    ON leave_requests
+    FOR EACH ROW
+    WHEN NEW.status = 'Approved' AND OLD.status != 'Approved'
+BEGIN
+    -- Calculate the leave days
+    UPDATE leave_allowances
+    SET remains = remains - (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER)),
+        used    = used + (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER))
+    WHERE leave_type_id = NEW.leave_type_id
+      AND belong_to = NEW.employee_id
+      AND remains >= (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER));
+END;
+
+CREATE TRIGGER create_leave_allowance_on_user_creation
+    AFTER INSERT
+    ON users
+    FOR EACH ROW
+BEGIN
+    INSERT INTO leave_allowances (belong_to, leave_type_id, used, remains, total, created_at, updated_at)
+    SELECT NEW.id, leave_types.id, 0, 10, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+    FROM leave_types;
+END;
 
 -- Inserting a record into the `userRole` table
 INSERT INTO userRole (name)
@@ -331,8 +355,8 @@ VALUES (1, 1),
 
 -- Inserting a record into the `persons` table
 INSERT INTO persons (user_id, person_detail_id, civil_title, first_name, last_name, profile_img, gender, date_of_birth)
-VALUES (1, 1, 'Mr', 'John', 'Doe', 'profile.jpg', 'Male', '1985-10-15'),
-       (1, 2, 'Mr', 'Jame', 'Doe', 'profile.jpg', 'Male', '1985-10-15');
+VALUES (1, 1, 'Mr', 'John', 'Doe', 'assets/profile/profiles65ffdff03f4170.47764789.jpg', 'Male', '1985-10-15'),
+       (2, 2, 'Mr', 'Jame', 'Doe', 'assets/profile/profiles660228e92ebb81.45498858.jpg', 'Male', '1985-10-15');
 
 -- Inserting a record into the `leave_types` table
 INSERT INTO leave_types (name)
@@ -364,29 +388,6 @@ VALUES ('Monthly Performance Review',
         '2023-10-01',
         '2023-10-31',
         'New');
-
-CREATE TRIGGER deduct_remains_on_approval
-    AFTER UPDATE
-    ON leave_requests
-    FOR EACH ROW
-    WHEN NEW.status = 'Approved' AND OLD.status != 'Approved'
-BEGIN
-    -- Calculate the leave days
-    UPDATE leave_allowances
-    SET remains = remains - (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER)),
-        used    = used + (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER))
-    WHERE leave_type_id = NEW.leave_type_id
-      AND belong_to = NEW.employee_id
-      AND remains >= (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER));
-END;
-
-CREATE TRIGGER create_leave_allowance_on_user_creations
-AFTER INSERT ON users
-BEGIN
-    INSERT INTO leave_allowances (belong_to, leave_type_id, used,remains,total)
-    SELECT NEW.id, leave_types.id, 0,10,10
-    FROM leave_types;
-END;
 
 
 

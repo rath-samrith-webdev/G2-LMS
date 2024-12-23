@@ -75,19 +75,19 @@ require "layouts/navbar.php"; ?>
 					form.append("<div class='row3 row d-flex justify-content-between'></div>");
 					form
 						.find(".row1")
-						.append("<h5>Leave Title: " + calEvent.title + "</h5>");
-					form
-						.find(".row1")
-						.append("<h5>Approval Status: " + calEvent.status + "</h5>");
-					form
-						.find(".row2")
-						.append("<h5>Start Date: " + calEvent.startDate + "</h5>");
+						.append(`<div class="col"></div>`)
+						.append(`<h5 class='text-start'>Leave Title: ${calEvent.title} </h5>`)
+						.append(`<div class="col"></div>`)
+						.append(`<h5 class='text-start'>Approval Status: ${calEvent.status}</h5>`);
 					form
 						.find(".row2")
-						.append("<h5>End Date: " + calEvent.endDate + "</h5>");
+						.append("<h5>Start Date: " + new Date(calEvent.startDate).toDateString() + "</h5>");
+					form
+						.find(".row2")
+						.append("<h5>End Date: " + new Date(calEvent.endDate).toDateString() + "</h5>");
 					form
 						.find(".row3")
-						.append("<h5>Request Date: " + calEvent.requestDate + "</h5>");
+						.append("<h5>Request Date: " + new Date(calEvent.requestDate).toDateString() + "</h5>");
 					$this.$modal.modal({
 						backdrop: "static",
 					});
@@ -300,6 +300,7 @@ require "layouts/navbar.php"; ?>
 							title: "<?= $request['employee_id'] == $_SESSION['user']['id'] ? "Me" . ' | ' . $request['name']  :  $request['first_name'] . ' | ' . $request['name'] ?>",
 							start: "<?= $request['start_date'] ?>",
 							end: "<?= $request['end_date'] ?>",
+							status: "<?= $request['status'] ?>",
 							startDate: "<?= $request['start_date'] ?>",
 							endDate: "<?= $request['end_date'] ?>",
 							requestDate: "<?= $request['created_at'] ?>",

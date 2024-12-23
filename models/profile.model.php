@@ -50,7 +50,7 @@ function getAll(): array
 function updateProfile(int $uid, string $newpath): bool
 {
     global $connection;
-    $statement = $connection->prepare("UPDATE users SET profile=:path WHERE uid=:uid");
+    $statement = $connection->prepare("UPDATE persons SET profile_img=:path WHERE user_id=:uid");
     $statement->execute(
         [
             ':path' => $newpath,

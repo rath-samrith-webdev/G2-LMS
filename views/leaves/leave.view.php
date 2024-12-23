@@ -138,7 +138,7 @@ include "layouts/navbar.php"; ?>
 		<div class="card ctm-border-radius shadow-sm grow">
 			<div class="card-header d-flex justify-content-between">
 				<h4 class="card-title mb-0">Today Leaves</h4>
-				<?php if (isset($_SESSION['user']['admin_username'])) { ?>
+				<?php if (isset($_SESSION['user']['role_name']) && $_SESSION['user']['role_name'] === 'Administrator') { ?>
 					<button type="button" class="btn btn-outline-danger removebtn"> Remove all requests </button>
 				<?php } ?>
 			</div>
@@ -174,7 +174,7 @@ include "layouts/navbar.php"; ?>
 										<td>
 											<h2>
 												<div class="avatar">
-													<img alt="avatar image" src="<?= $request['profile'] ?>" class="img-fluid">
+													<img alt="avatar image" src="<?= $request['profile_img'] ?>" class="img-fluid">
 												</div>
 												<a href="employment.html"><?= $request['first_name'] . " " . $request['last_name'] ?></a>
 											</h2>
@@ -192,8 +192,8 @@ include "layouts/navbar.php"; ?>
 													</select>
 													<button class="btn btn-theme button-1 text-white">Save</button>
 												</form>
-											<?php } else if ($_SESSION['user']['role_name'] == 'Administrator') { ?>
-												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post">
+											<?php } else if (($_SESSION['user']['role_name'] == 'Administrator' || $_SESSION['user']['role_name'] == 'Manager') && $request['employee_id'] !== $_SESSION['user']['id']) { ?>
+												<form action="controllers/leaves/edit_leave_request.controller.php" class="d-flex justify-content-between" method="post" <?= $request['status'] === "Approved" ? 'disabled' : '' ?>>
 													<input type="hidden" value="<?= $request['id'] ?>" name="request_id">
 													<input type="hidden" value="<?= $request['employee_id'] ?>" name="uid">
 													<select name="leave_status" class="form-control">

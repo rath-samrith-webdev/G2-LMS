@@ -1,7 +1,9 @@
-<?php if (isset($_GET['id'])) {
+<?php
+$uid = null;
+if (isset($_GET['id'])) {
     $uid = $_GET['id'];
-} else if (isset($_SESSION['user']['uid'])) {
-    $uid = $_SESSION['user']['uid'];
+} else if (isset($_SESSION['user']['id'])) {
+    $uid = $_SESSION['user']['id'];
 } ?>
 <?php require "layouts/header.php"; ?>
 <!-- Main Wrapper -->
@@ -36,4 +38,32 @@
         </div>
     </div>
 </div>
-<?php require "layouts/footer.php"; ?>
+<?php
+$msg = array(
+    'message' => '',
+    'type' => ''
+);
+if (isset($_GET['user']) && $_GET['user'] === 'notfound') {
+    $msg['message'] = 'The user your trying to update is not found';
+    $msg['type'] = 'danger';
+}
+if (isset($_GET['filesize']) && $_GET['filesize'] === 'large') {
+    $msg['message'] = 'The file is too large';
+    $msg['type'] = 'warning';
+}
+if (isset($_GET['error']) && $_GET['error'] === 'uploaderror') {
+    $msg['message'] = 'There was a problem during upload';
+    $msg['type'] = 'danger';
+}
+if (isset($_GET['file']) && $_GET['file'] === 'unsupported') {
+    $msg['message'] = 'The file you used to upload is not supported';
+    $msg['type'] = 'warning';
+}
+?>
+<?php require "layouts/footer.php" ?>
+<script>
+    $.notify(<?= json_encode($msg['message']) ?>, {
+            position: "top-center"
+        },
+        <?= json_encode($msg['type']) ?>)
+</script>

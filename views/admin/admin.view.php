@@ -189,8 +189,5 @@ require "layouts/navbar.php"; ?>
 		</div>
 	</div>
 </div>
-</div>
-</div>
-</div>
 <!--/Content-->
 <?php require "layouts/footer.php"; ?>
