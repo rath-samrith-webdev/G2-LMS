@@ -10,7 +10,6 @@ function getData() {
       emp = data.dept_emp;
       months = data.request_months;
       total_requests = data.total_requests;
-      console.log(data);
     })
     .catch((error) => console.log(error));
 }

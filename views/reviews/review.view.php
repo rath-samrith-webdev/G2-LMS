@@ -37,9 +37,9 @@ include "layouts/navbar.php";
 									<!-- ==========Get all reviews========= -->
 									<?php foreach ($reviews as $review) { ?>
 										<tr>
-											<td><?= $review['topic'] ?></td>
+											<td><?= $review['topic_name'] ?></td>
 											<td>
-												<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $review['profile'] ?>"></a>
+												<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $review['profile_img'] ?>"></a>
 												<h2><a href="employment.html"> <?= $review['accounted_fname'] . ' ' . $review['accounted_lname'] ?></a></h2>
 											</td>
 											<td><?= $review['start_date'] ?></td>
@@ -88,7 +88,6 @@ include "layouts/navbar.php";
 								<thead>
 									<tr>
 										<th>Review Type Name</th>
-										<th>Created By</th>
 										<th>Added date</th>
 										<th>Actions</th>
 									</tr>
@@ -98,18 +97,9 @@ include "layouts/navbar.php";
 									<?php foreach ($review_type as $type) { ?>
 										<tr>
 											<td>
-												<?= $type['reviewType_name'] ?>
+												<?= $type['topic_name'] ?>
 											</td>
-											<td>
-												<?php if (isset($type['uid'])) { ?>
-													<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $type['profile'] ?>"></a>
-													<h2><a href="employment.html"> <?= $type['first_name'] . ' ' . $type['last_name'] ?></a></h2>
-												<?php } else { ?>
-													<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/profile/img-2.jpg"></a>
-													<h2><a href="employment.html">Admin</a></h2>
-												<?php } ?>
-											</td>
-											<td><?= date("l", strtotime($type['added_time'])) . " " . date("Y-m-y", strtotime($type['added_time'])) ?></td>
+											<td><?= date("l", strtotime($type['created_at'])) . " " . date("Y-m-y", strtotime($type['created_at'])) ?></td>
 											<td>
 												<div class="table-action">
 													<a href="/editReviewType" class="btn btn-sm btn-outline-success">

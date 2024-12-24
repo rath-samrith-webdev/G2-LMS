@@ -3,7 +3,7 @@
 function getAllReviews()
 {
     global $connection;
-    $statement = $connection->prepare("SELECT reviews.*,accounted.id,accounted.first_name as accounted_fname,accounted.first_name as accounted_lname FROM reviews INNER JOIN persons AS accounted ON accounted.id = reviews.accounted_by INNER JOIN persons AS assigned ON reviews.assigned_to=assigned.id");
+    $statement = $connection->prepare("SELECT reviews.*,review_topics.topic_name,accounted.id,accounted.first_name as accounted_fname,accounted.first_name as accounted_lname FROM reviews INNER JOIN review_topics ON reviews.topic_id=review_topics.id INNER JOIN persons AS accounted ON accounted.id = reviews.accounted_by INNER JOIN persons AS assigned ON reviews.assigned_to=assigned.id");
     $statement->execute();
     return $statement->fetchAll();
 }
@@ -21,8 +21,7 @@ function getAllReviewStatus(): array
 function getAllReviewType(): array
 {
     global $connection;
-    $statement = $connection->prepare("select reviewType_id,reviewType_name,review_types.uid,first_name,last_name,added_time,profile from review_types left join users on review_types.uid=users.uid");
-    // $statement = $connection->prepare("select * from review_types");
+    $statement = $connection->prepare("SELECT * FROM review_topics");
     $statement->execute();
     return $statement->fetchAll();
 }
@@ -30,7 +29,7 @@ function getAllReviewType(): array
 function getReview($review_id): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from reviews WHERE review_id=:review_id");
+    $statement = $connection->prepare("select * from reviews WHERE id=:review_id");
     $statement->execute([':review_id' => $review_id]);
     return $statement->fetch();
 }
@@ -75,7 +74,7 @@ function updateReviewStatus(int $uid, int $status_id): bool
 function updateReview($review_id, $reviewType_id, $start_date, $end_date): bool
 {
     global $connection;
-    $statement = $connection->prepare("UPDATE reviews SET reviewType_id=:reviewType_id, start_date=:start_date,end_date=:end_date WHERE review_id=:review_id");
+    $statement = $connection->prepare("UPDATE reviews SET topic_id=:reviewType_id, start_date=:start_date,end_date=:end_date WHERE id=:review_id");
     $statement->execute(
         [
             ':reviewType_id' => $reviewType_id,

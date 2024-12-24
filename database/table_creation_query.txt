@@ -163,10 +163,18 @@ CREATE TABLE IF NOT EXISTS notifications
     FOREIGN KEY (receiver_id) REFERENCES persons (id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS review_topics(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    topic_name VARCHAR(255),
+    description TEXT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS reviews
 (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    topic        VARCHAR(255)                                                            DEFAULT NULL,
+    topic_id     INT,
     accounted_by INT,
     assigned_to  INT,
     start_date   DATE,
@@ -174,8 +182,9 @@ CREATE TABLE IF NOT EXISTS reviews
     status       VARCHAR(255) CHECK ( status IN ('New', 'In Progress', 'Completed', '')) DEFAULT 'New',
     created_at   TIMESTAMP                                                               DEFAULT CURRENT_TIMESTAMP,
     updated_at   TIMESTAMP                                                               DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (accounted_by) REFERENCES persons (id),
-    FOREIGN KEY (assigned_to) REFERENCES persons (id)
+    FOREIGN KEY (accounted_by) REFERENCES persons (id) ON DELETE CASCADE,
+    FOREIGN KEY (assigned_to) REFERENCES persons (id) ON DELETE CASCADE,
+    FOREIGN KEY (topic_id) REFERENCES review_topics(id) ON DELETE CASCADE
 );
 
 CREATE TRIGGER update_leave_requests_updated_at
@@ -375,14 +384,19 @@ INSERT INTO leave_requests (leave_type_id, status, employee_id, start_date, end_
 VALUES (1, 'Pending', 1, '2023-11-01', '2023-11-05'),
        (2, 'Pending', 2, '2023-11-01', '2023-11-05');
 
-INSERT INTO reviews (topic, accounted_by, assigned_to, start_date, end_date, status)
-VALUES ('Monthly Performance Review',
+
+INSERT INTO review_topics (topic_name, description)
+VALUES ('Performance Review', 'Evaluation of employee performance for a given period'),
+       ('Project Review', 'Detailed analysis of project outcome and deliverables');
+
+INSERT INTO reviews (topic_id, accounted_by, assigned_to, start_date, end_date, status)
+VALUES (1,
         1,
         (SELECT id FROM persons WHERE id != 1 LIMIT 1),
         '2023-10-01',
         '2023-10-31',
         'New'),
-       ('Monthly Performance Review',
+       (2,
         1,
         (SELECT id FROM persons WHERE id != 1 LIMIT 1),
         '2023-10-01',

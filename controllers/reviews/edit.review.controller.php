@@ -11,7 +11,4 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     $id= $_POST['id'];
 }
 $review = getReview($id);
-
-// var_dump($review);
-// var_dump($uid);
 require "views/reviews/edit.review.php";
