@@ -110,22 +110,6 @@ $(document).ready(function () {
   });
 });
 $(document).ready(function () {
-  $(".deletebtn").on("click", function () {
-    $("#deletebtn").modal("show");
-
-    $tr = $(this).closest("tr");
-    var data = $tr
-      .children("td")
-      .map(function () {
-        return $(this).text();
-      })
-      .get();
-    console.log(data[0]);
-    $("#request_id").val(data[0]);
-  });
-});
-
-$(document).ready(function () {
   $("#show_hide_password a").on("click", function (event) {
     event.preventDefault();
     if ($("#show_hide_password input").attr("type") == "text") {
@@ -150,7 +134,6 @@ $(document).ready(function () {
         return $(this).text();
       })
       .get();
-    console.log(data[0]);
     $("#request_id").val(data[0]);
   });
 });
@@ -223,7 +206,6 @@ $(document).ready(function () {
         return $(this).text();
       })
       .get();
-    console.log(data[0]);
     $("#leave_id").val(data[0]);
   });
 });

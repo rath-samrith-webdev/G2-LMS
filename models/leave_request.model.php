@@ -1,24 +1,10 @@
 <?php
 
-// ======== post insert in data ======== 
-function postLeaveData(string $title, string $description): bool
-{
-
-    global $connection;
-    $statement = $connection->prepare("insert into leave_status (title, description) values (:title, :description)");
-    $statement->execute([
-        ':title' => $title,
-        ':description' => $description
-    ]);
-
-    return $statement->rowCount() > 0;
-}
-
 // ======== get select data All =========
 function getLeaveData(): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from leave_status");
+    $statement = $connection->prepare("select * from leave_requests");
     $statement->execute();
 
     return $statement->fetchAll();
@@ -28,17 +14,16 @@ function getLeaveData(): array
 function getALlleaves()
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests");
+    $statement = $connection->prepare("SELECT leave_requests.*,name,first_name,last_name,profile_img FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_types.id = leave_requests.leave_type_id");
     $statement->execute();
-
     return $statement->fetchAll();
 }
 
 // ======= Update data ========
-function updateLeaveData(int $status, int $request_id): bool
+function updateLeaveData(string $status, int $request_id): bool
 {
     global $connection;
-    $statement = $connection->prepare("update leave_requests set status_id =:status_id where request_id = :request_id");
+    $statement = $connection->prepare("UPDATE leave_requests SET status =:status_id WHERE id = :request_id");
     $statement->execute([
         ':request_id' => $request_id,
         ':status_id' => $status
@@ -60,7 +45,7 @@ function removeAll(): bool
 function deleteLeaveData(int $request_id): bool
 {
     global $connection;
-    $statement = $connection->prepare("delete from leave_requests where request_id = :request_id");
+    $statement = $connection->prepare("DELETE FROM leave_requests WHERE id = :request_id");
     $statement->execute([':request_id' => $request_id]);
     return $statement->rowCount() > 0;
 }
@@ -68,22 +53,21 @@ function deleteLeaveData(int $request_id): bool
 function getALlUserleaves(int $uid)
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where uid=:uid");
+    $statement = $connection->prepare("SELECT * FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_types.id = leave_requests.leave_type_id WHERE employee_id =:uid");
     $statement->execute([":uid" => $uid]);
-
     return $statement->fetchAll();
 }
 function addLeave($uid, $leaveType, $start_date, $end_date): bool
 {
     global $connection;
-    $statement = $connection->prepare("INSERT INTO leave_requests (uid,leavetype_id,start_date,end_date,status_id) VALUES (:uid,:leaveType_id,:start_date,:end_date,:status_id)");
+    $statement = $connection->prepare("INSERT INTO leave_requests (leave_type_id,employee_id,start_date,end_date,status) VALUES (:uid,:leaveType_id,:start_date,:end_date,:status_id)");
     $statement->execute(
         [
             ':uid' => $uid,
             ':leaveType_id' => $leaveType,
             ':start_date' => $start_date,
             ':end_date' => $end_date,
-            ':status_id' => 3
+            ':status_id' => "Pending"
         ]
     );
     return $statement->rowCount() > 0;
@@ -91,36 +75,19 @@ function addLeave($uid, $leaveType, $start_date, $end_date): bool
 function getleave(int $id, int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where request_id = :id and uid=:uid");
+    $statement = $connection->prepare("SELECT * FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_types.id = leave_requests.leave_type_id  WHERE leave_requests.id = :id AND employee_id=:uid LIMIT 1");
     $statement->execute([
         ':id' => $id,
         ':uid' => $uid
     ]);
     return $statement->fetch();
 }
-// ======== add leave request ===============
-function addLeaveRequest($start_date, $end_date, $uid, $leavetype_id,$reason): bool
-{
-    global $connection;
-    $statement = $connection->prepare("INSERT INTO leave_requests (start_date, end_date, status_id, uid, leavetype_id, reason) VALUES (:start_date, :end_date, :status_id, :uid, :leavetype_id, :reason)");
-    $statement->execute(
-        [
-            ':uid' => $uid,
-            ':leavetype_id' => $leavetype_id, // Removed extra space here
-            ':start_date' => $start_date,
-            ':end_date' => $end_date,
-            ':status_id' => 3,
-            ':reason' => $reason
-        ]
-    );
-    return $statement->rowCount() > 0;
-}
 // =========Get leave request on specific date======
 
 function allLeavesToday($date)
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where start_date=:date");
+    $statement = $connection->prepare("SELECT * FROM leave_requests WHERE start_date=:date");
     $statement->execute(
         [':date' => $date]
     );
@@ -193,7 +160,7 @@ function hm_time_ago($timestamp)
 function getuserLeaveToday(int $uid, $date): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where start_date=:date and uid=:uid");
+    $statement = $connection->prepare("SELECT * FROM leave_requests INNER JOIN persons ON persons.id = leave_requests.employee_id INNER JOIN leave_types ON leave_types.id = leave_requests.leave_type_id WHERE start_date=:date and employee_id=:uid");
     $statement->execute(
         [
             ':date' => $date,
@@ -236,18 +203,14 @@ function getOneleaves(int $request_id)
 function getDepartRequest($department_id)
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM (((leave_requests INNER JOIN users ON leave_requests.uid=users.uid)INNER JOIN leave_status ON leave_requests.status_id=leave_status.status_id)INNER JOIN leave_types ON leave_requests.leavetype_id=leave_types.leaveType_id) WHERE department_id=:dept_id;");
-    $statement->execute([":dept_id" => $department_id]);
-    if (!$statement) {
-        return [];
-    } else {
-        return $statement->fetchAll();
-    }
+    $statement = $connection->prepare("SELECT leave_requests.*,leave_types.name,first_name,last_name,profile_img FROM leave_requests INNER JOIN persons ON persons.id == leave_requests.employee_id INNER JOIN leave_types ON leave_requests.leave_type_id=leave_types.id INNER JOIN person_details ON person_details.id=persons.person_detail_id INNER JOIN departments ON departments.id = person_details.department_id WHERE departments.manager_id = :user_id ORDER BY leave_requests.id DESC");
+    $statement->execute([":user_id" => $department_id]);
+    return $statement->fetchAll();
 }
 function getApproveRequest($department_id)
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM (((leave_requests INNER JOIN users ON leave_requests.uid=users.uid)INNER JOIN leave_status ON leave_requests.status_id=leave_status.status_id)INNER JOIN leave_types ON leave_requests.leavetype_id=leave_types.leaveType_id) WHERE department_id=:dept_id AND status_desc= 'Approved';");
+    $statement = $connection->prepare("SELECT leave_requests.* FROM leave_requests INNER JOIN persons ON persons.id = leave_requests.employee_id INNER JOIN person_details ON person_details.id= persons.person_detail_id INNER JOIN departments ON departments.id = person_details.department_id WHERE departments.manager_id=:dept_id AND status= 'Approved';");
     $statement->execute([":dept_id" => $department_id]);
     if (!$statement) {
         return [];
@@ -258,7 +221,7 @@ function getApproveRequest($department_id)
 function getPendingRequest($department_id)
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM (((leave_requests INNER JOIN users ON leave_requests.uid=users.uid)INNER JOIN leave_status ON leave_requests.status_id=leave_status.status_id)INNER JOIN leave_types ON leave_requests.leavetype_id=leave_types.leaveType_id) WHERE department_id=:dept_id AND status_desc= 'Pending';");
+    $statement = $connection->prepare("SELECT leave_requests.* FROM leave_requests INNER JOIN persons ON persons.id = leave_requests.employee_id INNER JOIN person_details ON person_details.id= persons.person_detail_id INNER JOIN departments ON departments.id = person_details.department_id WHERE departments.manager_id=:dept_id AND status= 'Pending';");
     $statement->execute([":dept_id" => $department_id]);
     if (!$statement) {
         return [];
@@ -269,7 +232,7 @@ function getPendingRequest($department_id)
 function getempLeaveToday(int $dept_id, $date): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM (((leave_requests INNER JOIN users ON leave_requests.uid=users.uid)INNER JOIN leave_status ON leave_requests.status_id=leave_status.status_id)INNER JOIN leave_types ON leave_requests.leavetype_id=leave_types.leaveType_id) WHERE department_id=:dept_id AND start_date=:date");
+    $statement = $connection->prepare("SELECT * FROM leave_requests INNER JOIN persons ON persons.id = leave_requests.employee_id INNER JOIN person_details ON person_details.id =persons.person_detail_id INNER JOIN departments ON departments.id = person_details.department_id WHERE departments.manager_id=:dept_id AND start_date=:date");
     $statement->execute([":dept_id" => $dept_id, ':date' => $date]);
     if (!$statement) {
         return [];
@@ -280,7 +243,7 @@ function getempLeaveToday(int $dept_id, $date): array
 function getuserApproveLeave(int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where status_desc='Approved' and uid=:uid");
+    $statement = $connection->prepare("select * from leave_requests where status='Approved' and employee_id=:uid");
     $statement->execute(
         [
             ':uid' => $uid
@@ -291,7 +254,7 @@ function getuserApproveLeave(int $uid): array
 function getuserPendingLeave(int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where status_desc='Pending' and uid=:uid");
+    $statement = $connection->prepare("select * from leave_requests where status='Pending' and employee_id=:uid");
     $statement->execute(
         [
             ':uid' => $uid
@@ -302,7 +265,7 @@ function getuserPendingLeave(int $uid): array
 function getuserLeaves(int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("select * from total_requests where uid=:uid");
+    $statement = $connection->prepare("select * from leave_requests where employee_id=:uid");
     $statement->execute(
         [
             ':uid' => $uid
@@ -311,14 +274,29 @@ function getuserLeaves(int $uid): array
     return $statement->fetchAll();
 }
 
-function getRequestEachMonth($month)
+function getRequestEachMonth($month, $type = null)
 {
     global  $connection;
-    $statement = $connection->prepare("select * from total_requests where MONTH(start_date)=:month;");
-    $statement->execute([':month' => $month]);
+    $statement = $type ? $connection->prepare("SELECT * FROM leave_requests INNER JOIN leave_types ON leave_types.id=leave_requests.leave_type_id  WHERE strftime('%m', start_date)=:month AND leave_type_id=:type_id ") : $connection->prepare("SELECT * FROM leave_requests INNER JOIN leave_types ON leave_types.id=leave_requests.leave_type_id  WHERE strftime('%m', start_date)=:month");
+    $executable = $type ? [':month' => $month, ':type_id' => $type] : [':month' => $month];
+    $statement->execute($executable);
     if (!$statement) {
         return [];
     } else {
         return $statement->fetchAll();
     }
+}
+
+/**
+ * @func getleaverequestsAllowancesByType
+ */
+function getLeaveAllowanceByType(int $type_id, int $user_id): array
+{
+    global $connection;
+    $statement = $connection->prepare('SELECT used,total,remains FROM leave_allowances WHERE leave_type_id=:id AND belong_to=:user_id LIMIT 1');
+    $statement->execute([
+        ":id" => $type_id,
+        ":user_id" => $user_id
+    ]);
+    return $statement->fetch();
 }

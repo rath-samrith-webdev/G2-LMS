@@ -1,86 +1,54 @@
 <?php
 session_start();
+require '../../database/database.php';
 require "../../models/leave_request.model.php";
-if (isset($_SESSION['user']['uid']) and isset($_SESSION['user']['first_name'])) {//Check if the user is a normal user
+if (isset($_SESSION['user']['id'])) {
     if (isset($_POST['view'])) {
-
-        $con = mysqli_connect("localhost", "root", "", "leave_manage_db");
-        $uid = $_SESSION['user']['uid'];
+        global $connection;
+        $uid = $_SESSION['user']['id'];
+        $adminExist = $_SESSION['user']['role_name'] === 'Administrator';
         if ($_POST["view"] != '') {
-            $update_query = "UPDATE leave_requests SET seen_status=0 WHERE uid=" . $uid . " AND seen_status=1 ";
-            mysqli_query($con, $update_query);
+            $update_query = $connection->prepare("UPDATE notifications SET is_seen=1 WHERE receiver_id=:uid AND is_seen=0 ");
+            $update_query->execute([
+                ':uid' => $uid
+            ]);
         }
-        $query = "SELECT * FROM total_requests WHERE uid=" . $uid . " AND seen_status=0 ORDER BY request_id DESC LIMIT 5";
-        $result = mysqli_query($con, $query);
+        $query = "SELECT * FROM notifications 
+                  INNER JOIN leave_requests ON notifications.leave_request_id=leave_requests.id 
+                  INNER JOIN persons ON persons.id == leave_requests.employee_id 
+                  INNER JOIN leave_types ON leave_requests.leave_type_id=leave_types.id 
+                  WHERE notifications.is_seen=0";
+        $query .= $adminExist ? " ORDER BY leave_requests.id DESC LIMIT 5" : " AND receiver_id=:user_id ORDER BY leave_requests.id DESC LIMIT 5";
+        $executableQuery = $connection->prepare($query);
+        $result = $executableQuery->execute(!$adminExist ? [
+            ':user_id' => $uid
+        ] : null);
         $output = '';
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_array($result)) {
+        $data = $executableQuery->fetchAll();
+        if ($result) {
+            foreach ($data as $row) {
                 $output .= '
-            <li class="notice-board">
-            <div class="table-img">
-              <div class="e-avatar mr-3"><img class="img-fluid" src="' . $row['profile'] . '" alt="' . $row['first_name'] . 'Danny Ward"></div>
-            </div>
-            <div class="notice-body">
-              <h6 class="mb-0">' . $row['first_name'] . ' has requested for ' . $row['leaveType_desc'] . ' .</h6>
-              <span class="ctm-text-sm">' . $row['first_name'] . " " . $row['last_name'] . ' | <b>' . hm_time_ago($row['added_times']) . '</b></span>
-            </div>
-          </li>
-   ';
+                <li class="notice-board">
+                <div class="table-img">
+                  <div class="e-avatar mr-3"><img class="img-fluid" src="' . $row['profile_img'] . '" alt="' . $row['first_name'] . 'Danny Ward"></div>
+                </div>
+                <div class="notice-body">
+                  <h6 class="mb-0">' . $row['first_name'] . ' has requested for ' . $row['name'] . ' .</h6>
+                  <span class="ctm-text-sm">' . $row['first_name'] . " " . $row['last_name'] . ' | <b>' . hm_time_ago($row['created_at']) . '</b></span>
+                </div>
+              </li>';
             }
-        } else {
-            $output .= '
-     <li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
         }
-
-        $status_query = "SELECT * FROM total_requests WHERE uid=" . $uid . " AND seen_status=1";
-        $result_query = mysqli_query($con, $status_query);
-        $count = mysqli_num_rows($result_query);
+        $count = count($data);
+        if ($count === 0) {
+            $output .= '
+            <li class="notice-board"><a href="#" class="text-bold text-italic">There is no notifications as of now</a></li>';
+        }
         $data = array(
             'notification' => $output,
             'unseen_notification'  => $count
         );
-
         echo json_encode($data);
-    }
-} else {
-    if (isset($_POST['view'])) {
-
-        $con = mysqli_connect("localhost", "root", "", "leave_manage_db");
-        if ($_POST["view"] != '') {
-            $update_query = "UPDATE leave_requests SET admin_seen_status=1 WHERE admin_seen_status=0 ";
-            mysqli_query($con, $update_query);
-        }
-        $query = "SELECT * FROM total_requests ORDER BY request_id DESC LIMIT 5";
-        $result = mysqli_query($con, $query);
-        $output = '';
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_array($result)) {
-                $output .= '
-                    <li class="notice-board">
-                    <div class="table-img">
-                      <div class="e-avatar mr-3"><img class="img-fluid" src="' . $row['profile'] . '" alt="' . $row['first_name'] . 'Danny Ward"></div>
-                    </div>
-                    <div class="notice-body">
-                      <h6 class="mb-0">' . $row['first_name'] . ' has requested for ' . $row['leaveType_desc'] . ' .</h6>
-                      <span class="ctm-text-sm">' . $row['first_name'] . " " . $row['last_name'] . ' | <b>' . hm_time_ago($row['added_times']) . '</b></span>
-                    </div>
-                  </li>';
-            }
-        } else {
-            $output .= '
-             <li><a href="#" class="text-bold text-italic">No Noti Found</a></li>';
-        }
-
-
-
-        $status_query = "SELECT * FROM total_requests WHERE admin_seen_status=0";
-        $result_query = mysqli_query($con, $status_query);
-        $count = mysqli_num_rows($result_query);
-        $data = array(
-            'notification' => $output,
-            'unseen_notification'  => $count
-        );
-
-        echo json_encode($data);
+        exit();
     }
 }

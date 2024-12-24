@@ -32,7 +32,7 @@ require "layouts/navbar.php"; ?>
 					</div>
 					<div class="card-right">
 						<h4 class="card-title">Companies</h4>
-						<p class="card-text"><?= count($allCompany) ?></p>
+						<p class="card-text">0</p>
 					</div>
 				</div>
 			</div>
@@ -100,7 +100,7 @@ require "layouts/navbar.php"; ?>
 				</div>
 				<div class="card-body recent-activ">
 					<div class="today">
-						<?php if (count($usersBirthday) > 0) {
+						<?php if ($usersBirthday) {
 							foreach ($usersBirthday as $userBirth) { ?>
 								<a href="javascript:void(0)" class="dash-card text-dark">
 									<div class="dash-card-container">
@@ -159,7 +159,7 @@ require "layouts/navbar.php"; ?>
 				<div class="card-body">
 					<?php foreach ($teamLeads as $leader) { ?>
 						<div class="media mb-3">
-							<div class="e-avatar avatar-online mr-3"><img src="<?= $leader['profile'] ?>" alt="<?= $leader['first_name'] . " " . $leader['last_name'] ?>" class="img-fluid"></div>
+							<div class="e-avatar avatar-online mr-3"><img src="<?= $leader['profile_img'] ?>" alt="<?= $leader['first_name'] ?>" class="img-fluid"></div>
 							<div class="media-body">
 								<h6 class="m-0"><?= $leader['first_name'] . " " . $leader['last_name'] ?></h6>
 								<p class="mb-0 ctm-text-sm"><?= $leader['department_name'] ?></p>
@@ -188,9 +188,6 @@ require "layouts/navbar.php"; ?>
 			</div>
 		</div>
 	</div>
-</div>
-</div>
-</div>
 </div>
 <!--/Content-->
 <?php require "layouts/footer.php"; ?>

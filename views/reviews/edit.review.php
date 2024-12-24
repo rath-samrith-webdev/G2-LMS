@@ -1,13 +1,10 @@
 <?php
-
-use function PHPSTORM_META\type;
-
 include "layouts/header.php";
 include "layouts/navbar.php";
 ?>
 <div class="col-xl-9 col-lg-8 col-md-12">
     <form action="controllers/reviews/update.review.controller.php" method="post">
-        <input type="hidden" value="<?= $review['review_id'] ?>" name="review_id">
+        <input type="hidden" value="<?= $review['id'] ?>" name="review_id">
         <div class="card ctm-border-radius shadow-sm grow">
             <div class="card-header">
                 <h4 class="card-title mb-0 d-inline-block">Edit Review</h4>
@@ -17,7 +14,7 @@ include "layouts/navbar.php";
                     <div class="col-12 form-group">
                         <select class="form-control select" name="type">
                             <?php foreach ($review_type as $type) { ?>
-                                <option value="<?= $type['reviewType_id'] ?>"><?= $type['reviewType_name'] ?></option>
+                                <option value="<?= $type['id'] ?>" <?= $type['id'] === $review['topic_id'] ? "selected" : "" ?>><?= $type['topic_name'] ?></option>
                             <?php } ?>
                         </select>
                     </div>

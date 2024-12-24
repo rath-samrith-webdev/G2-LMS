@@ -8,5 +8,5 @@ $allemployee = getAlldetails();
 $deparments = getDepartments();
 $roles = getRoles();
 $positions = getpositions();
-$managers = getManagers();
+// $managers = getManagers();
 require "views/admin/employee.list.view.php";

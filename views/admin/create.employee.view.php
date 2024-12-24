@@ -58,7 +58,7 @@ require "layouts/navbar.php"; ?>
                                 <select class="form-control select" name="roles">
                                     <option selected>User role</option>
                                     <?php foreach ($roles as $role) { ?>
-                                        <option value="<?= $role['role_id'] ?>"><?= $role['role_name'] ?></option>
+                                        <option value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -66,7 +66,7 @@ require "layouts/navbar.php"; ?>
                                 <select class="form-control select" name="positions">
                                     <option selected>Position</option>
                                     <?php foreach ($positions as $position) { ?>
-                                        <option value="<?= $position['position_id'] ?>"><?= $position['position_name'] ?></option>
+                                        <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -74,7 +74,7 @@ require "layouts/navbar.php"; ?>
                                 <select class="form-control select" name="departments">
                                     <option selected>Department</option>
                                     <?php foreach ($departments as $department) { ?>
-                                        <option value="<?= $department['department_id'] ?>"><?= $department['department_name'] ?></option>
+                                        <option value="<?= $department['id'] ?>"><?= $department['name'] ?></option>
                                     <?php } ?>
 
 

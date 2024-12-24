@@ -23,32 +23,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $filenewName = uniqid('', true) . "." . $fileActualExt;
                 $directory = '../../assets/profile/profiles' . $filenewName;
                 $newdirect = 'assets/profile/profiles' . $filenewName;
-                $searchfile = "../../" . $user['profile'];
+                $searchfile = "../../" . $user['profile_img'];
 
                 if ($uid !== '') {
                     if (updateProfile($uid, $newdirect)) {
                         if (file_exists($searchfile)) {
                             unlink($searchfile);
                             move_uploaded_file($filetmpName, $directory);
-                            $_SESSION['user']['profile'] = $newdirect;
+                            $_SESSION['user']['profile_img'] = $newdirect;
                         } else {
                             move_uploaded_file($filetmpName, $directory);
                         }
-                        header('location: /profiles?uid=' . $uid);
+                        header('location: /profiles?uid=' . $uid . '&&success=true');
                     }
                 } else {
                     header('location: /profileImage?user=notfound');
                 }
             } else {
                 header('location: /profileImage?filesize=large');
-                echo "You file size is too large";
             }
         } else {
-            echo "An upload error have been accurred";
             header('location: /profileImage?error=uploaderror');
         }
     } else {
-        echo "You are not allow to upload this file";
         header('location: /profileImage?file=unsupported');
     };
 };

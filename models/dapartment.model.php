@@ -1,26 +1,20 @@
 <?php
-function getAllDepartment(): array
+function getAllDepartment(int $company_id): array
 {
     global $connection;
-    $stm = $connection->prepare(" SELECT departments.department_id,department_name,department_desc,departments.manager_id,uid,first_name,last_name,date_of_birth,phone_number,email,password,position_id,role_id,salary,profile,users.department_id as user_department,users.manager_id as user_manager_id,total_allowed_leave FROM departments INNER JOIN users ON users.uid=departments.manager_id;");
-    $stm->execute();
-    if (!$stm) {
-        return [];
-    } else {
-        return $stm->fetchAll();
-    }
+    $stm = $connection->prepare("SELECT * FROM departments INNER JOIN persons ON departments.manager_id = persons.id WHERE company_id=:company_id");
+    $stm->execute([
+        ':company_id' => $company_id
+    ]);
+    return $stm->fetchAll();
 }
 
 function getEmployeeUnder($uid)
 {
     global $connection;
-    $stm = $connection->prepare("SELECT * FROM users WHERE department_id=:uid");
+    $stm = $connection->prepare("SELECT * FROM users INNER JOIN persons ON persons.user_id = users.id INNER JOIN person_details ON persons.person_detail_id=person_details.id WHERE person_details.department_id=:uid");
     $stm->execute([':uid' => $uid]);
-    if (!$stm) {
-        return [];
-    } else {
-        return $stm->fetchAll();
-    }
+    return $stm->fetchAll();
 }
 
 function getLeaves($department_id)
@@ -37,7 +31,7 @@ function getLeaves($department_id)
 function getManagers(): array
 {
     global $connection;
-    $stm = $connection->prepare("SELECT * FROM users WHERE role_id=1");
+    $stm = $connection->prepare("SELECT * FROM users INNER JOIN persons ON persons.user_id=users.id INNER JOIN person_details ON person_details.id = persons.person_detail_id");
     $stm->execute();
     if (!$stm) {
         return [];

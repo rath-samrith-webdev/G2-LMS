@@ -3,7 +3,7 @@
 function oneUser(int $uid): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM users WHERE uid=:id LIMIT 1");
+    $statement = $connection->prepare("SELECT * FROM users INNER JOIN persons ON persons.user_id = users.id WHERE users.id=:id LIMIT 1");
     $statement->execute([
         ':id' => $uid
     ]);
@@ -50,7 +50,7 @@ function getAll(): array
 function updateProfile(int $uid, string $newpath): bool
 {
     global $connection;
-    $statement = $connection->prepare("UPDATE users SET profile=:path WHERE uid=:uid");
+    $statement = $connection->prepare("UPDATE persons SET profile_img=:path WHERE user_id=:uid");
     $statement->execute(
         [
             ':path' => $newpath,
@@ -64,7 +64,7 @@ function updateProfile(int $uid, string $newpath): bool
 function getpositions(): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM postions");
+    $statement = $connection->prepare("SELECT * FROM positions");
     $statement->execute();
     return $statement->fetchAll();
 }
@@ -73,7 +73,7 @@ function getpositions(): array
 function getRoles(): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM userroles");
+    $statement = $connection->prepare("SELECT * FROM userRole");
     $statement->execute();
     return $statement->fetchAll();
 }
@@ -119,7 +119,8 @@ function getManager($uid)
 function getAlldetails(): array
 {
     global $connection;
-    $statement = $connection->prepare("SELECT * FROM user_details");
+    $statement = $connection->prepare("SELECT persons.id,persons.user_id,persons.first_name,persons.profile_img,persons.date_of_birth,users.email,persons.last_name,positions.name as position_name,userRole.name as role_name,userRole.id as role_id,
+    positions.id as position_id,departments.name as department_name,departments.id as department_id FROM persons INNER JOIN user_has_Roles ON user_has_Roles.user_id=persons.user_id INNER JOIN userRole ON userRole.id=user_has_Roles.role_id INNER JOIN users ON persons.user_id = users.id INNER JOIN person_details ON person_details.id = persons.person_detail_id INNER JOIN positions ON person_details.position_id = positions.id INNER JOIN departments ON departments.id = person_details.department_id");
     $statement->execute();
     return $statement->fetchAll();
 }

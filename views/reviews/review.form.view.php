@@ -16,7 +16,7 @@ include "layouts/navbar.php";
                     <div class="col-12 form-group">
                         <select class="form-control select" name="type" required>
                             <?php foreach($review_type as $type){ ?> 
-                                <option value="<?= $type['reviewType_id'] ?>"><?=$type['reviewType_name'] ?></option>
+                                <option value="<?= $type['id'] ?>"><?=$type['topic_name'] ?></option>
                             <?php } ?>
                         </select>
                     </div>

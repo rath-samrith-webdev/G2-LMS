@@ -34,29 +34,24 @@ include "layouts/navbar.php";
 									</tr>
 								</thead>
 								<tbody>
-
 									<!-- ==========Get all reviews========= -->
 									<?php foreach ($reviews as $review) { ?>
 										<tr>
-											<td><?= $review['reviewType_name'] ?></td>
+											<td><?= $review['topic_name'] ?></td>
 											<td>
-												<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $review['profile'] ?>"></a>
-												<h2><a href="employment.html"> <?= $review['first_name'] . ' ' . $review['last_name'] ?></a></h2>
+												<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $review['profile_img'] ?>"></a>
+												<h2><a href="employment.html"> <?= $review['accounted_fname'] . ' ' . $review['accounted_lname'] ?></a></h2>
 											</td>
 											<td><?= $review['start_date'] ?></td>
 											<td><?= $review['end_date'] ?></td>
 											<td>
 												<!-- ==========Get reviews select all=========== -->
 												<form action="controllers/reviews/edit.status.review.controller.php" class="d-flex justify-content-between" method="post">
-													<input type="hidden" value="<?= $review['review_id'] ?>" name="review_id">
+													<input type="hidden" value="<?= $review['id'] ?>" name="review_id">
 													<select name="status_id" class="form-control">
-														<?php foreach ($review_status as $status) {
-															if ($status['status_name'] == $status['status_name']) { ?>
-																<option value="<?= $status["status_id"] ?>" selected><?= $status['status_name'] ?></option>
-															<?php  } else { ?>
-																<option value="<?= $status["status_id"] ?>"><?= $status['status_name'] ?></option>
-														<?php }
-														} ?>
+														<option value="New" <?php $review['status'] == 'New' ? 'selected' : '' ?>>New</option>
+														<option value="In Progress" <?php $review['status'] == 'In Progress' ? 'selected' : '' ?>>In Progress</option>
+														<option value="Completed" <?php $review['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
 													</select>
 													<button class="btn btn-theme button-1 text-white">Save</button>
 												</form>
@@ -65,7 +60,7 @@ include "layouts/navbar.php";
 												<div class="table-action">
 													<!-- ==========btn edit review=========== -->
 													<form action="/editReview" method="post" class="btn btn-sm">
-														<input type="hidden" value="<?= $review['review_id'] ?>" name="id">
+														<input type="hidden" value="<?= $review['id'] ?>" name="id">
 														<button type="submit" class="btn-sm btn-outline-success"><span class="lnr lnr-pencil"></span> Edit</button>
 													</form>
 													<a href="#" class="btn btn-sm btn-outline-danger deletebtn" data-target="#delete">
@@ -93,7 +88,6 @@ include "layouts/navbar.php";
 								<thead>
 									<tr>
 										<th>Review Type Name</th>
-										<th>Created By</th>
 										<th>Added date</th>
 										<th>Actions</th>
 									</tr>
@@ -103,18 +97,9 @@ include "layouts/navbar.php";
 									<?php foreach ($review_type as $type) { ?>
 										<tr>
 											<td>
-												<?= $type['reviewType_name'] ?>
+												<?= $type['topic_name'] ?>
 											</td>
-											<td>
-												<?php if (isset($type['uid'])) { ?>
-													<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="<?= $type['profile'] ?>"></a>
-													<h2><a href="employment.html"> <?= $type['first_name'] . ' ' . $type['last_name'] ?></a></h2>
-												<?php } else { ?>
-													<a href="employment.html" class="avatar"><img class="img-fluid" alt="avatar image" src="assets/profile/img-2.jpg"></a>
-													<h2><a href="employment.html">Admin</a></h2>
-												<?php } ?>
-											</td>
-											<td><?= date("l", strtotime($type['added_time'])) . " " . date("Y-m-y", strtotime($type['added_time'])) ?></td>
+											<td><?= date("l", strtotime($type['created_at'])) . " " . date("Y-m-y", strtotime($type['created_at'])) ?></td>
 											<td>
 												<div class="table-action">
 													<a href="/editReviewType" class="btn btn-sm btn-outline-success">

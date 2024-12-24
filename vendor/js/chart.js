@@ -53,16 +53,7 @@ $(function () {
     type: "line",
     data: {
       labels: months,
-      datasets: [
-        {
-          label: "Total Requests",
-          data: total_requests,
-          fill: false,
-          borderColor: "#373651",
-          backgroundColor: "#373651",
-          borderWidth: 1,
-        },
-      ],
+      datasets: total_requests,
     },
     options: {
       responsive: true,

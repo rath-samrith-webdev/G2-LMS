@@ -11,7 +11,7 @@ include "layouts/navbar.php";
 	<div class="row">
 		<div class="col-xl-4 col-lg-6 col-md-6 d-flex">
 			<div class="card flex-fill ctm-border-radius shadow-sm grow">
-				<input type="hidden" value="<?= $user['uid'] ?>" name="uid">
+				<input type="hidden" value="<?= $user['id'] ?>" name="uid">
 				<div class="card-header">
 					<h4 class="card-title mb-0">Basic Information</h4>
 				</div>
@@ -28,7 +28,7 @@ include "layouts/navbar.php";
 					<h4 class="card-title mb-0">Contact</h4>
 				</div>
 				<div class="card-body text-center">
-					<p class="card-text mb-3"><span class="text-primary">Phone Number : </span><?= $user['phone_number'] ?></p>
+					<p class="card-text mb-3"><span class="text-primary">Phone Number : </span>099292920</p>
 					<p class="card-text mb-3"><span class="text-primary">Personal Email : </span>
 						<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfb2beadb6bebcb0ababb0b19fbaa7beb2afb3baf1bcb0b2"><?= $user['email'] ?></a>
 					</p>
@@ -42,7 +42,7 @@ include "layouts/navbar.php";
 					<h4 class="card-title mb-0">Actions</h4>
 				</div>
 				<div class="card-body text-center">
-					<a href="/editEmployee?uid=<?= $user['uid'] ?>" class="btn btn-sm btn-outline-warning" data-target="#delete">
+					<a href="/editEmployee?uid=<?= $user['id'] ?>" class="btn btn-sm btn-outline-warning" data-target="#delete">
 						<span class="lnr lnr-pencil"></span> Edit user
 					</a>
 					<a href="/" class="btn btn-sm btn-outline-danger" data-target="#delete">
@@ -57,8 +57,8 @@ include "layouts/navbar.php";
 					<h4 class="card-title mb-0">Profile Picture</h4>
 				</div>
 				<div class="card-body text-center">
-					<img src="<?php echo (isset($user) && $_SESSION['user']['profile'] != "") ? $user['profile'] : 'views/landing/image.login.views.png'; ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
-					<a href="/profileImage?id=<?php echo $user['uid'] ?>">Change Profile</a>
+					<img src="<?php echo (isset($user) && $_SESSION['user']['profile_img'] != "") ? $user['profile_img'] : 'views/landing/image.login.views.png'; ?>" alt="User Avatar" class="img-fluid rounded-circle" width="100">
+					<a href="/profileImage?id=<?php echo $user['id'] ?>">Change Profile</a>
 				</div>
 			</div>
 		</div>
@@ -81,3 +81,8 @@ include "layouts/navbar.php";
 </div>
 <div class="sidebar-overlay" id="sidebar_overlay"></div>
 <?php include "layouts/footer.php"; ?>
+<?php if (isset($_GET['success']) && $_GET['success']) { ?>
+	<script>
+		$.notify("Profile Image have been changed", "success")
+	</script>
+<?php } ?>

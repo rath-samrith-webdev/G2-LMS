@@ -1,0 +1,408 @@
+CREATE TABLE IF NOT EXISTS userRole
+(
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    name       varchar(250) unique,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS permission
+(
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    key        VARCHAR(250),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS role_permissions
+(
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    can_read      BOOLEAN   DEFAULT NULL,
+    can_update    BOOLEAN   DEFAULT NULL,
+    can_create    BOOLEAN   DEFAULT NULL,
+    can_delete    BOOLEAN   DEFAULT NULL,
+    role_id       INT,
+    permission_id INT,
+    created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES userRole (id) ON DELETE CASCADE,
+    FOREIGN KEY (permission_id) REFERENCES permission (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS users
+(
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    email      VARCHAR(250) UNIQUE,
+    password   VARCHAR(20),
+    role_id    INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES userRole (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS user_has_Roles
+(
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id    INT,
+    role_id    INT,
+    company_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (role_id) REFERENCES userRole (id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (company_id) REFERENCES company (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS departments
+(
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    company_id  INT,
+    manager_id  INT,
+    name        VARCHAR(250),
+    description TEXT      DEFAULT NULL,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (company_id) REFERENCES company (id) ON DELETE CASCADE,
+    FOREIGN KEY (manager_id) REFERENCES persons (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS positions
+(
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name        VARCHAR(250) DEFAULT NULL,
+    description TEXT         DEFAULT NULL,
+    created_at  TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS company
+(
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name        VARCHAR(250),
+    description TEXT      DEFAULT NULL,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE IF NOT EXISTS person_details
+(
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    position_id   INT,
+    department_id INT,
+    created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (position_id) REFERENCES positions (id),
+    FOREIGN KEY (department_id) REFERENCES departments (id)
+);
+
+
+CREATE TABLE IF NOT EXISTS persons
+(
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id          INT,
+    person_detail_id INT,
+    civil_title      TEXT CHECK (civil_title IN ('Mr', 'Mrs', 'Miss')) DEFAULT NULL,
+    first_name       VARCHAR(250),
+    last_name        VARCHAR(250),
+    profile_img      VARCHAR(250),
+    gender           TEXT CHECK (gender IN ('Male', 'Female'))         DEFAULT 'Male',
+    date_of_birth    DATE,
+    created_at       TIMESTAMP                                         DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP                                         DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (person_detail_id) REFERENCES person_details (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS leave_types
+(
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    name       VARCHAR(250),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS leave_allowances
+(
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    leave_type_id INT,
+    belong_to     INT,
+    used          INT       DEFAULT 0,
+    remains       INT       DEFAULT 0,
+    total         INT       DEFAULT 0,
+    created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (leave_type_id) REFERENCES leave_types (id),
+    FOREIGN KEY (belong_to) REFERENCES persons (id)
+);
+
+CREATE TABLE IF NOT EXISTS leave_requests
+(
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    leave_type_id INT,
+    status CHECK ( status IN ('Approved', 'Rejected', 'Pending') ) DEFAULT 'Pending',
+    employee_id   INT,
+    start_date    DATE,
+    end_date      DATE,
+    created_at    TIMESTAMP                                        DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP                                        DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (leave_type_id) REFERENCES leave_types (id),
+    FOREIGN KEY (employee_id) REFERENCES persons (id)
+);
+
+CREATE TABLE IF NOT EXISTS notifications
+(
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    type             VARCHAR CHECK ( type IN ('Approve Request', 'Reject Request', 'Create Requests')) DEFAULT 'Create Request',
+    leave_request_id INT,
+    receiver_id      INT,
+    is_seen          BOOLEAN                                                                           DEFAULT FALSE,
+    created_at       TIMESTAMP                                                                         DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP                                                                         DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (leave_request_id) REFERENCES leave_requests (id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES persons (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS review_topics(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    topic_name VARCHAR(255),
+    description TEXT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS reviews
+(
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    topic_id     INT,
+    accounted_by INT,
+    assigned_to  INT,
+    start_date   DATE,
+    end_date     DATE,
+    status       VARCHAR(255) CHECK ( status IN ('New', 'In Progress', 'Completed', '')) DEFAULT 'New',
+    created_at   TIMESTAMP                                                               DEFAULT CURRENT_TIMESTAMP,
+    updated_at   TIMESTAMP                                                               DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (accounted_by) REFERENCES persons (id) ON DELETE CASCADE,
+    FOREIGN KEY (assigned_to) REFERENCES persons (id) ON DELETE CASCADE,
+    FOREIGN KEY (topic_id) REFERENCES review_topics(id) ON DELETE CASCADE
+);
+
+CREATE TRIGGER update_leave_requests_updated_at
+    AFTER UPDATE
+    ON leave_requests
+    FOR EACH ROW
+BEGIN
+    UPDATE leave_requests
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_users_updated_at
+    AFTER UPDATE
+    ON users
+    FOR EACH ROW
+BEGIN
+    UPDATE users
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_permission_updated_at
+    AFTER UPDATE
+    ON permission
+    FOR EACH ROW
+BEGIN
+    UPDATE permission
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_leave_types_updated_at
+    AFTER UPDATE
+    ON leave_types
+    FOR EACH ROW
+BEGIN
+    UPDATE leave_types
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+CREATE TRIGGER update_leave_allowances_updated_at
+    AFTER UPDATE
+    ON leave_allowances
+    FOR EACH ROW
+BEGIN
+    UPDATE leave_allowances
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = OLD.id;
+END;
+
+DROP TRIGGER IF EXISTS update_notification_after_leave_request;
+
+CREATE TRIGGER create_notification_after_leave_request
+    AFTER INSERT
+    ON leave_requests
+    FOR EACH ROW
+BEGIN
+    INSERT INTO notifications (type, leave_request_id, receiver_id, is_seen, created_at, updated_at)
+    SELECT CASE
+               WHEN NEW.status = 'Approved' THEN 'Approve Request'
+               WHEN NEW.status = 'Rejected' THEN 'Reject Request'
+               ELSE 'Create Requests'
+               END,
+           NEW.id,
+           (SELECT d.manager_id
+            FROM departments d
+            WHERE d.id = (SELECT pd.department_id
+                          FROM person_details pd
+                          WHERE pd.id = (SELECT p.person_detail_id
+                                         FROM persons p
+                                         WHERE p.id = NEW.employee_id))),
+           FALSE,
+           CURRENT_TIMESTAMP,
+           CURRENT_TIMESTAMP;
+END;
+
+CREATE TRIGGER update_notification_after_leave_request_v2
+    AFTER UPDATE
+    ON leave_requests
+    FOR EACH ROW
+BEGIN
+    INSERT INTO notifications (type, leave_request_id, receiver_id, is_seen, created_at, updated_at)
+    SELECT CASE
+               WHEN NEW.status = 'Approved' THEN 'Approve Request'
+               WHEN NEW.status = 'Rejected' THEN 'Reject Request'
+               ELSE 'Create Requests'
+               END,
+           NEW.id,
+           NEW.employee_id,
+           FALSE,
+           CURRENT_TIMESTAMP,
+           CURRENT_TIMESTAMP
+    WHERE NEW.status != OLD.status
+      AND NOT EXISTS (SELECT 1
+                      FROM notifications
+                      WHERE leave_request_id = NEW.id
+                        AND type = CASE
+                                       WHEN NEW.status = 'Approved' THEN 'Approve Request'
+                                       WHEN NEW.status = 'Rejected' THEN 'Reject Request'
+                                       ELSE 'Create Requests'
+                          END);
+END;
+
+CREATE TRIGGER deduct_remains_on_approval
+    AFTER UPDATE
+    ON leave_requests
+    FOR EACH ROW
+    WHEN NEW.status = 'Approved' AND OLD.status != 'Approved'
+BEGIN
+    -- Calculate the leave days
+    UPDATE leave_allowances
+    SET remains = remains - (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER)),
+        used    = used + (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER))
+    WHERE leave_type_id = NEW.leave_type_id
+      AND belong_to = NEW.employee_id
+      AND remains >= (SELECT CAST((julianday(NEW.end_date) - julianday(NEW.start_date) + 1) AS INTEGER));
+END;
+
+CREATE TRIGGER create_leave_allowance_on_user_creation
+    AFTER INSERT
+    ON users
+    FOR EACH ROW
+BEGIN
+    INSERT INTO leave_allowances (belong_to, leave_type_id, used, remains, total, created_at, updated_at)
+    SELECT NEW.id, leave_types.id, 0, 10, 10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+    FROM leave_types;
+END;
+
+-- Inserting a record into the `userRole` table
+INSERT INTO userRole (name)
+VALUES ('Administrator'),
+       ('Manager'),
+       ('Employee');
+
+-- Inserting a record into the `permission` table
+INSERT INTO permission (key)
+VALUES ('manage_users'),
+       ('manage_roles');
+
+-- Inserting a record into the `role_permissions` table
+INSERT INTO role_permissions (can_read, can_update, can_create, can_delete, role_id, permission_id)
+VALUES (1, 1, 1, 1, 1, 1),
+       (1, 0, 0, 0, 2, 2);
+
+-- Inserting a record into the `users` table
+INSERT INTO users (email, password, role_id)
+VALUES ('admin@mail.com', 'adminpass', 1),
+       ('manager@mail.com', 'managerpass', 2);
+
+-- Inserting a record into the `user_has_Roles` table
+INSERT INTO user_has_Roles (user_id, role_id, company_id)
+VALUES (1, 1, 1),
+       (2, 2, 1);
+
+-- Inserting a record into the `company` table
+INSERT INTO company (name, description)
+VALUES ('Example Company', 'A sample description for the company.'),
+       ('Example Company1', 'A sample description for the company1.');
+
+-- Inserting a record into the `departments` table
+INSERT INTO departments (company_id, manager_id, name, description)
+VALUES (1, 1, 'Human Resources', 'Handles employee management.'),
+       (1, 2, 'Web development', 'Handles digital projects.');
+
+-- Inserting a record into the `positions` table
+INSERT INTO positions (name, description)
+VALUES ('Manager', 'Manages the department.'),
+       ('Project Manager', 'Manages the projects from the clients.'),
+       ('Web Developer', 'Manages the projects from the clients.');
+
+-- Inserting a record into the `person_details` table
+INSERT INTO person_details (position_id, department_id)
+VALUES (1, 1),
+       (2, 2);
+
+-- Inserting a record into the `persons` table
+INSERT INTO persons (user_id, person_detail_id, civil_title, first_name, last_name, profile_img, gender, date_of_birth)
+VALUES (1, 1, 'Mr', 'John', 'Doe', 'assets/profile/profiles65ffdff03f4170.47764789.jpg', 'Male', '1985-10-15'),
+       (2, 2, 'Mr', 'Jame', 'Doe', 'assets/profile/profiles660228e92ebb81.45498858.jpg', 'Male', '1985-10-15');
+
+-- Inserting a record into the `leave_types` table
+INSERT INTO leave_types (name)
+VALUES ('Annual Leave'),
+       ('Paid Leave');
+
+-- Inserting a record into the `leave_allowances` table
+INSERT INTO leave_allowances (leave_type_id, used, belong_to, remains, total)
+VALUES (1, 0, 1, 10, 10),
+       (2, 0, 2, 10, 10),
+       (2, 0, 1, 10, 10),
+       (1, 0, 2, 10, 10);
+
+-- Inserting a record into the `leave_requests` table
+INSERT INTO leave_requests (leave_type_id, status, employee_id, start_date, end_date)
+VALUES (1, 'Pending', 1, '2023-11-01', '2023-11-05'),
+       (2, 'Pending', 2, '2023-11-01', '2023-11-05');
+
+
+INSERT INTO review_topics (topic_name, description)
+VALUES ('Performance Review', 'Evaluation of employee performance for a given period'),
+       ('Project Review', 'Detailed analysis of project outcome and deliverables');
+
+INSERT INTO reviews (topic_id, accounted_by, assigned_to, start_date, end_date, status)
+VALUES (1,
+        1,
+        (SELECT id FROM persons WHERE id != 1 LIMIT 1),
+        '2023-10-01',
+        '2023-10-31',
+        'New'),
+       (2,
+        1,
+        (SELECT id FROM persons WHERE id != 1 LIMIT 1),
+        '2023-10-01',
+        '2023-10-31',
+        'New');
+
+
+
+
